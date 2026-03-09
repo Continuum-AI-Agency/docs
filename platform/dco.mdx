@@ -1,0 +1,55 @@
+---
+title: "Paid Media & DCO"
+description: "Infrastructure Observability suite for marketing."
+---
+
+The Paid Media and DCO (Dynamic Creative Optimization) module is architected as an "Infrastructure Observability" suite for marketing. Instead of traditional static reporting, it treats campaigns, ad sets, and ads as live services that require high-density, real-time monitoring and automated intervention.
+
+## 1. The Observability Workspace
+
+**Campaign timeline**
+
+The core user experience is built around a high-density monitoring surface that uses TradingView-style financial charting to track marketing performance.
+
+- **Target Overlays & Denominator Badges:** For every managed KPI (Spend, ROAS, CTR), users see a dashed red target line directly on the chart. A "denominator badge" (e.g., Actual $9.2k / Target $10k (92%)) provides an instant health check without requiring mental math.
+- **Action Markers (Auditability):** The charts feature interactive "Action Markers" that pinpoint exactly when an automated DCO action occurred. This allows users to visually correlate a system-driven budget shift or creative pause with subsequent performance changes.
+- **KPI Radar Tooltips:** Hovering over a campaign reveals a multi-dimensional radar chart. It visualizes the "delta" of all key metrics (Spend, ROAS, CTR, etc.) simultaneously, allowing users to see if a campaign is shifting "outward" (positive) or "inward" (negative) across its entire performance profile.
+
+## 2. Automated Intelligence & Transparency
+
+**Automated actions**
+
+The DCO module operates as an automated "pilot," but provides a high-transparency audit trail to build user trust.
+
+- **Docked Audit Log:** A full-width log of every automated decision. It tracks "Pause Campaign," "Adjust Budget," "Scale Budget," and "Switch Creative" actions.
+- **Decision Notes & Parameter Deltas:** Each log entry includes a Decision Note (the "Why") and a Parameters Changed section (the "What"). For example, a user can see that the system decided to scale a budget because the ROAS hit a 2.5x threshold.
+- **Status Indicators:** Actions are clearly labeled by status (Approved, Success, Failed, Pending), ensuring users can monitor the health of the automation itself.
+
+## 3. Jaina AI Analyst
+
+**Jaina AI analyst**
+
+Jaina acts as the primary interface for strategic interaction, moving from "looking at data" to "interacting with intelligence."
+
+- **Checkpoint Reports:** Jaina generates structured reports including flat metrics, charts, insights, and priority recommendations.
+- **Plan Mode:** Users can toggle "Plan Mode" to have Jaina propose an execution strategy. These plans require user approval before any changes are applied, maintaining a "human-in-the-loop" safety model.
+- **Canvas Integration:** Jaina can suggest and automatically apply changes to the visual Campaign Canvas. Users see their campaign structure (nodes and connections) update in real-time based on Jaina's analysis.
+
+## 4. Visual Campaign Engineering
+
+**Campaign canvas**
+
+The module includes a node-based editor that transforms campaign management into a "visual engineering" task.
+
+- **Entity Mapping:** Visualizes the hierarchy of Campaigns → Audiences → Ad Sets → Creatives.
+- **AI-Assisted Building:** Serves as the visual scratchpad where Jaina's proposed changes (e.g., "Add a new creative variant to the prospecting audience") are rendered and refined before being pushed live.
+
+## Summary of User Value Prop
+
+| Feature | User Perspective |
+| --- | --- |
+| **Observability Charts** | "Are my campaigns behaving according to the plan right now?" |
+| **Action Markers** | "Which automated change caused this spike in performance?" |
+| **DCO Action Log** | "Why did the system pause my high-spend ad set at 2 AM?" |
+| **Jaina Analyst** | "What are the three most important things I should do today?" |
+| **Campaign Canvas** | "How is my entire funnel actually connected together?" |

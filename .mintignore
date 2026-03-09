@@ -2,6 +2,26 @@
 # .git, .github, .claude, .agents, .idea, node_modules,
 # README.md, LICENSE.md, CHANGELOG.md, CONTRIBUTING.md
 
+node_modules/
+node_modules
+node_modules/**
+.git/
+.github/
+.agents/
+README.md
+LICENSE
+CONTRIBUTING.md
+
 # Draft content
 drafts/
 *.draft.mdx
+
+# Dev tooling / build config (not Mintlify docs)
+tsconfig.json
+tsconfig.*.json
+components.json
+next.config.js
+next.config.ts
+next.config.mjs
+globals.css
+node_modules/

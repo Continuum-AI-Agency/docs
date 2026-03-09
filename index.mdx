@@ -1,97 +1,82 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Continuum"
 ---
 
-## Setting up
 
-Get your documentation site up and running in minutes.
+<div className="max-w-4xl mx-auto px-4 py-12">
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+  <div className="mb-12">
+    <div className="flex items-center gap-2 mb-4">
+      <div className="bg-primary/20 p-2 rounded-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" x2="15" y1="15" y2="15"/><line x1="9" x2="9" y1="9" y2="15"/><line x1="15" x2="15" y1="9" y2="15"/></svg>
+      </div>
+      <h1 className="text-4xl font-bold m-0">Continuum</h1>
+    </div>
+    <p className="text-gray-400 text-lg">Scale your creative operations and master the creative loop with AI.</p>
+  </div>
+    <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-900 border border-white/10 shadow-2xl">
+      <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" className="w-full h-full object-cover opacity-50" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer hover:bg-white/30 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-8 h-8 ml-1"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div className="absolute top-4 left-4 right-4 flex justify-between text-white">
+        <span className="font-medium text-lg drop-shadow-md">Introduction to Continuum Basics</span>
+      </div>
+    </div>
+  {/* Get Started Wide Card */}
+  <div className="mb-8">
+    <a href="/integrations" className="block relative h-64 rounded-xl overflow-hidden border border-white/10 group no-underline isolate">
+      <div className="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2574&auto=format&fit=crop" className="w-full h-full object-cover opacity-40 transition-opacity duration-500 group-hover:opacity-60" />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20 transition-opacity duration-500 group-hover:opacity-80"></div>
+      <div className="absolute bottom-6 left-8 right-8 z-30">
+        <h3 className="text-white text-3xl font-bold m-0 mb-2 group-hover:text-primary transition-colors">Get Started</h3>
+        <p className="text-gray-300 text-lg m-0">Tutorial: Connect your integrations and start building your first campaign.</p>
+      </div>
+    </a>
+  </div>
 
-## Make it yours
+  {/* Product Grid */}
+  <div className="mb-12">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Scale Campaigns Card */}
+      <a href="/platform/campaigns" className="block relative aspect-square rounded-xl overflow-hidden border border-white/10 group no-underline isolate bg-gray-900">
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out">
+            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2574&auto=format&fit=crop" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20 transition-opacity duration-500 group-hover:opacity-80"></div>
+        <div className="absolute bottom-4 left-5 right-5 z-30">
+          <h4 className="text-white font-bold m-0 mb-1 group-hover:text-primary transition-colors">Scale Campaigns</h4>
+          <p className="text-gray-400 text-xs m-0">Optimize your creative loop across every channel.</p>
+        </div>
+      </a>
 
-Design a docs site that looks great and empowers your users.
+      {/* Canvas Card */}
+      <a href="/studio/canvas" className="block relative aspect-square rounded-xl overflow-hidden border border-white/10 group no-underline isolate bg-gray-900">
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out">
+            <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2570&auto=format&fit=crop" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20 transition-opacity duration-500 group-hover:opacity-80"></div>
+        <div className="absolute bottom-4 left-5 right-5 z-30">
+          <h4 className="text-white font-bold m-0 mb-1 group-hover:text-primary transition-colors">Canvas Studio</h4>
+          <p className="text-gray-400 text-xs m-0">Visual editor for building automated creative workflows.</p>
+        </div>
+      </a>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
-
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+      {/* Social Card */}
+      <a href="/platform/socials" className="block relative aspect-square rounded-xl overflow-hidden border border-white/10 group no-underline isolate bg-gray-900">
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out">
+            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20 transition-opacity duration-500 group-hover:opacity-80"></div>
+        <div className="absolute bottom-4 left-5 right-5 z-30">
+          <h4 className="text-white font-bold m-0 mb-1 group-hover:text-primary transition-colors">Social Activation</h4>
+          <p className="text-gray-400 text-xs m-0">Activate and optimize your audiences at scale.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

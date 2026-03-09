@@ -1,12 +1,9 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
-
-# Documentation project instructions
+# Continuum documentation project instructions
 
 ## About this project
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
+- Documentation site for [Continuum](https://trycontinuum.ai), an AI-powered creative operations platform
+- Built on [Mintlify](https://mintlify.com)
 - Pages are MDX files with YAML frontmatter
 - Configuration lives in `docs.json`
 - Run `mint dev` to preview locally
@@ -14,20 +11,27 @@
 
 ## Terminology
 
-<!-- Add product-specific terms and preferred usage -->
-<!-- Example: Use "workspace" not "project", "member" not "user" -->
+- Use **"campaign"** not "project" or "ad set"
+- Use **"creative"** not "asset" when referring to produced content (images, videos, ads)
+- Use **"asset"** when referring to raw files (uploaded images, videos, fonts)
+- Use **"template"** not "layout" or "design"
+- Use **"Canvas Studio"** (capitalized) for the visual editor
+- Use **"brand guardrails"** (lowercase) for compliance rules
+- Use **"creative loop"** for the brief → produce → activate → optimize cycle
+- Use **"workspace"** not "account" or "organization"
 
 ## Style preferences
-
-<!-- Add any project-specific style rules below -->
 
 - Use active voice and second person ("you")
 - Keep sentences concise — one idea per sentence
 - Use sentence case for headings
 - Bold for UI elements: Click **Settings**
 - Code formatting for file names, commands, paths, and code references
+- Use Mintlify components (Steps, Cards, Tips, Info) generously for scannability
 
 ## Content boundaries
 
-<!-- Define what should and shouldn't be documented -->
-<!-- Example: Don't document internal admin features -->
+- Document user-facing product features only
+- Do not document internal admin tools or infrastructure
+- Do not reference specific pricing amounts — link to the website for pricing
+- Do not include customer names without explicit approval
