@@ -1,68 +1,61 @@
 ---
-title: 'Integration Architecture'
-description: 'A product and user perspective of the Continuum integration architecture.'
-icon: 'plug'
+title: "Integrations"
+description: "Connect your ad and social platforms once, then assign specific accounts to a brand."
 ---
 
-Continuum implements a multi-layered integration model designed for scalability and granular control. The system distinguishes between **Connections** (owning the OAuth token) and **Assignments** (linking a specific business asset to a Brand Profile).
+Continuum uses a **connect once, assign many** model. You connect a provider (like Meta or Google) a single time at your account level, and Continuum discovers every asset you can access. You then assign the specific accounts — a Facebook Page, an Instagram profile, an ad account — to a given brand. Nothing syncs until you assign it, which keeps data from leaking between brands you manage.
 
-## 1. The Core User Experience: "Connect Once, Assign Many"
+## Supported channels
 
-The product is structured so that a single user can manage a vast portfolio of social and ad accounts without redundant authentications.
+| Channel | What Continuum reads | Status |
+| --- | --- | --- |
+| **Meta — Facebook** | Paid campaigns + organic posts | Fully supported |
+| **Meta — Instagram** | Organic posts, insights, competitor discovery | Fully supported |
+| **Meta — Threads** | Profile assets | Supported via Meta |
+| **Google Ads** | Paid campaigns and performance | Fully supported |
+| **Google Analytics (GA4)** | Site and conversion metrics | Fully supported |
+| **YouTube** | Organic channel performance | Fully supported |
+| **TikTok** | Paid and organic data | Supported |
+| **LinkedIn** | Paid campaigns + organic (connect from **Settings → Integrations**) | Supported |
+| **X** | Account connection only — no data pull yet | Coming soon |
+| **DV360** | Advertiser discovery under Google — no reporting yet | Partial |
+| **Amazon Ads** | — | Coming soon |
 
-<CardGroup cols={2}>
-  <Card title="Centralized Connectivity" icon="hubspot">
-    Users connect their personal Google or Meta accounts once. This process discovery-fetches all assets they have access to across the entire platform.
-  </Card>
-  <Card title="Granular Assignments" icon="shield-check">
-    Instead of syncing everything by default, users choose specific assets (e.g., one specific Facebook Page or one YouTube Channel) to assign to a specific Brand Profile. This prevents data "leakage" between different brands managed by the same user.
-  </Card>
-</CardGroup>
+<Info>Availability of some channels depends on your plan and region. If a channel you need isn't listed, reach out to [support@trycontinuum.ai](mailto:support@trycontinuum.ai).</Info>
 
-## 2. Platform-Specific Implementation Details
-
-### Meta Portfolio (Facebook, Instagram, Threads)
-
-*   **Hierarchical Discovery:** The Meta asset selector handles the complex nesting of Meta’s ecosystem. It organizes assets by: Meta Business -> Ad Accounts -> Sub-assets (Pages, Instagram Users, Threads).
-*   **Asset Bundling:** The system can intelligently group related assets. For example, selecting a Meta Ad Account can automatically surface the associated Instagram and Threads profiles for that specific business unit.
-*   **"Not Ready" Guardrails:** The UI identifies assets that are discovered but not yet ready for sync (e.g., missing permissions or configuration), preventing user frustration during the setup phase.
-
-### Google & YouTube
-
-*   **Diversified Ads Support:** Beyond standard YouTube channels, the system supports Google Ads and DV360 (Display & Video 360), positioning the tool for enterprise-level media buying.
-*   **Unified Sync:** Google integrations use a similar "Sync" flow to Meta, normalizing the user experience across providers.
-
-## 3. Technical & Operational Reliability
-
-### Discovery & Sync Flow
+## Connecting a channel
 
 <Steps>
-  <Step title="OAuth Popup">
-    A secure, centered popup initiates the provider sync process.
-  </Step>
-  <Step title="Server-Side Normalization">
-    The API layer transforms raw provider data into a unified asset schema.
-  </Step>
-  <Step title="Assignments Persistence">
-    The system securely links the selected accounts to the brand, triggering background data collection.
-  </Step>
+<Step title="Open Integrations">
+Go to **Settings → Integrations** and choose the provider you want to connect (Meta, Google, TikTok, LinkedIn, or X).
+</Step>
+
+<Step title="Authorize">
+Complete the provider's OAuth flow in the popup. Continuum discovers every account and asset you can access — you don't authorize each one separately.
+</Step>
+
+<Step title="Assign accounts to a brand">
+Pick the specific accounts that belong to this brand and assign them. Assigning starts background data collection for that account.
+</Step>
 </Steps>
 
-### Health & Maintenance
+## How Meta assets are organized
 
-<Card title="Stale Data Detection" icon="heart-pulse">
-  The system tracks the last sync time and connection health. If a connection is interrupted (e.g., password change or token expiration), the UI provides a clear "Re-sync" call-to-action to restore service.
+Meta nests deeply, so the asset picker mirrors its hierarchy: **Meta Business → ad accounts → sub-assets** (Pages, Instagram profiles, Threads). Selecting an ad account can surface the Instagram and Threads profiles tied to that business unit, so related assets stay together.
+
+Assets that are discovered but not yet usable — for example, missing a permission — are flagged so you know what to fix before assigning them.
+
+## Keeping connections healthy
+
+Continuum tracks each connection's last sync and health. If a connection breaks — a password change or an expired token — the account is marked stale and shows a **Re-sync** action to restore data collection.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Assign accounts to brands" icon="book" href="/brand/overview">
+  Manage which assets belong to each brand.
 </Card>
-
-<Note>
-  **Coming Soon:** The architecture is already "plug-and-play" for LinkedIn, TikTok, Amazon Ads, and X, with support for these upcoming platforms currently in development.
-</Note>
-
-## 4. Summary for Stakeholders
-
-| Feature | Value to User |
-| :--- | :--- |
-| **Hierarchical Meta Tree** | Simplifies management of complex business structures. |
-| **Brand Assignments** | Ensures privacy and organization across multiple brand clients. |
-| **Unified Status Monitoring** | Reduces downtime with clear "ACTIVE" vs "STALE" indicators. |
-| **Enterprise Readiness** | Supports advanced platforms like DV360 and Meta Business IDs. |
+<Card title="Paid analytics" icon="chart-line" href="/scale/analytics">
+  See paid performance once Meta or Google is connected.
+</Card>
+</CardGroup>

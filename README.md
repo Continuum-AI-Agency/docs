@@ -1,6 +1,6 @@
 # Continuum Docs
 
-Documentation site for [Continuum](https://trycontinuum.ai) — the AI-powered creative operations platform.
+Documentation site for [Continuum](https://trycontinuum.ai) — the AI creative operations platform.
 
 Built with [Mintlify](https://mintlify.com).
 
@@ -16,21 +16,50 @@ Preview at `http://localhost:3000`.
 ## Structure
 
 ```
-├── index.mdx              # Welcome page
+├── index.mdx               # Home / landing
 ├── quickstart.mdx          # Onboarding guide
-├── platform/               # Platform guides
+├── concepts.mdx            # Core concepts
+├── integrations.mdx        # Connecting channels
+├── studio/                 # AI Studio
 │   ├── overview.mdx
-│   ├── campaigns.mdx
-│   ├── dco.mdx
-│   ├── brand-guardrails.mdx
-│   └── analytics.mdx
-├── studio/                 # Creative Studio guides
-│   ├── templates.mdx
 │   ├── canvas.mdx
-│   └── assets.mdx
+│   ├── workflows.mdx
+│   ├── library.mdx
+│   └── after-effects/      # Client After Effects delivery guide
+├── organic/                # Organic social
+│   ├── overview.mdx
+│   ├── agent.mdx
+│   ├── calendar.mdx
+│   └── analytics.mdx
+├── scale/                  # Paid media
+│   ├── overview.mdx
+│   ├── jaina.mdx
+│   ├── analytics.mdx
+│   ├── optimization.mdx
+│   ├── dco.mdx
+│   ├── approvals.mdx
+│   └── campaign-canvas.mdx
+├── brand/                  # Brand book & competitor intel
+│   ├── overview.mdx
+│   ├── readiness.mdx
+│   └── spy.mdx
+├── settings/               # Account & settings
+│   ├── roles.mdx
+│   ├── knowledge.mdx
+│   └── billing.mdx
+├── glossary.mdx            # Resources
+├── changelog.mdx
+├── troubleshooting.mdx
+├── security.mdx
 ├── docs.json               # Mintlify configuration
+├── AGENTS.md               # Authoring conventions
 └── logo/                   # Brand logos
 ```
+
+## Authoring
+
+Read [`AGENTS.md`](AGENTS.md) for terminology, style, and the rule that every new page must be
+registered in `docs.json` (with a `redirects` entry when a page moves).
 
 ## Deployment
 

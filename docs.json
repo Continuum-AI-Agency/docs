@@ -2,6 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Continuum",
+  "description": "AI creative operations platform — plan, generate, publish, and optimize on-brand content across organic and paid channels.",
   "colors": {
     "primary": "#7C3AED",
     "light": "#A78BFA",
@@ -18,25 +19,76 @@
             "pages": [
               "index",
               "quickstart",
+              "concepts",
               "integrations"
             ]
           },
           {
-            "group": "Platform",
+            "group": "AI Studio",
             "pages": [
-              "platform/overview",
-              "platform/campaigns",
-              "platform/dco",
-              "platform/brand-guardrails",
-              "platform/analytics"
+              "studio/overview",
+              "studio/canvas",
+              "studio/workflows",
+              "studio/library",
+              {
+                "group": "After Effects delivery",
+                "pages": [
+                  "studio/after-effects/overview",
+                  "studio/after-effects/preparing",
+                  "studio/after-effects/delivery"
+                ]
+              }
             ]
           },
           {
-            "group": "Creative Studio",
+            "group": "Organic",
             "pages": [
-              "studio/templates",
-              "studio/canvas",
-              "studio/assets"
+              "organic/overview",
+              "organic/agent",
+              "organic/calendar",
+              "organic/analytics"
+            ]
+          },
+          {
+            "group": "Scale (paid media)",
+            "pages": [
+              "scale/overview",
+              "scale/jaina",
+              "scale/analytics",
+              "scale/optimization",
+              "scale/dco",
+              "scale/approvals",
+              "scale/campaign-canvas"
+            ]
+          },
+          {
+            "group": "Brand",
+            "pages": [
+              "brand/overview",
+              "brand/readiness",
+              "brand/spy"
+            ]
+          },
+          {
+            "group": "Account & settings",
+            "pages": [
+              "settings/roles",
+              "settings/knowledge",
+              "settings/billing"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "Resources",
+            "pages": [
+              "glossary",
+              "changelog",
+              "troubleshooting",
+              "security"
             ]
           }
         ]
@@ -57,17 +109,31 @@
       ]
     }
   },
+  "redirects": [
+    { "source": "/platform/overview", "destination": "/concepts" },
+    { "source": "/platform/campaigns", "destination": "/scale/overview" },
+    { "source": "/platform/dco", "destination": "/scale/dco" },
+    { "source": "/platform/brand-guardrails", "destination": "/brand/readiness" },
+    { "source": "/platform/analytics", "destination": "/organic/analytics" },
+    { "source": "/platform/socials", "destination": "/organic/overview" },
+    { "source": "/studio/templates", "destination": "/studio/workflows" },
+    { "source": "/studio/assets", "destination": "/studio/library" }
+  ],
+  "seo": {
+    "indexing": "navigable"
+  },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude"]
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@trycontinuum.ai"
-      }
-    ],
     "primary": {
       "type": "button",
       "label": "Get Started",
