@@ -1,117 +1,98 @@
 ---
-title: "AI Studio Canvas"
-description: "Your creative space for building powerful AI workflows."
+title: "The canvas"
+description: "Add nodes, connect them into a workflow, pick a model, and run to generate creative."
 ---
 
-Welcome to the AI Canvas! This is your creative workspace where you can spawn nodes, connect different AI models, and create your own personalized production workflows using our node-based creative engine.
+The canvas is a node-based workspace. You add **nodes**, connect their outputs to other nodes' inputs, and run the graph to generate or edit media. Connections are typed, so the canvas only lets you make links that make sense.
 
-Whether you're generating images, manipulating video, or directing complex text prompts, the Canvas lets you build the perfect pipeline for your ideas.
+## Building a graph
 
-## Getting Started
+- **Right-click the canvas** to open the add menu and spawn a node (Image, Video, or Utility). Nodes appear where you clicked.
+- **Drag a file** from your computer or the media library onto the canvas to create a reference node.
+- **Connect nodes** by dragging from one node's output handle to another's input.
+- **Right-click a node** for its actions — duplicate, delete, run, and configuration.
 
-Building on the canvas is designed to be intuitive and modular. You can start creating your workflow by combining different blocks:
+## Nodes
 
-*   **Right-click** anywhere on the canvas background to open the **Canvas Menu** and spawn new nodes (Image, Video, or Utility).
-*   **Drag and drop** files directly from your computer or asset library to instantly create an **Attachment node**.
-*   **Right-click a node** to access its specific **Configuration Menu** (Model selection, Size, Aspect Ratio).
+Nodes are grouped in the library exactly as they appear on the palette.
 
-## Node & Port Specifications
+### Image
 
-Continuum uses a **Typed Port System** to ensure compatibility between nodes. Connections are visually color-coded based on their data type.
+| Node | What it does |
+| --- | --- |
+| **Image Generation** | Generate images with a selectable image model. |
+| **Image Reference** | Bring an image in as a reference input. |
 
-| Node Type | Primary Inputs (Handles) | Primary Output | Port Color |
-| :--- | :--- | :--- | :--- |
-| **Prompt** | None (Manual Entry) | text | Grey (#6b7280) |
-| **Negative** | None (Manual Entry) | text | Grey (#6b7280) |
-| **Attachment** | File Upload / Library Drop | image / video | Blue / Purple |
-| **Nano Gen** | prompt, ref-images, aspect, trigger | image | Blue (#3b82f6) |
-| **Video Gen** | prompt-in, negative, ref-images, first-frame, last-frame | video | Purple (#a855f7) |
-| **LLM Node** | userPrompt, images, video, audio, document | text | Grey (#6b7280) |
-| **Model** | None (UI Selection) | provider | Orange (#f59e0b) |
-| **Aspect** | None (UI Selection) | aspect | Green (#22c55e) |
-| **Array** | List of items | text (stream) | Grey (#6b7280) |
+### Video
 
-## Aspect Ratio Constraints
+| Node | What it does |
+| --- | --- |
+| **Video Generation** | Generate clips with a selectable video model. |
+| **Omni Flash (Edit)** | Generate a clip, then chat to edit it into variations. |
+| **Extend Video** | Continue existing footage. |
+| **Video Splicer** | Concatenate clips in the browser. |
+| **Video Editor** | A full editor — trim, split, and sequence clips and stills. |
+| **Video Reference** | Bring a video in as a reference input. |
+| **Video Decoder** | Break a video down frame by frame for creative analysis. |
 
-Aspect ratios are strictly validated against provider capabilities. The system automatically snaps node dimensions to these ratios while maintaining a minimum area.
+### Utility
 
-| Model Provider | Supported Aspect Ratios |
-| :--- | :--- |
-| **Nano Banana** | 1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9 |
-| **Veo 3.1** | 16:9, 9:16 |
+| Node | What it does |
+| --- | --- |
+| **Audio Reference** | Bring in voice or sound. |
+| **Document Context** | Add PDF or text knowledge to a generation. |
+| **Text Block** | A prompt or enrichment input. |
+| **Publish to Planner** | Attach an edited video to an organic draft in the [calendar](/organic/calendar). |
+| **Note** | A free-text annotation on the canvas. |
 
-## System Limitations & Configuration
+## Models
 
-These limits are enforced at the UI, validation, and execution levels to ensure high-density monitoring and reliability.
+Generation nodes let you choose a model to match the job:
 
-### Execution Limits
-*   **Concurrency**: Maximum **3 nodes** can execute simultaneously across your canvas.
-*   **Dependency Resolution**: A node remains in `idle` or `pending` state until all required incoming edges provide valid data.
+| Type | Models |
+| --- | --- |
+| **Image** | Nano Banana, Nano Banana Pro, Nano Banana 2 |
+| **Video** | Veo 3.1, Veo 3.1 Fast, Veo 3.1 Lite, Kling |
 
-### Media & Content Limits
-*   **Reference Images**:
-    *   `nano-banana` (Flash): Max **3** images.
-    *   `nano-banana-pro`: Max **14** images.
-*   **Video Duration**: Fixed presets of **4s, 6s, or 8s** for Veo models.
-*   **Image Resolution**: Supports output sizing of **512px, 1K, 2K, and 4K**.
+Aspect ratios and other options are validated per model, so the canvas only offers settings a model actually supports.
 
-## Context Menu Breakdown
+## Running a graph
 
-The AI Canvas features a contextual interaction system with two primary layers:
+A generation node runs once every input it depends on has valid data. You can run a single node or let a connected chain run in order. Each node shows its status:
 
-### 1. Canvas Context Menu (Background / Pane)
-Right-click any empty area on the canvas to build and manage workflows.
+- `idle` — waiting or not yet run
+- `running` — generating
+- `success` — output ready
+- `error` — something went wrong
 
-| Section | Option | Shortcut | Purpose |
-| :--- | :--- | :--- | :--- |
-| **Add Node** | Image, Video, Utility | - | Spawn specific generators or reference nodes. |
-| **Workflow** | Load Workflow | - | Opens the library of saved workflow templates. |
-| **View** | Pan Mode | `H` | Enables "Hand" tool for navigating the canvas. |
-| **View** | Select Mode | `V` | Enables box-selection for nodes and edges. |
-| **View** | Fit View | `Shift+F` | Centers and scales the canvas to show all nodes. |
-| **Danger** | Clear Canvas | - | Wipes the entire graph (Destructive). |
+Outputs are saved to your [Library](/studio/library), and you can download any generated artifact.
 
-### 2. Node Context Menu (Common Items)
-Right-click any node to access administrative and generative actions:
+## Keeping generations on-brand
 
-*   **Duplicate (`Cmd+D`)**: Clones the node with its current data and configuration.
-*   **Delete (`Del` / `Backspace`)**: Removes the node and breaks its existing connections.
-*   **Run Node (`R`)**: (Generators only) Manually triggers the execution of that specific block.
-*   **Download Output**: (Generators/Media only) Saves the generated artifact to your machine.
+Generation nodes are grounded in your [brand book](/brand/overview) by default, and you can apply [creative skills](/studio/workflows) per node. Both are covered in [Workflows & skills](/studio/workflows).
 
-### 3. Specific Node Configurations
-Generators expose deep configuration settings directly within their context menus:
+## Shortcuts
 
-*   **Nano Gen**: Toggle between Flash, Pro, and Nano Banana 2 models. Set output resolution and aspect ratio (1:1, 16:9, 9:16, 4:3, 3:4).
-*   **Veo 3.1**: Select between standard and Fast models. Toggle between Cinematic (16:9) and Vertical (9:16) aspect ratios.
-*   **LLM Node**: Use **Enrich Prompt (`R`)** to expand simple text into high-fidelity instructions.
+| Action | Shortcut |
+| --- | --- |
+| Pan (hand tool) | `H` |
+| Select | `V` |
+| Fit view | `Shift+F` |
+| Duplicate node | `Cmd+D` |
+| Run node | `R` |
+| Delete node | `Del` / `Backspace` |
 
-## Workflow Logic & UX
+## Collaboration
 
-*   **Real-time Streaming**: LLM nodes use Server-Sent Events (SSE) for real-time text delivery.
-*   **Port Validation**: The system prevents illegal connections (e.g., connecting a video output to an aspect input) via real-time port validation.
-*   **Status Indicators**: Nodes display visual status badges: **idle** (gray), **running** (pulse), **success** (green), and **error** (red).
-*   **Anchor Point**: Nodes are spawned exactly where your mouse was clicked on the canvas.
-*   **Contextual Guardrails**: The menu dynamically disables options (e.g., "Download") if the node hasn't successfully generated an artifact yet.
+The canvas is multiplayer. When teammates are in the same canvas, you see their cursors and which nodes they have selected, updating in real time.
 
-## Supported Models
-Continuum supports a range of powerful AI models to suit different creative needs:
+## What's next
 
-| Model | Description |
-| :--- | :--- |
-| **Nano Banana 2** | Our latest high-performance model for creative generation. |
-| **Nano Banana** | Reliable and versatile generation. |
-| **Nano Banana Fast** | Optimized for speed and rapid iteration. |
-| **Veo 3.1** | Advanced image and video synthesis. |
-| **Veo 3.1 Fast** | High-speed Veo generation. |
-
-We are constantly exploring new model integrations based on user feedback to ensure you have access to the best creative tools.
-
-## Pro Tips
-
-<Tip>
-  **Smart Previews**: Media nodes automatically preserve your source's professional aspect ratio.
-</Tip>
-
-*   **Collaborate**: Invite your team! You can see their cursors and work together in real-time.
-*   **Extendable Workflow**: The canvas is built on a modular system of nodes and edges, allowing you to easily expand and reorganize your creative pipelines as your project grows.
+<CardGroup cols={2}>
+<Card title="Workflows & skills" icon="diagram-project" href="/studio/workflows">
+  Save and reuse graphs; apply creative skills and brand grounding.
+</Card>
+<Card title="Library" icon="images" href="/studio/library">
+  Find your generated creative and references.
+</Card>
+</CardGroup>

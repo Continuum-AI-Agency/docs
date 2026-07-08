@@ -1,0 +1,36 @@
+---
+title: "Troubleshooting"
+description: "Fixes for the most common issues across integrations, brand setup, and generation."
+---
+
+<AccordionGroup>
+
+<Accordion title="An integration shows as stale or disconnected">
+A connection goes stale when its token expires or the account password changes. Open **Settings → Integrations**, find the affected connection, and select **Re-sync** to restore data collection. See [Integrations](/integrations).
+</Accordion>
+
+<Accordion title="No data is showing in analytics">
+Data appears only for accounts you've **assigned** to the active brand. Connecting a provider isn't enough — assign the specific ad or social accounts to this brand under **Settings → Integrations**, then give background collection time to run.
+</Accordion>
+
+<Accordion title="Scale is locked">
+Scale is part of Continuum's paid plans. If it's locked, check your plan under **Settings → Billing**. See [pricing](https://trycontinuum.ai/#pricing).
+</Accordion>
+
+<Accordion title="Brand Spy has no competitor posts">
+Tracking a competitor's organic posts relies on Instagram data. Connect an Instagram account in [Integrations](/integrations), then add competitors in Brand Spy's **Competitors** tab. See [Brand Spy](/brand/spy).
+</Accordion>
+
+<Accordion title="My brand book looks thin or empty">
+If your brand book is empty, open **Settings → Brand Book** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](/settings/knowledge), then recalculate your [readiness score](/brand/readiness).
+</Accordion>
+
+<Accordion title="A canvas node won't run">
+A generation node runs only once every input it depends on has valid data. Check that upstream nodes have finished successfully (status `success`), that required connections are made, and that you've selected a model. Node status badges show `idle`, `running`, `success`, or `error`. See [the canvas](/studio/canvas).
+</Accordion>
+
+</AccordionGroup>
+
+## Still stuck?
+
+Reach out to [support@trycontinuum.ai](mailto:support@trycontinuum.ai).

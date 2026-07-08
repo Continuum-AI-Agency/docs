@@ -1,8 +1,6 @@
-> **Customize this file**: Tailor this template to your project by noting specific contribution types you're looking for, adding a Code of Conduct, or adjusting the writing guidelines to match your style.
-
 # Contribute to the documentation
 
-Thank you for your interest in contributing to our documentation! This guide will help you get started.
+Thank you for your interest in contributing to the Continuum documentation. This guide will help you get started.
 
 ## How to contribute
 
@@ -18,17 +16,27 @@ Thank you for your interest in contributing to our documentation! This guide wil
 2. Install the Mintlify CLI: `npm i -g mint`
 3. Create a branch for your changes
 4. Make changes
-5. Navigate to the docs directory and run `mint dev`
+5. Run `mint dev` from the repository root
 6. Preview your changes at `http://localhost:3000`
 7. Commit your changes and submit a pull request
 
-For more details on local development, see our [development guide](development.mdx).
+The project's authoring conventions (terminology, style, frontmatter, components) live in
+[`AGENTS.md`](AGENTS.md). Read it before writing.
 
 ## Writing guidelines
 
+- **Document the shipped product**: only write about features that exist today. When unsure, leave it out.
 - **Use active voice**: "Run the command" not "The command should be run"
-- **Address the reader directly**: Use "you" instead of "the user"
-- **Keep sentences concise**: Aim for one idea per sentence
-- **Lead with the goal**: Start instructions with what the user wants to accomplish
-- **Use consistent terminology**: Don't alternate between synonyms for the same concept
-- **Include examples**: Show, don't just tell
+- **Address the reader directly**: use "you" instead of "the user"
+- **Keep sentences concise**: one idea per sentence
+- **Sentence case headings**: `## How the canvas works`
+- **Consistent terminology**: use the product's real names (see `AGENTS.md`); don't alternate synonyms
+
+## Pre-publish checklist
+
+- [ ] Frontmatter has both `title` and `description`
+- [ ] Page is registered in `docs.json` navigation
+- [ ] If you renamed or moved a page, you added a `redirects` entry in `docs.json`
+- [ ] Headings are sentence case; terminology matches `AGENTS.md`
+- [ ] No images or external image URLs (visuals arrive in the branding pass)
+- [ ] `mint broken-links` passes
