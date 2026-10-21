@@ -1,0 +1,87 @@
+---
+title: "You stay in control"
+description: "What waits for your yes, what happens right away, what stays in the Continuum app, and how to see and revoke everything your assistant does."
+---
+
+import { Lanes } from "/snippets/diagrams.jsx";
+
+Your assistant works in Continuum as you, inside the limits you already have. Here's exactly what that means.
+
+<Lanes
+  lanes={[
+    {
+      label: "Waits for your yes",
+      tone: "gate",
+      steps: ["You ask", "Preview", "Your yes", "It happens"],
+      you: "Your yes",
+      note: "Publishing · ads, budgets, and audiences · swapping a live ad's creative · final Forge versions · deleting",
+    },
+    {
+      label: "Happens right away",
+      steps: ["You ask", "It happens"],
+      note: "Moving a post or rewriting a caption · generating on the canvas · running a pipeline · editing video · approving a recommendation",
+    },
+    {
+      label: "Stays in the app",
+      tone: "muted",
+      steps: ["You decide"],
+      you: "You decide",
+      note: "Switching on a campaign · turning on Autopilot for budget changes",
+    },
+  ]}
+/>
+
+## What waits for your yes
+
+Continuum shows you a preview of what will happen and waits for your yes before it:
+
+- **Publishes** a post.
+- **Creates, changes, or pauses** a campaign, ad set, ad, budget, or audience in your Meta account. Paid optimization itself never pauses an ad.
+- **Swaps the creative** in a live ad. The swap can be undone.
+- **Produces final versions** in Forge.
+- **Deletes** something.
+
+## What happens right away
+
+| Change | Why it doesn't wait |
+| --- | --- |
+| Moving a post, rewriting a caption, marking work as needing changes, adding a comment | It stays inside your plan. Nothing is published or spent, but a scheduled post you move goes out at its new time, so check the date. |
+| Generating on the Canvas, running a pipeline, editing or exporting video | You asked for the creative. Generation uses your plan's budget, and bigger jobs have [hourly limits](/mcp/limits) to protect it. |
+| Approving or rejecting a Paid optimization recommendation | Your approval is the yes. |
+
+<Tip>Say **"Show me first"** to preview any change before it's made.</Tip>
+
+## What stays in the Continuum app
+
+| Decision | Where it happens |
+| --- | --- |
+| Switching on a campaign | In Continuum. New campaigns from your assistant are always created paused. |
+| Autopilot (automatic budget changes) | Only you can turn it on, from the Paid optimization dashboard. |
+| Editing or deleting comments, collections, and share links | In the Continuum app. |
+
+## Your access, and no more
+
+The assistant can reach only the brands you belong to, and do only what your [role](/settings/roles) allows. It starts on the brand you last chose in your assistant, or otherwise your active brand in the app, and you can switch to any other brand you belong to by asking. Viewers can look at everything. Operators can also create and change content, creative, and campaigns. Admins and Owners can also manage people and settings.
+
+## See everything it did
+
+In Continuum, **Settings → Activity** lists every action you've taken through a connected assistant: the tool, whether it worked, and when. Each person sees their own activity, kept for about 90 days. Continuum logs a fingerprint of what was asked, never the request itself. If something looks wrong, revoke the connection under **Settings → Connections** and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+
+## Disconnect at any time
+
+In Continuum, **Settings → Connections** lists every assistant you've connected. Revoke any you no longer use.
+
+## What your assistant sees
+
+Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, such as campaign figures, draft captions, and links to images. It never sees your Continuum password. That conversation follows your assistant's own privacy settings. Continuum's handling of your data is covered in our [privacy policy](https://trycontinuum.ai) and on the [Security](/security) page.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Good to know" icon="circle-info" href="/mcp/limits">
+  Current limits by area.
+</Card>
+<Card title="Roles & permissions" icon="user-shield" href="/settings/roles">
+  What each role can do.
+</Card>
+</CardGroup>

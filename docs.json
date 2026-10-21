@@ -1,149 +1,359 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "luma",
   "name": "Continuum",
-  "description": "AI creative operations platform — plan, generate, publish, and optimize on-brand content across organic and paid channels.",
+  "description": "Use Continuum from Claude, ChatGPT, or the app to plan, make, publish, and optimize on-brand creative across organic and paid.",
   "colors": {
-    "primary": "#7C3AED",
-    "light": "#A78BFA",
-    "dark": "#5B21B6"
+    "primary": "#4C4EE4",
+    "light": "#8696F5",
+    "dark": "#4C4EE4"
   },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "concepts",
-              "integrations"
-            ]
-          },
-          {
-            "group": "AI Studio",
-            "pages": [
-              "studio/overview",
-              "studio/canvas",
-              "studio/workflows",
-              "studio/library",
-              {
-                "group": "After Effects delivery",
-                "pages": [
-                  "studio/after-effects/overview",
-                  "studio/after-effects/preparing",
-                  "studio/after-effects/delivery"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "Organic",
-            "pages": [
-              "organic/overview",
-              "organic/agent",
-              "organic/calendar",
-              "organic/analytics"
-            ]
-          },
-          {
-            "group": "Scale (paid media)",
-            "pages": [
-              "scale/overview",
-              "scale/jaina",
-              "scale/analytics",
-              "scale/optimization",
-              "scale/dco",
-              "scale/approvals",
-              "scale/campaign-canvas"
-            ]
-          },
-          {
-            "group": "Brand",
-            "pages": [
-              "brand/overview",
-              "brand/readiness",
-              "brand/spy"
-            ]
-          },
-          {
-            "group": "Account & settings",
-            "pages": [
-              "settings/roles",
-              "settings/knowledge",
-              "settings/billing"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Resources",
-        "groups": [
-          {
-            "group": "Resources",
-            "pages": [
-              "glossary",
-              "changelog",
-              "troubleshooting",
-              "security"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Website",
-          "href": "https://trycontinuum.ai",
-          "icon": "globe"
-        },
-        {
-          "anchor": "Support",
-          "href": "mailto:support@trycontinuum.ai",
-          "icon": "envelope"
-        }
-      ]
+  "background": {
+    "color": {
+      "light": "#FBFCFD",
+      "dark": "#0A0A0C"
     }
   },
-  "redirects": [
-    { "source": "/platform/overview", "destination": "/concepts" },
-    { "source": "/platform/campaigns", "destination": "/scale/overview" },
-    { "source": "/platform/dco", "destination": "/scale/dco" },
-    { "source": "/platform/brand-guardrails", "destination": "/brand/readiness" },
-    { "source": "/platform/analytics", "destination": "/organic/analytics" },
-    { "source": "/platform/socials", "destination": "/organic/overview" },
-    { "source": "/studio/templates", "destination": "/studio/workflows" },
-    { "source": "/studio/assets", "destination": "/studio/library" }
-  ],
-  "seo": {
-    "indexing": "navigable"
+  "appearance": {
+    "default": "dark"
   },
-  "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude"]
+  "fonts": {
+    "heading": {
+      "family": "Clash Display",
+      "source": "/fonts/ClashDisplay-Variable.woff2",
+      "format": "woff2",
+      "weight": 600
+    },
+    "body": {
+      "family": "Satoshi",
+      "source": "/fonts/Satoshi-Variable.woff2",
+      "format": "woff2",
+      "weight": 500
+    }
   },
-  "feedback": {
-    "thumbsRating": true,
-    "suggestEdit": true
+  "errors": {
+    "404": {
+      "redirect": false,
+      "title": "Page not found",
+      "description": "This page moved or no longer exists. Search with **⌘K**, or start from the [quickstart](/quickstart) or [troubleshooting](/troubleshooting)."
+    }
   },
+  "styling": {
+    "codeblocks": {
+      "theme": {
+        "light": "min-light",
+        "dark": "min-dark"
+      }
+    }
+  },
+  "favicon": "/favicon.png",
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
   "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@trycontinuum.ai"
+      },
+      {
+        "label": "Website",
+        "href": "https://trycontinuum.ai"
+      }
+    ],
     "primary": {
       "type": "button",
-      "label": "Get Started",
+      "label": "Open Continuum",
       "href": "https://app.trycontinuum.ai"
     }
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get started",
+        "pages": [
+          "index",
+          "quickstart",
+          "concepts",
+          "glossary"
+        ]
+      },
+      {
+        "group": "AI assistant (MCP)",
+        "pages": [
+          "mcp/overview",
+          "mcp/connect",
+          "mcp/how-to-ask",
+          "mcp/recipes",
+          {
+            "group": "What you can do",
+            "pages": [
+              "mcp/use-cases/performance",
+              "mcp/use-cases/brand",
+              "mcp/use-cases/insights",
+              "mcp/use-cases/social",
+              "mcp/use-cases/ads",
+              "mcp/use-cases/creative",
+              "mcp/use-cases/video",
+              "mcp/use-cases/templates"
+            ]
+          },
+          {
+            "group": "Trust and limits",
+            "pages": [
+              "mcp/control",
+              "mcp/limits",
+              "mcp/troubleshooting"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "mcp/tools",
+              "mcp/reference",
+              "mcp/agent-brief"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Products",
+        "pages": [
+          {
+            "group": "Creative+",
+            "icon": "pen-ruler",
+            "pages": [
+              {
+                "group": "AI Canvas",
+                "pages": [
+                  "canvas/overview",
+                  "canvas/working-on-the-canvas",
+                  {
+                    "group": "Nodes",
+                    "pages": [
+                      "canvas/nodes/overview",
+                      "canvas/nodes/image",
+                      "canvas/nodes/video",
+                      "canvas/nodes/text-audio-documents",
+                      "canvas/nodes/actions",
+                      "canvas/nodes/delivery"
+                    ]
+                  },
+                  "canvas/models",
+                  "canvas/workflows",
+                  "canvas/pipelines",
+                  "canvas/elements",
+                  "canvas/skills-and-grounding"
+                ]
+              },
+              "canvas/video-studio",
+              "canvas/library",
+              {
+                "group": "Forge",
+                "pages": [
+                  "forge/overview",
+                  {
+                    "group": "After Effects delivery",
+                    "pages": [
+                      "forge/after-effects/overview",
+                      "forge/after-effects/preparing",
+                      "forge/after-effects/delivery"
+                    ]
+                  }
+                ]
+              },
+              "brand/spy"
+            ]
+          },
+          {
+            "group": "Organic+",
+            "icon": "seedling",
+            "pages": [
+              "organic/overview",
+              "organic/agent",
+              "organic/calendar",
+              "organic/publishing",
+              "organic/analytics"
+            ]
+          },
+          {
+            "group": "Performance+",
+            "icon": "arrow-trend-up",
+            "pages": [
+              "performance/overview",
+              "performance/jaina",
+              "performance/optimizer",
+              "performance/analytics",
+              "performance/approvals"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Brand and account",
+        "pages": [
+          {
+            "group": "Brand",
+            "icon": "book",
+            "pages": [
+              "brand/overview",
+              "brand/setup",
+              "brand/readiness",
+              "settings/knowledge"
+            ]
+          },
+          {
+            "group": "Account",
+            "icon": "user-gear",
+            "pages": [
+              "integrations",
+              "settings/roles",
+              "settings/connections",
+              "settings/billing",
+              "security"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Resources",
+        "pages": [
+          "changelog",
+          "troubleshooting"
+        ]
+      }
+    ]
+  },
+  "redirects": [
+    {
+      "source": "/platform/overview",
+      "destination": "/concepts"
+    },
+    {
+      "source": "/platform/campaigns",
+      "destination": "/performance/overview"
+    },
+    {
+      "source": "/platform/brand-guardrails",
+      "destination": "/brand/readiness"
+    },
+    {
+      "source": "/platform/analytics",
+      "destination": "/organic/analytics"
+    },
+    {
+      "source": "/platform/socials",
+      "destination": "/organic/overview"
+    },
+    {
+      "source": "/studio/templates",
+      "destination": "/canvas/workflows"
+    },
+    {
+      "source": "/studio/assets",
+      "destination": "/canvas/library"
+    },
+    {
+      "source": "/studio/overview",
+      "destination": "/canvas/overview"
+    },
+    {
+      "source": "/studio/canvas",
+      "destination": "/canvas/working-on-the-canvas"
+    },
+    {
+      "source": "/studio/workflows",
+      "destination": "/canvas/workflows"
+    },
+    {
+      "source": "/studio/library",
+      "destination": "/canvas/library"
+    },
+    {
+      "source": "/studio/after-effects/:slug*",
+      "destination": "/forge/after-effects/:slug*"
+    },
+    {
+      "source": "/scale/optimization",
+      "destination": "/performance/optimizer"
+    },
+    {
+      "source": "/scale/dco",
+      "destination": "/performance/overview"
+    },
+    {
+      "source": "/scale/campaign-canvas",
+      "destination": "/performance/overview"
+    },
+    {
+      "source": "/scale/:slug*",
+      "destination": "/performance/:slug*"
+    },
+    {
+      "source": "/platform/dco",
+      "destination": "/performance/overview"
+    },
+    {
+      "source": "/performance/dco",
+      "destination": "/performance/overview"
+    },
+    {
+      "source": "/performance/campaign-canvas",
+      "destination": "/performance/overview"
+    }
+  ],
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude"
+    ]
+  },
+  "seo": {
+    "indexing": "navigable"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
   },
   "footer": {
     "socials": {
       "x": "https://x.com/trycontinuum",
       "linkedin": "https://linkedin.com/company/trycontinuum"
-    }
+    },
+    "links": [
+      {
+        "header": "Product",
+        "items": [
+          {
+            "label": "Website",
+            "href": "https://trycontinuum.ai"
+          },
+          {
+            "label": "Open Continuum",
+            "href": "https://app.trycontinuum.ai"
+          },
+          {
+            "label": "Pricing",
+            "href": "https://trycontinuum.ai/#pricing"
+          }
+        ]
+      },
+      {
+        "header": "Help",
+        "items": [
+          {
+            "label": "Support",
+            "href": "mailto:support@trycontinuum.ai"
+          },
+          {
+            "label": "Changelog",
+            "href": "/changelog"
+          }
+        ]
+      }
+    ]
   }
 }

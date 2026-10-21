@@ -13,8 +13,14 @@ A connection goes stale when its token expires or the account password changes. 
 Data appears only for accounts you've **assigned** to the active brand. Connecting a provider isn't enough — assign the specific ad or social accounts to this brand under **Settings → Integrations**, then give background collection time to run.
 </Accordion>
 
-<Accordion title="Scale is locked">
-Scale is part of Continuum's paid plans. If it's locked, check your plan under **Settings → Billing**. See [pricing](https://trycontinuum.ai/#pricing).
+<Accordion title="Performance+ or Organic+ is locked">
+Each product line is part of a plan. If one is locked, check the brand's plans under **Settings → Billing**. See [Billing](/settings/billing) and [pricing](https://trycontinuum.ai/#pricing).
+</Accordion>
+<Accordion title="Generation stopped on the canvas">
+The brand may be out of Canvas credits. Buy a credit pack or turn on auto-billing under **Settings → Billing**. See [Billing](/settings/billing).
+</Accordion>
+<Accordion title="Something's wrong in Claude or ChatGPT">
+See [If something isn't working](/mcp/troubleshooting) for connector fixes: a missing connector, brand access, expired sessions, and limits.
 </Accordion>
 
 <Accordion title="Brand Spy has no competitor posts">
@@ -22,11 +28,11 @@ Tracking a competitor's organic posts relies on Instagram data. Connect an Insta
 </Accordion>
 
 <Accordion title="My brand book looks thin or empty">
-If your brand book is empty, open **Settings → Brand Book** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](/settings/knowledge), then recalculate your [readiness score](/brand/readiness).
+If your brand book is empty, open **Settings → Brand Intelligence** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](/settings/knowledge), then recalculate your [readiness score](/brand/readiness).
 </Accordion>
 
 <Accordion title="A canvas node won't run">
-A generation node runs only once every input it depends on has valid data. Check that upstream nodes have finished successfully (status `success`), that required connections are made, and that you've selected a model. Node status badges show `idle`, `running`, `success`, or `error`. See [the canvas](/studio/canvas).
+A generation node runs only once every input it depends on has valid data. Check that upstream nodes have finished successfully (status `success`), that required connections are made, and that you've selected a model. Node status badges show `idle`, `running`, `success`, or `error`. See [the canvas](/canvas/working-on-the-canvas).
 </Accordion>
 
 </AccordionGroup>

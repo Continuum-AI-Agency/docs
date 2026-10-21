@@ -1,47 +1,72 @@
 ---
 title: "Content calendar"
-description: "Turn trends, events, and audience questions into scheduled drafts across your platforms."
+description: "Plan organic content in the Planner: seed it from trends and signals, add posts, carousels, and reels, and approve and schedule them."
 ---
 
-The content calendar — the Planner — is where organic content gets scheduled. It starts from brand-relevant insights and turns them into **drafts** you can generate, refine, and publish across platforms.
+import { Flow } from "/snippets/diagrams.jsx";
 
-## Insights that seed content
+The content calendar — the **Planner** — is where organic content gets planned and scheduled. It starts from brand-relevant signals and turns them into **drafts** you refine, approve, and schedule across platforms.
 
-The calendar surfaces three kinds of prompts, tuned to your brand's niche:
+## Choose a view
 
-- **Trends** — what's rising, stable, or cooling in your space.
-- **Key events** — seasonal and calendar moments worth posting around.
-- **Audience questions** — what your audience is actually asking.
+Switch between **Week**, **Month**, and **List** to plan at the cadence you want.
 
-Select the ones worth acting on and turn them into drafts.
+## Seed it with trends and signals
 
-## Planning and scheduling
+Open the **Trends & Signals** drawer and choose **Generate Trends** to pull what's relevant to your niche right now. Filter by:
 
-<Steps>
-<Step title="Pick your views">
-Switch between **week**, **month**, and **list** views to plan at the cadence you want.
-</Step>
+- **Events** — seasonal and calendar moments worth posting around.
+- **Questions** — what your audience is actually asking.
+- **Rising momentum** — trends that are picking up.
 
-<Step title="Choose what to post about">
-Select trends, events, or audience questions to build drafts from.
-</Step>
+Pick the ones worth acting on and turn them into drafts.
 
-<Step title="Generate drafts">
-Create drafts for the platforms you're targeting. A ticker shows generation progress as drafts come in.
-</Step>
+## Add posts
 
-<Step title="Refine and schedule">
-Edit each draft, set its slot, and schedule it. Video made in [AI Studio](/studio/overview) can be published straight here with a Publish to Planner node.
-</Step>
-</Steps>
+| Option | What you get |
+| --- | --- |
+| **New post** | A single-image or video post. |
+| **New carousel** | A multi-slide post. |
+| **New reel** | A short vertical video. |
+| **AI one-shot post** | Describe the post and the AI writes and makes it for the day and platform you picked. |
+
+The [Organic agent](/organic/agent) can also fill the calendar with a plan in one go.
+
+## Draft statuses
+
+The main path a post takes:
+
+<Flow
+  label="A post's main path"
+  steps={["Concept", "Generating", "Draft", "Scheduled", "Published"]}
+/>
+
+| Status | What it means |
+| --- | --- |
+| `Concept` | A planned idea. Nothing has been generated yet. |
+| `Seeded` | A slot is created and waiting for generation. |
+| `Queued` | Waiting for a generation slot. |
+| `Generating` | Being generated right now. |
+| `Draft` | Written, and not yet approved for posting. |
+| `Scheduled` | Approved. It will post at the scheduled time. |
+| `Published` | Live on the platform. |
+| `Media failed` | The copy is saved, but the media didn't render. |
+| `Failed` | Generation or publishing didn't complete. See [Publishing](/organic/publishing). |
+| `Cancelled` | Stopped before it finished. |
+
+## Approve and schedule
+
+Edit each draft — caption, format, creative, and slot — then choose **Approve & schedule**. The draft moves to `Scheduled` and posts at its scheduled time.
+
+<Tip>Made something on the canvas? A [Planner Draft node](/canvas/nodes/delivery) puts it straight onto a draft, and a canvas workspace opened from the Planner has **Apply Back to Planner**.</Tip>
 
 ## What's next
 
 <CardGroup cols={2}>
-<Card title="Organic agent" icon="robot" href="/organic/agent">
-  Let the agent fill your calendar in bulk.
+<Card title="Publishing" icon="paper-plane" href="/organic/publishing">
+  Where posts go and what each status means.
 </Card>
-<Card title="Organic analytics" icon="chart-column" href="/organic/analytics">
-  See how scheduled content performs.
+<Card title="Organic agent" icon="robot" href="/organic/agent">
+  Let the agent fill your calendar.
 </Card>
 </CardGroup>

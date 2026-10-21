@@ -1,0 +1,83 @@
+---
+title: "Node overview"
+sidebarTitle: "Overview"
+description: "Nodes are the building blocks of the AI Canvas. How to add them, how they connect, and how they run."
+---
+
+A **node** is one step on the [canvas](/canvas/overview): a prompt, a reference, a generator, an edit, or a delivery. You connect nodes into a graph, and each node passes its output to the next one.
+
+## Adding a node
+
+**Right-click the canvas** and choose **Add Node**. Hover the menu to browse, or type in **Search nodes…** to find one by name. You can also drag from a node's output handle onto empty canvas to pick a node that fits that output.
+
+The menu is ordered the same way every time:
+
+| Section | What's in it |
+| --- | --- |
+| **Techniques** | Saved node selections you can drop in as a group. Listed first. |
+| **Text** | Prompts and notes. |
+| **Image** | Image generation, references, Elements, design references, and the Layer Editor. |
+| **Video** | Video generation, editing, references, and analysis. |
+| **Audio** | Voice and sound references. |
+| **Document** | PDF and text knowledge. |
+| **Action** | Deterministic edits, tools like Batch and Export, and delivery to the Planner or a Meta ad. |
+
+When a section holds nodes from more than one provider, it splits into **Google ›**, **Fal ›**, and **Continuum ›** submenus.
+
+## Connecting nodes
+
+Drag from one node's output handle to another node's input. Handles are typed, so the canvas only lets you make connections that make sense.
+
+| Handle type | Carries |
+| --- | --- |
+| `text` | Prompts, captions, and other text. |
+| `image` | Stills. |
+| `video` | Clips. |
+| `audio` | Voice and sound. |
+| `document` | PDF and text knowledge. |
+| `media` | A mix of images, video, and audio. |
+
+## How nodes run
+
+| Control | Where | What it does |
+| --- | --- | --- |
+| **Run Flow** | Canvas header | Runs the graph. Nodes that haven't changed since their last run are skipped. |
+| **Rerun all** | Canvas header | Regenerates every node from scratch. |
+| **Abort** | Canvas header | Stops a run in progress. A progress bar shows how far it got. |
+| **Run Node** | On a node | Runs just that node. |
+
+Each node shows a status badge while it works: **Running**, **Done**, or **Error**.
+
+- An **Image Generation** node can make up to 4 variations in one run.
+- A **[Batch](/canvas/nodes/actions)** node runs everything downstream once per item in its list.
+
+## Node families
+
+<CardGroup cols={2}>
+<Card title="Image nodes" icon="image" href="/canvas/nodes/image">
+  Generate images, and bring in references, Elements, and your design system.
+</Card>
+<Card title="Video nodes" icon="film" href="/canvas/nodes/video">
+  Generate, extend, edit, and break down video.
+</Card>
+<Card title="Text, audio, and document nodes" icon="file-lines" href="/canvas/nodes/text-audio-documents">
+  Prompts, notes, sound, and knowledge.
+</Card>
+<Card title="Action and tool nodes" icon="wrench" href="/canvas/nodes/actions">
+  Deterministic edits, Batch, Router, Export, and frames.
+</Card>
+<Card title="Delivery nodes" icon="paper-plane" href="/canvas/nodes/delivery">
+  Send creative to the Planner, a platform, or a Meta ad.
+</Card>
+</CardGroup>
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Models" icon="microchip" href="/canvas/models">
+  The image and video models generation nodes use.
+</Card>
+<Card title="Skills and grounding" icon="wand-magic-sparkles" href="/canvas/skills-and-grounding">
+  Keep every generation on-brand.
+</Card>
+</CardGroup>

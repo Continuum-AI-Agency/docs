@@ -1,0 +1,95 @@
+---
+title: "Forge"
+sidebarTitle: "Overview"
+description: "Turn an After Effects or design file into a template, then fill it with your messages, products, and offers to render many on-brand versions — into your Library or onto a Meta ad."
+---
+
+import { Lanes } from "/snippets/diagrams.jsx";
+
+**Forge** turns a design file into a template you can render again and again. Fill the template's fields with your messages, products, and offers, preview every version, and render the set into your Library or onto a Meta ad. Your design files in, on-brand versions out.
+
+<Info>Forge is in **Creative+** in the sidebar and is part of the Performance+ plan. See [Billing](/settings/billing).</Info>
+
+## The three tabs
+
+| Tab | What it's for |
+| --- | --- |
+| **Templates** | Your templates. Filter by **All**, **Ready**, **Drafts**, **Needs attention**, or **Shared with you**, and by animated or static. |
+| **Render** | Fill a template's fields row by row, preview each version, and render. |
+| **Render ledger** | Everything you've rendered, and how many renders are waiting for approval. |
+
+## Bring in a design file
+
+Drop a project into Forge. It accepts After Effects files (`.aep`, `.aepx`, `.aet`), a `.zip` of a packaged project, Photoshop (`.psd`) and Illustrator (`.ai`) files, and fonts (`.ttf`, `.otf`).
+
+<Tip>For After Effects projects, follow [After Effects delivery](/forge/after-effects/overview) to structure the project so every field you want to change is exposed cleanly.</Tip>
+
+## Render versions
+
+<Steps>
+<Step title="Pick a template">
+Open a template that's **Ready**, then go to **Render**.
+</Step>
+<Step title="Fill the rows">
+Each row is one version. Type the values in, or choose **Draft rows with AI** to write them from a brief.
+</Step>
+<Step title="Preview">
+Each row shows a live composed preview, so you see every version before anything is rendered.
+</Step>
+<Step title="Choose where it goes">
+Render to the **Library only**, or **Replace an ad** to put the version on an active or paused Meta ad.
+</Step>
+<Step title="Render">
+Final renders land in your Library under **Forge renders**.
+</Step>
+</Steps>
+
+## Render sets
+
+Save a group of rows as a **render set** to come back to it. You can rename, duplicate, download, and share a set, see its version history, and update it to the template's current version.
+
+## Approvals and Meta delivery
+
+Renders headed for a Meta ad go through approval. Approvals can come from Continuum, Slack, or WhatsApp.
+
+<Lanes
+  lanes={[
+    {
+      label: "Library only",
+      steps: ["Fill and preview", "Render", "In your Library"],
+      note: "Final renders land under Forge renders.",
+    },
+    {
+      label: "Replace an ad",
+      tone: "gate",
+      steps: ["Fill and preview", "Render", "Your approval", "On the Meta ad"],
+      you: "Your approval",
+      note: "Approve in Continuum, Slack, or WhatsApp. Nothing is placed until you do.",
+    },
+  ]}
+/>
+
+| Status | Meaning |
+| --- | --- |
+| **Waiting on you** | The render needs your approval. |
+| **Publishing…** | The approved version is being placed on the ad. |
+| **Published, paused** | The version is on the ad, and the ad is paused. |
+| **Approved — Meta writes are off** | Approved, but this brand doesn't allow Forge to write to Meta. |
+| **Rejected**, **Publishing failed**, **Expired** | Nothing was placed. |
+
+Only an Owner or Admin can turn Meta writes on or off for a brand.
+
+## From your AI assistant
+
+Ask Claude or ChatGPT to fill a template from a brief — "Write six versions of the promo template from this brief." You see a preview of every version, and nothing is made until you confirm. Final versions need an Admin or Owner. See [Produce templates at scale](/mcp/use-cases/templates).
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="After Effects delivery" icon="clapperboard" href="/forge/after-effects/overview">
+  Structure a project so Forge can render it.
+</Card>
+<Card title="Library" icon="images" href="/canvas/library">
+  Where renders land.
+</Card>
+</CardGroup>

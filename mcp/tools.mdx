@@ -1,0 +1,110 @@
+---
+title: "Tool reference"
+description: "Every tool the Continuum connector gives your assistant, grouped by area: what it does and whether it changes anything."
+---
+
+You don't need to know tool names to use Continuum. Your assistant picks them for you. This page is for the curious, for admins reviewing what a connector can do, and for anyone building with an agent.
+
+The connector offers **44 tools**. Your assistant sees the ones your [role](/settings/roles) and connected platforms allow. Many tools take an `action`, listed below; your assistant can ask `help_describe` for the full inputs of any tool and action.
+
+<Info>Tools marked **Changes things** can modify your brand. The ones that publish, change your ads, produce final Forge versions, or delete something show a preview and wait for your yes. See [You stay in control](/mcp/control).</Info>
+
+## Account, brand, and connections
+
+| Tool | What it does | Changes things |
+| --- | --- | --- |
+| `brands_list` | Lists the brands you can access. | No |
+| `brands_select` | Sets the brand the conversation works on and lists its published pipelines. | Yes |
+| `brands_create` | Starts a new brand. You finish setting it up in the Continuum app. | Yes |
+| `account_map` | Shows connected platforms and accounts, ad accounts, and your role. | No |
+| `accounts_list` | Lists the accounts assigned to the brand. | No |
+| `integrations_list` | Lists the brand's connections. | No |
+| `integrations_connect` | Returns a one-time link to connect Instagram, Facebook, TikTok, LinkedIn, YouTube, X, Threads, or Google. Links work for 10 minutes. | Yes |
+| `integration_health_check` | Checks whether a connection is healthy, expired, or disconnected. | No |
+| `agent_ask` | Asks [Jaina](/performance/jaina) or the [Organic agent](/organic/agent) a question. Runs as a job. | Yes |
+| `jobs_status` | Checks on a long-running job. | No |
+| `help_describe` | Describes any tool and its actions. | No |
+
+## Performance and intelligence
+
+| Tool | What it does | Changes things |
+| --- | --- | --- |
+| `analytics_query` | Organic results for Instagram, Facebook, TikTok, YouTube, and LinkedIn; paid results for Meta and LinkedIn; website results from GA4. Covers accounts, top posts, campaigns, ad sets, and ads. | No |
+| `analytics_creative_insights` | A Meta creative performance report. | No |
+| `analytics_cross_platform_spend` | A spend breakdown across platforms. Meta today. | No |
+| `analytics_pacing_diagnostic` | Which Meta campaigns are pacing ahead of or behind plan. | No |
+| `audience_query` | Your Meta audiences and targeting. | No |
+| `creative_strategy` | What works for you: opening-line (hook) scoring, win rates, and competitive gaps. | No |
+| `trends_manage` | Your brand's trends report. | No |
+| `intel_trend_discovery` | Trending sounds, hashtags, and formats on Instagram and TikTok. | No |
+| `intel_competitor_ads` | Ads from competitors you track, including how long each has run. | No |
+| `intel_competitor_organic` | Organic posts from competitors you track. | No |
+| `intel_competitor_ad_library` | Looks up any advertiser in the Meta Ad Library. | No |
+
+## Brand
+
+| Tool | What it does | Changes things |
+| --- | --- | --- |
+| `brand_knowledge` | Reads and searches your brand book and knowledge base, checks copy against your voice, and adds, updates, or archives source material. | Yes |
+
+## Organic+: planning and publishing
+
+| Tool | What it does | Changes things |
+| --- | --- | --- |
+| `planner_manage` | Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media. | Yes |
+| `content_create` | Drafts, approves, and publishes posts, and deletes drafts. | Yes |
+| `organic_draft_list` | Lists drafts on the calendar. | No |
+| `organic_draft_get` | Reads one draft. | No |
+
+## Performance+: Meta ads and optimization
+
+| Tool | What it does | Changes things |
+| --- | --- | --- |
+| `paid_manage` | Reads your campaign structure; creates paused campaigns; updates or pauses campaigns, ad sets, and ads; builds audiences and lookalikes. Meta only. | Yes |
+| `paid_naming_schema_get` | Your brand's campaign naming convention. | No |
+| `optimizer_query` | Portfolios, pending recommendations, performance, and the optimization log. | No |
+| `optimizer_manage` | Approves or rejects recommendations and manages portfolios. | Yes |
+
+## Creative+: Canvas, pipelines, and elements
+
+| Tool | What it does | Changes things |
+| --- | --- | --- |
+| `studio_workflow` | Builds, edits, runs, saves, and lists canvas workflows. | Yes |
+| `studio_deliver` | Previews and sends finished creative to a planned post, an organic publish, or a live ad, and restores a swapped ad. | Yes |
+| `pipeline_search` | Finds your team's saved pipelines. | No |
+| `pipeline_describe` | Shows what a pipeline needs. | No |
+| `pipeline_invoke` | Runs a pipeline, up to 10 versions per request. | Yes |
+| `pipeline_run_status` | Checks a pipeline run. | No |
+| `list_elements` | Lists your saved Elements. | No |
+
+## Library, video, and Forge
+
+| Tool | What it does | Changes things |
+| --- | --- | --- |
+| `library_manage` | Browses the Library, shows where a creative has run, adds comments, sets review status, and uploads media. | Yes |
+| `media_search` | Finds media by describing it. | No |
+| `media_upload_and_clip` | Uploads a video to clip. Clipping finishes in the Continuum app. | Yes |
+| `video_editor` | Edits video in Video Studio: cut silences, cut to the beat, captions, text, music, formats, export, and undo. | Yes |
+| `forge_query` | Lists Forge templates, sets, and render jobs. | No |
+| `forge_manage` | Writes versions into a template, previews them, and produces final renders. | Yes |
+
+## Ready-made prompts
+
+The connector also offers three prompts your assistant may list in its menu:
+
+| Prompt | What it does |
+| --- | --- |
+| `analytics-weekly-review` | A weekly review across social and ads. |
+| `analytics-top-and-bottom-posts` | Your best and worst organic posts, and why. |
+| `analytics-top-and-bottom-ads` | Your best and worst ads, and why. |
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Agent brief" icon="robot" href="/mcp/agent-brief">
+  How an assistant should use these tools.
+</Card>
+<Card title="Server reference" icon="server" href="/mcp/reference">
+  Endpoints, sign-in, confirmations, result codes, and limits.
+</Card>
+</CardGroup>

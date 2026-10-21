@@ -1,0 +1,55 @@
+---
+title: "Models"
+description: "The image and video models available on the AI Canvas, their defaults, sizes, aspect ratios, and options."
+---
+
+Generation nodes let you pick a model to match the job. The canvas only offers the settings a model supports. If a run fails because a model isn't available to you, the picker marks it **Not enabled on this workspace**.
+
+## Image models
+
+**Nano Banana 2 Lite** is the default.
+
+| Model | Sizes | Notes |
+| --- | --- | --- |
+| **Nano Banana** | Set by aspect ratio | 1024px only |
+| **Nano Banana Pro** | 1K, 2K, 4K | |
+| **Nano Banana 2** | 512px to 4K | |
+| **Nano Banana 2 Lite** | Set by aspect ratio | Default. 1K only |
+| **GPT Image 2.5 Sunburst** | Set by aspect ratio | |
+| **GPT Image 2.5 Flare** | Set by aspect ratio | |
+| **FLUX.2 Pro** | Set by aspect ratio | Beta |
+| **FLUX.2 Max** | Set by aspect ratio | Beta |
+
+### Aspect ratios
+
+- **Nano Banana 2** offers seven aspect ratios.
+- **Nano Banana 2 Lite**, **FLUX.2 Pro**, and **FLUX.2 Max** offer those seven plus `21:9`.
+- Every other image model offers `1:1`, `16:9`, `9:16`, `4:3`, and `3:4`.
+
+## Video models
+
+**Omni 1.1 Flash** is the default.
+
+| Model | Resolution | Duration | Inputs |
+| --- | --- | --- | --- |
+| **Omni 1.1 Flash** | 720p, 1080p, 4K | Set by the provider | Reference images |
+| **Veo 3.1** | 720p, 1080p, 4K | 4, 6, or 8 s | First and last frames, or reference images |
+| **Veo 3.1 Fast** | 720p, 1080p, 4K | 4, 6, or 8 s | First and last frames, or reference images |
+| **Veo 3.1 Lite** | 720p, 1080p | 4, 6, or 8 s | First and last frames |
+
+Every video model offers `16:9` or `9:16`.
+
+<Info>Veo clips are locked to 8 seconds at 1080p and above, or when you attach a reference image or frame.</Info>
+
+**Kling Omni**, **Pixverse V6**, and **Seedance 2.0** are listed as **Returning soon**. You can't select them yet.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Image nodes" icon="image" href="/canvas/nodes/image">
+  Where image models run.
+</Card>
+<Card title="Video nodes" icon="film" href="/canvas/nodes/video">
+  Where video models run.
+</Card>
+</CardGroup>

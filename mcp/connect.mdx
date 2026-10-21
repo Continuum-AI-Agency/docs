@@ -1,0 +1,136 @@
+---
+title: "Connect your assistant"
+description: "Add Continuum to Claude, ChatGPT, Claude Code, Cursor, VS Code, Codex, or any MCP client. Paste one address and sign in with your Continuum login."
+---
+
+import { Flow } from "/snippets/diagrams.jsx";
+
+You connect once and sign in with your normal Continuum login in the browser. There's nothing technical to set up and no key to copy. Your assistant never sees your Continuum password.
+
+<Flow
+  label="How connecting works"
+  steps={["Paste the address", "Sign in to Continuum", "Pick a brand", "Allow access", "Ask"]}
+  you="Allow access"
+/>
+
+## Server addresses
+
+| Assistant | Address |
+| --- | --- |
+| Claude, and any other assistant that supports custom connectors | `https://api.trycontinuum.ai/mcp` |
+| ChatGPT | `https://api.trycontinuum.ai/mcp/chatgpt` |
+
+<Warning>ChatGPT needs its own address. If ChatGPT won't finish signing in, check that you used the `/mcp/chatgpt` address.</Warning>
+
+## Add it to your assistant
+
+### Claude (web, desktop, and mobile)
+
+<Steps>
+<Step title="Open connectors">
+On the web or in the desktop app, go to **Settings → Connectors** and choose **Add custom connector**.
+</Step>
+<Step title="Paste the address">
+Name it `Continuum` and paste `https://api.trycontinuum.ai/mcp`.
+</Step>
+<Step title="Sign in">
+Click **Connect**, sign in to Continuum, pick the brand to connect, and click **Allow access**.
+</Step>
+</Steps>
+
+That's it. The connector also works in the Claude mobile app.
+
+<Info>On a Claude Team or Enterprise plan? Your organization owner may need to add the connector before you can use it.</Info>
+
+### ChatGPT
+
+<Steps>
+<Step title="Turn on developer mode">
+Go to **Settings → Apps & Connectors** and switch on **Developer mode** under **Advanced settings**. This is the ChatGPT setting that allows custom connectors. You only need to switch it on once.
+</Step>
+<Step title="Create the connector">
+Choose **Create**, name the connector `Continuum`, and paste `https://api.trycontinuum.ai/mcp/chatgpt`.
+</Step>
+<Step title="Sign in">
+Sign in to Continuum, pick the brand to connect, and click **Allow access**.
+</Step>
+</Steps>
+
+### Claude Code
+
+```bash wrap
+claude mcp add --transport http continuum https://api.trycontinuum.ai/mcp
+```
+
+Then run `/mcp` inside Claude Code, choose `continuum`, and sign in to Continuum in the browser window it opens.
+
+### Cursor
+
+Add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor/mcp.json` for one project:
+
+```json ~/.cursor/mcp.json
+{
+  "mcpServers": {
+    "continuum": {
+      "url": "https://api.trycontinuum.ai/mcp"
+    }
+  }
+}
+```
+
+Open **Cursor Settings → MCP**, find `continuum`, and sign in to Continuum when Cursor asks.
+
+### VS Code
+
+Run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Continuum to `.vscode/mcp.json`:
+
+```json .vscode/mcp.json
+{
+  "servers": {
+    "continuum": {
+      "type": "http",
+      "url": "https://api.trycontinuum.ai/mcp"
+    }
+  }
+}
+```
+
+The first time Copilot uses it, VS Code opens a browser window to sign in to Continuum.
+
+### Codex
+
+```bash wrap
+codex mcp add continuum --url https://api.trycontinuum.ai/mcp
+codex mcp login continuum
+```
+
+The login command opens a browser window to sign in to Continuum.
+
+### Any other assistant
+
+Any assistant that supports custom (remote) MCP connectors can use `https://api.trycontinuum.ai/mcp`. Add it as a remote server, then sign in to Continuum in the browser window it opens.
+
+## What you're allowing
+
+When you click **Allow access**, your assistant can work in Continuum as you:
+
+- It reaches only the brands you belong to, and does only what your [role](/settings/roles) allows.
+- Publishing, changes to your ads and budgets, and deletions show a preview first and wait for your yes.
+- Every action you take through it is listed under **Settings → Activity** in Continuum.
+
+See [You stay in control](/mcp/control) for the full picture.
+
+## Disconnect
+
+In Continuum, **Settings → Connections** lists every assistant you've connected. Revoke any you no longer use. You can also remove the connector from your assistant's own settings.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Your first five minutes" icon="rocket" href="/quickstart">
+  The five questions to ask first.
+</Card>
+<Card title="If something isn't working" icon="life-ring" href="/mcp/troubleshooting">
+  Can't see Continuum in your chat, expired sessions, and more.
+</Card>
+</CardGroup>

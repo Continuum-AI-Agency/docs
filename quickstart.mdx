@@ -1,69 +1,71 @@
 ---
 title: "Quickstart"
-description: "Set up your first brand from your website and launch into Continuum in a few minutes."
+description: "Connect Continuum to Claude or ChatGPT in two minutes, then ask the five questions that set everything else up."
 ---
 
-Continuum builds your brand from your website. You give it a URL, it scans your site to extract your brand identity, and you review and launch. The whole flow takes a few minutes.
+The fastest way to use Continuum is from the AI assistant you already have open. Connect it once, then ask in your own words.
+
+<Info>New to Continuum? [Set up your brand](/brand/setup) in the app first. It builds your brand book from your website in a few minutes, and everything your assistant writes draws on it.</Info>
+
+## Pick your path
+
+**You use Claude.** Go to **Settings → Connectors**, choose **Add custom connector**, and paste `https://api.trycontinuum.ai/mcp`. Click **Connect**, sign in to Continuum, and click **Allow access**.
+
+**You use ChatGPT.** Switch on **Developer mode** under **Settings → Apps & Connectors → Advanced settings**, choose **Create**, and paste `https://api.trycontinuum.ai/mcp/chatgpt`. Sign in to Continuum and click **Allow access**.
+
+**You use another assistant.** Add `https://api.trycontinuum.ai/mcp` as a custom connector and sign in.
+
+Full steps for each assistant are in [Connect your assistant](/mcp/connect).
+
+## Your first five minutes
+
+Start with these, in order. Each one builds on the last.
 
 <Steps>
-<Step title="Enter your website">
+<Step title="Check where you are">
+> "Which Continuum brand am I working on, and what's connected?"
 
-Head to [app.trycontinuum.ai](https://app.trycontinuum.ai) and start onboarding. Enter your website URL and select **Analyze my brand**.
-
-Continuum scans your site and starts an AI analysis in the background — extracting your name, logo, colors, typography, voice, and audience while you continue.
-
+Continuum starts on the brand you last chose in your assistant, or otherwise your active brand in the app. To change it, say "Switch to Acme Coffee."
 </Step>
-
-<Step title="Add brand documents (optional)">
-
-Upload any brand assets you already have — style guides, decks, or past campaigns. This sharpens the analysis, but it's optional: skip it and Continuum infers everything from your website.
-
-</Step>
-
 <Step title="Connect your channels">
+> "Connect our Instagram account."
 
-Tag your ad and social accounts to this brand. Connect a provider once, then assign the specific accounts that belong to this brand.
-
-- **Meta** — Facebook, Instagram, and Threads
-- **Google** — Google Ads, Google Analytics (GA4), and YouTube
-- **TikTok**
-
-Connecting Instagram unlocks competitor inspiration later. You can add more channels — including LinkedIn — anytime from **Settings → Integrations**. See [Integrations](/integrations) for the full list.
-
+You get a link to approve the connection. Your Instagram needs to be a Business or Creator account; if it's a personal account, switch it in the Instagram app's settings. Do the same for your Meta ads and any other platform you use.
 </Step>
+<Step title="Ground everything in your brand">
+> "Read our brand book and tell me in three lines how we sound."
 
-<Step title="Invite your team (optional)">
-
-Invite teammates and set each one's role — **Admin**, **Operator**, or **Viewer**. You can also do this later from Settings.
-
-<Tip>Not sure which role to give? See [Roles & permissions](/settings/roles).</Tip>
-
+From here on, everything the assistant writes is grounded in your voice.
 </Step>
-
-<Step title="Review your Brand DNA and launch">
-
-Continuum shows the brand profile it extracted — identity (logo, colors, typography), business overview, voice and tone, target audience, and a **brand readiness score**. Edit anything that's off, then launch.
-
-The readiness score tells you how complete your brand profile is. It's informational — it never blocks you. You can deepen your [brand book](/brand/overview) over time.
-
-<Info>After you launch, Continuum can show competitor inspiration and generate your first on-brand creatives, then drop you on your Home dashboard.</Info>
-
+<Step title="See how you're doing">
+> "How did we do last week on Instagram and on our Meta ads?"
+</Step>
+<Step title="Decide what's next">
+> "Based on that, what's the one thing we should do this week?"
 </Step>
 </Steps>
+
+<Tip>Not sure what to ask? Try "What can you help me with in the Calendar?" It's a good way to explore any part of Continuum.</Tip>
+
+## Or hand it one prompt
+
+Paste this into a new chat once the connector is on. Your assistant runs the five steps above and stops to ask you before connecting anything.
+
+```text Paste into Claude or ChatGPT wrap
+Use the Continuum connector. Tell me which brand I'm on and which platforms are
+connected. If Instagram or Meta ads aren't connected, give me the links to connect
+them and wait. Then read our brand book and summarize how we sound in three lines,
+show me last week's results on Instagram and Meta ads, and finish with the one thing
+we should do this week.
+```
 
 ## What's next
 
 <CardGroup cols={2}>
-<Card title="Core concepts" icon="compass" href="/concepts">
-  How brands, agents, and the creative loop fit together.
+<Card title="How to ask" icon="comments" href="/mcp/how-to-ask">
+  Be specific, say what decision you're making, and say how you want it back.
 </Card>
-<Card title="Build your brand book" icon="book" href="/brand/overview">
-  Deepen the identity that grounds every generation.
-</Card>
-<Card title="AI Studio" icon="pen-ruler" href="/studio/overview">
-  Generate and edit images and video on the canvas.
-</Card>
-<Card title="Integrations" icon="plug" href="/integrations">
-  Connect and assign all your channels.
+<Card title="What you can do" icon="table-cells-large" href="/mcp/overview">
+  Every area of Continuum you can use from your assistant.
 </Card>
 </CardGroup>
