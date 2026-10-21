@@ -1,0 +1,471 @@
+/*
+ * Continuum docs: the trycontinuum.ai brand layer on Mintlify's `luma` theme.
+ * Tokens mirror continuum-landing-page/src/styles/global.css (night is the default mode).
+ * Mintlify loads every .css file in the repo automatically.
+ */
+
+/* Mintlify registers each configured font at one fixed weight, which switches off the variable
+   weight axis. These range descriptors restore it for every weight the theme asks for. */
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Variable.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+:root {
+  --cn-ink: #13161d;
+  --cn-muted: #51555e;
+  --cn-border: #d5d7dd;
+  --cn-surface: #f0f2f5;
+  --cn-accent: #4c4ee4;
+  --cn-cta-bg: #0a0a0c;
+  --cn-cta-ink: #f3efe6;
+  --cn-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+html.dark {
+  --cn-ink: #f7f8fc;
+  --cn-muted: #a9aeb8;
+  --cn-border: rgb(255 255 255 / 0.1);
+  --cn-surface: #13161d;
+  --cn-accent: #8696f5;
+  --cn-cta-bg: #f3efe6;
+  --cn-cta-ink: #0a0a0c;
+}
+
+::selection {
+  background: rgb(134 150 245 / 0.3);
+}
+
+/* Type: Clash Display headings in sentence case, Satoshi body, Geist Mono for code and labels. */
+#page-title,
+#content-area h2,
+#content-area h3,
+#content-area h4 {
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  word-spacing: 0.06em;
+  text-wrap: balance;
+}
+#page-title {
+  letter-spacing: -0.01em;
+}
+#content-area [data-component-part="step-title"] {
+  font-weight: 600;
+}
+#content-area .mdx-content {
+  text-wrap: pretty;
+}
+#content-area .prose strong {
+  font-weight: 700;
+}
+code,
+kbd,
+pre,
+pre * {
+  font-family: var(--cn-mono) !important;
+}
+
+/* Text colours: headings in ink, body copy in the brand's muted tone. */
+:root {
+  --cn-body: #404045;
+}
+html.dark {
+  --cn-body: #a9aeb8;
+}
+#page-title,
+#content-area h2,
+#content-area h3,
+#content-area h4,
+#content-area [data-component-part="step-title"] {
+  color: var(--cn-ink);
+}
+#content-area .mdx-content {
+  color: var(--cn-body);
+}
+
+/* Card titles: Satoshi, like the site's card labels. Clash Display is for headlines. */
+[data-component-part="card-title"] {
+  font-family: "Satoshi", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* Inline code: a tight pill. */
+#content-area :not(pre) > code {
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* "On this page" in the mono label style, like the sidebar. */
+#table-of-contents h2 button {
+  font-family: var(--cn-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cn-muted);
+}
+
+/* Eyebrow above the title, and sidebar group labels: the site's mono label style. */
+.eyebrow,
+.sidebar-group-header {
+  font-family: var(--cn-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sidebar-group-header {
+  color: var(--cn-muted);
+}
+
+/* Navbar call to action: the site's cream-on-night button (inverted on day). */
+#navbar a.bg-primary {
+  background: var(--cn-cta-bg) !important;
+  color: var(--cn-cta-ink) !important;
+  border-radius: 8px;
+}
+#navbar a.bg-primary * {
+  font-weight: 600;
+}
+#navbar .navbar-link a {
+  border-color: transparent;
+}
+
+/* Shape: 8px radius, hairline borders, no shadows. */
+.card {
+  border-radius: 8px;
+  border-color: var(--cn-border);
+}
+.card:hover {
+  border-color: var(--cn-accent) !important;
+}
+.callout,
+.code-block,
+.code-group,
+.accordion-group,
+.tabs {
+  border-radius: 8px;
+}
+#content-area table {
+  font-variant-numeric: tabular-nums;
+}
+#content-area th {
+  font-family: var(--cn-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cn-muted);
+}
+
+/* Links in body copy: accent underline, ink text. */
+#content-area .prose a:not(.card) {
+  text-decoration-color: var(--cn-accent);
+  text-underline-offset: 3px;
+}
+
+/* Callouts: quiet surface with a colored left rule, as on docs.amdahl.ai. The icon keeps its color. */
+.callout {
+  --cn-rule: var(--cn-accent);
+  border-radius: 6px !important;
+  border: 1px solid var(--cn-border) !important;
+  border-left: 3px solid var(--cn-rule) !important;
+  background: color-mix(in srgb, var(--cn-surface) 55%, transparent) !important;
+}
+.callout[data-callout-type="tip"],
+.callout[data-callout-type="check"] {
+  --cn-rule: #3fb98a;
+}
+.callout[data-callout-type="warning"] {
+  --cn-rule: #e5b53a;
+}
+.callout[data-callout-type="danger"] {
+  --cn-rule: #e04e2a;
+}
+.callout > :not([data-component-part="callout-icon"]),
+.callout > :not([data-component-part="callout-icon"]) * {
+  color: var(--cn-ink);
+}
+
+/* Keep addresses and ids on one line inside tables. */
+#content-area td code {
+  white-space: nowrap;
+}
+@media (max-width: 639px) {
+  /* Let tables fit phones: Mintlify's 150px cell minimum hides the last column. */
+  #content-area td {
+    min-width: 0;
+  }
+  #content-area td code {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Footer links at AA contrast in both modes. */
+#footer a:not(:hover),
+#footer a:not(:hover) * {
+  color: var(--cn-muted);
+}
+
+/* Skip link (skip-link.js): hidden until focused. */
+#cn-skip {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--cn-cta-bg);
+  color: var(--cn-cta-ink);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+#cn-skip:focus {
+  transform: none;
+}
+#content-area:focus {
+  outline: none;
+}
+
+/* Sidebar nesting: a hairline guide per nested level, drawn between the parent label and its children.
+   Mintlify indents nested links 12px per level with inline padding, so the guide only marks depth. */
+:is(#sidebar-content, #mobile-nav) .sidebar-group li > ul {
+  position: relative;
+}
+:is(#sidebar-content, #mobile-nav) .sidebar-group li > ul::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 22px;
+  border-left: 1px solid var(--cn-border);
+}
+:is(#sidebar-content, #mobile-nav) .sidebar-group li ul li > ul::before {
+  left: 34px;
+}
+:is(#sidebar-content, #mobile-nav) .sidebar-group li ul li ul li > ul::before {
+  left: 46px;
+}
+
+/* ---- Diagrams (snippets/diagrams.jsx) and imagery. Theme-aware through the tokens above. ---- */
+
+/* Flow: numbered step tiles in one row, chevrons between; stacks vertically on narrow screens. */
+.cn-flow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 20px;
+  margin: 1.25rem 0;
+}
+.cn-flow__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--cn-border);
+  border-radius: 8px;
+  background: var(--cn-surface);
+  color: var(--cn-ink);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+html:not(.dark) .cn-flow__step {
+  background: #ffffff;
+}
+.cn-flow__step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  width: 7px;
+  height: 7px;
+  border-top: 1.5px solid var(--cn-muted);
+  border-right: 1.5px solid var(--cn-muted);
+  transform: translate(0, -50%) rotate(45deg);
+}
+.cn-flow__step.is-you {
+  border-color: var(--cn-accent);
+  box-shadow: inset 0 0 0 1px var(--cn-accent);
+}
+.cn-flow__idx {
+  font-family: var(--cn-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--cn-accent);
+}
+
+/* Lanes: a labelled Flow per row, with a note underneath. */
+.cn-lanes {
+  display: grid;
+  gap: 8px;
+  margin: 1.5rem 0;
+}
+.cn-lane {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 1fr);
+  gap: 10px 18px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--cn-border);
+  border-left: 3px solid var(--cn-border);
+  border-radius: 8px;
+}
+.cn-lane.is-gate {
+  border-left-color: var(--cn-accent);
+}
+.cn-lane.is-muted {
+  border-left-color: var(--cn-muted);
+}
+.cn-lane__label {
+  font-family: var(--cn-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cn-muted);
+}
+.cn-lane .cn-flow {
+  margin: 0;
+  grid-auto-columns: calc((100% - (var(--cn-cols, 4) - 1) * 20px) / var(--cn-cols, 4));
+}
+#content-area .cn-lane__note {
+  grid-column: 2;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cn-muted);
+}
+
+@media (max-width: 640px) {
+  .cn-flow {
+    grid-auto-flow: row;
+    gap: 14px;
+  }
+  .cn-flow__step {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    padding: 8px 12px;
+  }
+  .cn-flow__step:not(:last-child)::after {
+    top: auto;
+    bottom: -12px;
+    right: auto;
+    left: 18px;
+    transform: rotate(135deg);
+  }
+  .cn-lane {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cn-lane .cn-flow {
+    grid-auto-columns: minmax(0, 1fr);
+  }
+  #content-area .cn-lane__note {
+    grid-column: 1;
+  }
+}
+
+/* The creative loop (SVG). Hidden on narrow screens, where the Steps under it say the same. */
+.cn-fig {
+  margin: 1.75rem 0;
+}
+.cn-loop {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: inherit;
+}
+.cn-ring {
+  fill: none;
+  stroke: var(--cn-accent);
+  stroke-opacity: 0.8;
+  stroke-width: 1.5;
+  stroke-dasharray: 2 5;
+  stroke-linecap: round;
+}
+.cn-chev {
+  fill: none;
+  stroke: var(--cn-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cn-node {
+  fill: var(--cn-surface);
+  stroke: var(--cn-border);
+  stroke-width: 1;
+}
+html:not(.dark) .cn-node {
+  fill: #ffffff;
+}
+.cn-idx {
+  font-family: var(--cn-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  fill: var(--cn-accent);
+}
+.cn-name {
+  font-size: 16px;
+  font-weight: 600;
+  fill: var(--cn-ink);
+}
+.cn-loop-eyebrow {
+  font-family: var(--cn-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  fill: var(--cn-muted);
+}
+.cn-loop-note {
+  font-size: 15px;
+  fill: var(--cn-ink);
+}
+@media (max-width: 640px) {
+  .cn-fig--wide {
+    display: none;
+  }
+}
+
+/* Section hero: a world plate from trycontinuum.ai. Decorative, matte, reserved height (no layout shift). */
+#content-area img.cn-hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1376 / 430;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0.25rem 0 1.75rem;
+}
+
+/* Body text paints in a fallback sized to Satoshi (Arial at 101.5%), so nothing jumps when Satoshi arrives.
+   --font-family-body-custom is Mintlify's body font variable; keep the family list in sync with docs.json. */
+@font-face {
+  font-family: "Satoshi Fallback";
+  src: local("Arial");
+  size-adjust: 101.5%;
+}
+:root:root {
+  --font-family-body-custom: "Satoshi", "Satoshi Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+/* Card images (the -card.webp crops) reserve their space before they load. */
+#content-area .card img[data-component-part="card-image"] {
+  aspect-ratio: 640 / 357;
+  height: auto;
+}

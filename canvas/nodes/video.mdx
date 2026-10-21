@@ -1,0 +1,59 @@
+---
+title: "Video nodes"
+description: "Generate clips, edit them into variations, extend footage, break video down, and open it in Video Studio."
+---
+
+Video nodes live in the **Video** section of the **Add Node** menu.
+
+## Video Generation
+
+Generates a clip with a video model. The menu lists one row per model, so you pick the model as you add the node. See [Models](/canvas/models) for each model's options.
+
+**Inputs → outputs:** a prompt plus reference images or frames, depending on the model → video.
+
+## Omni 1.1 Flash (Edit)
+
+Generates a clip, then lets you chat to edit, extend, and upscale it into variations.
+
+**Inputs → outputs:** a prompt, reference images, and a reference video → video.
+
+## Extend Video
+
+Continues existing footage.
+
+**Inputs → outputs:** a prompt and a video → video.
+
+## Video Decoder
+
+Breaks a video down frame by frame for creative analysis.
+
+**Inputs → outputs:** video → text.
+
+## Video Editor
+
+A full editor to trim, split, and sequence clips and stills. It opens [Video Studio](/canvas/video-studio).
+
+**Inputs → outputs:** a pool of media → video.
+
+## HyperFrames Agent
+
+Creates video with an agent that builds it in HTML, using your media as references.
+
+**Inputs → outputs:** a prompt and up to 20 images, videos, or audio files → video.
+
+## Video Reference
+
+Brings a video file onto the canvas as an input.
+
+**Inputs → outputs:** none → video.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Models" icon="microchip" href="/canvas/models">
+  Video models, resolutions, and durations.
+</Card>
+<Card title="Video Studio" icon="clapperboard" href="/canvas/video-studio">
+  Cut, caption, and export.
+</Card>
+</CardGroup>

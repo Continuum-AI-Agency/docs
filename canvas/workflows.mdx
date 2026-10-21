@@ -1,0 +1,54 @@
+---
+title: "Workflows and techniques"
+sidebarTitle: "Workflows"
+description: "Save a canvas graph as a workflow you can reload and rerun, start from pre-mades, and save any selection of nodes as a technique."
+---
+
+Once a graph works, you don't want to rebuild it. Save it as a **workflow** to reload and rerun it, or save part of it as a **technique** to drop into other graphs.
+
+## Save a workflow
+
+<Steps>
+<Step title="Open the save dialog">
+Right-click the canvas and choose **Save** from **Canvas Actions**.
+</Step>
+<Step title="Choose Workflow">
+The dialog has a **Workflow** | **Pipeline** toggle. Leave it on **Workflow** to save the graph for yourself and your team. Choose **Pipeline** to publish it with declared inputs; see [Pipelines](/canvas/pipelines).
+</Step>
+<Step title="Name it and save">
+Give it a name you'll recognize later.
+</Step>
+</Steps>
+
+Your canvas also autosaves as you go, so you won't lose a graph in progress. A saved workflow is what you reload on purpose.
+
+## Load a workflow
+
+Choose **Load Workflow** from **Canvas Actions** to open **My Workflows**. It has three tabs:
+
+| Tab | What's in it |
+| --- | --- |
+| **Pre-mades** | Templates that ship with Continuum. A good place to start. |
+| **Saved** | Workflows your team has saved. |
+| **Pipelines** | Published pipelines. |
+
+From **My Workflows** you can search, load, rename, and delete.
+
+## Rerun with new inputs
+
+Load a workflow, swap the inputs — a new product shot, a different prompt — and choose **Run Flow**. Nodes that didn't change are skipped. Choose **Rerun all** to regenerate everything.
+
+## Techniques
+
+A **technique** is a saved selection of nodes. Select the nodes, right-click, and choose **Save selection**. Techniques appear in the **Techniques** submenu at the top of **Add Node**, so you can drop a proven chunk of graph into any canvas.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Pipelines" icon="layer-group" href="/canvas/pipelines">
+  Publish a workflow others can run with new inputs.
+</Card>
+<Card title="Skills and grounding" icon="wand-magic-sparkles" href="/canvas/skills-and-grounding">
+  Keep every rerun on-brand.
+</Card>
+</CardGroup>

@@ -1,0 +1,64 @@
+---
+title: "Image nodes"
+description: "Generate images, and bring in image references, Elements, your design system, and composed layers."
+---
+
+Image nodes live in the **Image** section of the **Add Node** menu. Use them to generate stills and to feed references into other generators.
+
+## Image Generation
+
+Generates images with the model you choose.
+
+**Inputs → outputs:** a prompt, an optional negative prompt, reference images, and a trigger → up to 4 image variations.
+
+<Steps>
+<Step title="Add the node">
+Right-click the canvas, choose **Add Node → Image**, and pick **Image Generation**.
+</Step>
+<Step title="Pick a model">
+Choose a model and its size or aspect ratio. See [Models](/canvas/models).
+</Step>
+<Step title="Connect inputs">
+Wire in a prompt from a [Text Block](/canvas/nodes/text-audio-documents), and any reference images or Elements.
+</Step>
+<Step title="Run">
+Select **Run Node**, or run the whole graph with **Run Flow**.
+</Step>
+</Steps>
+
+## Image Reference
+
+Brings an image file onto the canvas as an input.
+
+**Inputs → outputs:** none → image.
+
+## Element
+
+A saved model, product, character, or style, used as a reusable reference. Wire it into a generator so the subject looks the same in everything you make. An Element doesn't generate anything itself.
+
+**Inputs → outputs:** none → image (or video, for a motion Element).
+
+See [Elements](/canvas/elements) to create and manage them.
+
+## Design Reference
+
+One section of your brand's design system, as a live reference. Select **Generate** (or **Regenerate**) to build a specimen of that section.
+
+**Inputs → outputs:** none → an image specimen and the section's tokens as text.
+
+## Layer Editor
+
+Stacks, places, and blends stills into one composed image.
+
+**Inputs → outputs:** images → image.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Models" icon="microchip" href="/canvas/models">
+  Image models, sizes, and aspect ratios.
+</Card>
+<Card title="Video nodes" icon="film" href="/canvas/nodes/video">
+  Turn stills into clips.
+</Card>
+</CardGroup>

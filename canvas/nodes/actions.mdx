@@ -1,0 +1,47 @@
+---
+title: "Action and tool nodes"
+sidebarTitle: "Actions and tools"
+description: "Deterministic edits to images, video, and text, plus Batch, Router, Export, and Continuity Frame."
+---
+
+The **Action** section of the **Add Node** menu holds two kinds of node. **Action** nodes apply one deterministic operation, with no generation and the same result every time. **Tools** shape how your graph runs and what comes out of it.
+
+## Action
+
+One operation, picked from the **Image ›**, **Video ›**, or **Text ›** menus.
+
+### Image
+
+| Group | Operations |
+| --- | --- |
+| **Colour** | Colour Grade, Filter, Tint, Blur, Shader Effect |
+| **Transform** | Rotate, Flip, Chroma Key, Remove Background, Crop to Ratio, Pad to Ratio, Duplicate |
+| **Overlay** | Burn In Text, Call To Action, Burn In Image |
+
+### Video
+
+Speed, Ken Burns, Stitch, Audio Bed, Split, Reverse, Boomerang, Long Exposure, Watermark, Greenscreen, Burn In, Subtitles, Editorial Captions, Extract Frames, and Frame Grid, among others.
+
+### Text
+
+Split Text, Find & Replace, and Join Text.
+
+## Tools
+
+| Node | What it does |
+| --- | --- |
+| **Batch** | A list of up to 100 inputs. Everything downstream runs once per item. Combine lists item by item (**zip**) or every item with every other (**cross**). |
+| **Router** | Sends one output to several places without running it twice. |
+| **Export** | Saves up to 20 media out as PNG, JPG, or WEBP; MP4, MOV, or GIF; or a ZIP of a batch. |
+| **Continuity Frame** | Extracts the first, last, or an exact frame of a video as an image. |
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Delivery nodes" icon="paper-plane" href="/canvas/nodes/delivery">
+  Send finished creative to the Planner or a Meta ad.
+</Card>
+<Card title="Node overview" icon="diagram-project" href="/canvas/nodes/overview">
+  How nodes connect and run.
+</Card>
+</CardGroup>

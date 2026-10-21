@@ -25,3 +25,5 @@ next.config.ts
 next.config.mjs
 globals.css
 node_modules/
+# Internal writing instructions for agents, not docs pages
+AGENTS.md

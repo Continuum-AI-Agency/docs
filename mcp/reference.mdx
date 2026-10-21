@@ -1,0 +1,172 @@
+---
+title: "Server reference"
+description: "The protocol details of the Continuum MCP server: endpoints, transport, sign-in, sessions, brand scope, confirmations, result codes, limits, and jobs."
+---
+
+This page is for developers, admins, and anyone building an agent on Continuum. You don't need any of it to use Continuum from Claude or ChatGPT; [Connect your assistant](/mcp/connect) is enough. For the tools themselves, see the [tool reference](/mcp/tools).
+
+## Endpoints
+
+| Endpoint | Use it for |
+| --- | --- |
+| `https://api.trycontinuum.ai/mcp` | Claude, Claude Code, Cursor, VS Code, Codex, and every other MCP client. |
+| `https://api.trycontinuum.ai/mcp/chatgpt` | ChatGPT. Same tools and sign-in. Long results come back as a one-line summary, with the full data in `structuredContent`, and images aren't inlined. |
+
+The server identifies itself as `continuum-mcp`.
+
+## Transport
+
+Continuum speaks **Streamable HTTP**.
+
+| Request | What it does |
+| --- | --- |
+| `POST` | Sends JSON-RPC messages. Responses are plain JSON. |
+| `GET` | Opens a server-sent events stream for notifications, such as progress and tool-list changes. A comment is sent every 15 seconds to keep it open, and a dropped stream can resume with `Last-Event-Id`. |
+| `DELETE` | Ends the session. |
+
+## Sessions
+
+- The server returns an `Mcp-Session-Id` on `initialize`. Send it on every later request.
+- A request without a session ID that isn't an `initialize` gets `400`.
+- A session with no activity and no open stream for 60 minutes is closed. If a request returns `404` with "Session expired or unknown", send `initialize` again.
+- The server's `instructions` on `initialize` include a short guide for the assistant and the starting brand's published [pipelines](/canvas/pipelines).
+- The tool list changes with your access, and the server sends `notifications/tools/list_changed` when it does.
+
+## Authentication
+
+Sign-in is **OAuth 2.1**. There are no API keys.
+
+| Detail | Value |
+| --- | --- |
+| Flow | Authorization code with PKCE (`S256`). Clients are public; there's no client secret. |
+| Client registration | Dynamic client registration, so clients register themselves. |
+| Discovery | A `401` carries `WWW-Authenticate: Bearer realm="continuum-mcp", resource_metadata="…"`. Metadata is at `/.well-known/oauth-protected-resource/mcp` (or `…/mcp/chatgpt`) and `/.well-known/oauth-authorization-server`. |
+| Token | Sent as `Authorization: Bearer <token>`. Clients refresh it on their own. |
+| Consent | The person signs in to Continuum, picks a brand, and chooses **Allow access** or **Deny**. |
+
+What a token can do comes from the person's brands and [roles](/settings/roles), not from OAuth scopes. Each person sees and revokes their connections under **Settings → Connections**.
+
+## Brand scope
+
+Every call works on one brand.
+
+- A session starts on the brand the person last chose in their assistant, otherwise their active brand in the app, otherwise the first brand they can reach.
+- `brands_select` switches the brand for the rest of the session. `brands_list` shows the choices.
+- To act on another brand for one call, set `_meta.brand_id`. Access is still checked.
+- Every result includes `_brandContext`, with the brand and a link to its Planner.
+
+## Roles
+
+| Role | Can call |
+| --- | --- |
+| **Viewer** | Every read: analytics, the brand book, the Library, the calendar, Forge, trends, and competitors. |
+| **Operator** | Reads, plus writes: drafts, publishing, the canvas, pipelines, video edits, Meta ads, and Paid optimization approvals. |
+| **Admin**, **Owner** | Everything an Operator can, plus final Forge renders. |
+
+A tool whose reads need a connection, such as Meta, appears only when a brand you can reach has that connection.
+
+## Confirmations
+
+Anything that publishes, changes Meta ads or budgets, swaps a live creative, renders final Forge versions, or deletes takes two calls:
+
+<Steps>
+<Step title="Preview">
+The first call returns a preview and a `confirm_token` (`tok_…`). Nothing has happened yet.
+</Step>
+<Step title="Confirm">
+After the person says yes, repeat the call with the **same arguments** and the `confirm_token`.
+</Step>
+</Steps>
+
+| Detail | Behavior |
+| --- | --- |
+| Lifetime | 5 minutes by default. A post approved for publishing has 15 minutes. |
+| Single use | Each token works once. |
+| Bound | Tied to the person, the brand, and the exact arguments. Changed arguments return `VALIDATION_ERROR`. |
+| Missing or expired | Returns `CONFIRMATION_REQUIRED`. Preview again. |
+| Brand approval | If the brand requires an Admin or Owner to approve first, the call returns `APPROVAL_REQUIRED`. |
+
+Clients that support elicitation may also show a confirmation dialog for ad changes. See [You stay in control](/mcp/control) for the full list of what waits and what happens right away.
+
+## Results that ask for something
+
+These come back as normal results, not errors. Each tells the assistant what to do next.
+
+| Status | Meaning | Next step |
+| --- | --- | --- |
+| `needs_brand` | No brand is active. | `brands_select` |
+| `needs_integration` | The brand needs a connection, named in `platform`. | `integrations_connect` returns a single-use link that works for 10 minutes. |
+| `needs_reauth` | A connection has lapsed. Reads still work; writes don't. | Reconnect with the link in `fix`. |
+| `needs_role` | The person's role is below `required_role`. | Ask an Admin or Owner. |
+| `needs_account` | Several accounts match. | Pick one from `accounts_list`. |
+| `needs_workspace`, `needs_open_canvas` | The canvas has to be open in Continuum. | Open `open_url`, then retry. |
+| `needs_correction` | A question went to the wrong agent. | Ask the `suggested_target`. |
+
+## Errors
+
+Errors set `isError: true`. `structuredContent` holds `{ ok: false, code, message, details }`.
+
+| Code | Meaning |
+| --- | --- |
+| `UNAUTHENTICATED` | The token is missing or invalid. |
+| `SESSION_NOT_INITIALIZED` | Send `initialize` first. |
+| `BRAND_NOT_SELECTED` | No brand is active. |
+| `PERMISSION_DENIED`, `BRAND_FORBIDDEN`, `ACCOUNT_FORBIDDEN` | The person can't reach that brand, account, or action. |
+| `VALIDATION_ERROR` | The inputs are wrong, or they changed since a preview. |
+| `CONFIRMATION_REQUIRED`, `APPROVAL_REQUIRED` | See [Confirmations](#confirmations). |
+| `INTEGRATION_REQUIRED`, `INTEGRATION_DISCONNECTED` | Connect or reconnect the platform. |
+| `RATE_LIMITED` | Wait `details.retry_after_seconds`. See [Limits](#limits). |
+| `NOT_FOUND` | The item doesn't exist, or the brand can't see it. |
+| `CONFLICT`, `IDEMPOTENCY_CONFLICT` | The item changed, or a repeated request didn't match the first. |
+| `MEDIA_INVALID` | The file can't be used. |
+| `VOICE_VIOLATION` | The copy breaks the brand voice. |
+| `META_API_ERROR`, `UPSTREAM_ERROR` | Meta or another service returned an error. |
+| `JOB_PENDING` | The job is still running. |
+| `INTERNAL` | Something went wrong on our side. Contact support if it repeats. |
+
+## Limits
+
+Limits protect your budget and your connected accounts. `RATE_LIMITED` includes `retry_after_seconds`, and per-tool limits also include `tool`, `budget`, and `window_seconds`.
+
+| Limit | Current value | Per |
+| --- | --- | --- |
+| Calls, all tools | 600 a minute | Person and brand |
+| Canvas runs (`studio_workflow`) | 10 an hour | Brand |
+| Trend discovery | 10 an hour | Brand |
+| Connection links | 10 an hour | Person |
+| Meta ad changes (`paid_manage`) | 60 an hour | Brand |
+| Publishing / approvals / deletions (`content_create`) | 30 / 60 / 30 an hour | Brand |
+| Calendar changes / week plans (`planner_manage`) | 120 / 20 an hour | Brand |
+| Pipeline runs | 10 per call | Call |
+
+## Jobs
+
+Reports, agent answers, and generations run as jobs and return a `job_id`.
+
+- `jobs_status` returns `pending`, `running`, `completed`, `failed`, or `cancelled`. Pass `wait_seconds` (up to 25) to wait on the server instead of polling quickly.
+- Pass `_meta.progressToken` on the call to receive `notifications/progress`.
+- Job results are kept for 7 days.
+- Pipeline runs report through `pipeline_run_status`: `queued`, `running`, `completed`, `refused`, `failed`, or `indeterminate`.
+
+## Prompts
+
+| Prompt | Arguments, all optional |
+| --- | --- |
+| `analytics-weekly-review` | `date_window` |
+| `analytics-top-and-bottom-posts` | `platform`, `metric`, `date_window` |
+| `analytics-top-and-bottom-ads` | `platform`, `kpi`, `date_window` |
+
+## Activity log
+
+Every tool call is logged with the tool, action, status (`ok`, `error`, `denied`, or `rate_limited`), duration, brand, and client. Arguments are stored only as a fingerprint, never in full. Each person sees their own calls under **Settings → Activity**, filtered by status, client, or tool. Entries are kept for about 90 days.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Tool reference" icon="toolbox" href="/mcp/tools">
+  All 44 tools, grouped by area.
+</Card>
+<Card title="Agent brief" icon="robot" href="/mcp/agent-brief">
+  How an assistant should use these tools well.
+</Card>
+</CardGroup>
