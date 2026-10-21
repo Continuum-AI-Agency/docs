@@ -34,6 +34,8 @@
   --cn-cta-bg: #0a0a0c;
   --cn-cta-ink: #f3efe6;
   --cn-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Mintlify's text column (default 40.5rem). Wider fills the gap between the sidebar and "On this page". */
+  --content-width: 52rem;
 }
 html.dark {
   --cn-ink: #f7f8fc;
