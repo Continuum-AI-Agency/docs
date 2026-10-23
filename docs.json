@@ -314,6 +314,14 @@
   "seo": {
     "indexing": "navigable"
   },
+  "markdown": {
+    "instructions": [
+      "These docs describe what Continuum ships today. Do not invent features, prices, or a pilot program.",
+      "Name the product lines Creative+, Organic+, and Performance+. The canvas is the AI Canvas. The ads analyst is Jaina. Paid optimization is the Optimizer. The brand book grounds generations. The brand readiness score blocks nothing.",
+      "Customer-facing copy says connector. Use MCP for the protocol. Publishing, ad or budget changes, live creative swaps, final Forge renders, and deletions wait for a yes. Canvas runs, pipeline runs, and video edits happen right away. New campaigns are created paused.",
+      "Read a page as markdown by adding .md to its path. Start from /mcp/agent-brief, /mcp/tools, /mcp/control, or /quickstart instead of guessing."
+    ]
+  },
   "feedback": {
     "thumbsRating": true,
     "suggestEdit": true

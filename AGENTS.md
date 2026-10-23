@@ -101,6 +101,13 @@ In use across the site: `<Steps>`/`<Step>`, `<Card>`/`<CardGroup>`, `<Columns>`,
 `<Accordion>`/`<AccordionGroup>`, `<Tabs>`/`<Tab>`, and `<CodeGroup>` are available when they aid
 scannability. For per-client setup, prefer one `###` section per client over tabs.
 
+## Agent context
+
+`docs.json` lists `copy` first in `contextual.options`, so **Copy page** is the default page action.
+`agent-copy.js` puts three lines at the top of that paste: the page URL, that page's `.md` URL, and
+`/llms.txt`. On the hosted site the rest is Mintlify's markdown export. `mint dev` does not serve
+`.md`, so the local paste uses the article on the page instead.
+
 ## Images and diagrams
 
 - **Diagrams** come from `snippets/diagrams.jsx` (styles: the `.cn-*` rules in `style.css`). Text stays real text, and
@@ -110,8 +117,12 @@ scannability. For per-client setup, prefer one `###` section per client over tab
   - Use a diagram only when order or branching is the point. Keep the table or Steps that carry the detail.
 - **Section heroes**: only the four section overviews (`mcp/overview`, `canvas/overview`, `organic/overview`,
   `performance/overview`) carry a world plate from trycontinuum.ai:
-  `<img className="cn-hero" src="/images/world/<name>-banner.webp" alt="" width="1376" height="430" noZoom />`.
-  The `-card.webp` crops are for `<Card img="...">` on the product-line cards. Don't add plates elsewhere.
+  `<img className="cn-hero" src="/images/world/<name>-banner.webp" alt="" width="1376" height="430" loading="eager" decoding="async" fetchpriority="high" sizes="(min-width: 52rem) 52rem, 100vw" noZoom />`.
+  Heroes stay eager so the first paint isn't waiting on them.
+- **Product-line plates** use `<WorldCard img="/images/world/<name>-card.webp" href="/path">` from `snippets/world-card.jsx`,
+  with the Mintlify `<Card>` (no `href` of its own) as its child. The plate is `loading="lazy"` and `fetchpriority="low"`. Don't add plates elsewhere.
+- `dither.js` reveals a plate that hasn't painted yet with the same glyph dither as the app (`ascii-reveal` preset `dither`).
+  An image already on screen stays put. Reduced motion skips the effect.
 - Images live in `images/` as WebP under 200 KB. Decorative images get `alt=""`; anything that carries
   information gets real alt text. Product screenshots must use a demo brand, never a customer's.
 - Never embed external image URLs, and never use Mintlify starter imagery.

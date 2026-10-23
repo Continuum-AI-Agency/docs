@@ -4,6 +4,8 @@ sidebarTitle: "Introduction"
 description: "Continuum is the creative factory for performance marketers, designers, and agencies. Use it from Claude or ChatGPT, or in the app, to plan, make, publish, and optimize on-brand content across organic and paid."
 ---
 
+import { WorldCard } from "/snippets/world-card.jsx";
+
 Continuum connects to your social and ad accounts, builds a brand book from your website, and puts both to work. It analyzes what's performing, recommends the next move, generates on-brand creative, publishes it, and writes results back into the plan. Data in, better creative out.
 
 You can use all of it from the AI assistant you already have open, or in the Continuum app.
@@ -28,15 +30,21 @@ You can use all of it from the AI assistant you already have open, or in the Con
 ## Three product lines
 
 <CardGroup cols={3}>
-<Card title="Creative+" icon="pen-ruler" href="/canvas/overview" img="/images/world/pine-canyon-card.webp">
-  The AI Canvas, pipelines, elements, Video Studio, Forge, and your Library.
-</Card>
-<Card title="Organic+" icon="seedling" href="/organic/overview" img="/images/world/reef-coast-card.webp">
-  Plan from the trends, draft with the Organic agent, and publish from the calendar.
-</Card>
-<Card title="Performance+" icon="arrow-trend-up" href="/performance/overview" img="/images/world/survey-range-card.webp">
-  The Optimizer proposes. Jaina explains. You approve.
-</Card>
+<WorldCard img="/images/world/pine-canyon-card.webp" href="/canvas/overview">
+  <Card title="Creative+" icon="pen-ruler">
+    The AI Canvas, pipelines, elements, Video Studio, Forge, and your Library.
+  </Card>
+</WorldCard>
+<WorldCard img="/images/world/reef-coast-card.webp" href="/organic/overview">
+  <Card title="Organic+" icon="seedling">
+    Plan from the trends, draft with the Organic agent, and publish from the calendar.
+  </Card>
+</WorldCard>
+<WorldCard img="/images/world/survey-range-card.webp" href="/performance/overview">
+  <Card title="Performance+" icon="arrow-trend-up">
+    The Optimizer proposes. Jaina explains. You approve.
+  </Card>
+</WorldCard>
 </CardGroup>
 
 ## Which surface when

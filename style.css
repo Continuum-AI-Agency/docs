@@ -467,7 +467,78 @@ html:not(.dark) .cn-node {
 }
 
 /* Card images (the -card.webp crops) reserve their space before they load. */
-#content-area .card img[data-component-part="card-image"] {
+#content-area .card img[data-component-part="card-image"],
+#content-area img.cn-world-img {
   aspect-ratio: 640 / 357;
   height: auto;
+  margin: 0;
+}
+
+/* Product-line plate. The image is a sibling of the Mintlify card so it can be
+   lazy in the first HTML response. The card's own chrome stays untouched below it. */
+a.cn-world {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  margin: 0.5rem 0;
+  border-radius: 16px;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+a.cn-world:focus-visible {
+  outline: 2px solid #8696f5;
+  outline-offset: 2px;
+}
+a.cn-world:hover > .card {
+  border-color: #4c4ee4;
+}
+html.dark a.cn-world:hover > .card {
+  border-color: #8696f5;
+}
+.cn-world-img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  box-sizing: border-box;
+  border: 1px solid rgb(0 0 0 / 0.1);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+}
+html.dark .cn-world-img {
+  border-color: rgb(255 255 255 / 0.1);
+}
+.cn-world > .card {
+  margin: 0;
+  width: 100%;
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+.cn-world:has(> img.cn-hold) {
+  background-color: var(--cn-surface);
+  background-image: repeating-conic-gradient(rgb(128 132 145 / 0.28) 0% 25%, transparent 0% 50%);
+  background-size: 4px 4px;
+}
+
+/* Held until dither.js decodes the plate in. Inline opacity wins during the reveal. */
+#content-area img.cn-hold {
+  opacity: 0;
+}
+.cn-dither-host {
+  position: relative;
+}
+canvas.cn-dither {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  #content-area img.cn-hold {
+    opacity: 1;
+  }
 }

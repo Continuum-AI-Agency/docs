@@ -4,6 +4,7 @@ description: "The mental model behind Continuum: brands, the brand book, three p
 ---
 
 import { CreativeLoop } from "/snippets/diagrams.jsx";
+import { WorldCard } from "/snippets/world-card.jsx";
 
 Continuum brings planning, creative production, publishing, and optimization into one place, all scoped to a brand. A few concepts explain how it fits together.
 
@@ -18,15 +19,21 @@ Your **brand book** is a living, AI-generated identity — colors, typography, v
 ## Three product lines
 
 <CardGroup cols={3}>
-<Card title="Creative+" icon="pen-ruler" href="/canvas/overview" img="/images/world/pine-canyon-card.webp">
-  Make creative on the **AI Canvas**, with pipelines, elements, Video Studio, Forge, and the Library.
-</Card>
-<Card title="Organic+" icon="seedling" href="/organic/overview" img="/images/world/reef-coast-card.webp">
-  Plan, draft, publish, and analyze organic social with the **Organic agent** and the **Calendar**.
-</Card>
-<Card title="Performance+" icon="arrow-trend-up" href="/performance/overview" img="/images/world/survey-range-card.webp">
-  Run and optimize paid media with **Jaina** and **Paid optimization**.
-</Card>
+<WorldCard img="/images/world/pine-canyon-card.webp" href="/canvas/overview">
+  <Card title="Creative+" icon="pen-ruler">
+    Make creative on the **AI Canvas**, with pipelines, elements, Video Studio, Forge, and the Library.
+  </Card>
+</WorldCard>
+<WorldCard img="/images/world/reef-coast-card.webp" href="/organic/overview">
+  <Card title="Organic+" icon="seedling">
+    Plan, draft, publish, and analyze organic social with the **Organic agent** and the **Calendar**.
+  </Card>
+</WorldCard>
+<WorldCard img="/images/world/survey-range-card.webp" href="/performance/overview">
+  <Card title="Performance+" icon="arrow-trend-up">
+    Run and optimize paid media with **Jaina** and **Paid optimization**.
+  </Card>
+</WorldCard>
 </CardGroup>
 
 ## Two agents do the analysis
