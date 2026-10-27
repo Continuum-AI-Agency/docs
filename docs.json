@@ -211,6 +211,7 @@
               "settings/roles",
               "settings/connections",
               "settings/billing",
+              "providers-and-rates",
               "security"
             ]
           }
