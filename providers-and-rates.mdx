@@ -1,0 +1,81 @@
+---
+title: "Providers and rates"
+description: "Who makes each image, video, voice, and music model in Continuum, what each generation costs in Canvas credits, and the limits you can hit."
+---
+
+Image, video, voiceover, and music generation is paid for with the brand's **Canvas credits**. The rates are the same wherever you generate: the AI Canvas, Pipelines, Video Studio, your assistant, Organic+ drafts, and Jaina's ad creatives.
+
+## How credits are counted
+
+- **Images** are charged per image.
+- **Video** is charged per second of footage.
+- **Voiceovers** are charged by the length of the speech, and **music** per track.
+- A generation that fails or is refused costs nothing.
+- Each run's total is rounded up to a whole credit. A run of several images can cost a credit less than the table adds up to.
+- Each generation spends rollover credits first, then this month's included credits, then purchased packs.
+
+## Image models
+
+| Model | Made by | Credits per image |
+| --- | --- | --- |
+| **Nano Banana 2 Lite** (default) | Google | 4 |
+| **Nano Banana** | Google | 5 |
+| **Nano Banana 2** | Google | 6 at 512px, 8 at 1K, 12 at 2K, 18 at 4K |
+| **Nano Banana Pro** | Google | 16 at 1K or 2K, 28 at 4K |
+| **GPT Image 2.5 Sunburst** | OpenAI | 7 |
+| **GPT Image 2.5 Flare** | OpenAI | 7 |
+| **FLUX.2 Pro** (Beta) | Black Forest Labs | 6 |
+| **FLUX.2 Max** (Beta) | Black Forest Labs | 12 |
+
+## Video models
+
+| Model | Made by | Credits |
+| --- | --- | --- |
+| **Omni 1.1 Flash** (default) | Google | 11.5 per second, rounded up per clip |
+
+An 8-second clip costs 92 credits, and a 10-second clip costs 115. You pay for the seconds the model actually renders. **Omni 1.1 Flash (Edit)** and **Extend Video** run on Omni 1.1 Flash at the same rate.
+
+<Info>Google retired Veo 3.1. If you pick **Veo 3.1**, **Veo 3.1 Fast**, or **Veo 3.1 Lite**, the clip is made with Omni 1.1 Flash and costs the same as Omni.</Info>
+
+**Returning soon:** Kling Omni (Kuaishou), Pixverse V6 (PixVerse), and Seedance 2.0 (ByteDance).
+
+## Voiceovers and music
+
+| Model | Made by | Used for | Credits |
+| --- | --- | --- | --- |
+| **Gemini 3.8 Flash TTS** | Google | Voiceovers | About 1 per 19 seconds of speech, rounded up per voiceover |
+| **Lyria 3.5** | Google | Music beds and songs | 10 per track |
+
+A 30-second voiceover costs 2 credits, and a 60-second one costs 4. Voiceovers and music made for your videos in Video Studio, Organic+ reels, and Jaina's ad creatives use these rates. When an edit needs a track with a steady beat to cut to, more than one track can be made, and each one is charged.
+
+## What doesn't use credits
+
+- Forge renders.
+- Conversations with the Organic agent and Jaina.
+- Jaina's reports and recommendations.
+
+<Tip>**Run Flow** skips nodes that haven't changed since their last run, so you aren't charged for them again. **Rerun all** regenerates every node.</Tip>
+
+## Limits
+
+| Limit | Value |
+| --- | --- |
+| Images per Image Generation run | Up to 4 |
+| Canvas runs from your assistant | 10 an hour per brand |
+| Generation nodes in one assistant run | Up to 6 |
+| Pipeline versions per request | Up to 10 |
+
+The [server reference](/mcp/reference#limits) lists every limit that applies when you work from your assistant. If a brand runs out of credits, see [Billing](/settings/billing).
+
+Rates can change when a provider changes its pricing. This page shows the current rates. For plans and credit packs, see [pricing](https://trycontinuum.ai/#pricing).
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Billing" icon="credit-card" href="/settings/billing">
+  Check your balance, buy credit packs, and turn on auto-billing.
+</Card>
+<Card title="Models" icon="microchip" href="/canvas/models">
+  Sizes, aspect ratios, and options for each model.
+</Card>
+</CardGroup>
