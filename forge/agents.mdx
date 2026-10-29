@@ -1,0 +1,62 @@
+---
+title: "Use Forge from an agent"
+sidebarTitle: "Agent quickstart"
+description: "Discover a template, map its fields, review a render and retrieve its outputs through the current Forge MCP contract."
+---
+
+Use Forge to fill an existing design with different messages, products or offers. Start here; load the [function reference](/forge/functions) or a single action schema only when needed. Use the [operation index](/forge/agent-manifest.txt) for machine routing rather than loading the whole documentation site.
+
+## Discover before calling
+
+Connect through [MCP](/mcp/connect), call `brands_list`, select the intended brand with `brands_select`, and check `_brandContext` on results. Then discover the selected action:
+
+```json
+{"name":"help_describe","arguments":{"tool":"forge_manage","action":"render_preview"}}
+```
+
+These examples show MCP `tools/call` parameters. Replace illustrative IDs, tokens and keys with returned values. `help_describe` describes the server; it does not upgrade a client's cached tool schema. If your client cannot express an action, refresh discovery or use a compatible client. Never invent an alternative call.
+
+## Fill and render a template
+
+<Steps>
+<Step title="Inspect">
+Call `forge_query` with `action="templates"`. Select its `key` and `bindingId`; call `action="template"` with `templateKey` and that binding. Read variable keys, kinds, required fields, options, text budgets, outputs and `contractHash`. An empty template list is not a rendering failure.
+</Step>
+<Step title="Map and save">
+Map your event or brief into the returned variable keys. Media uses Library asset/version references, not guessed URLs. Call `forge_manage` with `action="set_create"`, `templateKey`, optional `bindingId`, a `name`, and `rows` containing `label`, `parentId` and `overrides`. A child row inherits its parent's values. Keep the returned set `id` and numeric `revision`.
+
+For edits, read `forge_query action="set"` first. Use `rows_patch` with `expectedRevision` for selected changes; `set_update.rows` replaces every row. On a conflict, re-read and reconcile.
+</Step>
+<Step title="Review">
+Inspect the set's `resolved` rows and `settings`, then call `render_preview`. It validates readiness and returns destinations and `confirmationToken`; it does not render pixels. Omitted settings inherit, so check the saved Meta targets, Slack room and `final` setting. `slackDestinationId=null` disables posting. `final=true` needs Admin or Owner.
+</Step>
+<Step title="Confirm">
+Show rows and destinations; explain rendering can spend. Show a known estimate or say it is unavailable. Wait for the person's yes, then call `render_confirm` with the returned `confirmationToken`. Keep `batchId` and job IDs. A refusal stays blocking unless `details.overrides` names a flag and the person accepts that specific problem.
+</Step>
+<Step title="Retrieve">
+Use `forge_query action="batch"` with `batchId` and `waitSeconds=50` in a background task until `done=true`. Inspect each job's status and `outputs`; settled includes failed jobs. `action="job"` refreshes one render-set job. Preserve IDs and error reasons. After an uncertain confirmation response, inspect jobs before submitting again.
+</Step>
+</Steps>
+
+## Bring in or change a source
+
+Use source preparation only where enabled for your brand and exposed by your client. Before uploading or saving an eligible source, obtain permission for automatic preparation and smoke-render spend: these can start without `template_forge`. `forge_manage source_begin` returns the upload `open_url`; read `source_status` with `upload_intent_id`, then `forge_query sources` for parse state and source `assetId`. Check [source families](/forge/design-systems).
+
+For a supported revision, read `template_tree`, `template_revision` and `template_layers`. Preview with `template_preview`; save with `template_save` using `parentRevisionId` and either a new `name` or the existing `variantId`. Keep the returned revision's `id` and `sourceAssetId`. The Original is preserved.
+
+For eligible sources, inspect `template_run` using that exact `sourceAssetId`. Publishing can smoke-render and spend automatically: obtain permission first. Admin/Owner may use `template_forge` only when appropriate; re-read on conflicts and intervene only where the run parks. After publication, rediscover `templateKey` and `bindingId` through `sources`/`templates`. Pin the **published** revision UUID with `templateRevisionId` in `set_create` or `set_retarget`. Native HTML, components and Blender never enter `template_forge`.
+
+## Render a scene
+
+Read `forge_query scenes`. Pass its `assetId`, `versionId` and output IDs to `scene_fill`. Review returned values, outputs and potential spend; a price estimate may be unavailable. Recheck the scene before confirming; if it changed, fill/review again. `scene_render` reloads the current scene, so this is not an immutable-version guarantee. After the person's yes, pass its `confirmationToken`. Keep `jobs[].jobId`; use scene history in Forge and the Library for results, not render-set batches.
+
+## Start from an external event
+
+Your application turns an authorized event into the mapping above and retains brand, template/revision, set and job identifiers. Keep confirmation in that flow. No Forge webhook subscription or cancellation action is established here. Refresh short-lived output links when needed; a download URL is not a permanent resource identity.
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Function reference" icon="toolbox" href="/forge/functions">Inputs, effects, permissions and retry behavior.</Card>
+<Card title="Design systems" icon="layer-group" href="/forge/design-systems">Check each source's actual execution path.</Card>
+</CardGroup>

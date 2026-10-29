@@ -1,0 +1,197 @@
+[
+  {
+    "title": "An existing template",
+    "identities": "The discovered binding is 666…; set_create returns set id 555…; render_confirm returns batchId 777…. Replace each with its actual returned value. The illustrative headline key must also be replaced by an exposed variable key.",
+    "calls": [
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "template",
+          "templateKey": "discovered-template-key",
+          "bindingId": "66666666-6666-4666-8666-666666666666"
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "set_create",
+          "templateKey": "discovered-template-key",
+          "name": "Example set",
+          "rows": [
+            {
+              "id": "22222222-2222-4222-8222-222222222222",
+              "parentId": null,
+              "label": "Example",
+              "overrides": {
+                "headline": "Your message"
+              }
+            }
+          ],
+          "bindingId": "66666666-6666-4666-8666-666666666666"
+        }
+      },
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "set",
+          "setId": "55555555-5555-4555-8555-555555555555"
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "render_preview",
+          "setId": "55555555-5555-4555-8555-555555555555",
+          "slackDestinationId": null,
+          "final": false
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "render_confirm",
+          "confirmationToken": "token-returned-by-render-preview"
+        }
+      },
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "batch",
+          "batchId": "77777777-7777-4777-8777-777777777777",
+          "waitSeconds": 50
+        }
+      }
+    ]
+  },
+  {
+    "title": "A supported source revision",
+    "identities": "Upload intent: 888…. Uploaded source asset: 111…. Observed parent revision: 222…. template_save returns revision.sourceAssetId=333… and revision.id=444…. Use 333… for template_run/template_forge, and the published 444… for templateRevisionId. After publication, rediscover templateKey and bindingId (666…). The template_forge start example is CONDITIONAL: skip it if a run already exists. Wait for publication before set_create.",
+    "calls": [
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "source_begin"
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "source_status",
+          "upload_intent_id": "88888888-8888-4888-8888-888888888888"
+        }
+      },
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "sources"
+        }
+      },
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "template_tree",
+          "assetId": "11111111-1111-4111-8111-111111111111"
+        }
+      },
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "template_revision",
+          "revisionId": "22222222-2222-4222-8222-222222222222"
+        }
+      },
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "template_layers",
+          "revisionId": "22222222-2222-4222-8222-222222222222"
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "template_preview",
+          "assetId": "11111111-1111-4111-8111-111111111111",
+          "parentRevisionId": "22222222-2222-4222-8222-222222222222",
+          "edits": {}
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "template_save",
+          "assetId": "11111111-1111-4111-8111-111111111111",
+          "parentRevisionId": "22222222-2222-4222-8222-222222222222",
+          "edits": {},
+          "name": "Example variant"
+        }
+      },
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "template_run",
+          "assetId": "33333333-3333-4333-8333-333333333333"
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "template_forge",
+          "assetId": "33333333-3333-4333-8333-333333333333",
+          "step": "start",
+          "templateName": "example-template"
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "set_create",
+          "templateKey": "discovered-template-key",
+          "name": "Example set",
+          "rows": [
+            {
+              "id": "22222222-2222-4222-8222-222222222222",
+              "parentId": null,
+              "label": "Example",
+              "overrides": {
+                "headline": "Your message"
+              }
+            }
+          ],
+          "bindingId": "66666666-6666-4666-8666-666666666666",
+          "templateRevisionId": "44444444-4444-4444-8444-444444444444"
+        }
+      }
+    ]
+  },
+  {
+    "title": "An accessible scene",
+    "identities": "scenes supplies assetId 111… and versionId 222…. scene_fill returns the reviewed token; scene_render returns separate jobs[].jobId values. Recheck the scene before confirmation; the current service does not enforce the token’s source version at render time.",
+    "calls": [
+      {
+        "name": "forge_query",
+        "arguments": {
+          "action": "scenes"
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "scene_fill",
+          "assetId": "11111111-1111-4111-8111-111111111111",
+          "versionId": "22222222-2222-4222-8222-222222222222",
+          "brief": {
+            "headline": "Your message"
+          }
+        }
+      },
+      {
+        "name": "forge_manage",
+        "arguments": {
+          "action": "scene_render",
+          "confirmationToken": "token-returned-by-scene-fill"
+        }
+      }
+    ]
+  }
+]

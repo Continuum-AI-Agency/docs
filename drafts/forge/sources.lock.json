@@ -1,0 +1,88 @@
+{
+  "verifiedAt": "2026-10-29",
+  "sources": {
+    "backend": {
+      "repository": "Continuum-AI-Agency/continuum-backend",
+      "revision": "002d2d68ec39103043b2a2c61484429cac5c0830"
+    },
+    "monorepo": {
+      "repository": "Continuum-AI-Agency/Continuum-Monorepo",
+      "revision": "e5662d7a06c6226b743c88e976c97ba1e2e57d31"
+    }
+  },
+  "sourceSha256": "38c5aa4be91c54dcdb7054577b4ab70a5346b65485c719bbddd6d7b8a161def3",
+  "runtimeHelp": {
+    "checkedAt": "2026-10-29",
+    "connector": "Continuum Test",
+    "queryActions": [
+      "templates",
+      "template",
+      "sets",
+      "set",
+      "set_revisions",
+      "destinations",
+      "jobs",
+      "job",
+      "batch",
+      "scenes",
+      "set_diff",
+      "template_tree",
+      "template_layers",
+      "template_revision",
+      "template_diff",
+      "template_run",
+      "sources"
+    ],
+    "manageActions": [
+      "set_create",
+      "set_update",
+      "set_fork",
+      "set_delete",
+      "suggest_rows",
+      "apply_suggestions",
+      "source_begin",
+      "source_status",
+      "render_preview",
+      "render_confirm",
+      "scene_fill",
+      "scene_render",
+      "rows_patch",
+      "set_retarget",
+      "template_preview",
+      "template_save",
+      "template_forge",
+      "template_set_default"
+    ],
+    "note": "Read-only help_describe observation; mutation callability and deployment qualification were not tested."
+  },
+  "connector": {
+    "checkedAt": "2026-10-29",
+    "connector": "Continuum Test",
+    "queryActions": [
+      "templates",
+      "template",
+      "sets",
+      "set",
+      "set_revisions",
+      "destinations",
+      "jobs",
+      "job",
+      "scenes"
+    ],
+    "manageActions": [
+      "set_create",
+      "set_update",
+      "set_fork",
+      "set_delete",
+      "suggest_rows",
+      "apply_suggestions",
+      "source_begin",
+      "source_status",
+      "render_preview",
+      "render_confirm",
+      "scene_fill",
+      "scene_render"
+    ],
+    "note": "Tool signatures supplied by the connected client; narrower than live help. Not the server's complete tools/list."
+  }
+}

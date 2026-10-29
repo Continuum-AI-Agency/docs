@@ -88,6 +88,12 @@ The connector offers **44 tools**. Your assistant sees the ones your [role](/set
 | `forge_query` | Lists Forge templates, sets, and render jobs. | No |
 | `forge_manage` | Writes versions into a template, previews them, and produces final renders. | Yes |
 
+For exact Forge action requirements, returned IDs and retry behavior, start with the
+[Forge agent quickstart](/forge/agents), then the [function reference](/forge/functions).
+Check [design-system support](/forge/design-systems) before treating an accepted upload as
+an editable or renderable template. A compact [operation index](/forge/agent-manifest.txt)
+is available for agents; fetch full inputs with `help_describe {tool, action}`.
+
 ## Ready-made prompts
 
 The connector also offers three prompts your assistant may list in its menu:

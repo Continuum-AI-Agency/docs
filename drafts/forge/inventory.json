@@ -1,0 +1,1659 @@
+{
+  "verifiedAt": "2026-10-29",
+  "sources": {
+    "backend": {
+      "repository": "Continuum-AI-Agency/continuum-backend",
+      "revision": "002d2d68ec39103043b2a2c61484429cac5c0830"
+    },
+    "monorepo": {
+      "repository": "Continuum-AI-Agency/Continuum-Monorepo",
+      "revision": "e5662d7a06c6226b743c88e976c97ba1e2e57d31"
+    }
+  },
+  "availability": {
+    "sourcePresence": "verified at pinned commits",
+    "runtimeHelp": {
+      "checkedAt": "2026-10-29",
+      "connector": "Continuum Test",
+      "queryActions": [
+        "templates",
+        "template",
+        "sets",
+        "set",
+        "set_revisions",
+        "destinations",
+        "jobs",
+        "job",
+        "batch",
+        "scenes",
+        "set_diff",
+        "template_tree",
+        "template_layers",
+        "template_revision",
+        "template_diff",
+        "template_run",
+        "sources"
+      ],
+      "manageActions": [
+        "set_create",
+        "set_update",
+        "set_fork",
+        "set_delete",
+        "suggest_rows",
+        "apply_suggestions",
+        "source_begin",
+        "source_status",
+        "render_preview",
+        "render_confirm",
+        "scene_fill",
+        "scene_render",
+        "rows_patch",
+        "set_retarget",
+        "template_preview",
+        "template_save",
+        "template_forge",
+        "template_set_default"
+      ],
+      "note": "Read-only help_describe observation; mutation callability and deployment qualification were not tested."
+    },
+    "advertisedConnector": {
+      "checkedAt": "2026-10-29",
+      "connector": "Continuum Test",
+      "queryActions": [
+        "templates",
+        "template",
+        "sets",
+        "set",
+        "set_revisions",
+        "destinations",
+        "jobs",
+        "job",
+        "scenes"
+      ],
+      "manageActions": [
+        "set_create",
+        "set_update",
+        "set_fork",
+        "set_delete",
+        "suggest_rows",
+        "apply_suggestions",
+        "source_begin",
+        "source_status",
+        "render_preview",
+        "render_confirm",
+        "scene_fill",
+        "scene_render"
+      ],
+      "note": "Tool signatures supplied by the connected client; narrower than live help. Not the server's complete tools/list."
+    },
+    "callableMutations": "UNRUN",
+    "productionQualification": "UNRUN"
+  },
+  "operations": [
+    {
+      "id": "forge_query.templates",
+      "tool": "forge_query",
+      "action": "templates",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "List granted or built render templates.",
+      "required": [],
+      "returns": "items: key, bindingId, sourceAssetId; nextCursor",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.template",
+      "tool": "forge_query",
+      "action": "template",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Read exposed variables, required values, budgets, outputs and contractHash.",
+      "required": [
+        "templateKey"
+      ],
+      "returns": "Template contract; layout is omitted",
+      "conditions": "Use bindingId from discovery when the key matches multiple workspaces.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.sets",
+      "tool": "forge_query",
+      "action": "sets",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "List saved sets, optionally filtered by templateKey.",
+      "required": [],
+      "returns": "Saved render sets",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.set",
+      "tool": "forge_query",
+      "action": "set",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Read saved rows, inherited effective values and delivery settings.",
+      "required": [
+        "setId"
+      ],
+      "returns": "id, revision, rows, resolved, settings, template revision pin",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.set_revisions",
+      "tool": "forge_query",
+      "action": "set_revisions",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Read kept states of a set.",
+      "required": [
+        "setId"
+      ],
+      "returns": "Kept set revisions for set_fork or set_diff",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.destinations",
+      "tool": "forge_query",
+      "action": "destinations",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Rendering",
+      "summary": "Read delivery and approval destinations.",
+      "required": [],
+      "returns": "Slack/approval destinations, Meta account IDs, next",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.jobs",
+      "tool": "forge_query",
+      "action": "jobs",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Rendering",
+      "summary": "List render jobs, optionally filtered by templateKey, setId, batchId or status.",
+      "required": [],
+      "returns": "items containing job IDs and status",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.job",
+      "tool": "forge_query",
+      "action": "job",
+      "role": "Viewer or higher",
+      "effect": "Refreshes stored status; starts no new render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Rendering",
+      "summary": "Refresh a single render job and its output files.",
+      "required": [
+        "jobId"
+      ],
+      "returns": "Render job, status and available outputs",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.batch",
+      "tool": "forge_query",
+      "action": "batch",
+      "role": "Viewer or higher",
+      "effect": "Refreshes stored status; starts no new render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Bounded wait: waitSeconds 0–55; use 50 in a background task until done=true.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Rendering",
+      "summary": "Read a batch, waiting briefly for its jobs to settle.",
+      "required": [
+        "batchId"
+      ],
+      "returns": "batchId, done, counts, jobs[].outputs",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.scenes",
+      "tool": "forge_query",
+      "action": "scenes",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Scenes",
+      "summary": "List accessible 3D scenes and their fillable keys.",
+      "required": [],
+      "returns": "items: assetId, versionId, outputs, field keys",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.set_diff",
+      "tool": "forge_query",
+      "action": "set_diff",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Compare two rows or two kept states as rendered.",
+      "required": [
+        "setId"
+      ],
+      "returns": "Differences in effective values and render settings",
+      "conditions": "Supply rowIds=[a,b], or fromRevision with optional toRevision (default: current).",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.template_tree",
+      "tool": "forge_query",
+      "action": "template_tree",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Read branches, revision history, publications and the default variant.",
+      "required": [
+        "assetId"
+      ],
+      "returns": "templateId, defaultVariantId, variants[].revisions",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.template_layers",
+      "tool": "forge_query",
+      "action": "template_layers",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Read editable compositions and layers of a revision.",
+      "required": [
+        "revisionId"
+      ],
+      "returns": "Layer inventory and supported edits",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.template_revision",
+      "tool": "forge_query",
+      "action": "template_revision",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Read a revision and its source identity.",
+      "required": [
+        "revisionId"
+      ],
+      "returns": "Revision: id, variantId, sourceAssetId, sourceVersionId, edits",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.template_diff",
+      "tool": "forge_query",
+      "action": "template_diff",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "VALIDATION_ERROR: revisions must belong to one template"
+      ],
+      "group": "Template revisions",
+      "summary": "Compare edits of two revisions of one template.",
+      "required": [
+        "revisionId",
+        "toRevisionId"
+      ],
+      "returns": "from, to, edits",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.template_run",
+      "tool": "forge_query",
+      "action": "template_run",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Read the publishing run for this exact revision source.",
+      "required": [
+        "assetId"
+      ],
+      "returns": "run (may be null), state and needs when present",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_query.sources",
+      "tool": "forge_query",
+      "action": "sources",
+      "role": "Viewer or higher",
+      "effect": "Reads state; starts no render.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Sources",
+      "summary": "List the brand’s uploaded template sources and parse/build state.",
+      "required": [],
+      "returns": "items: assetId, family, parseState, forgeState; more",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.query.ts"
+      }
+    },
+    {
+      "id": "forge_manage.set_create",
+      "tool": "forge_manage",
+      "action": "set_create",
+      "role": "Operator or higher",
+      "effect": "Creates a saved set; queues no renders.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "No general replay guarantee; discover existing sets after an uncertain response.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Save rows for one template.",
+      "required": [
+        "templateKey",
+        "name",
+        "rows"
+      ],
+      "returns": "Saved set: id, revision, rows and template pin",
+      "conditions": "Use bindingId when ambiguous; templateRevisionId, when supplied, must identify a published revision.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.set_update",
+      "tool": "forge_manage",
+      "action": "set_update",
+      "role": "Operator or higher",
+      "effect": "Writes supplied fields; rows replaces the ENTIRE row list.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "On render_set_revision_conflict, re-read set and reconcile; never replace expectedRevision blindly.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Update a saved set with a revision check.",
+      "required": [
+        "setId",
+        "expectedRevision"
+      ],
+      "returns": "Saved set with its new revision",
+      "conditions": "settings merges named keys; null clears nullable settings. Prefer rows_patch for surgical row changes.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.set_fork",
+      "tool": "forge_manage",
+      "action": "set_fork",
+      "role": "Operator or higher",
+      "effect": "Creates a separate set; optional revision selects a kept state.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "No general replay guarantee; inspect sets after an uncertain response.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Copy the current set or one of its kept states.",
+      "required": [
+        "setId"
+      ],
+      "returns": "New set: id, revision and rows",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.set_delete",
+      "tool": "forge_manage",
+      "action": "set_delete",
+      "role": "Operator or higher",
+      "effect": "Deletes the set.",
+      "spend": "No generation started by this call.",
+      "confirmation": "Ask for an explicit yes before calling. This action directly deletes; it does not issue its own confirmationToken.",
+      "execution": "Returns inline.",
+      "retry": "Do not retry blindly; re-read the set after an uncertain response.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Delete a saved render set.",
+      "required": [
+        "setId"
+      ],
+      "returns": "deleted: set ID",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.suggest_rows",
+      "tool": "forge_manage",
+      "action": "suggest_rows",
+      "role": "Operator or higher",
+      "effect": "Uses AI; saves nothing.",
+      "spend": "AI drafting may consume model budget.",
+      "confirmation": "Use only when the person’s request authorizes AI drafting and its potential model spend; that request is sufficient consent. No server confirmation token is issued.",
+      "execution": "Returns inline.",
+      "retry": "Another call drafts again; retain selected draft IDs for apply_suggestions.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Draft values from a brief, documents or media.",
+      "required": [],
+      "returns": "Unsaved suggested rows with stable draft IDs and field evidence",
+      "conditions": "Provide setId or templateKey, and prompt or documentIds or mediaAssetIds. parentRowId requires setId.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.apply_suggestions",
+      "tool": "forge_manage",
+      "action": "apply_suggestions",
+      "role": "Operator or higher",
+      "effect": "Appends the selected drafts, preserving other rows.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Selected draft IDs provide replay protection; on a genuine revision conflict, re-read and reconcile.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Append selected draft rows once.",
+      "required": [
+        "setId",
+        "expectedRevision",
+        "rows"
+      ],
+      "returns": "setId, revision, appliedRowIds, replayed",
+      "conditions": "Every selected row must retain its draft id.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.source_begin",
+      "tool": "forge_manage",
+      "action": "source_begin",
+      "role": "Operator or higher",
+      "effect": "Creates an upload intent; completing an eligible source upload can start automatic preparation.",
+      "spend": "No generation started by this call.",
+      "confirmation": "Explain automatic preparation and smoke-render spend and obtain permission BEFORE completing an eligible source upload; waiting for template_forge does not prevent it.",
+      "execution": "Returns inline; upload, parsing and eligible preparation continue separately.",
+      "retry": "Do not retry blindly: another call creates another handoff.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Sources",
+      "summary": "Create a signed-in mixed-file upload handoff.",
+      "required": [],
+      "returns": "upload_intent_id, open_url, expires_at, max_files",
+      "continuationMaySpend": true,
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.source_status",
+      "tool": "forge_manage",
+      "action": "source_status",
+      "role": "Operator or higher",
+      "effect": "Reads the handoff; saves nothing.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Safe to read again while processing.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Sources",
+      "summary": "Read upload readiness and classified resource IDs.",
+      "required": [
+        "upload_intent_id"
+      ],
+      "returns": "documentIds, mediaAssetIds, templateAssetIds, source_refs, sources",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.render_preview",
+      "tool": "forge_manage",
+      "action": "render_preview",
+      "role": "Operator or higher",
+      "effect": "Preflight only; queues no renders.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Refresh after changed inputs or an expired token. Override a refusal only after the person agrees to its named flag.",
+      "errors": [
+        "VALIDATION_ERROR: render_fonts_missing",
+        "CONFLICT: render_set_revision_conflict"
+      ],
+      "group": "Rendering",
+      "summary": "Validate selected rows and show where each result will go.",
+      "required": [
+        "setId"
+      ],
+      "returns": "Readiness, destinations, confirmationToken, next",
+      "conditions": "Omitted delivery/final settings inherit from the saved set; inspect them. null slackDestinationId disables posting. final=true requires Admin/Owner.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.render_confirm",
+      "tool": "forge_manage",
+      "action": "render_confirm",
+      "role": "Operator or higher",
+      "effect": "Queues rendering and the reviewed delivery/approval work.",
+      "spend": "Yes: rendering can spend provider budget.",
+      "confirmation": "Show readiness, rows and destinations; wait for the person’s yes, then pass the exact returned confirmationToken.",
+      "execution": "Returns a batch immediately; read forge_query batch/job.",
+      "retry": "Single-use token. After an uncertain response inspect existing jobs; do not obtain another token and blindly render twice.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Rendering",
+      "summary": "Redeem the reviewed preflight token and queue the batch.",
+      "required": [
+        "confirmationToken"
+      ],
+      "returns": "batchId and render job records",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.scene_fill",
+      "tool": "forge_manage",
+      "action": "scene_fill",
+      "role": "Operator or higher",
+      "effect": "Reads brand inputs and signs the proposed fill; renders nothing.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "On scene_version_stale re-read scenes; a new fill creates a fresh confirmation.",
+      "errors": [
+        "CONFLICT: scene_version_stale",
+        "VALIDATION_ERROR: scene_output_unknown"
+      ],
+      "group": "Scenes",
+      "summary": "Fill an accessible scene from the brand and brief.",
+      "required": [
+        "assetId",
+        "versionId"
+      ],
+      "returns": "values, outputs, confirmationToken; nothing rendered",
+      "conditions": "Use assetId/versionId/output IDs returned by scenes.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.scene_render",
+      "tool": "forge_manage",
+      "action": "scene_render",
+      "role": "Operator or higher",
+      "effect": "Queues one scene render per output into the Library.",
+      "spend": "Yes: scene rendering can spend provider budget; this response does not supply a price estimate.",
+      "confirmation": "Show filled values and outputs, explain potential spend (estimate may be unavailable), wait for a yes, then pass the exact scene_fill token.",
+      "execution": "Scene jobs use the template’s scene history in Forge and the Library; they are not Forge render-set batches.",
+      "retry": "Token is single-use; after an uncertain response inspect history before another fill/render.",
+      "errors": [
+        "VALIDATION_ERROR: expired_confirmation",
+        "CONFLICT: confirmation_spent"
+      ],
+      "group": "Scenes",
+      "summary": "Redeem a reviewed scene fill and queue its outputs.",
+      "required": [
+        "confirmationToken"
+      ],
+      "returns": "assetId, values, jobs[{outputId, jobId}], next",
+      "conditions": "The service reloads the current scene at submission; immutable scene-version execution is not guaranteed. Recheck scenes before confirming; if it changed, fill/review again.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.rows_patch",
+      "tool": "forge_manage",
+      "action": "rows_patch",
+      "role": "Operator or higher",
+      "effect": "Changes only selected rows; omitting a row ID appends a new row.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Use stable row IDs; re-read on a revision conflict. ID-less appends can duplicate on retry.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Render sets",
+      "summary": "Upsert or remove selected rows with a revision check.",
+      "required": [
+        "setId",
+        "expectedRevision"
+      ],
+      "returns": "Updated set and resolved rows",
+      "conditions": "Supply nonempty rows or removeRowIds. Ask for explicit consent before removing rows.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.set_retarget",
+      "tool": "forge_manage",
+      "action": "set_retarget",
+      "role": "Operator or higher",
+      "effect": "Changes the template pin after validating existing rows.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Re-read on revision conflict; do not substitute an unpublished or unrelated revision.",
+      "errors": [
+        "VALIDATION_ERROR: template_revision_unpublished",
+        "CONFLICT: render_set_revision_conflict"
+      ],
+      "group": "Render sets",
+      "summary": "Pin an existing set to a published template revision.",
+      "required": [
+        "setId",
+        "expectedRevision",
+        "templateRevisionId"
+      ],
+      "returns": "Updated set and template revision pin",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.template_preview",
+      "tool": "forge_manage",
+      "action": "template_preview",
+      "role": "Operator or higher",
+      "effect": "Validates and previews; saves nothing.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Re-read state after an uncertain response; no general replay guarantee.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Preview proposed edits without saving a revision.",
+      "required": [
+        "assetId",
+        "parentRevisionId",
+        "edits"
+      ],
+      "returns": "Edited layer values, svgBytes, next; no SVG body",
+      "conditions": "Read template_layers first. Edits are also checked against the revision edit contract.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.template_save",
+      "tool": "forge_manage",
+      "action": "template_save",
+      "role": "Operator or higher",
+      "effect": "Writes a source/version and revision; preserves the Original. Eligible saved sources can automatically prepare and publish.",
+      "spend": "Yes: parsing the saved package can start automatic preparation and smoke-render spend.",
+      "confirmation": "Obtain explicit permission for saving and its automatic preparation/spend BEFORE template_save; there is no separate render-preview token for this path.",
+      "execution": "Returns inline.",
+      "retry": "Same save derives a replay key; optional UUID idempotencyKey. Re-read after a head conflict.",
+      "errors": [
+        "PERMISSION_DENIED: signed-in session required",
+        "CONFLICT: branch head changed"
+      ],
+      "group": "Template revisions",
+      "summary": "Save edits as a new immutable revision.",
+      "required": [
+        "assetId",
+        "parentRevisionId",
+        "edits"
+      ],
+      "returns": "revision (id, variantId, sourceAssetId), replayed",
+      "conditions": "Exactly one of name (new branch) or variantId (extend its current head). Requires a signed-in user session.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.template_forge",
+      "tool": "forge_manage",
+      "action": "template_forge",
+      "role": "Admin or Owner",
+      "effect": "Changes publishing state; can run smoke renders and publish automatically.",
+      "spend": "Yes: smoke renders can spend provider budget, including after start.",
+      "confirmation": "Obtain explicit permission for this publishing run and its smoke-render spend before starting; this action has no render_preview token.",
+      "execution": "Returns inline; inspect template_run while the run continues.",
+      "retry": "Read template_run first. Step in only where parked; on CONFLICT re-read instead of replaying steps.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Start or advance publication of an eligible revision source.",
+      "required": [
+        "assetId",
+        "step"
+      ],
+      "returns": "source or run, next; inspect template_run",
+      "conditions": "step=start needs templateName; step=decisions needs decisions. Native HTML/components/Blender do not use this action.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.template_set_default",
+      "tool": "forge_manage",
+      "action": "template_set_default",
+      "role": "Admin or Owner",
+      "effect": "Changes the default template variant.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "Re-read template_tree before retrying; confirm the intended default.",
+      "errors": [
+        "needs_brand / needs_role: resolve access first",
+        "NOT_FOUND / VALIDATION_ERROR: retain the returned reason"
+      ],
+      "group": "Template revisions",
+      "summary": "Choose the variant everyone opens by default.",
+      "required": [
+        "assetId",
+        "variantId"
+      ],
+      "returns": "templateId, defaultVariantId",
+      "evidence": {
+        "repository": "backend",
+        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    }
+  ],
+  "libraryFormats": [
+    {
+      "family": "raster_image",
+      "extensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "gif",
+        "avif",
+        "bmp"
+      ],
+      "mimeTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif",
+        "image/avif",
+        "image/bmp",
+        "image/x-ms-bmp"
+      ],
+      "originalKind": "image",
+      "previewStrategy": "native"
+    },
+    {
+      "family": "video",
+      "extensions": [
+        "mp4",
+        "mov",
+        "webm",
+        "m4v"
+      ],
+      "mimeTypes": [
+        "video/mp4",
+        "video/quicktime",
+        "video/webm",
+        "video/x-m4v"
+      ],
+      "originalKind": "video",
+      "previewStrategy": "browser_video"
+    },
+    {
+      "family": "audio",
+      "extensions": [
+        "mp3",
+        "wav",
+        "m4a",
+        "aac",
+        "ogg",
+        "oga",
+        "flac"
+      ],
+      "mimeTypes": [
+        "audio/mpeg",
+        "audio/mp3",
+        "audio/wav",
+        "audio/x-wav",
+        "audio/wave",
+        "audio/mp4",
+        "audio/x-m4a",
+        "audio/aac",
+        "audio/ogg",
+        "audio/flac",
+        "audio/x-flac"
+      ],
+      "originalKind": "audio",
+      "previewStrategy": "native"
+    },
+    {
+      "family": "audio",
+      "extensions": [
+        "aiff",
+        "aif",
+        "wma"
+      ],
+      "mimeTypes": [
+        "audio/aiff",
+        "audio/x-aiff",
+        "audio/x-ms-wma"
+      ],
+      "originalKind": "audio",
+      "previewStrategy": "proxy_transcode"
+    },
+    {
+      "family": "broadcast_video",
+      "extensions": [
+        "mxf"
+      ],
+      "mimeTypes": [
+        "application/mxf",
+        "video/mxf"
+      ],
+      "originalKind": "video",
+      "previewStrategy": "proxy_transcode",
+      "storageBucket": "media-source"
+    },
+    {
+      "family": "container_video",
+      "extensions": [
+        "mkv",
+        "avi",
+        "wmv",
+        "3gp",
+        "3g2",
+        "flv"
+      ],
+      "mimeTypes": [
+        "video/x-matroska",
+        "video/x-msvideo",
+        "video/avi",
+        "video/msvideo",
+        "video/x-ms-wmv",
+        "video/x-ms-asf",
+        "video/3gpp",
+        "video/3gpp2",
+        "video/x-flv"
+      ],
+      "originalKind": "video",
+      "previewStrategy": "proxy_transcode"
+    },
+    {
+      "family": "premiere_project",
+      "extensions": [
+        "prproj"
+      ],
+      "mimeTypes": [
+        "application/vnd.adobe.premierepro.project"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion",
+      "storageBucket": "media-source"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "svg"
+      ],
+      "mimeTypes": [
+        "image/svg+xml"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "browser_raster"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "tif",
+        "tiff"
+      ],
+      "mimeTypes": [
+        "image/tiff"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "browser_raster"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "heic",
+        "heif"
+      ],
+      "mimeTypes": [
+        "image/heic",
+        "image/heif"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "browser_raster"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "psd"
+      ],
+      "mimeTypes": [
+        "image/vnd.adobe.photoshop",
+        "image/x-photoshop"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "document",
+      "extensions": [
+        "pdf"
+      ],
+      "mimeTypes": [
+        "application/pdf"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "native"
+    },
+    {
+      "family": "presentation",
+      "extensions": [
+        "pptx",
+        "potx",
+        "deckcraft"
+      ],
+      "mimeTypes": [
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "application/vnd.openxmlformats-officedocument.presentationml.template",
+        "application/vnd.storyteller.deckcraft+zip"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "office_document",
+      "extensions": [
+        "docx",
+        "xlsx",
+        "doc",
+        "ppt",
+        "xls"
+      ],
+      "mimeTypes": [
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/msword",
+        "application/vnd.ms-powerpoint",
+        "application/vnd.ms-excel"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "ai",
+        "eps"
+      ],
+      "mimeTypes": [
+        "application/illustrator",
+        "application/postscript"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "tga",
+        "exr"
+      ],
+      "mimeTypes": [
+        "image/x-tga",
+        "image/x-targa",
+        "image/x-exr"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "indd"
+      ],
+      "mimeTypes": [
+        "application/x-indesign"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "embedded_pages"
+    },
+    {
+      "family": "model_3d",
+      "extensions": [
+        "glb",
+        "gltf",
+        "obj",
+        "stl",
+        "fbx",
+        "ply",
+        "dae",
+        "3ds",
+        "usdz",
+        "step",
+        "stp",
+        "iges",
+        "igs"
+      ],
+      "mimeTypes": [
+        "model/gltf-binary",
+        "model/gltf+json",
+        "model/obj",
+        "model/stl",
+        "model/x.stl-binary",
+        "model/vnd.usdz+zip",
+        "model/step",
+        "model/iges",
+        "model/vnd.collada+xml"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "model_viewer"
+    },
+    {
+      "family": "blender",
+      "extensions": [
+        "blend"
+      ],
+      "mimeTypes": [
+        "application/x-blender"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "after_effects",
+      "extensions": [
+        "aep",
+        "aepx",
+        "aet"
+      ],
+      "mimeTypes": [
+        "application/vnd.adobe.aftereffects.project"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "hyperframes",
+      "extensions": [
+        "html",
+        "htm"
+      ],
+      "mimeTypes": [
+        "text/html"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "after_effects_package",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "font",
+      "extensions": [
+        "ttf",
+        "otf",
+        "woff",
+        "woff2"
+      ],
+      "mimeTypes": [
+        "font/ttf",
+        "font/otf",
+        "font/woff",
+        "font/woff2",
+        "application/font-sfnt",
+        "application/x-font-ttf",
+        "application/x-font-otf",
+        "application/vnd.ms-opentype"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    }
+  ],
+  "zipFormats": {
+    "aep_package": {
+      "family": "after_effects_package",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    "web_component": {
+      "family": "web_component",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    "html_bundle": {
+      "family": "html_bundle",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "html_sandbox"
+    },
+    "archive": {
+      "family": "generic",
+      "extensions": [],
+      "mimeTypes": [],
+      "originalKind": "file",
+      "previewStrategy": "none",
+      "storageBucket": "media-source"
+    },
+    "ambiguous": {
+      "family": "generic",
+      "extensions": [],
+      "mimeTypes": [],
+      "originalKind": "file",
+      "previewStrategy": "none",
+      "storageBucket": "media-source"
+    }
+  },
+  "templateFamilies": [
+    "after_effects",
+    "after_effects_package",
+    "figma",
+    "photoshop",
+    "blender",
+    "hyperframes",
+    "presentation",
+    "web_component"
+  ],
+  "stageNotes": [
+    {
+      "name": "After Effects",
+      "families": [
+        "after_effects",
+        "after_effects_package"
+      ],
+      "extensions": [
+        "aep",
+        "aepx",
+        "aet",
+        "zip"
+      ],
+      "upload": "Project or collected package",
+      "parse": "Inspect parseState; missing dependencies can block",
+      "edit": "Exposed fields; supported revision layer/slot edits",
+      "preview": "Contract/revision preview and render preflight",
+      "render": "Published template → render set",
+      "export": "Files declared by the template outputs",
+      "evidence": "Customer template rendering is documented; this mapping run starts no renders."
+    },
+    {
+      "name": "Photoshop / Illustrator",
+      "families": [
+        "design_source"
+      ],
+      "extensions": [
+        "psd",
+        "ai",
+        "eps"
+      ],
+      "upload": "Accepted source files; EPS is Library intake",
+      "parse": "Source-specific import; inspect the actual result",
+      "edit": "Only the fields/layers the imported revision exposes",
+      "preview": "Library preview or supported template preview",
+      "render": "Only after a usable template is published",
+      "export": "Declared output files; no promise of PSD/AI round-trip",
+      "evidence": "Upload is documented. Arbitrary-file fidelity and end-to-end rendering are not established by this map."
+    },
+    {
+      "name": "Presentations",
+      "families": [
+        "presentation"
+      ],
+      "extensions": [
+        "pptx",
+        "potx",
+        "deckcraft"
+      ],
+      "upload": "Library intake",
+      "parse": "Inspect the source parse result",
+      "edit": "No presentation-specific action in the captured Forge surface",
+      "preview": "Companion preview when available",
+      "render": "No general deck-render action documented here",
+      "export": "Original download; do not infer PPTX/PDF generation",
+      "evidence": "Library support does not establish an agent authoring/export workflow."
+    },
+    {
+      "name": "Premiere Pro",
+      "families": [
+        "premiere_project"
+      ],
+      "extensions": [
+        "prproj"
+      ],
+      "upload": "Library project storage",
+      "parse": "Not a template family in the captured source contract",
+      "edit": "No Forge project-edit action verified",
+      "preview": "Sidecar video, when supplied",
+      "render": "No Forge project-render action verified",
+      "export": "Original project download",
+      "evidence": "A project file and a rendered movie are different resources."
+    },
+    {
+      "name": "HTML / HyperFrames",
+      "families": [
+        "hyperframes",
+        "html_bundle"
+      ],
+      "extensions": [
+        "html",
+        "htm",
+        "zip"
+      ],
+      "upload": "HTML or classified bundle",
+      "parse": "Native source; inspect family and parseState",
+      "edit": "Only the native contract’s exposed fields",
+      "preview": "Source/Library preview does not certify rendered frames",
+      "render": "Use only the execution path exposed for that source",
+      "export": "Only artifacts returned by that path",
+      "evidence": "Does not enter template_forge. Browser/native rendering fidelity is not qualified by this documentation run."
+    },
+    {
+      "name": "Web components",
+      "families": [
+        "web_component"
+      ],
+      "extensions": [
+        "zip"
+      ],
+      "upload": "ZIP with a recognized component manifest",
+      "parse": "Bundle contents decide the family",
+      "edit": "Declared component contract only",
+      "preview": "Inspect the source’s supported preview",
+      "render": "Only an exposed template/output contract",
+      "export": "Returned artifacts, not arbitrary source conversion",
+      "evidence": "Does not enter template_forge. A generic ZIP is not automatically a component."
+    },
+    {
+      "name": "Blender / scenes",
+      "families": [
+        "blender"
+      ],
+      "extensions": [
+        "blend"
+      ],
+      "upload": "Library source; accessible scenes come from scenes",
+      "parse": "Inspect native source/scene readiness",
+      "edit": "scene_fill values, not unrestricted scene editing",
+      "preview": "Review filled values; this is not a pixel preview",
+      "render": "scene_fill → scene_render for listed outputs",
+      "export": "Scene results in Library; use scene history",
+      "evidence": "Does not enter template_forge. No arbitrary customer-scene fidelity claim."
+    },
+    {
+      "name": "Figma / Canva",
+      "families": [],
+      "extensions": [],
+      "upload": "Not a local-file extension promise",
+      "parse": "Connected import is separate from file intake",
+      "edit": "No dedicated action in the captured Forge pair",
+      "preview": "Do not infer from connection availability",
+      "render": "No general execution recipe verified here",
+      "export": "No round-trip promise",
+      "evidence": "A connection or source-family enum alone is not an executable function."
+    },
+    {
+      "name": "CAD / 3D model files",
+      "families": [
+        "model_3d"
+      ],
+      "extensions": [],
+      "upload": "Library model intake; CAD has separate tools",
+      "parse": "Use the CAD capability guide for CAD resources",
+      "edit": "Not forge_manage template edits",
+      "preview": "Model viewer does not establish CAD rendering",
+      "render": "Separate cad_query / cad_manage contract",
+      "export": "Separate CAD artifacts; no manufacturing qualification implied",
+      "evidence": "Adjacent interface, not a Forge render-set family. Inspect help_describe before use."
+    },
+    {
+      "name": "Fonts",
+      "families": [
+        "font"
+      ],
+      "extensions": [
+        "ttf",
+        "otf",
+        "woff",
+        "woff2"
+      ],
+      "upload": "Licensed font intake",
+      "parse": "Font metadata and dependency checks",
+      "edit": "A dependency, not an image/template",
+      "preview": "No standalone font preview promise",
+      "render": "Required faces can block template rendering",
+      "export": "Do not assume fonts can be downloaded or redistributed",
+      "evidence": "Brand typography names do not prove the required font bytes are available."
+    },
+    {
+      "name": "Other design files",
+      "families": [
+        "design_source"
+      ],
+      "extensions": [
+        "svg",
+        "tif",
+        "tiff",
+        "heic",
+        "heif",
+        "tga",
+        "exr",
+        "indd"
+      ],
+      "upload": "Library intake",
+      "parse": "No blanket Forge parser guarantee",
+      "edit": "No blanket template-edit guarantee",
+      "preview": "Raster/embedded/companion strategy varies by format",
+      "render": "Only if an executable template is separately discovered",
+      "export": "Original download; no conversion promise",
+      "evidence": "Library preview strategies are not Forge renderer qualification."
+    },
+    {
+      "name": "Media, documents and other files",
+      "families": [
+        "raster_image",
+        "video",
+        "audio",
+        "broadcast_video",
+        "container_video",
+        "document",
+        "office_document",
+        "generic"
+      ],
+      "extensions": [],
+      "upload": "Library or mixed-file handoff",
+      "parse": "Document/media classification is not template parsing",
+      "edit": "Use the relevant Library/Canvas/video tool",
+      "preview": "Depends on media format and proxy availability",
+      "render": "No template engine implied by storage",
+      "export": "Original or explicitly returned artifacts",
+      "evidence": "Store source identity and version IDs; refresh short-lived signed URLs as needed."
+    }
+  ]
+}

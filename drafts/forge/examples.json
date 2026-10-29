@@ -1,0 +1,296 @@
+[
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "templates"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "template",
+      "templateKey": "discovered-template-key"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "sets"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "set",
+      "setId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "set_revisions",
+      "setId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "destinations"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "jobs"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "job",
+      "jobId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "batch",
+      "batchId": "11111111-1111-4111-8111-111111111111",
+      "waitSeconds": 50
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "scenes"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "set_diff",
+      "setId": "11111111-1111-4111-8111-111111111111",
+      "fromRevision": 0
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "template_tree",
+      "assetId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "template_layers",
+      "revisionId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "template_revision",
+      "revisionId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "template_diff",
+      "revisionId": "11111111-1111-4111-8111-111111111111",
+      "toRevisionId": "22222222-2222-4222-8222-222222222222"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "template_run",
+      "assetId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_query",
+    "arguments": {
+      "action": "sources"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "set_create",
+      "templateKey": "discovered-template-key",
+      "name": "Example set",
+      "rows": [
+        {
+          "id": "22222222-2222-4222-8222-222222222222",
+          "parentId": null,
+          "label": "Example",
+          "overrides": {
+            "headline": "Your message"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "set_update",
+      "setId": "11111111-1111-4111-8111-111111111111",
+      "expectedRevision": 0,
+      "name": "Updated set"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "set_fork",
+      "setId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "set_delete",
+      "setId": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "suggest_rows",
+      "templateKey": "discovered-template-key",
+      "prompt": "Draft one offer",
+      "count": 1
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "apply_suggestions",
+      "setId": "11111111-1111-4111-8111-111111111111",
+      "expectedRevision": 0,
+      "rows": [
+        {
+          "id": "22222222-2222-4222-8222-222222222222",
+          "parentId": null,
+          "label": "Example",
+          "overrides": {
+            "headline": "Your message"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "source_begin"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "source_status",
+      "upload_intent_id": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "render_preview",
+      "setId": "11111111-1111-4111-8111-111111111111",
+      "slackDestinationId": null,
+      "final": false
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "render_confirm",
+      "confirmationToken": "token-returned-by-render-preview"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "scene_fill",
+      "assetId": "11111111-1111-4111-8111-111111111111",
+      "versionId": "22222222-2222-4222-8222-222222222222",
+      "brief": {
+        "headline": "Your message"
+      }
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "scene_render",
+      "confirmationToken": "token-returned-by-scene-fill"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "rows_patch",
+      "setId": "11111111-1111-4111-8111-111111111111",
+      "expectedRevision": 0,
+      "rows": [
+        {
+          "id": "22222222-2222-4222-8222-222222222222",
+          "parentId": null,
+          "label": "Example",
+          "overrides": {
+            "headline": "Your message"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "set_retarget",
+      "setId": "11111111-1111-4111-8111-111111111111",
+      "expectedRevision": 0,
+      "templateRevisionId": "22222222-2222-4222-8222-222222222222"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "template_preview",
+      "assetId": "11111111-1111-4111-8111-111111111111",
+      "parentRevisionId": "22222222-2222-4222-8222-222222222222",
+      "edits": {}
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "template_save",
+      "assetId": "11111111-1111-4111-8111-111111111111",
+      "parentRevisionId": "22222222-2222-4222-8222-222222222222",
+      "edits": {},
+      "name": "Example variant"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "template_forge",
+      "assetId": "11111111-1111-4111-8111-111111111111",
+      "step": "start",
+      "templateName": "example-template"
+    }
+  },
+  {
+    "name": "forge_manage",
+    "arguments": {
+      "action": "template_set_default",
+      "assetId": "11111111-1111-4111-8111-111111111111",
+      "variantId": "22222222-2222-4222-8222-222222222222"
+    }
+  }
+]

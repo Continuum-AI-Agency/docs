@@ -1,0 +1,997 @@
+{
+  "backendRevision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+  "monorepoRevision": "e5662d7a06c6226b743c88e976c97ba1e2e57d31",
+  "tools": [
+    {
+      "name": "forge_query",
+      "description": "Read the brand's Forge: render templates and their git-like revision tree, render sets (rows of values one template renders) and renders. action='templates' lists templates (key, bindingId, name, sourceAssetId). 'template' (templateKey, bindingId when a key is in two workspaces) returns its contract: every variable (key, label, kind, required, options, character budget), the outputs and the contractHash. 'template_tree' (assetId: a template's sourceAssetId) lists its variants — branches, the Original first — with their revisions (commits: parentRevisionId, publications), draft/published heads and the default variant; 'template_revision' (revisionId) returns one with its edits; 'template_layers' (revisionId) lists its comps, layers and what each can edit; 'template_diff' (revisionId → toRevisionId) compares two revisions' edits; 'template_run' (assetId: a revision's sourceAssetId) reads its Forge publishing run (state, needs). 'sources' (limit) lists the brand's uploaded projects, newest first: assetId, name, parseState, forgeState, and templateKey once published — a parsed After Effects source builds on its own (forgeState; publish with forge_manage template_forge) — step='start' only when it has no run; native families (hyperframes, web_component, blender) never enter template_forge. 'sets' (templateKey optional); 'set' (setId) returns rows AND `resolved`, each row's values after inheritance from its parent row, and `settings` — the set's delivery defaults (metaTarget default ad set, Slack and approval rooms, final); 'set_revisions' (setId) lists kept states; 'set_diff' (setId with rowIds=[a,b], or fromRevision and optional toRevision) shows what renders differently. 'destinations' lists Slack rooms and Meta ad accounts (campaigns and ad sets: paid_manage action='hierarchy'). 'jobs' (templateKey/setId/batchId/status/limit) lists renders; 'job' (jobId) refreshes one; 'batch' (render_confirm's batchId, waitSeconds ≤55) answers as soon as every render settles — renders take minutes, so loop it with waitSeconds=50 in a background subagent until done. 'scenes' lists the 3D product scenes. Writes are forge_manage.",
+      "annotations": {
+        "title": "Read video templates and render sets",
+        "readOnlyHint": true,
+        "openWorldHint": true,
+        "destructiveHint": false
+      },
+      "manifest": {
+        "name": "forge_query",
+        "module": "forge.query",
+        "state": "advertised",
+        "summary": "Read the brand's Forge: render templates and their git-like revision tree, render sets (rows of values one template renders) and renders. action='templates' lists templates (key, …",
+        "surface": {
+          "alwaysAvailable": true
+        },
+        "annotations": {
+          "title": "Read video templates and render sets",
+          "readOnlyHint": true,
+          "openWorldHint": true
+        },
+        "brandScoped": true,
+        "mutates": false,
+        "facts": {
+          "domain": "forge",
+          "terminalOutcome": "Forge reads returned: granted-or-built templates, a template contract, render sets with resolved rows, set revisions, delivery destinations, render jobs, or the 3D product scenes (house + own Blender templates) with their outputs and fillable keys.",
+          "mutates": false,
+          "confirmation": "none",
+          "idempotency": "natural_read",
+          "execution": "sync"
+        }
+      },
+      "actions": [
+        "templates",
+        "template",
+        "sets",
+        "set",
+        "set_revisions",
+        "destinations",
+        "jobs",
+        "job",
+        "batch",
+        "scenes",
+        "set_diff",
+        "template_tree",
+        "template_layers",
+        "template_revision",
+        "template_diff",
+        "template_run",
+        "sources"
+      ],
+      "schema": {
+        "path": "drafts/forge/schemas/forge_query.json",
+        "sha256": "0adf5371ae3cbcfd76ab51e5eed17c20e20345af31703e22a2e5ac780f3ba325"
+      }
+    },
+    {
+      "name": "forge_manage",
+      "description": "Change the brand’s Forge render sets and render them. A render set is rows of variable values for ONE template; a row with parentId inherits its parent’s values and overrides some (a variation). Read first with forge_query. action='set_create' (templateKey, bindingId when the key is in two workspaces, name, rows[{label, overrides, parentId}], description) — row ids are minted when omitted. 'set_update' (setId, expectedRevision from forge_query set, and any of name/description/rows/settings — rows REPLACES the whole list). settings (set_create/set_update; only the keys named change, null clears) are the set's delivery defaults: metaTarget {adAccountId, campaignId, adsetId} — a new PAUSED ad in that ad set for every row without its own target (ids from forge_query destinations and paid_manage action=hierarchy; replacing an existing ad stays a per-row delivery), slackDestinationId, approvalDestinationIds, final. 'set_fork' (setId, name optional) copies a set into a new one. 'set_delete' (setId). 'suggest_rows' drafts rows with AI (brief or documentIds/mediaAssetIds; setId or templateKey; count ceiling and autoCount; varyKeys; parentRowId) and saves NOTHING. Use brand_knowledge action=add_file for small documents, library_manage action=upload_inline for small images, or source_begin for a signed-in upload handoff (documents, images, videos, and template projects: an After Effects package or ZIP, PSD, AI, PowerPoint, HTML, .blend); source_status returns documentIds, mediaAssetIds and templateAssetIds when ready. 'apply_suggestions' (setId, expectedRevision, selected rows with their draft ids) appends selected rows once, preserving the rest of the set. 'render_preview' (setId, rowIds optional) checks every row as the Render tab does and returns readiness, destinations (where each row goes: library, new_ad, replace) and a single-use confirmationToken. Omitted slackDestinationId/approvalDestinationIds/final take the set's settings (slackDestinationId null = no post); a row's own delivery wins over the set's metaTarget; anything bound for Meta parks for approval; final=true is a non-proof render, owner/admin only. A refusal a person may override names its flag (acceptMissingFonts, acceptLinkedLineMismatch, acceptOffPaletteColor) in details.overrides — ask the person before passing it. 'render_confirm' (confirmationToken) queues the renders and returns a batchId; wait with forge_query action='batch' from a background subagent. Refusals keep the service's reason (e.g. render_set_revision_conflict: re-read the set). 'rows_patch' (setId, expectedRevision, rows upserted by id — no id appends — and removeRowIds). 'set_create' and 'set_retarget' (setId, expectedRevision) take templateRevisionId, a PUBLISHED revision; 'set_fork' takes revision, a kept state. Templates (forge_query template_tree, template_layers first): 'template_preview' (assetId, parentRevisionId, edits{layers[{compId, layerId, text|font|fontSize|visible|x|y|width|height|rotation|scale|opacity}], slots[{slotKey, defaultValue|publicName|required|exposed|charBudget}], orders[{compId, layerIds}], recolor{palette}}) saves nothing; 'template_save' (the same plus name, a new variant, OR variantId whose head is parentRevisionId) commits; the Original is never rewritten. Owner/admin: 'template_forge' (assetId: the revision's sourceAssetId; step start with templateName, decisions, draft, smoke, promote, resume) publishes it — after start the autopilot smokes and publishes on its own when nothing needs a person, so step in only where template_run parks; a CONFLICT means the run already moved; smoke renders cost money; 'template_set_default' (assetId, variantId). 3D product scenes (forge_query action='scenes'): 'scene_fill' (assetId, versionId, brief{productImageAssetId, headline, price, cta, text}, outputs optional) fills the scene from the brand — logo, palette, a product picture — and the brief, renders NOTHING, and returns the values plus a single-use confirmationToken; 'scene_render' (confirmationToken) queues one render per output into the Library. Poll with the template's scene render history in the Forge.",
+      "annotations": {
+        "title": "Upload, edit, publish and render video templates",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "manifest": {
+        "name": "forge_manage",
+        "module": "forge.manage",
+        "state": "advertised",
+        "summary": "Change the brand’s Forge render sets and render them. A render set is rows of variable values for ONE template; a row with parentId inherits its parent’s values and overrides some…",
+        "surface": {
+          "alwaysAvailable": true
+        },
+        "annotations": {
+          "title": "Upload, edit, publish and render video templates",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "brandScoped": true,
+        "mutates": true,
+        "facts": {
+          "domain": "forge",
+          "terminalOutcome": "Forge state changed per action: a render set created, updated, forked or deleted; mixed-source handoff issued/read; AI-drafted rows returned unsaved with field evidence; selected rows appended once with revision CAS; or, after render_preview signs a single-use token, render_confirm queues render jobs. For 3D product scenes, scene_fill answers brand-filled values with a single-use token and scene_render spends it to queue one scene_render job per output.",
+          "mutates": true,
+          "confirmation": "two_phase_confirm_token",
+          "idempotency": "none",
+          "execution": "sync_then_async"
+        }
+      },
+      "actions": [
+        "set_create",
+        "set_update",
+        "set_fork",
+        "set_delete",
+        "suggest_rows",
+        "apply_suggestions",
+        "source_begin",
+        "source_status",
+        "render_preview",
+        "render_confirm",
+        "scene_fill",
+        "scene_render",
+        "rows_patch",
+        "set_retarget",
+        "template_preview",
+        "template_save",
+        "template_forge",
+        "template_set_default"
+      ],
+      "schema": {
+        "path": "drafts/forge/schemas/forge_manage.json",
+        "sha256": "3ed5d74d135140c71bb89a02514ebade370a0e60fb6e70e5fb3116c7e615205a"
+      }
+    }
+  ],
+  "validations": [
+    {
+      "id": "forge_query.templates",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_query.template",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "templateKey"
+      ]
+    },
+    {
+      "id": "forge_query.sets",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_query.set",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId"
+      ]
+    },
+    {
+      "id": "forge_query.set_revisions",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId"
+      ]
+    },
+    {
+      "id": "forge_query.destinations",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_query.jobs",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_query.job",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "jobId"
+      ]
+    },
+    {
+      "id": "forge_query.batch",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "batchId"
+      ]
+    },
+    {
+      "id": "forge_query.scenes",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_query.set_diff",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId"
+      ]
+    },
+    {
+      "id": "forge_query.template_tree",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "assetId"
+      ]
+    },
+    {
+      "id": "forge_query.template_layers",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "revisionId"
+      ]
+    },
+    {
+      "id": "forge_query.template_revision",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "revisionId"
+      ]
+    },
+    {
+      "id": "forge_query.template_diff",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "revisionId",
+        "toRevisionId"
+      ]
+    },
+    {
+      "id": "forge_query.template_run",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "assetId"
+      ]
+    },
+    {
+      "id": "forge_query.sources",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_manage.set_create",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "templateKey",
+        "name",
+        "rows"
+      ]
+    },
+    {
+      "id": "forge_manage.set_update",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId",
+        "expectedRevision"
+      ]
+    },
+    {
+      "id": "forge_manage.set_fork",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId"
+      ]
+    },
+    {
+      "id": "forge_manage.set_delete",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId"
+      ]
+    },
+    {
+      "id": "forge_manage.suggest_rows",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_manage.apply_suggestions",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId",
+        "expectedRevision",
+        "rows"
+      ]
+    },
+    {
+      "id": "forge_manage.source_begin",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action"
+      ]
+    },
+    {
+      "id": "forge_manage.source_status",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "upload_intent_id"
+      ]
+    },
+    {
+      "id": "forge_manage.render_preview",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId"
+      ]
+    },
+    {
+      "id": "forge_manage.render_confirm",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "confirmationToken"
+      ]
+    },
+    {
+      "id": "forge_manage.scene_fill",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "assetId",
+        "versionId"
+      ]
+    },
+    {
+      "id": "forge_manage.scene_render",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "confirmationToken"
+      ]
+    },
+    {
+      "id": "forge_manage.rows_patch",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId",
+        "expectedRevision"
+      ]
+    },
+    {
+      "id": "forge_manage.set_retarget",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "setId",
+        "expectedRevision",
+        "templateRevisionId"
+      ]
+    },
+    {
+      "id": "forge_manage.template_preview",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "assetId",
+        "parentRevisionId",
+        "edits"
+      ]
+    },
+    {
+      "id": "forge_manage.template_save",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "assetId",
+        "parentRevisionId",
+        "edits"
+      ]
+    },
+    {
+      "id": "forge_manage.template_forge",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "assetId",
+        "step"
+      ]
+    },
+    {
+      "id": "forge_manage.template_set_default",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "assetId",
+        "variantId"
+      ]
+    }
+  ],
+  "negativeExamplesRejected": 6,
+  "notesSha256": "09f08682314d6668f0159b30b24207ae530658a3ad66bb9a315dbf205c1209a2",
+  "documentedExamples": [
+    {
+      "page": "forge/agents.mdx",
+      "tool": "help_describe",
+      "action": "render_preview"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "template"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "set_create"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "set"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "render_preview"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "render_confirm"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "batch"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "source_begin"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "source_status"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "sources"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "template_tree"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "template_layers"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "template_preview"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "template_save"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "template_run"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "template_forge"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "set_retarget"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_query",
+      "action": "scenes"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "scene_fill"
+    },
+    {
+      "page": "drafts/forge/integration-recipes.md",
+      "tool": "forge_manage",
+      "action": "scene_render"
+    }
+  ],
+  "validatedRecipeCalls": [
+    {
+      "title": "An existing template",
+      "calls": 6
+    },
+    {
+      "title": "A supported source revision",
+      "calls": 11
+    },
+    {
+      "title": "An accessible scene",
+      "calls": 3
+    }
+  ],
+  "examplePageHashes": {
+    "forge/agents.mdx": "b86d414e826ae4cd5ffb97ed0bd0e908707d77a3cb0942afa9b44cd7e153e3b7",
+    "drafts/forge/integration-recipes.md": "44a9b905c0d084bf57ad1dfacff98dc6637072b0ba4aa59acf73f2c244e0f92d"
+  },
+  "runtime": {
+    "bun": "1.4.2",
+    "zod": "4.6.5"
+  },
+  "fingerprints": {
+    "backend": {
+      "App/Index.ts": "d6814bb6db220d1228b818a9c70c6c1fa8e116cbcce81f2edc3f1c7ff9680d2b",
+      "App/mcp/manifest.ts": "75fd94e321578abc6f4ade5cacb6c138274b0f18238abe2bc25ed7f7beaaaea5",
+      "App/mcp/tools/forge.query.ts": "851a1ee3a54da5f2a10548d6ebacc3f61c57cae51ea242f9a457d724a3689f8c",
+      "App/mcp/tools/forge.manage.ts": "9e5a5b8f7d2b3994cc10f77c7aecd4324c321f353593d22cfe1272ffea8048a8",
+      "App/mcp/tools/help.describe.ts": "c73aff9a78166c62765286c32e14f4fcc19b2e474100b38a323b000200f4c182",
+      "App/mcp/shared/serializeToolSpec.ts": "2cdb71b47208993b134f11f3a48ceefca75975138846cfed39c79a4b1e7754a6",
+      "App/mcp/shared/forgeRenders.ts": "83e84f8190110617b1877c916da9a2e39ff11165f9ced8aa22e71a765cd7a9ff",
+      "App/ai-studio/templates/sceneFill.ts": "effde4eb765bffb126bcfb23cfb21ec504b6ababf36ac792411fc7df06022a46",
+      "App/ai-studio/templates/service.ts": "d9fbda319f9d5da7432ed166949c71c64f33c50cb12ef69eab2a9befd4712643",
+      "App/ai-studio/api-renders/service.ts": "77896dde8566c37a5bd4135772fdc881dcba3793e75995fcf6df2d2574190b71",
+      "App/ai-studio/api-renders/preflightToken.ts": "82774af42fe6e970f6fb6c3de5fb8373774957c6766ee8e6873c756bd6957f6e",
+      "App/ai-studio/templates/templateRevisionEdits.ts": "729e5254ad5bb2fc97dbfb488854e79e1071cefbf38ab5a9562033642df93f88",
+      "App/ai-studio/hyperframes-agent/aepExport.ts": "d5479da5f7831e67746e47eb5023dfa8773b9df091cb0bd60cd8318d1576a986",
+      "App/ai-studio/templates/initialPreparation.ts": "4ed6459d8c89244f1b835db7d81be3c9c4c88ba237c2bfb4b0b1665186c21ebc",
+      "App/ai-studio/templates/forgeAutopilot.ts": "55c080b9db20ce06c4d64dca740f082d60143e20336082439751dcdc340763c6",
+      "App/ai-studio/templates/routes.ts": "dadf926ec49d4af409eeb9e3f156490cb340322ea932d7655befcbce5cf5786d",
+      "App/mcp/tools/cad.query.ts": "da17f458accd424de36d568583923c580dd33437338027f383582a2b9f2e68e1",
+      "App/mcp/tools/cad.manage.ts": "c2fdb21e1d3642c11d433bd1e2714d95cf266502fe3be8ae3f2ff8907f52bfe2"
+    },
+    "monorepo": {
+      "packages/contracts/src/media/asset-formats.ts": "124fe2f466056478efd963f3a0eb4f3cf36f83cec29630e765bb9bc4fd7da6a0",
+      "packages/contracts/src/media/template-source.ts": "b5204f40e8974795da2b098a49ba71201305112c7d48235742422f57df6ebd22",
+      "docs/capability-matrix-external.md": "84154423e1d7cff4ce9ef99e97865dcf69e932b3df12a209a2a585e574388381",
+      "docs/capability-matrix.md": "5a2b2bb44483cdf19f680eeed990344ef5b4d50ffe45696f30d4e10315f1c2cf",
+      "docs/mcp-user-guide.md": "103d2996e09c3be0e3209ed56cc7126fca5fb0a72a15a325f14b58f0c86e026e"
+    }
+  },
+  "formats": [
+    {
+      "family": "raster_image",
+      "extensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "gif",
+        "avif",
+        "bmp"
+      ],
+      "mimeTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif",
+        "image/avif",
+        "image/bmp",
+        "image/x-ms-bmp"
+      ],
+      "originalKind": "image",
+      "previewStrategy": "native"
+    },
+    {
+      "family": "video",
+      "extensions": [
+        "mp4",
+        "mov",
+        "webm",
+        "m4v"
+      ],
+      "mimeTypes": [
+        "video/mp4",
+        "video/quicktime",
+        "video/webm",
+        "video/x-m4v"
+      ],
+      "originalKind": "video",
+      "previewStrategy": "browser_video"
+    },
+    {
+      "family": "audio",
+      "extensions": [
+        "mp3",
+        "wav",
+        "m4a",
+        "aac",
+        "ogg",
+        "oga",
+        "flac"
+      ],
+      "mimeTypes": [
+        "audio/mpeg",
+        "audio/mp3",
+        "audio/wav",
+        "audio/x-wav",
+        "audio/wave",
+        "audio/mp4",
+        "audio/x-m4a",
+        "audio/aac",
+        "audio/ogg",
+        "audio/flac",
+        "audio/x-flac"
+      ],
+      "originalKind": "audio",
+      "previewStrategy": "native"
+    },
+    {
+      "family": "audio",
+      "extensions": [
+        "aiff",
+        "aif",
+        "wma"
+      ],
+      "mimeTypes": [
+        "audio/aiff",
+        "audio/x-aiff",
+        "audio/x-ms-wma"
+      ],
+      "originalKind": "audio",
+      "previewStrategy": "proxy_transcode"
+    },
+    {
+      "family": "broadcast_video",
+      "extensions": [
+        "mxf"
+      ],
+      "mimeTypes": [
+        "application/mxf",
+        "video/mxf"
+      ],
+      "originalKind": "video",
+      "previewStrategy": "proxy_transcode",
+      "storageBucket": "media-source"
+    },
+    {
+      "family": "container_video",
+      "extensions": [
+        "mkv",
+        "avi",
+        "wmv",
+        "3gp",
+        "3g2",
+        "flv"
+      ],
+      "mimeTypes": [
+        "video/x-matroska",
+        "video/x-msvideo",
+        "video/avi",
+        "video/msvideo",
+        "video/x-ms-wmv",
+        "video/x-ms-asf",
+        "video/3gpp",
+        "video/3gpp2",
+        "video/x-flv"
+      ],
+      "originalKind": "video",
+      "previewStrategy": "proxy_transcode"
+    },
+    {
+      "family": "premiere_project",
+      "extensions": [
+        "prproj"
+      ],
+      "mimeTypes": [
+        "application/vnd.adobe.premierepro.project"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion",
+      "storageBucket": "media-source"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "svg"
+      ],
+      "mimeTypes": [
+        "image/svg+xml"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "browser_raster"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "tif",
+        "tiff"
+      ],
+      "mimeTypes": [
+        "image/tiff"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "browser_raster"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "heic",
+        "heif"
+      ],
+      "mimeTypes": [
+        "image/heic",
+        "image/heif"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "browser_raster"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "psd"
+      ],
+      "mimeTypes": [
+        "image/vnd.adobe.photoshop",
+        "image/x-photoshop"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "document",
+      "extensions": [
+        "pdf"
+      ],
+      "mimeTypes": [
+        "application/pdf"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "native"
+    },
+    {
+      "family": "presentation",
+      "extensions": [
+        "pptx",
+        "potx",
+        "deckcraft"
+      ],
+      "mimeTypes": [
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "application/vnd.openxmlformats-officedocument.presentationml.template",
+        "application/vnd.storyteller.deckcraft+zip"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "office_document",
+      "extensions": [
+        "docx",
+        "xlsx",
+        "doc",
+        "ppt",
+        "xls"
+      ],
+      "mimeTypes": [
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/msword",
+        "application/vnd.ms-powerpoint",
+        "application/vnd.ms-excel"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "ai",
+        "eps"
+      ],
+      "mimeTypes": [
+        "application/illustrator",
+        "application/postscript"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "tga",
+        "exr"
+      ],
+      "mimeTypes": [
+        "image/x-tga",
+        "image/x-targa",
+        "image/x-exr"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "design_source",
+      "extensions": [
+        "indd"
+      ],
+      "mimeTypes": [
+        "application/x-indesign"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "embedded_pages"
+    },
+    {
+      "family": "model_3d",
+      "extensions": [
+        "glb",
+        "gltf",
+        "obj",
+        "stl",
+        "fbx",
+        "ply",
+        "dae",
+        "3ds",
+        "usdz",
+        "step",
+        "stp",
+        "iges",
+        "igs"
+      ],
+      "mimeTypes": [
+        "model/gltf-binary",
+        "model/gltf+json",
+        "model/obj",
+        "model/stl",
+        "model/x.stl-binary",
+        "model/vnd.usdz+zip",
+        "model/step",
+        "model/iges",
+        "model/vnd.collada+xml"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "model_viewer"
+    },
+    {
+      "family": "blender",
+      "extensions": [
+        "blend"
+      ],
+      "mimeTypes": [
+        "application/x-blender"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "after_effects",
+      "extensions": [
+        "aep",
+        "aepx",
+        "aet"
+      ],
+      "mimeTypes": [
+        "application/vnd.adobe.aftereffects.project"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "hyperframes",
+      "extensions": [
+        "html",
+        "htm"
+      ],
+      "mimeTypes": [
+        "text/html"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    },
+    {
+      "family": "after_effects_package",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    {
+      "family": "font",
+      "extensions": [
+        "ttf",
+        "otf",
+        "woff",
+        "woff2"
+      ],
+      "mimeTypes": [
+        "font/ttf",
+        "font/otf",
+        "font/woff",
+        "font/woff2",
+        "application/font-sfnt",
+        "application/x-font-ttf",
+        "application/x-font-otf",
+        "application/vnd.ms-opentype"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "none"
+    }
+  ],
+  "zipFormats": {
+    "aep_package": {
+      "family": "after_effects_package",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    "web_component": {
+      "family": "web_component",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "companion"
+    },
+    "html_bundle": {
+      "family": "html_bundle",
+      "extensions": [
+        "zip"
+      ],
+      "mimeTypes": [
+        "application/zip",
+        "application/x-zip-compressed"
+      ],
+      "originalKind": "file",
+      "previewStrategy": "html_sandbox"
+    },
+    "archive": {
+      "family": "generic",
+      "extensions": [],
+      "mimeTypes": [],
+      "originalKind": "file",
+      "previewStrategy": "none",
+      "storageBucket": "media-source"
+    },
+    "ambiguous": {
+      "family": "generic",
+      "extensions": [],
+      "mimeTypes": [],
+      "originalKind": "file",
+      "previewStrategy": "none",
+      "storageBucket": "media-source"
+    }
+  },
+  "templateFamilies": [
+    "after_effects",
+    "after_effects_package",
+    "figma",
+    "photoshop",
+    "blender",
+    "hyperframes",
+    "presentation",
+    "web_component"
+  ]
+}
