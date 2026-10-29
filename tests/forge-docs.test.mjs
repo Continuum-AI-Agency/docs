@@ -71,6 +71,8 @@ test('quickstart and index stay bounded, with lazy action discovery', () => {
   assert.ok(read('forge/agents.mdx').length <= 6_200, 'Quickstart exceeds its compact character budget');
   assert.ok(Buffer.byteLength(read('forge/agent-manifest.json')) <= 20_000, 'Operation index grew beyond 20 KB');
   assert.equal(read('forge/agent-manifest.txt'), read('forge/agent-manifest.json'));
+  for (const page of ['forge/agents', 'forge/functions'])
+    assert.match(read(`${page}.mdx`), /\[operation index\]\(\/forge\/agent-manifest\.json\)/);
   assert.match(read('forge/agents.mdx'), /help_describe/);
   assert.ok(source.documentedExamples.some(x => x.page === 'forge/agents.mdx'));
   assert.ok(source.documentedExamples.filter(x => x.page.includes('integration-recipes')).length >= 19);
