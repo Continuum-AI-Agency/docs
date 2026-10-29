@@ -12,7 +12,7 @@ Checked 2026-10-29: **17 query actions** and **18 management actions**. These ar
 
 Fetch only the action you need with `help_describe {tool, action}`. Some connectors advertise an older action enum. If your client cannot represent an action, refresh its tool discovery or use a client that exposes the current contract; do not silently substitute another action.
 
-The [operation index](/forge/agent-manifest.txt) supplies compact routing facts. Full inputs stay in runtime discovery. Fields marked required below include action-specific validator requirements that a flat JSON schema may omit. Successful Forge results use `{status: "ok", action, result}`; read the fields below inside `result`.
+The [operation index](/forge/agent-manifest.json) supplies compact routing facts. Full inputs stay in runtime discovery. Fields marked required below include action-specific validator requirements that a flat JSON schema may omit. Successful Forge results use `{status: "ok", action, result}`; read the fields below inside `result`.
 
 <Warning>`render_preview` is a preflight, not a pixel render. Inspect saved delivery settings: omitted settings inherit. Show the person the rows, destinations and any spend before confirming. Use the exact `confirmationToken` returned by the Forge action.</Warning>
 
