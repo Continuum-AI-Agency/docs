@@ -1,0 +1,414 @@
+{
+  "version": 1,
+  "verifiedAt": "2026-10-29",
+  "sourceRevisions": {
+    "backend": "002d2d68ec39103043b2a2c61484429cac5c0830",
+    "contracts": "e5662d7a06c6226b743c88e976c97ba1e2e57d31"
+  },
+  "guide": "/forge/agents",
+  "functions": "/forge/functions",
+  "formats": "/forge/design-systems",
+  "discovery": {
+    "name": "help_describe",
+    "arguments": {
+      "tool": "<selected tool>",
+      "action": "<selected action>"
+    }
+  },
+  "warning": "Source-backed snapshot; client availability and production-format qualification are separate. Rediscover before execution.",
+  "defaults": {
+    "role": {
+      "forge_query": "Viewer or higher",
+      "forge_manage": "Operator or higher"
+    },
+    "completion": "inline",
+    "confirmation": "none"
+  },
+  "operations": [
+    {
+      "id": "forge_query.templates",
+      "group": "Template revisions",
+      "summary": "List granted or built render templates.",
+      "required": [
+        "action"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.template",
+      "group": "Template revisions",
+      "summary": "Read exposed variables, required values, budgets, outputs and contractHash.",
+      "required": [
+        "action",
+        "templateKey"
+      ],
+      "conditions": "Use bindingId from discovery when the key matches multiple workspaces.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.sets",
+      "group": "Render sets",
+      "summary": "List saved sets, optionally filtered by templateKey.",
+      "required": [
+        "action"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.set",
+      "group": "Render sets",
+      "summary": "Read saved rows, inherited effective values and delivery settings.",
+      "required": [
+        "action",
+        "setId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.set_revisions",
+      "group": "Render sets",
+      "summary": "Read kept states of a set.",
+      "required": [
+        "action",
+        "setId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.destinations",
+      "group": "Rendering",
+      "summary": "Read delivery and approval destinations.",
+      "required": [
+        "action"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.jobs",
+      "group": "Rendering",
+      "summary": "List render jobs, optionally filtered by templateKey, setId, batchId or status.",
+      "required": [
+        "action"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.job",
+      "group": "Rendering",
+      "summary": "Refresh a single render job and its output files.",
+      "required": [
+        "action",
+        "jobId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.batch",
+      "group": "Rendering",
+      "summary": "Read a batch, waiting briefly for its jobs to settle.",
+      "required": [
+        "action",
+        "batchId"
+      ],
+      "maySpend": false,
+      "completion": "Bounded wait: waitSeconds 0–55; use 50 in a background task until done=true."
+    },
+    {
+      "id": "forge_query.scenes",
+      "group": "Scenes",
+      "summary": "List accessible 3D scenes and their fillable keys.",
+      "required": [
+        "action"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.set_diff",
+      "group": "Render sets",
+      "summary": "Compare two rows or two kept states as rendered.",
+      "required": [
+        "action",
+        "setId"
+      ],
+      "conditions": "Supply rowIds=[a,b], or fromRevision with optional toRevision (default: current).",
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.template_tree",
+      "group": "Template revisions",
+      "summary": "Read branches, revision history, publications and the default variant.",
+      "required": [
+        "action",
+        "assetId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.template_layers",
+      "group": "Template revisions",
+      "summary": "Read editable compositions and layers of a revision.",
+      "required": [
+        "action",
+        "revisionId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.template_revision",
+      "group": "Template revisions",
+      "summary": "Read a revision and its source identity.",
+      "required": [
+        "action",
+        "revisionId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.template_diff",
+      "group": "Template revisions",
+      "summary": "Compare edits of two revisions of one template.",
+      "required": [
+        "action",
+        "revisionId",
+        "toRevisionId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.template_run",
+      "group": "Template revisions",
+      "summary": "Read the publishing run for this exact revision source.",
+      "required": [
+        "action",
+        "assetId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_query.sources",
+      "group": "Sources",
+      "summary": "List the brand’s uploaded template sources and parse/build state.",
+      "required": [
+        "action"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.set_create",
+      "group": "Render sets",
+      "summary": "Save rows for one template.",
+      "required": [
+        "action",
+        "templateKey",
+        "name",
+        "rows"
+      ],
+      "conditions": "Use bindingId when ambiguous; templateRevisionId, when supplied, must identify a published revision.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.set_update",
+      "group": "Render sets",
+      "summary": "Update a saved set with a revision check.",
+      "required": [
+        "action",
+        "setId",
+        "expectedRevision"
+      ],
+      "conditions": "settings merges named keys; null clears nullable settings. Prefer rows_patch for surgical row changes.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.set_fork",
+      "group": "Render sets",
+      "summary": "Copy the current set or one of its kept states.",
+      "required": [
+        "action",
+        "setId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.set_delete",
+      "group": "Render sets",
+      "summary": "Delete a saved render set.",
+      "required": [
+        "action",
+        "setId"
+      ],
+      "confirmation": "Ask for an explicit yes before calling. This action directly deletes; it does not issue its own confirmationToken.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.suggest_rows",
+      "group": "Render sets",
+      "summary": "Draft values from a brief, documents or media.",
+      "required": [
+        "action"
+      ],
+      "conditions": "Provide setId or templateKey, and prompt or documentIds or mediaAssetIds. parentRowId requires setId.",
+      "maySpend": true
+    },
+    {
+      "id": "forge_manage.apply_suggestions",
+      "group": "Render sets",
+      "summary": "Append selected draft rows once.",
+      "required": [
+        "action",
+        "setId",
+        "expectedRevision",
+        "rows"
+      ],
+      "conditions": "Every selected row must retain its draft id.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.source_begin",
+      "group": "Sources",
+      "summary": "Create a signed-in mixed-file upload handoff.",
+      "required": [
+        "action"
+      ],
+      "confirmation": "Explain automatic preparation and smoke-render spend and obtain permission BEFORE completing an eligible source upload; waiting for template_forge does not prevent it.",
+      "maySpend": false,
+      "continuationMaySpend": true,
+      "completion": "Returns inline; upload, parsing and eligible preparation continue separately."
+    },
+    {
+      "id": "forge_manage.source_status",
+      "group": "Sources",
+      "summary": "Read upload readiness and classified resource IDs.",
+      "required": [
+        "action",
+        "upload_intent_id"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.render_preview",
+      "group": "Rendering",
+      "summary": "Validate selected rows and show where each result will go.",
+      "required": [
+        "action",
+        "setId"
+      ],
+      "conditions": "Omitted delivery/final settings inherit from the saved set; inspect them. null slackDestinationId disables posting. final=true requires Admin/Owner.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.render_confirm",
+      "group": "Rendering",
+      "summary": "Redeem the reviewed preflight token and queue the batch.",
+      "required": [
+        "action",
+        "confirmationToken"
+      ],
+      "confirmation": "Show readiness, rows and destinations; wait for the person’s yes, then pass the exact returned confirmationToken.",
+      "maySpend": true,
+      "completion": "Returns a batch immediately; read forge_query batch/job."
+    },
+    {
+      "id": "forge_manage.scene_fill",
+      "group": "Scenes",
+      "summary": "Fill an accessible scene from the brand and brief.",
+      "required": [
+        "action",
+        "assetId",
+        "versionId"
+      ],
+      "conditions": "Use assetId/versionId/output IDs returned by scenes.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.scene_render",
+      "group": "Scenes",
+      "summary": "Redeem a reviewed scene fill and queue its outputs.",
+      "required": [
+        "action",
+        "confirmationToken"
+      ],
+      "conditions": "The service reloads the current scene at submission; immutable scene-version execution is not guaranteed. Recheck scenes before confirming; if it changed, fill/review again.",
+      "confirmation": "Show filled values and outputs, explain potential spend (estimate may be unavailable), wait for a yes, then pass the exact scene_fill token.",
+      "maySpend": true,
+      "completion": "Scene jobs use the template’s scene history in Forge and the Library; they are not Forge render-set batches."
+    },
+    {
+      "id": "forge_manage.rows_patch",
+      "group": "Render sets",
+      "summary": "Upsert or remove selected rows with a revision check.",
+      "required": [
+        "action",
+        "setId",
+        "expectedRevision"
+      ],
+      "conditions": "Supply nonempty rows or removeRowIds. Ask for explicit consent before removing rows.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.set_retarget",
+      "group": "Render sets",
+      "summary": "Pin an existing set to a published template revision.",
+      "required": [
+        "action",
+        "setId",
+        "expectedRevision",
+        "templateRevisionId"
+      ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.template_preview",
+      "group": "Template revisions",
+      "summary": "Preview proposed edits without saving a revision.",
+      "required": [
+        "action",
+        "assetId",
+        "parentRevisionId",
+        "edits"
+      ],
+      "conditions": "Read template_layers first. Edits are also checked against the revision edit contract.",
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.template_save",
+      "group": "Template revisions",
+      "summary": "Save edits as a new immutable revision.",
+      "required": [
+        "action",
+        "assetId",
+        "parentRevisionId",
+        "edits"
+      ],
+      "conditions": "Exactly one of name (new branch) or variantId (extend its current head). Requires a signed-in user session.",
+      "confirmation": "Obtain explicit permission for saving and its automatic preparation/spend BEFORE template_save; there is no separate render-preview token for this path.",
+      "maySpend": true
+    },
+    {
+      "id": "forge_manage.template_forge",
+      "group": "Template revisions",
+      "summary": "Start or advance publication of an eligible revision source.",
+      "required": [
+        "action",
+        "assetId",
+        "step"
+      ],
+      "conditions": "step=start needs templateName; step=decisions needs decisions. Native HTML/components/Blender do not use this action.",
+      "role": "Admin or Owner",
+      "confirmation": "Obtain explicit permission for this publishing run and its smoke-render spend before starting; this action has no render_preview token.",
+      "maySpend": true,
+      "completion": "Returns inline; inspect template_run while the run continues."
+    },
+    {
+      "id": "forge_manage.template_set_default",
+      "group": "Template revisions",
+      "summary": "Choose the variant everyone opens by default.",
+      "required": [
+        "action",
+        "assetId",
+        "variantId"
+      ],
+      "role": "Admin or Owner",
+      "maySpend": false
+    }
+  ]
+}

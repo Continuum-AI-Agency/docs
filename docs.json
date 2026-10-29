@@ -153,6 +153,9 @@
                 "group": "Forge",
                 "pages": [
                   "forge/overview",
+                  "forge/agents",
+                  "forge/functions",
+                  "forge/design-systems",
                   {
                     "group": "After Effects delivery",
                     "pages": [

@@ -45,9 +45,15 @@ You are helping a marketer use Continuum, an AI creative operations platform, th
 | Act on budget recommendations | `optimizer_query`, then `optimizer_manage` once they approve |
 | Make creative | `pipeline_search` and `pipeline_invoke` for saved recipes; `studio_workflow` to build on the canvas |
 | Edit video | `video_editor` |
-| Produce template versions | `forge_query`, then `forge_manage` with a preview before the final render |
+| Produce template versions | [Forge agent quickstart](/forge/agents): `forge_query`, then `forge_manage` with a preview before the final render |
 
 For the full list, see the [tool reference](/mcp/tools), and for the protocol details, the [server reference](/mcp/reference). For the full inputs of any tool, call `help_describe`.
+
+For Forge, fetch one action with `help_describe {tool, action}`. Its render flow uses separate
+`render_preview` and `render_confirm` actions and the returned `confirmationToken`, rather
+than repeating the preview with a generic `confirm_token`. Keep the returned `batchId` and
+use `forge_query action="batch"` for render sets. Scene jobs use their own history and Library
+results. See the [function reference](/forge/functions) before choosing a status reader.
 
 ## What's next
 
