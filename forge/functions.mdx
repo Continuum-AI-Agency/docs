@@ -454,7 +454,7 @@ Draft values from a brief, documents or media.
 | Role | Operator or higher |
 | Side effects | Uses AI; saves nothing. |
 | Potential spend | AI drafting may consume model budget. |
-| Confirmation | None for this action. |
+| Confirmation | Use only when the person’s request authorizes AI drafting and its potential model spend; that request is sufficient consent. No server confirmation token is issued. |
 | Completion | Returns inline. |
 | Retry | Another call drafts again; retain selected draft IDs for apply_suggestions. |
 | Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |

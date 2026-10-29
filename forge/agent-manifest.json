@@ -247,6 +247,7 @@
         "action"
       ],
       "conditions": "Provide setId or templateKey, and prompt or documentIds or mediaAssetIds. parentRowId requires setId.",
+      "confirmation": "Use only when the person’s request authorizes AI drafting and its potential model spend; that request is sufficient consent. No server confirmation token is issued.",
       "maySpend": true
     },
     {

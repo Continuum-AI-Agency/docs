@@ -94,7 +94,7 @@ function refresh(args) {
   const verifiedAt = option('--date');
   assert.match(verifiedAt, /^\d{4}-\d{2}-\d{2}$/);
   for (const source of [backend, monorepo]) {
-    assert.equal(execFileSync('git', ['-C', source, 'status', '--porcelain', '--untracked-files=no'], { encoding: 'utf8' }).trim(), '', 'Source checkout must be clean');
+    assert.equal(execFileSync('git', ['-C', source, 'status', '--porcelain'], { encoding: 'utf8' }).trim(), '', 'Source checkout must be clean');
   }
   const stage = resolve(root, '.cache/forge-docs');
   mkdirSync(stage, { recursive: true });

@@ -638,7 +638,7 @@
       "role": "Operator or higher",
       "effect": "Uses AI; saves nothing.",
       "spend": "AI drafting may consume model budget.",
-      "confirmation": "None for this action.",
+      "confirmation": "Use only when the person’s request authorizes AI drafting and its potential model spend; that request is sufficient consent. No server confirmation token is issued.",
       "execution": "Returns inline.",
       "retry": "Another call drafts again; retain selected draft IDs for apply_suggestions.",
       "errors": [
