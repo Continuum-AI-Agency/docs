@@ -35818,6 +35818,23 @@
               "limit": 20
             }
           }
+        },
+        {
+          "title": "Confirm the previewed campaign with its token, after the person says yes",
+          "arguments": {
+            "action": "create_campaign",
+            "params": {
+              "mode": "confirm",
+              "platform": "meta_ads",
+              "ad_account_id": "act_123",
+              "campaign": {
+                "name": "Spring",
+                "objective": "OUTCOME_TRAFFIC",
+                "daily_budget": 1000
+              },
+              "confirm_token": "tok_7c1e9a2b4d6f8031"
+            }
+          }
         }
       ],
       "errorCodes": [

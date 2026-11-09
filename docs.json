@@ -75,6 +75,7 @@
         "pages": [
           "index",
           "quickstart",
+          "troubleshooting",
           "concepts",
           "glossary"
         ]
@@ -225,8 +226,7 @@
       {
         "group": "Resources",
         "pages": [
-          "changelog",
-          "troubleshooting"
+          "changelog"
         ]
       }
     ]
