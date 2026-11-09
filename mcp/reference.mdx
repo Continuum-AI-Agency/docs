@@ -112,7 +112,7 @@ Errors set `isError: true`. `structuredContent` holds `{ ok: false, code, messag
 | --- | --- |
 | `UNAUTHENTICATED` | The token is missing or invalid. |
 | `SESSION_NOT_INITIALIZED` | Send `initialize` first. |
-| `BRAND_NOT_SELECTED` | No brand is active. |
+| `BRAND_NOT_SELECTED` | No brand is active. Tools that are always listed report the same thing as the `needs_brand` status; either way, call `brands_select`. |
 | `PERMISSION_DENIED`, `BRAND_FORBIDDEN`, `ACCOUNT_FORBIDDEN` | The person can't reach that brand, account, or action. |
 | `VALIDATION_ERROR` | The inputs are wrong, or they changed since a preview. |
 | `CONFIRMATION_REQUIRED`, `APPROVAL_REQUIRED` | See [Confirmations](#confirmations). |

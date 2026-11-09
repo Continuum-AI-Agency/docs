@@ -382,8 +382,6 @@ Source: https://docs.trycontinuum.ai/mcp/overview
 
 > Connect Continuum to Claude or ChatGPT and put your brand book, results, and content plan to work by asking.
 
-![](https://docs.trycontinuum.ai/images/world/moon-shore-banner.webp)
-
 Continuum works from your brand book, your audience, your past performance, and your creative library. Connect it to Claude or ChatGPT and you can put all of that to work by asking, in one conversation.
 
 The connection uses the **Model Context Protocol (MCP)**. Claude and ChatGPT call it a **connector**: a secure link that lets your assistant work in Continuum for you. You paste one address, sign in with your normal Continuum login, and you're done.
@@ -1080,15 +1078,15 @@ These are registered and callable by name, but `tools/list` doesn't advertise th
 | [`mcp_approval_grant`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#mcp_approval_grant) | Grant admin approval for a pending confirm token. The token must have requires.role = 'admin'. After granting, the token's approvals array is updated and the originating tool can … | Yes |
 | [`mcp_approvals_list`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#mcp_approvals_list) | List all pending confirm tokens for the current brand that require admin approval. Returns only tokens where requires.role = 'admin'. Admin-only. | No |
 | [`organic_ask`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_ask) | Ask the organic social agent a free-form question about social strategy, captions, hashtags, content ideas, or organic post/account performance. Use when the question is about wha… | Yes |
-| [`organic_inbox_list`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_inbox_list) | List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`. | No |
-| [`organic_inbox_reply`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_inbox_reply) | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
-| [`organic_media_list`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_media_list) | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
-| [`organic_profile_get`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_profile_get) | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
-| [`organic_workflow_run`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the … | Yes |
+| [`organic_inbox_list`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#organic_inbox_list) | List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`. | No |
+| [`organic_inbox_reply`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#organic_inbox_reply) | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
+| [`organic_media_list`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#organic_media_list) | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
+| [`organic_profile_get`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#organic_profile_get) | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
+| [`organic_workflow_run`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the … | Yes |
 | [`paid_naming_schema_set`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#paid_naming_schema_set) | Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '\|') plus an ordered list of field labels (e.g. \['funnel', 'format', 'audience']). Once set, ad… | Yes |
-| [`post_audit`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#post_audit) | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
-| [`post_create_instagram`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#post_create_instagram) | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
-| [`post_manage`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#post_manage) | Manage an existing post: unschedule, reschedule, edit caption, or delete. Use `preview_delete` first for published posts to get a `confirm_token` before deleting. | Yes |
+| [`post_audit`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#post_audit) | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
+| [`post_create_instagram`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#post_create_instagram) | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
+| [`post_manage`](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md#post_manage) | Manage an existing post: unschedule, reschedule, edit caption, or delete. Use `preview_delete` first for published posts to get a `confirm_token` before deleting. | Yes |
 
 ## Ready-made prompts
 
@@ -1262,6 +1260,8 @@ Shows connected platforms and accounts, ad accounts, and your role.
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `analytics_query`.
+
 Full schema: `help_describe {"tool":"account_map"}`. As JSON: [`/mcp/schemas/account_map.json`](https://docs.trycontinuum.ai/mcp/schemas/account_map.json).
 
 ### `accounts_list`
@@ -1409,7 +1409,6 @@ Checks whether a connection is healthy, expired, or disconnected.
 | - | - |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `integrations_connect`, `integrations_list`.
@@ -1471,6 +1470,8 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
+**Related:** `creative_strategy`.
+
 Full schema: `help_describe {"tool":"brand_knowledge","action":"overview"}`. As JSON: [`/mcp/schemas/brand_knowledge.json`](https://docs.trycontinuum.ai/mcp/schemas/brand_knowledge.json).
 
 ### `agent_ask`
@@ -1515,6 +1516,8 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `jobs_status`, `planner_manage`, `analytics_query`.
+
 Full schema: `help_describe {"tool":"agent_ask","action":"jaina"}`. `help_describe`'s `action` takes a `target` value. As JSON: [`/mcp/schemas/agent_ask.json`](https://docs.trycontinuum.ai/mcp/schemas/agent_ask.json).
 
 ### `jobs_status`
@@ -1554,7 +1557,7 @@ Checks on a long-running job.
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `post_audit`, `insights_get`.
+**Related:** `post_audit`, `insights_get`, `agent_ask`, `forge_query`, `organic_ask`.
 
 Full schema: `help_describe {"tool":"jobs_status"}`. As JSON: [`/mcp/schemas/jobs_status.json`](https://docs.trycontinuum.ai/mcp/schemas/jobs_status.json).
 
@@ -1592,7 +1595,7 @@ Describes any registered tool and its actions: the full input schema, examples, 
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `brands_list`, `brands_select`.
+**Related:** `brands_list`, `brands_select`, `studio_workflow`.
 
 Full schema: `help_describe {"tool":"help_describe"}`. As JSON: [`/mcp/schemas/help_describe.json`](https://docs.trycontinuum.ai/mcp/schemas/help_describe.json).
 
@@ -1672,6 +1675,8 @@ Organic, paid, and website results by platform: accounts, top posts, campaigns, 
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 
+**Related:** `agent_ask`, `help_describe`.
+
 Full schema: `help_describe {"tool":"analytics_query","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/analytics_query.json`](https://docs.trycontinuum.ai/mcp/schemas/analytics_query.json).
 
 ### `analytics_creative_insights`
@@ -1707,7 +1712,7 @@ Ranks your Meta ad creatives by video retention: hook rate and hold rate.
 | Code | When |
 | - | - |
 | `VALIDATION_ERROR` | Only `meta_ads` has creative retention (hook/hold) data. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 
 **Related:** `jobs_status`.
@@ -1746,11 +1751,11 @@ Spend, conversions, cost per acquisition, and return on ad spend across your con
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `analytics_pacing_diagnostic`, `analytics_creative_insights`.
+**Related:** `analytics_pacing_diagnostic`, `analytics_creative_insights`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"analytics_cross_platform_spend"}`. As JSON: [`/mcp/schemas/analytics_cross_platform_spend.json`](https://docs.trycontinuum.ai/mcp/schemas/analytics_cross_platform_spend.json).
 
@@ -1785,7 +1790,7 @@ Which Meta campaigns are pacing ahead of or behind budget, with a 0–100 health
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -1827,6 +1832,8 @@ Your Meta audiences, ad set targeting, and demographic and placement breakdowns.
 | - | - |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+
+**Related:** `account_map`, `help_describe`.
 
 Full schema: `help_describe {"tool":"audience_query","action":"list_audiences"}`. As JSON: [`/mcp/schemas/audience_query.json`](https://docs.trycontinuum.ai/mcp/schemas/audience_query.json).
 
@@ -1873,7 +1880,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `BRAND_NOT_SELECTED` | Call `brands_select` first. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-**Related:** `brand_knowledge`, `analytics_query`, `content_create`.
+**Related:** `brand_knowledge`, `analytics_query`, `content_create`, `analytics_creative_insights`.
 
 Full schema: `help_describe {"tool":"creative_strategy","action":"overview"}`. As JSON: [`/mcp/schemas/creative_strategy.json`](https://docs.trycontinuum.ai/mcp/schemas/creative_strategy.json).
 
@@ -1947,11 +1954,11 @@ The hashtags people post under on Instagram or TikTok, with post counts and grow
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `intel_competitor_ad_library`, `content_create`.
+**Related:** `intel_competitor_ad_library`, `content_create`, `jobs_status`, `trends_manage`.
 
 Full schema: `help_describe {"tool":"intel_trend_discovery"}`. As JSON: [`/mcp/schemas/intel_trend_discovery.json`](https://docs.trycontinuum.ai/mcp/schemas/intel_trend_discovery.json).
 
@@ -1988,8 +1995,10 @@ A digest of what your tracked competitors run in paid ads and post organically, 
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_competitor_ads`, `intel_competitor_organic`, `intel_competitor_scan`.
 
 Full schema: `help_describe {"tool":"intel_competitor_moves"}`. As JSON: [`/mcp/schemas/intel_competitor_moves.json`](https://docs.trycontinuum.ai/mcp/schemas/intel_competitor_moves.json).
 
@@ -2035,8 +2044,10 @@ Ads from competitors you track, including how long each has run.
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_competitor_ad_library`, `intel_competitor_moves`, `intel_competitor_scan`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"intel_competitor_ads"}`. As JSON: [`/mcp/schemas/intel_competitor_ads.json`](https://docs.trycontinuum.ai/mcp/schemas/intel_competitor_ads.json).
 
@@ -2070,8 +2081,10 @@ Organic posts from competitors you track.
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_competitor_ads`, `intel_competitor_moves`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"intel_competitor_organic"}`. As JSON: [`/mcp/schemas/intel_competitor_organic.json`](https://docs.trycontinuum.ai/mcp/schemas/intel_competitor_organic.json).
 
@@ -2109,7 +2122,7 @@ Looks up any advertiser in the Meta Ad Library.
 | - | - |
 | `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `intel_competitor_scan`, `intel_competitor_ads`.
@@ -2242,6 +2255,8 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
+**Related:** `content_create`.
+
 Full schema: `help_describe {"tool":"planner_manage","action":"get_week"}`. As JSON: [`/mcp/schemas/planner_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/planner_manage.json).
 
 ### `content_create`
@@ -2251,7 +2266,8 @@ Drafts, approves, and publishes posts, and deletes drafts.
 **Good to know:**
 
 * `approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.
-* `realize` (generating the creative) and `delete` are two-phase: the first call previews and returns a token, the second confirms.
+* `platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](https://docs.trycontinuum.ai/organic/publishing.md) has the status of the others, and X isn’t offered for publishing.
+* `realize` (generating the creative) and `delete` are two-phase. A `realize` preview returns `approve_with`: send `approve_with.input` back as the next `realize` call to confirm exactly what was previewed. `delete` returns a `confirm_token` instead.
 * `reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.
 * `draft` needs a `prompt` unless you pass `generate: false`; then it saves the `caption` and `hashtags` you pass word for word.
 
@@ -2303,7 +2319,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 
-**Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`.
+**Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`, `planner_manage`, `library_manage`, `unsplash_search`.
 
 Full schema: `help_describe {"tool":"content_create","action":"list"}`. As JSON: [`/mcp/schemas/content_create.json`](https://docs.trycontinuum.ai/mcp/schemas/content_create.json).
 
@@ -2340,8 +2356,10 @@ Lists drafts on the calendar.
 | Code | When |
 | - | - |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `organic_draft_get`.
 
 Full schema: `help_describe {"tool":"organic_draft_list"}`. As JSON: [`/mcp/schemas/organic_draft_list.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_draft_list.json).
 
@@ -2375,8 +2393,10 @@ Reads one draft.
 | - | - |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `organic_draft_list`.
 
 Full schema: `help_describe {"tool":"organic_draft_get"}`. As JSON: [`/mcp/schemas/organic_draft_get.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_draft_get.json).
 
@@ -2567,7 +2587,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 
-**Related:** `analytics_query`, `account_map`.
+**Related:** `analytics_query`, `account_map`, `mcp_approval_grant`, `mcp_approvals_list`, `help_describe`.
 
 Full schema: `help_describe {"tool":"paid_manage","action":"hierarchy"}`. As JSON: [`/mcp/schemas/paid_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/paid_manage.json).
 
@@ -2600,8 +2620,10 @@ Your brand's campaign naming convention.
 | Code | When |
 | - | - |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `analytics_creative_insights`, `analytics_query`.
 
 Full schema: `help_describe {"tool":"paid_naming_schema_get"}`. As JSON: [`/mcp/schemas/paid_naming_schema_get.json`](https://docs.trycontinuum.ai/mcp/schemas/paid_naming_schema_get.json).
 
@@ -2646,6 +2668,8 @@ Portfolios, pending recommendations, performance, and the optimization log.
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
+
+**Related:** `help_describe`, `optimizer_manage`.
 
 Full schema: `help_describe {"tool":"optimizer_query","action":"portfolios"}`. As JSON: [`/mcp/schemas/optimizer_query.json`](https://docs.trycontinuum.ai/mcp/schemas/optimizer_query.json).
 
@@ -2696,6 +2720,8 @@ Approves or rejects recommendations and manages portfolios.
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `help_describe`, `mcp_approval_grant`, `optimizer_query`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"optimizer_manage","action":"create_portfolio"}`. As JSON: [`/mcp/schemas/optimizer_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/optimizer_manage.json).
 
@@ -2784,7 +2810,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-**Related:** `studio_deliver`, `media_search`, `content_create`.
+**Related:** `studio_deliver`, `media_search`, `content_create`, `help_describe`, `library_manage`, `unsplash_search`.
 
 Full schema: `help_describe {"tool":"studio_workflow","action":"get"}`. As JSON: [`/mcp/schemas/studio_workflow.json`](https://docs.trycontinuum.ai/mcp/schemas/studio_workflow.json).
 
@@ -2835,7 +2861,7 @@ Previews and sends finished creative to a planned post, an organic publish, or a
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `studio_workflow`, `content_create`, `paid_manage`.
+**Related:** `studio_workflow`, `content_create`, `paid_manage`, `help_describe`.
 
 Full schema: `help_describe {"tool":"studio_deliver","action":"find_targets"}`. As JSON: [`/mcp/schemas/studio_deliver.json`](https://docs.trycontinuum.ai/mcp/schemas/studio_deliver.json).
 
@@ -2870,8 +2896,10 @@ Finds your team's saved pipelines.
 | Code | When |
 | - | - |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `pipeline_describe`, `pipeline_invoke`.
 
 Full schema: `help_describe {"tool":"pipeline_search"}`. As JSON: [`/mcp/schemas/pipeline_search.json`](https://docs.trycontinuum.ai/mcp/schemas/pipeline_search.json).
 
@@ -2904,8 +2932,10 @@ Shows what a pipeline needs.
 | Code | When |
 | - | - |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `pipeline_invoke`, `pipeline_search`.
 
 Full schema: `help_describe {"tool":"pipeline_describe"}`. As JSON: [`/mcp/schemas/pipeline_describe.json`](https://docs.trycontinuum.ai/mcp/schemas/pipeline_describe.json).
 
@@ -2954,6 +2984,8 @@ Runs a pipeline, up to 10 versions per request.
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
+**Related:** `pipeline_describe`, `pipeline_run_status`.
+
 Full schema: `help_describe {"tool":"pipeline_invoke"}`. As JSON: [`/mcp/schemas/pipeline_invoke.json`](https://docs.trycontinuum.ai/mcp/schemas/pipeline_invoke.json).
 
 ### `pipeline_run_status`
@@ -2984,8 +3016,10 @@ Checks a pipeline run.
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `pipeline_describe`, `pipeline_invoke`.
 
 Full schema: `help_describe {"tool":"pipeline_run_status"}`. As JSON: [`/mcp/schemas/pipeline_run_status.json`](https://docs.trycontinuum.ai/mcp/schemas/pipeline_run_status.json).
 
@@ -3020,7 +3054,6 @@ Lists your saved Elements.
 | - | - |
 | `BRAND_NOT_SELECTED` | Elements are per-brand. Call `brands_select` first. |
 | `needs_role` | Reading Elements needs the viewer role on the active brand. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `studio_workflow`, `media_search`, `library_manage`.
@@ -3145,8 +3178,10 @@ Finds media by describing it.
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `library_manage`.
 
 Full schema: `help_describe {"tool":"media_search"}`. As JSON: [`/mcp/schemas/media_search.json`](https://docs.trycontinuum.ai/mcp/schemas/media_search.json).
 
@@ -3190,6 +3225,8 @@ Uploads a video to clip. Clipping finishes in the Continuum app.
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+
+**Related:** `forge_manage`, `video_editor`.
 
 Full schema: `help_describe {"tool":"media_upload_and_clip"}`. As JSON: [`/mcp/schemas/media_upload_and_clip.json`](https://docs.trycontinuum.ai/mcp/schemas/media_upload_and_clip.json).
 
@@ -3281,10 +3318,10 @@ Searches Unsplash stock photos to use as references.
 | - | - |
 | `RATE_LIMITED` | Unsplash's shared hourly quota or this brand's 60/hour budget is spent — retry later. |
 | `configured=false` | The deployment has no Unsplash key; this is not an empty search. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `studio_workflow`, `content_create`, `media_search`.
+**Related:** `studio_workflow`, `content_create`, `media_search`, `integrations_list`.
 
 Full schema: `help_describe {"tool":"unsplash_search"}`. As JSON: [`/mcp/schemas/unsplash_search.json`](https://docs.trycontinuum.ai/mcp/schemas/unsplash_search.json).
 
@@ -3426,6 +3463,8 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
+**Related:** `media_upload_and_clip`.
+
 Full schema: `help_describe {"tool":"video_editor"}`. As JSON: [`/mcp/schemas/video_editor.json`](https://docs.trycontinuum.ai/mcp/schemas/video_editor.json).
 
 ## What's next
@@ -3507,7 +3546,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-**Related:** `forge_manage`.
+**Related:** `forge_manage`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"forge_query","action":"templates"}`. As JSON: [`/mcp/schemas/forge_query.json`](https://docs.trycontinuum.ai/mcp/schemas/forge_query.json).
 
@@ -3576,7 +3615,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
-**Related:** `forge_query`, `brand_knowledge`, `library_manage`, `media_upload_and_clip`.
+**Related:** `forge_query`, `brand_knowledge`, `library_manage`, `media_upload_and_clip`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"forge_manage","action":"set_create"}`. As JSON: [`/mcp/schemas/forge_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/forge_manage.json).
 
@@ -3619,6 +3658,8 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `BRAND_FORBIDDEN` | The person can't reach that brand. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `cad_manage`.
 
 Full schema: `help_describe {"tool":"cad_query","action":"capabilities"}`. As JSON: [`/mcp/schemas/cad_query.json`](https://docs.trycontinuum.ai/mcp/schemas/cad_query.json).
 
@@ -3663,6 +3704,8 @@ Uploads STL, DXF, or 3MF files, then transforms, renders, validates, or exports 
 | `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `cad_query`.
+
 Full schema: `help_describe {"tool":"cad_manage","action":"upload_begin"}`. As JSON: [`/mcp/schemas/cad_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/cad_manage.json).
 
 ## What's next
@@ -3672,11 +3715,11 @@ Full schema: `help_describe {"tool":"cad_manage","action":"upload_begin"}`. As J
 * [Analytics, trends, and competitors](https://docs.trycontinuum.ai/mcp/tools/insights.md): Organic, paid, and website results by platform: accounts, top posts, campaigns, ad sets, and ads, and more.
 * [Organic+ planning and publishing](https://docs.trycontinuum.ai/mcp/tools/organic.md): Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.
 
-# Tools not in the tool list
+# Unlisted tools: agents, brand, and approvals
 
 Source: https://docs.trycontinuum.ai/mcp/tools/unlisted
 
-> The 20 tools the server accepts by name but doesn't advertise in tools/list: what each needs, its inputs, example calls, and errors.
+> Tools the server accepts by name but does not list, for the agents, brand context, insights, naming, audiences, and admin approvals: inputs, examples, and errors.
 
 {/* Generated by scripts/mcp-docs.mjs from drafts/mcp/source.json; edit scripts/mcp-notes.mjs instead. */}
 
@@ -3685,25 +3728,17 @@ Generated from the server's own tool registry, as released on 2026-11-05. These 
 | Tool | What it does | Changes things |
 | - | - | - |
 | [`agent_cancel`](#agent_cancel) | Cancel a running Mode A job by jobId. Aborts the in-process AbortController and, for organic jobs, sends a best-effort HTTP cancel to the agent. | Yes |
+| [`jaina_ask`](#jaina_ask) | Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spend, campaign or ad set/ad performance, pacing, attribution, reporting. Use when the question is about … | Yes |
+| [`jaina_pro_run`](#jaina_pro_run) | Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with }` — poll `jobs_status` for the report (or consume progress frames). | Yes |
+| [`organic_ask`](#organic_ask) | Ask the organic social agent a free-form question about social strategy, captions, hashtags, content ideas, or organic post/account performance. Use when the question is about wha… | Yes |
+| [`insights_get`](#insights_get) | Fetch Jaina-generated insights for an account, posts, or campaign with cache-first reads. | No |
 | [`brand_context_get`](#brand_context_get) | Read the active brand's voice, mission/vision, negative keywords, primary URLs, and taxonomy tags. | No |
 | [`brand_profile_get`](#brand_profile_get) | Read the active brand's structured profile sections: voice, pmf (product-market fit), audience, and persona. Use section='all' to retrieve everything or specify a single section. … | No |
 | [`brand_voice_validate`](#brand_voice_validate) | Brand voice rule checker. Validates copy against the brand's banned words (the brand DNA's one list, including brand.md edits), any configured `voice_rules` (required disclosures, e… | No |
-| [`insights_get`](#insights_get) | Fetch Jaina-generated insights for an account, posts, or campaign with cache-first reads. | No |
-| [`intel_audience_push`](#intel_audience_push) | Push a list of people (emails/phones/names, hashed server-side) to a Meta customer-list Custom Audience — new or appended. Two-phase: mode='preview' (default) → `confirm_token`; mod… | Yes |
-| [`jaina_ask`](#jaina_ask) | Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spend, campaign or ad set/ad performance, pacing, attribution, reporting. Use when the question is about … | Yes |
-| [`jaina_pro_run`](#jaina_pro_run) | Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with }` — poll `jobs_status` for the report (or consume progress frames). | Yes |
-| [`mcp_approval_grant`](#mcp_approval_grant) | Grant admin approval for a pending confirm token. The token must have requires.role = 'admin'. After granting, the token's approvals array is updated and the originating tool can … | Yes |
-| [`mcp_approvals_list`](#mcp_approvals_list) | List all pending confirm tokens for the current brand that require admin approval. Returns only tokens where requires.role = 'admin'. Admin-only. | No |
-| [`organic_ask`](#organic_ask) | Ask the organic social agent a free-form question about social strategy, captions, hashtags, content ideas, or organic post/account performance. Use when the question is about wha… | Yes |
-| [`organic_inbox_list`](#organic_inbox_list) | List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`. | No |
-| [`organic_inbox_reply`](#organic_inbox_reply) | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
-| [`organic_media_list`](#organic_media_list) | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
-| [`organic_profile_get`](#organic_profile_get) | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
-| [`organic_workflow_run`](#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the … | Yes |
 | [`paid_naming_schema_set`](#paid_naming_schema_set) | Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '\|') plus an ordered list of field labels (e.g. \['funnel', 'format', 'audience']). Once set, ad… | Yes |
-| [`post_audit`](#post_audit) | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
-| [`post_create_instagram`](#post_create_instagram) | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
-| [`post_manage`](#post_manage) | Manage an existing post: unschedule, reschedule, edit caption, or delete. Use `preview_delete` first for published posts to get a `confirm_token` before deleting. | Yes |
+| [`intel_audience_push`](#intel_audience_push) | Push a list of people (emails/phones/names, hashed server-side) to a Meta customer-list Custom Audience — new or appended. Two-phase: mode='preview' (default) → `confirm_token`; mod… | Yes |
+| [`mcp_approvals_list`](#mcp_approvals_list) | List all pending confirm tokens for the current brand that require admin approval. Returns only tokens where requires.role = 'admin'. Admin-only. | No |
+| [`mcp_approval_grant`](#mcp_approval_grant) | Grant admin approval for a pending confirm token. The token must have requires.role = 'admin'. After granting, the token's approvals array is updated and the originating tool can … | Yes |
 
 ### `agent_cancel`
 
@@ -3733,11 +3768,174 @@ Cancel a running Mode A job by jobId. Aborts the in-process AbortController and,
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 Full schema: `help_describe {"tool":"agent_cancel"}`. As JSON: [`/mcp/schemas/agent_cancel.json`](https://docs.trycontinuum.ai/mcp/schemas/agent_cancel.json).
+
+### `jaina_ask`
+
+Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spend, campaign or ad set/ad performance, pacing, attribution, reporting. Use when the question is about …
+
+| Contract | Behavior |
+| - | - |
+| Changes things | Yes |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Operator or higher |
+| Needs | An active brand. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
+| Retry | Not idempotent. Check the current state before retrying. |
+| Rate limit | 60 calls per 1 hour per brand. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
+
+**Inputs:**
+
+| Input | Type | Required | About |
+| - | - | - | - |
+| `query` | string | Yes | — |
+| `sessionId` | string | No | — |
+| `context` | object | No | — |
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* Ask Jaina directly: `{"name":"jaina_ask","arguments":{"query":"Which ad sets spent the most last week without a purchase?"}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
+| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `agent_ask`, `jobs_status`, `organic_ask`.
+
+Full schema: `help_describe {"tool":"jaina_ask"}`. As JSON: [`/mcp/schemas/jaina_ask.json`](https://docs.trycontinuum.ai/mcp/schemas/jaina_ask.json).
+
+### `jaina_pro_run`
+
+Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with }` — poll `jobs_status` for the report (or consume progress frames).
+
+| Contract | Behavior |
+| - | - |
+| Changes things | Yes |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Operator or higher |
+| Needs | An active brand. Connection: Meta (Facebook). |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
+| Retry | Not idempotent. Check the current state before retrying. |
+| Rate limit | 5 calls per 1 hour per brand. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
+
+**Inputs:**
+
+| Input | Type | Required | About |
+| - | - | - | - |
+| `reportSpec` | object | Yes | — |
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* A monthly campaign report: `{"name":"jaina_pro_run","arguments":{"reportSpec":{"period":{"start":"2026-10-01","end":"2026-10-31"},"scopes":["campaign"],"kpis":["spend","roas","cpa"],"format":"mixed"}}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
+| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
+| `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `jobs_status`.
+
+Full schema: `help_describe {"tool":"jaina_pro_run"}`. As JSON: [`/mcp/schemas/jaina_pro_run.json`](https://docs.trycontinuum.ai/mcp/schemas/jaina_pro_run.json).
+
+### `organic_ask`
+
+Ask the organic social agent a free-form question about social strategy, captions, hashtags, content ideas, or organic post/account performance. Use when the question is about wha…
+
+| Contract | Behavior |
+| - | - |
+| Changes things | Yes |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Operator or higher |
+| Needs | An active brand. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
+| Retry | Not idempotent. Check the current state before retrying. |
+
+**Inputs:**
+
+| Input | Type | Required | About |
+| - | - | - | - |
+| `query` | string | Yes | — |
+| `sessionId` | string | No | — |
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* Ask the Organic agent directly: `{"name":"organic_ask","arguments":{"query":"Which hooks worked best on our Reels this month?"}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
+| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `agent_ask`, `jaina_ask`, `jobs_status`.
+
+Full schema: `help_describe {"tool":"organic_ask"}`. As JSON: [`/mcp/schemas/organic_ask.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_ask.json).
+
+### `insights_get`
+
+Fetch Jaina-generated insights for an account, posts, or campaign with cache-first reads.
+
+| Contract | Behavior |
+| - | - |
+| Changes things | No |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Any brand member |
+| Needs | An active brand. Connection: Instagram. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns right away. Longer work continues as a job; read the id in the result. |
+| Retry | Safe to retry: it only reads. |
+
+**Actions** (`scope`):
+
+| scope | Required inputs |
+| - | - |
+| `account` | `account_id`, `scope` |
+| `posts` | `account_id`, `scope`, `target_ids` |
+| `campaign` | `account_id`, `scope`, `target_ids` |
+
+Other inputs, shared by every action (the live schema says which each action reads): `account_id`, `target_ids`, `period`, `insight_types`, `refresh`.
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* Insights for one campaign: `{"name":"insights_get","arguments":{"account_id":"5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92","scope":"campaign","target_ids":["120200000000000000"]}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `UPSTREAM_ERROR` | Jaina returned a non-2xx response or empty payload. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `post_audit`.
+
+Full schema: `help_describe {"tool":"insights_get","action":"account"}`. `help_describe`'s `action` takes a `scope` value. As JSON: [`/mcp/schemas/insights_get.json`](https://docs.trycontinuum.ai/mcp/schemas/insights_get.json).
 
 ### `brand_context_get`
 
@@ -3766,7 +3964,6 @@ Read the active brand's voice, mission/vision, negative keywords, primary URLs, 
 | `BRAND_NOT_READY` | Brand profile row missing. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `brand_profile_get`.
@@ -3803,7 +4000,7 @@ Read the active brand's structured profile sections: voice, pmf (product-market 
 | - | - |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 Full schema: `help_describe {"tool":"brand_profile_get"}`. As JSON: [`/mcp/schemas/brand_profile_get.json`](https://docs.trycontinuum.ai/mcp/schemas/brand_profile_get.json).
@@ -3843,51 +4040,47 @@ Other inputs, shared by every action (the live schema says which each action rea
 
 | Code | When |
 | - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 Full schema: `help_describe {"tool":"brand_voice_validate","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/brand_voice_validate.json`](https://docs.trycontinuum.ai/mcp/schemas/brand_voice_validate.json).
 
-### `insights_get`
+### `paid_naming_schema_set`
 
-Fetch Jaina-generated insights for an account, posts, or campaign with cache-first reads.
+Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '|') plus an ordered list of field labels (e.g. \['funnel', 'format', 'audience']). Once set, ad…
 
 | Contract | Behavior |
 | - | - |
-| Changes things | No |
+| Changes things | Yes |
 | Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Any brand member |
-| Needs | An active brand. Connection: Instagram. |
+| Role | Operator or higher |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
-| Completion | Returns right away. Longer work continues as a job; read the id in the result. |
-| Retry | Safe to retry: it only reads. |
+| Completion | Returns the result in the same call. |
+| Retry | Safe to retry: repeating the call gives the same result. |
 
-**Actions** (`scope`):
+**Inputs:**
 
-| scope | Required inputs |
-| - | - |
-| `account` | `account_id`, `scope` |
-| `posts` | `account_id`, `scope`, `target_ids` |
-| `campaign` | `account_id`, `scope`, `target_ids` |
-
-Other inputs, shared by every action (the live schema says which each action reads): `account_id`, `target_ids`, `period`, `insight_types`, `refresh`.
+| Input | Type | Required | About |
+| - | - | - | - |
+| `platform` | string | No | One of `meta`, `google`, `all`. |
+| `delimiter` | string | Yes | Separator between name segments, e.g. '\|'. |
+| `fields` | array | Yes | Ordered field labels, e.g. \['funnel', 'format', 'audience']. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
-* Insights for one campaign: `{"name":"insights_get","arguments":{"account_id":"5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92","scope":"campaign","target_ids":["120200000000000000"]}}`
+* Set a Meta naming convention: `{"name":"paid_naming_schema_set","arguments":{"platform":"meta","delimiter":"|","fields":["funnel","format","audience"]}}`
 
 **Errors and statuses:**
 
 | Code | When |
 | - | - |
-| `UPSTREAM_ERROR` | Jaina returned a non-2xx response or empty payload. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
 
-**Related:** `post_audit`.
-
-Full schema: `help_describe {"tool":"insights_get","action":"account"}`. `help_describe`'s `action` takes a `scope` value. As JSON: [`/mcp/schemas/insights_get.json`](https://docs.trycontinuum.ai/mcp/schemas/insights_get.json).
+Full schema: `help_describe {"tool":"paid_naming_schema_set"}`. As JSON: [`/mcp/schemas/paid_naming_schema_set.json`](https://docs.trycontinuum.ai/mcp/schemas/paid_naming_schema_set.json).
 
 ### `intel_audience_push`
 
@@ -3928,7 +4121,7 @@ Push a list of people (emails/phones/names, hashed server-side) to a Meta custom
 | - | - |
 | `VALIDATION_ERROR` | Pass members\[] (emails/phones); segments built from brand data are not available. |
 | `NOT_IMPLEMENTED` | This path isn't available yet. Don't retry; use the listed tool for the job. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
@@ -3936,84 +4129,37 @@ Push a list of people (emails/phones/names, hashed server-side) to a Meta custom
 
 Full schema: `help_describe {"tool":"intel_audience_push"}`. As JSON: [`/mcp/schemas/intel_audience_push.json`](https://docs.trycontinuum.ai/mcp/schemas/intel_audience_push.json).
 
-### `jaina_ask`
+### `mcp_approvals_list`
 
-Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spend, campaign or ad set/ad performance, pacing, attribution, reporting. Use when the question is about …
+List all pending confirm tokens for the current brand that require admin approval. Returns only tokens where requires.role = 'admin'. Admin-only.
 
 | Contract | Behavior |
 | - | - |
-| Changes things | Yes |
+| Changes things | No |
 | Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Operator or higher |
+| Role | Admin or Owner |
 | Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
-| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
-| Retry | Not idempotent. Check the current state before retrying. |
-| Rate limit | 60 calls per 1 hour per brand. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
+| Completion | Returns the result in the same call. |
+| Retry | Safe to retry: it only reads. |
 
-**Inputs:**
-
-| Input | Type | Required | About |
-| - | - | - | - |
-| `query` | string | Yes | — |
-| `sessionId` | string | No | — |
-| `context` | object | No | — |
+**Inputs:** none.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
-* Ask Jaina directly: `{"name":"jaina_ask","arguments":{"query":"Which ad sets spent the most last week without a purchase?"}}`
+* Changes waiting for an Admin or Owner: `{"name":"mcp_approvals_list","arguments":{}}`
 
 **Errors and statuses:**
 
 | Code | When |
 | - | - |
-| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
-| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
-| `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Admin or Owner. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"jaina_ask"}`. As JSON: [`/mcp/schemas/jaina_ask.json`](https://docs.trycontinuum.ai/mcp/schemas/jaina_ask.json).
+**Related:** `mcp_approval_grant`.
 
-### `jaina_pro_run`
-
-Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with }` — poll `jobs_status` for the report (or consume progress frames).
-
-| Contract | Behavior |
-| - | - |
-| Changes things | Yes |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Operator or higher |
-| Needs | An active brand. Connection: Meta (Facebook). |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
-| Retry | Not idempotent. Check the current state before retrying. |
-| Rate limit | 5 calls per 1 hour per brand. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
-
-**Inputs:**
-
-| Input | Type | Required | About |
-| - | - | - | - |
-| `reportSpec` | object | Yes | — |
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* A monthly campaign report: `{"name":"jaina_pro_run","arguments":{"reportSpec":{"period":{"start":"2026-10-01","end":"2026-10-31"},"scopes":["campaign"],"kpis":["spend","roas","cpa"],"format":"mixed"}}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
-| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
-| `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
-| `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-Full schema: `help_describe {"tool":"jaina_pro_run"}`. As JSON: [`/mcp/schemas/jaina_pro_run.json`](https://docs.trycontinuum.ai/mcp/schemas/jaina_pro_run.json).
+Full schema: `help_describe {"tool":"mcp_approvals_list"}`. As JSON: [`/mcp/schemas/mcp_approvals_list.json`](https://docs.trycontinuum.ai/mcp/schemas/mcp_approvals_list.json).
 
 ### `mcp_approval_grant`
 
@@ -4045,388 +4191,39 @@ Grant admin approval for a pending confirm token. The token must have requires.r
 | - | - |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_role` | The person's role is below Admin or Owner. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
+**Related:** `mcp_approvals_list`, `paid_manage`.
+
 Full schema: `help_describe {"tool":"mcp_approval_grant"}`. As JSON: [`/mcp/schemas/mcp_approval_grant.json`](https://docs.trycontinuum.ai/mcp/schemas/mcp_approval_grant.json).
 
-### `mcp_approvals_list`
+## What's next
 
-List all pending confirm tokens for the current brand that require admin approval. Returns only tokens where requires.role = 'admin'. Admin-only.
+* [All tools](https://docs.trycontinuum.ai/mcp/tools.md): Every tool on one page, and the machine-readable index.
+* [Unlisted tools: posts, inbox, and accounts](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md): Tools the server accepts by name but does not list, for Instagram posts, audits, the inbox, connected accounts, and week planning.
 
-| Contract | Behavior |
-| - | - |
-| Changes things | No |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Admin or Owner |
-| Needs | An active brand. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns the result in the same call. |
-| Retry | Safe to retry: it only reads. |
+# Unlisted tools: posts, inbox, and accounts
 
-**Inputs:** none.
+Source: https://docs.trycontinuum.ai/mcp/tools/unlisted-posts
 
-**Examples** (IDs are illustrative; use the ones earlier calls return):
+> Tools the server accepts by name but does not list, for Instagram posts, audits, the inbox, connected accounts, and week planning: inputs, examples, and errors.
 
-* Changes waiting for an Admin or Owner: `{"name":"mcp_approvals_list","arguments":{}}`
+{/* Generated by scripts/mcp-docs.mjs from drafts/mcp/source.json; edit scripts/mcp-notes.mjs instead. */}
 
-**Errors and statuses:**
+Generated from the server's own tool registry, as released on 2026-11-05. These tools are registered and callable by name, but `tools/list` doesn't advertise them: most are writes and helpers the listed tools reach for you. Use the listed tool unless a result or a tool description names one of these, and fetch the live schema with `help_describe` first.
 
-| Code | When |
-| - | - |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Admin or Owner. Ask an Admin or Owner. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-Full schema: `help_describe {"tool":"mcp_approvals_list"}`. As JSON: [`/mcp/schemas/mcp_approvals_list.json`](https://docs.trycontinuum.ai/mcp/schemas/mcp_approvals_list.json).
-
-### `organic_ask`
-
-Ask the organic social agent a free-form question about social strategy, captions, hashtags, content ideas, or organic post/account performance. Use when the question is about wha…
-
-| Contract | Behavior |
-| - | - |
-| Changes things | Yes |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Operator or higher |
-| Needs | An active brand. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
-| Retry | Not idempotent. Check the current state before retrying. |
-
-**Inputs:**
-
-| Input | Type | Required | About |
-| - | - | - | - |
-| `query` | string | Yes | — |
-| `sessionId` | string | No | — |
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* Ask the Organic agent directly: `{"name":"organic_ask","arguments":{"query":"Which hooks worked best on our Reels this month?"}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
-| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-Full schema: `help_describe {"tool":"organic_ask"}`. As JSON: [`/mcp/schemas/organic_ask.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_ask.json).
-
-### `organic_inbox_list`
-
-List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`.
-
-| Contract | Behavior |
-| - | - |
-| Changes things | No |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Operator or higher |
-| Needs | An active brand. Connection: Instagram. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns the result in the same call. |
-| Retry | Safe to retry: it only reads. |
-
-**Actions** (`platform`):
-
-| platform | Required inputs |
-| - | - |
-| `instagram` | `platform` |
-| `facebook` | `platform` |
-| `linkedin` | `platform` |
-| `tiktok` | `platform` |
-| `youtube` | `platform` |
-| `threads` | `platform` |
-| `x` | `platform` |
-
-Other inputs, shared by every action (the live schema says which each action reads): `kinds`, `since`, `limit`, `account_id`.
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* List unread DMs: `{"name":"organic_inbox_list","arguments":{"platform":"instagram"}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `NOT_IMPLEMENTED` | Inbox sync not yet implemented. |
-| `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
-| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
-| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-**Related:** `organic_inbox_reply`.
-
-Full schema: `help_describe {"tool":"organic_inbox_list","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/organic_inbox_list.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_inbox_list.json).
-
-### `organic_inbox_reply`
-
-Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`.
-
-| Contract | Behavior |
-| - | - |
-| Changes things | Yes |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Operator or higher |
-| Needs | An active brand. Connection: Instagram. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns the result in the same call. |
-| Retry | Not idempotent. Check the current state before retrying. |
-
-**Inputs:**
-
-| Input | Type | Required | About |
-| - | - | - | - |
-| `inbox_id` | string | Yes | — |
-| `message` | string | Yes | — |
-| `inbox_type` | string | No | One of `dm`, `comment`, `mention`. |
-| `account_id` | string | No | — |
-| `idempotency_key` | string | No | — |
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* Reply: `{"name":"organic_inbox_reply","arguments":{"inbox_id":"msg_1","message":"Hi"}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `NOT_IMPLEMENTED` | Inbox reply not yet implemented. |
-| `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
-| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
-| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-**Related:** `organic_inbox_list`.
-
-Full schema: `help_describe {"tool":"organic_inbox_reply"}`. As JSON: [`/mcp/schemas/organic_inbox_reply.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_inbox_reply.json).
-
-### `organic_media_list`
-
-List recent organic media for a connected account (cache-first, 5-minute TTL).
-
-| Contract | Behavior |
-| - | - |
-| Changes things | No |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Viewer or higher |
-| Needs | An active brand. Connection: Instagram. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns the result in the same call. |
-| Retry | Safe to retry: it only reads. |
-
-**Actions** (`platform`):
-
-| platform | Required inputs |
-| - | - |
-| `instagram` | `platform` |
-| `facebook` | `platform` |
-| `linkedin` | `platform` |
-| `tiktok` | `platform` |
-| `youtube` | `platform` |
-| `threads` | `platform` |
-| `x` | `platform` |
-
-Other inputs, shared by every action (the live schema says which each action reads): `account_id`, `since`, `until`, `media_types`, `limit`, `cursor`.
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* Recent IG posts: `{"name":"organic_media_list","arguments":{"platform":"instagram","limit":25}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-**Related:** `analytics_query`, `content_create`.
-
-Full schema: `help_describe {"tool":"organic_media_list","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/organic_media_list.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_media_list.json).
-
-### `organic_profile_get`
-
-Fetch the public profile (handle, follower count, picture, bio) for a connected organic account.
-
-| Contract | Behavior |
-| - | - |
-| Changes things | No |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Viewer or higher |
-| Needs | An active brand. Connection: Instagram. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns the result in the same call. |
-| Retry | Safe to retry: it only reads. |
-
-**Actions** (`platform`):
-
-| platform | Required inputs |
-| - | - |
-| `instagram` | `platform` |
-| `facebook` | `platform` |
-| `linkedin` | `platform` |
-| `tiktok` | `platform` |
-| `youtube` | `platform` |
-| `threads` | `platform` |
-| `x` | `platform` |
-
-Other inputs, shared by every action (the live schema says which each action reads): `account_id`.
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* IG profile: `{"name":"organic_profile_get","arguments":{"platform":"instagram"}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `NOT_IMPLEMENTED` | Non-Instagram platforms not yet supported. |
-| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-**Related:** `organic_media_list`.
-
-Full schema: `help_describe {"tool":"organic_profile_get","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/organic_profile_get.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_profile_get.json).
-
-### `organic_workflow_run`
-
-Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the …
-
-| Contract | Behavior |
-| - | - |
-| Changes things | Yes |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Operator or higher |
-| Needs | An active brand. Connection: Instagram. |
-| Confirmation | The person approves the pending change; the approval is the yes. |
-| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
-| Retry | Not idempotent. Check the current state before retrying. |
-
-**Actions** (`mode`):
-
-| mode | Required inputs | Other inputs it uses |
+| Tool | What it does | Changes things |
 | - | - | - |
-| `plan_week` | `mode`, `weekStart`, `timezone` | `brief`, `platformAccountIds` |
-| `resume` | `mode`, `workflow_id`, `approval_token` | `placements`, `skip_placements` |
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* Plan next week end to end: `{"name":"organic_workflow_run","arguments":{"mode":"plan_week","weekStart":"2026-11-16","timezone":"America/New_York","brief":"Lead with the autumn roast launch."}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `AWAITING_APPROVAL` | The run paused at a gate (stage '`awaiting_calendar_approval`' or '`awaiting_publish_approval`'). Re-call with mode='resume' and the `next_step.arguments` the gate returned; use `skip_placements` to drop placements. |
-| `ADMIN_GRANT_REQUIRED` | Stage '`admin_grant_required`' lists pending `confirm_tokens`; an admin must run `mcp_approval_grant` before the run can resume. |
-| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
-| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
-| `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
-| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
-
-**Related:** `content_create`, `mcp_approval_grant`.
-
-Full schema: `help_describe {"tool":"organic_workflow_run","action":"plan_week"}`. `help_describe`'s `action` takes a `mode` value. As JSON: [`/mcp/schemas/organic_workflow_run.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_workflow_run.json).
-
-### `paid_naming_schema_set`
-
-Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '|') plus an ordered list of field labels (e.g. \['funnel', 'format', 'audience']). Once set, ad…
-
-| Contract | Behavior |
-| - | - |
-| Changes things | Yes |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Operator or higher |
-| Needs | An active brand. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns the result in the same call. |
-| Retry | Safe to retry: repeating the call gives the same result. |
-
-**Inputs:**
-
-| Input | Type | Required | About |
-| - | - | - | - |
-| `platform` | string | No | One of `meta`, `google`, `all`. |
-| `delimiter` | string | Yes | Separator between name segments, e.g. '\|'. |
-| `fields` | array | Yes | Ordered field labels, e.g. \['funnel', 'format', 'audience']. |
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* Set a Meta naming convention: `{"name":"paid_naming_schema_set","arguments":{"platform":"meta","delimiter":"|","fields":["funnel","format","audience"]}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
-
-Full schema: `help_describe {"tool":"paid_naming_schema_set"}`. As JSON: [`/mcp/schemas/paid_naming_schema_set.json`](https://docs.trycontinuum.ai/mcp/schemas/paid_naming_schema_set.json).
-
-### `post_audit`
-
-Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit.
-
-| Contract | Behavior |
-| - | - |
-| Changes things | No |
-| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
-| Role | Any brand member |
-| Needs | An active brand. Connection: Instagram. |
-| Confirmation | None. The call runs when made. |
-| Completion | Returns right away. Longer work continues as a job; read the id in the result. |
-| Retry | Safe to retry: it only reads. |
-
-**Inputs:**
-
-| Input | Type | Required | About |
-| - | - | - | - |
-| `account_id` | string | Yes | — |
-| `content` | object | Yes | — |
-| `audit_dimensions` | array | No | — |
-| `force_refresh` | boolean | No | — |
-| `async` | boolean | No | — |
-
-**Examples** (IDs are illustrative; use the ones earlier calls return):
-
-* Audit a draft caption before publishing: `{"name":"post_audit","arguments":{"account_id":"5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92","content":{"type":"post","caption":"Autumn is here. Our new single-origin roast is out now.","hashtags":["#coffee","#autumn"]},"audit_dimensions":["brand_voice","hashtag_strategy"]}}`
-
-**Errors and statuses:**
-
-| Code | When |
-| - | - |
-| `UPSTREAM_ERROR` | Jaina audit endpoint failed. |
-| `NOT_FOUND` | Referenced `post_id` is not in `published_posts`. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
-| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-
-**Related:** `insights_get`, `jobs_status`.
-
-Full schema: `help_describe {"tool":"post_audit"}`. As JSON: [`/mcp/schemas/post_audit.json`](https://docs.trycontinuum.ai/mcp/schemas/post_audit.json).
+| [`post_create_instagram`](#post_create_instagram) | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
+| [`post_manage`](#post_manage) | Manage an existing post: unschedule, reschedule, edit caption, or delete. Use `preview_delete` first for published posts to get a `confirm_token` before deleting. | Yes |
+| [`post_audit`](#post_audit) | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
+| [`organic_workflow_run`](#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the … | Yes |
+| [`organic_media_list`](#organic_media_list) | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
+| [`organic_profile_get`](#organic_profile_get) | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
+| [`organic_inbox_list`](#organic_inbox_list) | List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`. | No |
+| [`organic_inbox_reply`](#organic_inbox_reply) | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
 
 ### `post_create_instagram`
 
@@ -4464,7 +4261,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `CONFLICT` | Idempotency key already produced a published post. |
 | `UPSTREAM_ERROR` | Instagram Graph API rejected the publish call. |
 | `MEDIA_INVALID` | The file can't be used: wrong type, size, or dimensions. `details` says which. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
@@ -4512,17 +4309,290 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `PERMISSION_DENIED` | The person's role can't do this. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 
 **Related:** `post_create_instagram`.
 
 Full schema: `help_describe {"tool":"post_manage","action":"unschedule"}`. As JSON: [`/mcp/schemas/post_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/post_manage.json).
 
+### `post_audit`
+
+Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit.
+
+| Contract | Behavior |
+| - | - |
+| Changes things | No |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Any brand member |
+| Needs | An active brand. Connection: Instagram. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns right away. Longer work continues as a job; read the id in the result. |
+| Retry | Safe to retry: it only reads. |
+
+**Inputs:**
+
+| Input | Type | Required | About |
+| - | - | - | - |
+| `account_id` | string | Yes | — |
+| `content` | object | Yes | — |
+| `audit_dimensions` | array | No | — |
+| `force_refresh` | boolean | No | — |
+| `async` | boolean | No | — |
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* Audit a draft caption before publishing: `{"name":"post_audit","arguments":{"account_id":"5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92","content":{"type":"post","caption":"Autumn is here. Our new single-origin roast is out now.","hashtags":["#coffee","#autumn"]},"audit_dimensions":["brand_voice","hashtag_strategy"]}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `UPSTREAM_ERROR` | Jaina audit endpoint failed. |
+| `NOT_FOUND` | Referenced `post_id` is not in `published_posts`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `insights_get`, `jobs_status`.
+
+Full schema: `help_describe {"tool":"post_audit"}`. As JSON: [`/mcp/schemas/post_audit.json`](https://docs.trycontinuum.ai/mcp/schemas/post_audit.json).
+
+### `organic_workflow_run`
+
+Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the …
+
+| Contract | Behavior |
+| - | - |
+| Changes things | Yes |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Operator or higher |
+| Needs | An active brand. Connection: Instagram. |
+| Confirmation | The person approves the pending change; the approval is the yes. |
+| Completion | Returns a `job_id`. Read the result with `jobs_status`. |
+| Retry | Not idempotent. Check the current state before retrying. |
+
+**Actions** (`mode`):
+
+| mode | Required inputs | Other inputs it uses |
+| - | - | - |
+| `plan_week` | `mode`, `weekStart`, `timezone` | `brief`, `platformAccountIds` |
+| `resume` | `mode`, `workflow_id`, `approval_token` | `placements`, `skip_placements` |
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* Plan next week end to end: `{"name":"organic_workflow_run","arguments":{"mode":"plan_week","weekStart":"2026-11-16","timezone":"America/New_York","brief":"Lead with the autumn roast launch."}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `AWAITING_APPROVAL` | The run paused at a gate (stage '`awaiting_calendar_approval`' or '`awaiting_publish_approval`'). Re-call with mode='resume' and the `next_step.arguments` the gate returned; use `skip_placements` to drop placements. |
+| `ADMIN_GRANT_REQUIRED` | Stage '`admin_grant_required`' lists pending `confirm_tokens`; an admin must run `mcp_approval_grant` before the run can resume. |
+| `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
+| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
+| `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
+| `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+
+**Related:** `content_create`, `mcp_approval_grant`, `help_describe`.
+
+Full schema: `help_describe {"tool":"organic_workflow_run","action":"plan_week"}`. `help_describe`'s `action` takes a `mode` value. As JSON: [`/mcp/schemas/organic_workflow_run.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_workflow_run.json).
+
+### `organic_media_list`
+
+List recent organic media for a connected account (cache-first, 5-minute TTL).
+
+| Contract | Behavior |
+| - | - |
+| Changes things | No |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Viewer or higher |
+| Needs | An active brand. Connection: Instagram. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns the result in the same call. |
+| Retry | Safe to retry: it only reads. |
+
+**Actions** (`platform`):
+
+| platform | Required inputs |
+| - | - |
+| `instagram` | `platform` |
+| `facebook` | `platform` |
+| `linkedin` | `platform` |
+| `tiktok` | `platform` |
+| `youtube` | `platform` |
+| `threads` | `platform` |
+| `x` | `platform` |
+
+Other inputs, shared by every action (the live schema says which each action reads): `account_id`, `since`, `until`, `media_types`, `limit`, `cursor`.
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* Recent IG posts: `{"name":"organic_media_list","arguments":{"platform":"instagram","limit":25}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
+| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `analytics_query`, `content_create`.
+
+Full schema: `help_describe {"tool":"organic_media_list","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/organic_media_list.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_media_list.json).
+
+### `organic_profile_get`
+
+Fetch the public profile (handle, follower count, picture, bio) for a connected organic account.
+
+| Contract | Behavior |
+| - | - |
+| Changes things | No |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Viewer or higher |
+| Needs | An active brand. Connection: Instagram. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns the result in the same call. |
+| Retry | Safe to retry: it only reads. |
+
+**Actions** (`platform`):
+
+| platform | Required inputs |
+| - | - |
+| `instagram` | `platform` |
+| `facebook` | `platform` |
+| `linkedin` | `platform` |
+| `tiktok` | `platform` |
+| `youtube` | `platform` |
+| `threads` | `platform` |
+| `x` | `platform` |
+
+Other inputs, shared by every action (the live schema says which each action reads): `account_id`.
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* IG profile: `{"name":"organic_profile_get","arguments":{"platform":"instagram"}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `NOT_IMPLEMENTED` | Non-Instagram platforms not yet supported. |
+| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
+| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `organic_media_list`.
+
+Full schema: `help_describe {"tool":"organic_profile_get","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/organic_profile_get.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_profile_get.json).
+
+### `organic_inbox_list`
+
+List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`.
+
+| Contract | Behavior |
+| - | - |
+| Changes things | No |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Operator or higher |
+| Needs | An active brand. Connection: Instagram. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns the result in the same call. |
+| Retry | Safe to retry: it only reads. |
+
+**Actions** (`platform`):
+
+| platform | Required inputs |
+| - | - |
+| `instagram` | `platform` |
+| `facebook` | `platform` |
+| `linkedin` | `platform` |
+| `tiktok` | `platform` |
+| `youtube` | `platform` |
+| `threads` | `platform` |
+| `x` | `platform` |
+
+Other inputs, shared by every action (the live schema says which each action reads): `kinds`, `since`, `limit`, `account_id`.
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* List unread DMs: `{"name":"organic_inbox_list","arguments":{"platform":"instagram"}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `NOT_IMPLEMENTED` | Inbox sync not yet implemented. |
+| `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
+| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
+| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `organic_inbox_reply`.
+
+Full schema: `help_describe {"tool":"organic_inbox_list","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/organic_inbox_list.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_inbox_list.json).
+
+### `organic_inbox_reply`
+
+Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`.
+
+| Contract | Behavior |
+| - | - |
+| Changes things | Yes |
+| Listed in your assistant | Not in `tools/list`. Call it by name; `help_describe` has its schema. |
+| Role | Operator or higher |
+| Needs | An active brand. Connection: Instagram. |
+| Confirmation | None. The call runs when made. |
+| Completion | Returns the result in the same call. |
+| Retry | Not idempotent. Check the current state before retrying. |
+
+**Inputs:**
+
+| Input | Type | Required | About |
+| - | - | - | - |
+| `inbox_id` | string | Yes | — |
+| `message` | string | Yes | — |
+| `inbox_type` | string | No | One of `dm`, `comment`, `mention`. |
+| `account_id` | string | No | — |
+| `idempotency_key` | string | No | — |
+
+**Examples** (IDs are illustrative; use the ones earlier calls return):
+
+* Reply: `{"name":"organic_inbox_reply","arguments":{"inbox_id":"msg_1","message":"Hi"}}`
+
+**Errors and statuses:**
+
+| Code | When |
+| - | - |
+| `NOT_IMPLEMENTED` | Inbox reply not yet implemented. |
+| `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
+| `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
+| `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
+| `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `organic_inbox_list`.
+
+Full schema: `help_describe {"tool":"organic_inbox_reply"}`. As JSON: [`/mcp/schemas/organic_inbox_reply.json`](https://docs.trycontinuum.ai/mcp/schemas/organic_inbox_reply.json).
+
 ## What's next
 
 * [All tools](https://docs.trycontinuum.ai/mcp/tools.md): Every tool on one page, and the machine-readable index.
-* [Agent brief](https://docs.trycontinuum.ai/mcp/agent-brief.md): How an assistant should use these tools.
+* [Unlisted tools: agents, brand, and approvals](https://docs.trycontinuum.ai/mcp/tools/unlisted.md): Tools the server accepts by name but does not list, for the agents, brand context, insights, naming, audiences, and admin approvals.
 
 # Server reference
 
@@ -4638,7 +4708,7 @@ Errors set `isError: true`. `structuredContent` holds `{ ok: false, code, messag
 | - | - |
 | `UNAUTHENTICATED` | The token is missing or invalid. |
 | `SESSION_NOT_INITIALIZED` | Send `initialize` first. |
-| `BRAND_NOT_SELECTED` | No brand is active. |
+| `BRAND_NOT_SELECTED` | No brand is active. Tools that are always listed report the same thing as the `needs_brand` status; either way, call `brands_select`. |
 | `PERMISSION_DENIED`, `BRAND_FORBIDDEN`, `ACCOUNT_FORBIDDEN` | The person can't reach that brand, account, or action. |
 | `VALIDATION_ERROR` | The inputs are wrong, or they changed since a preview. |
 | `CONFIRMATION_REQUIRED`, `APPROVAL_REQUIRED` | See [Confirmations](#confirmations). |
@@ -4719,7 +4789,7 @@ You are helping a marketer use Continuum, an AI creative operations platform, th
 
 | Result | What to do |
 | - | - |
-| `needs_brand` | Ask which brand, then call `brands_select`. |
+| `needs_brand` or `BRAND_NOT_SELECTED` | No brand is active. Ask which brand, then call `brands_select`. |
 | `needs_integration` | Call `integrations_connect` and give the person the link. It works for 10 minutes. |
 | `needs_reauth` | The connection has lapsed. Offer a reconnect link. |
 | `needs_role` | The person's role doesn't allow this. Suggest they ask an Admin or Owner on the brand. |
@@ -4777,8 +4847,6 @@ immediately and returns no preview or confirmation token.
 Source: https://docs.trycontinuum.ai/canvas/overview
 
 > An infinite canvas of connected nodes where you generate and edit on-brand images and video, then send them to a post or a live ad.
-
-![](https://docs.trycontinuum.ai/images/world/pine-canyon-banner.webp)
 
 The AI Canvas is where you make creative. You add **nodes** — prompts, references, generators, edits, and delivery steps — and connect them into a graph that produces images and video. Every generation is grounded in your brand book, and everything you make lands in your [Library](https://docs.trycontinuum.ai/canvas/library.md).
 
@@ -6990,8 +7058,6 @@ Source: https://docs.trycontinuum.ai/organic/overview
 
 > Plan from the trends, draft with the Organic agent, publish from the calendar, and learn from what performed.
 
-![](https://docs.trycontinuum.ai/images/world/reef-coast-banner.webp)
-
 Organic+ is your workspace for organic social. It plans and writes your calendar from your brand book and your own account performance — captions, formats, carousels, reels — and you edit anything before it goes out.
 
 * [Organic agent](https://docs.trycontinuum.ai/organic/agent.md): Your social strategist: ideas, captions, and content plans.
@@ -7243,8 +7309,6 @@ Ask Claude or ChatGPT:
 Source: https://docs.trycontinuum.ai/performance/overview
 
 > Run paid media in one place, where the Optimizer proposes budget moves, Jaina explains the numbers, and you approve.
-
-![](https://docs.trycontinuum.ai/images/world/survey-range-banner.webp)
 
 Performance+ is where you run paid media. It brings your ad accounts, performance, and optimization into one place.
 

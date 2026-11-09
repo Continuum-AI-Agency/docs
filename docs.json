@@ -116,7 +116,8 @@
               "mcp/tools/creative",
               "mcp/tools/library",
               "mcp/tools/forge",
-              "mcp/tools/unlisted"
+              "mcp/tools/unlisted",
+              "mcp/tools/unlisted-posts"
             ]
           },
           {

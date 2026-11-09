@@ -137,7 +137,7 @@ scannability. For per-client setup, prefer one `###` section per client over tab
 - **Section heroes**: only the four section overviews (`mcp/overview`, `canvas/overview`, `organic/overview`,
   `performance/overview`) carry a world plate from trycontinuum.ai:
   `<img className="cn-hero" src="/images/world/<name>-banner.webp" alt="" width="1376" height="430" loading="eager" decoding="async" fetchpriority="high" sizes="(min-width: 52rem) 52rem, 100vw" noZoom />`.
-  Heroes stay eager so the first paint isn't waiting on them.
+  Heroes stay eager so the first paint isn't waiting on them. Wrap each hero in `<Visibility for="humans">` so the markdown export doesn't carry a CDN image line.
 - **Product-line plates** use `<WorldCard img="/images/world/<name>-card.webp" href="/path">` from `snippets/world-card.jsx`,
   with the Mintlify `<Card>` (no `href` of its own) as its child. The plate is `loading="lazy"` and `fetchpriority="low"`. Don't add plates elsewhere.
 - `dither.js` reveals a plate that hasn't painted yet with the same glyph dither as the app (`ascii-reveal` preset `dither`).

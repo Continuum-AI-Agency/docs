@@ -119,6 +119,8 @@ Move one post:
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
+**Related:** `content_create`.
+
 Full schema: `help_describe {"tool":"planner_manage","action":"get_week"}`. As JSON: [`/mcp/schemas/planner_manage.json`](/mcp/schemas/planner_manage.json).
 
 ### `content_create`
@@ -128,7 +130,8 @@ Drafts, approves, and publishes posts, and deletes drafts.
 **Good to know:**
 
 - `approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.
-- `realize` (generating the creative) and `delete` are two-phase: the first call previews and returns a token, the second confirms.
+- `platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](/organic/publishing) has the status of the others, and X isn’t offered for publishing.
+- `realize` (generating the creative) and `delete` are two-phase. A `realize` preview returns `approve_with`: send `approve_with.input` back as the next `realize` call to confirm exactly what was previewed. `delete` returns a `confirm_token` instead.
 - `reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.
 - `draft` needs a `prompt` unless you pass `generate: false`; then it saves the `caption` and `hashtags` you pass word for word.
 
@@ -268,7 +271,7 @@ Redo slide 2 of a realized carousel on the same draft (then confirm with `approv
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 
-**Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`.
+**Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`, `planner_manage`, `library_manage`, `unsplash_search`.
 
 Full schema: `help_describe {"tool":"content_create","action":"list"}`. As JSON: [`/mcp/schemas/content_create.json`](/mcp/schemas/content_create.json).
 
@@ -323,8 +326,10 @@ Approved drafts ready to publish:
 | Code | When |
 | --- | --- |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `organic_draft_get`.
 
 Full schema: `help_describe {"tool":"organic_draft_list"}`. As JSON: [`/mcp/schemas/organic_draft_list.json`](/mcp/schemas/organic_draft_list.json).
 
@@ -374,8 +379,10 @@ Read one draft:
 | --- | --- |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `organic_draft_list`.
 
 Full schema: `help_describe {"tool":"organic_draft_get"}`. As JSON: [`/mcp/schemas/organic_draft_get.json`](/mcp/schemas/organic_draft_get.json).
 

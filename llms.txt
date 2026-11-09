@@ -2,7 +2,7 @@
 
 > Use Continuum from Claude, ChatGPT, or the app to plan, make, publish, and optimize on-brand creative across organic and paid.
 
-These docs describe what Continuum ships today; don't infer features or prices that aren't written here. Product lines are Creative+, Organic+, and Performance+. Publishing, ad and budget changes, live creative swaps, final Forge renders, and deletions wait for the person's yes (Forge `set_delete` has no preview, so ask first). New campaigns, ad sets, and ads are created paused. Every page below is markdown; drop `.md` for the web page.
+These docs describe what Continuum ships today; don't infer features or prices that aren't written here. Product lines are Creative+, Organic+, and Performance+. Publishing, ad and budget changes, live creative swaps, final Forge renders, and deletions wait for the person's yes (Forge `set_delete` has no preview, so ask first). New campaigns, ad sets, and ads are created paused. Every page below is markdown (the docs host adds a short index header and a footer to each); drop `.md` for the web page.
 
 ## For agents
 
@@ -11,6 +11,7 @@ These docs describe what Continuum ships today; don't infer features or prices t
 - [MCP tool schemas (JSON)](https://docs.trycontinuum.ai/mcp/schemas/paid_manage.json): one file per tool at `/mcp/schemas/<tool>.json`, the input schema the server validates against.
 - [Forge operation index (JSON)](https://docs.trycontinuum.ai/forge/agent-manifest.json): per-action Forge contracts.
 - [All docs in one file](https://docs.trycontinuum.ai/llms-full.txt): every page below, in full.
+- [Agent skill](https://docs.trycontinuum.ai/skill.md): the same rules and capabilities as a skill file.
 - Docs search server (MCP, no sign-in): `https://docs.trycontinuum.ai/mcp` with `search_continuum`, `query_docs_filesystem_continuum`, and `submit_feedback` (report a wrong or confusing page); listed in [/.well-known/mcp.json](https://docs.trycontinuum.ai/.well-known/mcp.json).
 - Continuum MCP server: `https://api.trycontinuum.ai/mcp` (ChatGPT: `/mcp/chatgpt`), OAuth 2.1 with PKCE, no API keys. Call `help_describe` for the live schema before calling a tool.
 
@@ -44,7 +45,8 @@ These docs describe what Continuum ships today; don't infer features or prices t
 - [Tool reference: Creative+ canvas, pipelines, and delivery](https://docs.trycontinuum.ai/mcp/tools/creative.md): MCP tools for canvas workflows, saved pipelines, Elements, and sending finished creative to a post or an ad: inputs, examples, and errors.
 - [Tool reference: Library, media, and video](https://docs.trycontinuum.ai/mcp/tools/library.md): MCP tools for the Library, media search and upload, web-page captures, stock photos, and Video Studio edits: inputs, examples, and errors.
 - [Tool reference: Forge templates and CAD files](https://docs.trycontinuum.ai/mcp/tools/forge.md): MCP tools for Forge templates, render sets, and renders, and for CAD mesh files: inputs, examples, and errors.
-- [Tool reference: Tools not in the tool list](https://docs.trycontinuum.ai/mcp/tools/unlisted.md): The 20 tools the server accepts by name but doesn't advertise in tools/list: what each needs, its inputs, example calls, and errors.
+- [Tool reference: Unlisted tools: agents, brand, and approvals](https://docs.trycontinuum.ai/mcp/tools/unlisted.md): Tools the server accepts by name but does not list, for the agents, brand context, insights, naming, audiences, and admin approvals: inputs, examples, and errors.
+- [Tool reference: Unlisted tools: posts, inbox, and accounts](https://docs.trycontinuum.ai/mcp/tools/unlisted-posts.md): Tools the server accepts by name but does not list, for Instagram posts, audits, the inbox, connected accounts, and week planning: inputs, examples, and errors.
 - [Server and agents: Server reference](https://docs.trycontinuum.ai/mcp/reference.md): The protocol details of the Continuum MCP server: endpoints, transport, sign-in, sessions, brand scope, confirmations, result codes, limits, and jobs.
 
 ## Creative+

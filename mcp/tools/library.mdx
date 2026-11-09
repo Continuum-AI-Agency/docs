@@ -214,8 +214,10 @@ Find approved product shots:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `library_manage`.
 
 Full schema: `help_describe {"tool":"media_search"}`. As JSON: [`/mcp/schemas/media_search.json`](/mcp/schemas/media_search.json).
 
@@ -278,6 +280,8 @@ Start a signed upload of a long video:
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+
+**Related:** `forge_manage`, `video_editor`.
 
 Full schema: `help_describe {"tool":"media_upload_and_clip"}`. As JSON: [`/mcp/schemas/media_upload_and_clip.json`](/mcp/schemas/media_upload_and_clip.json).
 
@@ -414,10 +418,10 @@ Vertical photos for a story or reel reference:
 | --- | --- |
 | `RATE_LIMITED` | Unsplash's shared hourly quota or this brand's 60/hour budget is spent — retry later. |
 | `configured=false` | The deployment has no Unsplash key; this is not an empty search. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `studio_workflow`, `content_create`, `media_search`.
+**Related:** `studio_workflow`, `content_create`, `media_search`, `integrations_list`.
 
 Full schema: `help_describe {"tool":"unsplash_search"}`. As JSON: [`/mcp/schemas/unsplash_search.json`](/mcp/schemas/unsplash_search.json).
 
@@ -587,6 +591,8 @@ Cut silences from a project:
 | `CONFLICT` | The item changed or is busy. Read it again, then retry with the current state. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+
+**Related:** `media_upload_and_clip`.
 
 Full schema: `help_describe {"tool":"video_editor"}`. As JSON: [`/mcp/schemas/video_editor.json`](/mcp/schemas/video_editor.json).
 
