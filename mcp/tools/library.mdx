@@ -279,7 +279,7 @@ Start a signed upload of a long video:
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 
 **Related:** `forge_manage`, `video_editor`.
 
@@ -345,7 +345,7 @@ Reviews page as proof b-roll:
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 
 **Related:** `video_editor`, `media_search`.
 

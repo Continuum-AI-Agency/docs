@@ -136,6 +136,7 @@ Rename a saved workflow:
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher, for every action. Ask an Admin or Owner. |
 
 **Related:** `studio_deliver`, `media_search`, `content_create`, `help_describe`, `library_manage`, `unsplash_search`.
 
@@ -222,6 +223,7 @@ Preview attaching a creative to a Planner draft:
 | `CONFLICT` | `draft_changed` / `paid_target_changed` — the destination moved since preview (stale-write refusal). Re-preview to pin the current version. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `studio_workflow`, `content_create`, `paid_manage`, `help_describe`.
@@ -417,6 +419,7 @@ Run a pipeline twice with different headlines:
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher, because a run can spend. Ask an Admin or Owner. |
 
 **Related:** `pipeline_describe`, `pipeline_run_status`.
 

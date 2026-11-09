@@ -35,8 +35,9 @@ These docs describe what Continuum ships today; don't infer features or prices t
 - [What you can do: Make creative](https://docs.trycontinuum.ai/mcp/use-cases/creative.md): Turn one idea into on-brand images and video, then find, review, and approve them in one place.
 - [What you can do: Edit video](https://docs.trycontinuum.ai/mcp/use-cases/video.md): Turn raw footage into first cuts for social from your assistant, with every change live in Video Studio and undoable.
 - [What you can do: Produce templates at scale](https://docs.trycontinuum.ai/mcp/use-cases/templates.md): Forge fills your design templates with your messages, products, and offers to make many on-brand versions in one go.
-- [Trust and limits: You stay in control](https://docs.trycontinuum.ai/mcp/control.md): What waits for your yes, what happens right away, what stays in the Continuum app, and how to see and revoke everything your assistant does.
-- [Trust and limits: Good to know](https://docs.trycontinuum.ai/mcp/limits.md): What to expect in each area when you use Continuum from your assistant: publishing, ads, generation limits, and what stays in the app.
+- [Trust, security, and limits: You stay in control](https://docs.trycontinuum.ai/mcp/control.md): What waits for your yes, what happens right away, what stays in the Continuum app, and how to see and revoke everything your assistant does.
+- [Trust, security, and limits: Good to know](https://docs.trycontinuum.ai/mcp/limits.md): What to expect in each area when you use Continuum from your assistant: publishing, ads, generation limits, and what stays in the app.
+- [Trust, security, and limits: Security & privacy](https://docs.trycontinuum.ai/security.md): How Continuum controls access: OAuth sign-in with no API keys, role-based permissions, a preview before anything goes live, an activity log, revocable assistant connections, and accounts assigned per brand.
 - [Tool reference](https://docs.trycontinuum.ai/mcp/tools.md): All 52 tools the Continuum connector lists, and the 20 more it accepts by name: what each does, whether it changes anything, and where its full contract lives.
 - [Tool reference: Account, brand, and jobs](https://docs.trycontinuum.ai/mcp/tools/account.md): MCP tools for choosing a brand, connecting platforms, reading the brand book, asking the agents, and following jobs: inputs, examples, and errors.
 - [Tool reference: Analytics, trends, and competitors](https://docs.trycontinuum.ai/mcp/tools/insights.md): MCP tools for organic, paid, and website results, audiences, creative strategy, trends, and competitor intelligence: inputs, examples, and errors.
@@ -102,7 +103,6 @@ These docs describe what Continuum ships today; don't infer features or prices t
 - [Account: Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md): How brand and account scopes work, and what Owners, Admins, Operators, and Viewers can do.
 - [Account: Connections and activity](https://docs.trycontinuum.ai/settings/connections.md): See which AI assistants you've connected to Continuum, revoke any of them, and review every action you've taken through one.
 - [Account: Billing](https://docs.trycontinuum.ai/settings/billing.md): Manage each brand's plans, Canvas credits, payment method, and invoices.
-- [Account: Security & privacy](https://docs.trycontinuum.ai/security.md): How Continuum controls access: OAuth sign-in with no API keys, role-based permissions, a preview before anything goes live, an activity log, revocable assistant connections, and accounts assigned per brand.
 
 ## Resources
 

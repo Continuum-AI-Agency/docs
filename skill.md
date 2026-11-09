@@ -32,7 +32,7 @@ Continuum is a creative factory for performance marketers, designers, and agenci
 | --- | --- |
 | Performance | Organic results for connected accounts; Meta ads performance, creative, budgets, and reporting; LinkedIn ads performance (read only). |
 | Agents | Jaina answers paid-performance questions; the Organic agent plans and writes social content. |
-| Organic+ | Plan a week, draft, approve, and schedule posts. Instagram publishing is live. Facebook, LinkedIn, TikTok, and YouTube publishing is built; the first post on each goes out with the Continuum team. TikTok posts publish as private until TikTok's app audit completes. |
+| Organic+ | Plan a week, draft, approve, and schedule posts. Instagram publishing is live. For Facebook, LinkedIn, TikTok, and YouTube, the person contacts support before the first post on each, and the Continuum team publishes it with them. TikTok posts publish as private until TikTok's app audit completes. |
 | Performance+ | Create paused Meta campaigns, ad sets, and ads; change budgets and targeting with a preview; approve Paid optimization recommendations. |
 | Creative+ | Run AI Canvas workflows and saved pipelines, use Elements and the Library, edit video in Video Studio, and fill Forge templates to make many versions. |
 | Intelligence | Trends, creative strategy, and tracked competitors' ads and organic posts. |

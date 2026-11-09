@@ -444,6 +444,15 @@ export const relatedExtras = {
   mcp_approvals_list: ['mcp_approval_grant'],
   agent_ask: ['jobs_status', 'planner_manage'],
   content_create: ['planner_manage', 'organic_draft_get'],
+  brands_create: ['brands_select', 'brands_list'],
+  agent_cancel: ['agent_ask', 'jobs_status'],
+  brands_list: ['brands_select', 'brands_create'],
+  account_map: ['accounts_list', 'integrations_list'],
+  help_describe: ['brands_list'],
+  brand_profile_get: ['brand_knowledge', 'brand_context_get'],
+  brand_voice_validate: ['brand_knowledge', 'content_create'],
+  paid_naming_schema_set: ['paid_naming_schema_get', 'paid_manage'],
+  trends_manage: ['intel_trend_discovery', 'creative_strategy'],
 };
 
 // Pages for the tools the server accepts by name but doesn't list. Every unlisted tool appears once.
@@ -455,3 +464,16 @@ export const unlistedAreas = [
     description: 'Tools the server accepts by name but does not list, for Instagram posts, audits, the inbox, connected accounts, and week planning: inputs, examples, and errors.',
     tools: ['post_create_instagram', 'post_manage', 'post_audit', 'organic_workflow_run', 'organic_media_list', 'organic_profile_get', 'organic_inbox_list', 'organic_inbox_reply'] },
 ];
+
+// Statuses a tool returns beyond the shared ones, read from its server description.
+export const extraStatuses = {
+  agent_ask: [
+    ['needs_correction', 'The question went to the wrong agent. Ask the `suggested_target` instead.'],
+    ['needs_followup', 'In the finished job result: the agent produced text only. Continue with the same `sessionId`.'],
+  ],
+};
+
+// Actions whose confirmation differs from the tool's own (reads never confirm).
+export const confirmationExceptions = {
+  forge_manage: { set_delete: 'none' },
+};
