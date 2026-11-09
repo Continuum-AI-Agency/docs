@@ -218,6 +218,8 @@ Platforms and accounts for the active brand:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `analytics_query`.
+
 Full schema: `help_describe {"tool":"account_map"}`. As JSON: [`/mcp/schemas/account_map.json`](/mcp/schemas/account_map.json).
 
 ### `accounts_list`
@@ -436,7 +438,6 @@ Check connections:
 | --- | --- |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `integrations_connect`, `integrations_list`.
@@ -539,6 +540,8 @@ Check copy against the brand voice:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
+**Related:** `creative_strategy`.
+
 Full schema: `help_describe {"tool":"brand_knowledge","action":"overview"}`. As JSON: [`/mcp/schemas/brand_knowledge.json`](/mcp/schemas/brand_knowledge.json).
 
 ### `agent_ask`
@@ -612,6 +615,8 @@ Ask the Organic agent for ideas:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `jobs_status`, `planner_manage`, `analytics_query`.
+
 Full schema: `help_describe {"tool":"agent_ask","action":"jaina"}`. `help_describe`'s `action` takes a `target` value. As JSON: [`/mcp/schemas/agent_ask.json`](/mcp/schemas/agent_ask.json).
 
 ### `jobs_status`
@@ -667,7 +672,7 @@ Check a job:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `post_audit`, `insights_get`.
+**Related:** `post_audit`, `insights_get`, `agent_ask`, `forge_query`, `organic_ask`.
 
 Full schema: `help_describe {"tool":"jobs_status"}`. As JSON: [`/mcp/schemas/jobs_status.json`](/mcp/schemas/jobs_status.json).
 
@@ -731,7 +736,7 @@ Fetch one action of a tool:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `brands_list`, `brands_select`.
+**Related:** `brands_list`, `brands_select`, `studio_workflow`.
 
 Full schema: `help_describe {"tool":"help_describe"}`. As JSON: [`/mcp/schemas/help_describe.json`](/mcp/schemas/help_describe.json).
 

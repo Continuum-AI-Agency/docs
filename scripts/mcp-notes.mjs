@@ -234,7 +234,8 @@ export const goodToKnow = {
   ],
   content_create: [
     '`approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.',
-    '`realize` (generating the creative) and `delete` are two-phase: the first call previews and returns a token, the second confirms.',
+    '`platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](/organic/publishing) has the status of the others, and X isn’t offered for publishing.',
+    '`realize` (generating the creative) and `delete` are two-phase. A `realize` preview returns `approve_with`: send `approve_with.input` back as the next `realize` call to confirm exactly what was previewed. `delete` returns a `confirm_token` instead.',
     '`reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.',
     '`draft` needs a `prompt` unless you pass `generate: false`; then it saves the `caption` and `hashtags` you pass word for word.',
   ],
@@ -435,3 +436,22 @@ export const roleLevels = {
   trends_manage: { all: 'viewer' },
   video_editor: { all: 'viewer' },
 };
+
+// Related tools the server doesn't list but a caller needs next.
+export const relatedExtras = {
+  paid_manage: ['mcp_approval_grant', 'mcp_approvals_list'],
+  mcp_approval_grant: ['mcp_approvals_list', 'paid_manage'],
+  mcp_approvals_list: ['mcp_approval_grant'],
+  agent_ask: ['jobs_status', 'planner_manage'],
+  content_create: ['planner_manage', 'organic_draft_get'],
+};
+
+// Pages for the tools the server accepts by name but doesn't list. Every unlisted tool appears once.
+export const unlistedAreas = [
+  { slug: 'unlisted', title: 'Unlisted tools: agents, brand, and approvals', sidebarTitle: 'Unlisted: agents and brand',
+    description: 'Tools the server accepts by name but does not list, for the agents, brand context, insights, naming, audiences, and admin approvals: inputs, examples, and errors.',
+    tools: ['agent_cancel', 'jaina_ask', 'jaina_pro_run', 'organic_ask', 'insights_get', 'brand_context_get', 'brand_profile_get', 'brand_voice_validate', 'paid_naming_schema_set', 'intel_audience_push', 'mcp_approvals_list', 'mcp_approval_grant'] },
+  { slug: 'unlisted-posts', title: 'Unlisted tools: posts, inbox, and accounts', sidebarTitle: 'Unlisted: posts and inbox',
+    description: 'Tools the server accepts by name but does not list, for Instagram posts, audits, the inbox, connected accounts, and week planning: inputs, examples, and errors.',
+    tools: ['post_create_instagram', 'post_manage', 'post_audit', 'organic_workflow_run', 'organic_media_list', 'organic_profile_get', 'organic_inbox_list', 'organic_inbox_reply'] },
+];

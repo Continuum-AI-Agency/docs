@@ -199,7 +199,7 @@ Audit log:
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 
-**Related:** `analytics_query`, `account_map`.
+**Related:** `analytics_query`, `account_map`, `mcp_approval_grant`, `mcp_approvals_list`, `help_describe`.
 
 Full schema: `help_describe {"tool":"paid_manage","action":"hierarchy"}`. As JSON: [`/mcp/schemas/paid_manage.json`](/mcp/schemas/paid_manage.json).
 
@@ -248,8 +248,10 @@ The Meta naming convention:
 | Code | When |
 | --- | --- |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `analytics_creative_insights`, `analytics_query`.
 
 Full schema: `help_describe {"tool":"paid_naming_schema_get"}`. As JSON: [`/mcp/schemas/paid_naming_schema_get.json`](/mcp/schemas/paid_naming_schema_get.json).
 
@@ -312,6 +314,8 @@ A portfolio's pending recommendations:
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
+
+**Related:** `help_describe`, `optimizer_manage`.
 
 Full schema: `help_describe {"tool":"optimizer_query","action":"portfolios"}`. As JSON: [`/mcp/schemas/optimizer_query.json`](/mcp/schemas/optimizer_query.json).
 
@@ -383,6 +387,8 @@ Approve one recommendation (the approval is the yes):
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `help_describe`, `mcp_approval_grant`, `optimizer_query`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"optimizer_manage","action":"create_portfolio"}`. As JSON: [`/mcp/schemas/optimizer_manage.json`](/mcp/schemas/optimizer_manage.json).
 

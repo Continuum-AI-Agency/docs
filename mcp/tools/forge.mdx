@@ -104,7 +104,7 @@ What a variation renders differently from its parent row:
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-**Related:** `forge_manage`.
+**Related:** `forge_manage`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"forge_query","action":"templates"}`. As JSON: [`/mcp/schemas/forge_query.json`](/mcp/schemas/forge_query.json).
 
@@ -244,7 +244,7 @@ Append selected draft rows once:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
-**Related:** `forge_query`, `brand_knowledge`, `library_manage`, `media_upload_and_clip`.
+**Related:** `forge_query`, `brand_knowledge`, `library_manage`, `media_upload_and_clip`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"forge_manage","action":"set_create"}`. As JSON: [`/mcp/schemas/forge_manage.json`](/mcp/schemas/forge_manage.json).
 
@@ -316,6 +316,8 @@ Read a CAD file and its revisions:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `cad_manage`.
+
 Full schema: `help_describe {"tool":"cad_query","action":"capabilities"}`. As JSON: [`/mcp/schemas/cad_query.json`](/mcp/schemas/cad_query.json).
 
 ### `cad_manage`
@@ -379,6 +381,8 @@ Run manufacturing checks on a revision:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `cad_query`.
 
 Full schema: `help_describe {"tool":"cad_manage","action":"upload_begin"}`. As JSON: [`/mcp/schemas/cad_manage.json`](/mcp/schemas/cad_manage.json).
 

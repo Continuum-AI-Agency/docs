@@ -101,6 +101,8 @@ Meta ad account overview, last 7 days:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 
+**Related:** `agent_ask`, `help_describe`.
+
 Full schema: `help_describe {"tool":"analytics_query","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/analytics_query.json`](/mcp/schemas/analytics_query.json).
 
 ### `analytics_creative_insights`
@@ -154,7 +156,7 @@ Top 10 IG ads:
 | Code | When |
 | --- | --- |
 | `VALIDATION_ERROR` | Only `meta_ads` has creative retention (hook/hold) data. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 
 **Related:** `jobs_status`.
@@ -213,11 +215,11 @@ Spend last 30d:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `analytics_pacing_diagnostic`, `analytics_creative_insights`.
+**Related:** `analytics_pacing_diagnostic`, `analytics_creative_insights`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"analytics_cross_platform_spend"}`. As JSON: [`/mcp/schemas/analytics_cross_platform_spend.json`](/mcp/schemas/analytics_cross_platform_spend.json).
 
@@ -269,7 +271,7 @@ Pacing health:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -343,6 +345,8 @@ Results by age, last 30 days:
 | --- | --- |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+
+**Related:** `account_map`, `help_describe`.
 
 Full schema: `help_describe {"tool":"audience_query","action":"list_audiences"}`. As JSON: [`/mcp/schemas/audience_query.json`](/mcp/schemas/audience_query.json).
 
@@ -432,7 +436,7 @@ Read one insight:
 | `BRAND_NOT_SELECTED` | Call `brands_select` first. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-**Related:** `brand_knowledge`, `analytics_query`, `content_create`.
+**Related:** `brand_knowledge`, `analytics_query`, `content_create`, `analytics_creative_insights`.
 
 Full schema: `help_describe {"tool":"creative_strategy","action":"overview"}`. As JSON: [`/mcp/schemas/creative_strategy.json`](/mcp/schemas/creative_strategy.json).
 
@@ -536,11 +540,11 @@ Trending IG:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `intel_competitor_ad_library`, `content_create`.
+**Related:** `intel_competitor_ad_library`, `content_create`, `jobs_status`, `trends_manage`.
 
 Full schema: `help_describe {"tool":"intel_trend_discovery"}`. As JSON: [`/mcp/schemas/intel_trend_discovery.json`](/mcp/schemas/intel_trend_discovery.json).
 
@@ -595,8 +599,10 @@ What competitors ran in paid and organic since August:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_competitor_ads`, `intel_competitor_organic`, `intel_competitor_scan`.
 
 Full schema: `help_describe {"tool":"intel_competitor_moves"}`. As JSON: [`/mcp/schemas/intel_competitor_moves.json`](/mcp/schemas/intel_competitor_moves.json).
 
@@ -662,8 +668,10 @@ Longest-running active competitor ads:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_competitor_ad_library`, `intel_competitor_moves`, `intel_competitor_scan`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"intel_competitor_ads"}`. As JSON: [`/mcp/schemas/intel_competitor_ads.json`](/mcp/schemas/intel_competitor_ads.json).
 
@@ -714,8 +722,10 @@ One competitor's recent organic posts:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_competitor_ads`, `intel_competitor_moves`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"intel_competitor_organic"}`. As JSON: [`/mcp/schemas/intel_competitor_organic.json`](/mcp/schemas/intel_competitor_organic.json).
 
@@ -770,7 +780,7 @@ A Page's ads:
 | --- | --- |
 | `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `intel_competitor_scan`, `intel_competitor_ads`.

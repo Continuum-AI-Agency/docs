@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { actionInputs, areas, codeMeaning, factOverrides, goodToKnow, integrationNotes, needs, roleLevels, roles, terms } from './mcp-notes.mjs';
+import { actionInputs, areas, codeMeaning, factOverrides, goodToKnow, integrationNotes, needs, relatedExtras, roleLevels, roles, terms, unlistedAreas } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
@@ -63,7 +63,12 @@ function errors(tool) {
     assert.ok(codeMeaning[c], `No meaning for ${c} (${tool.name}); add it to scripts/mcp-notes.mjs`);
     add(c, codeMeaning[c]);
   }
-  if (tool.brandScoped) add('needs_brand', needs.needs_brand());
+  // Tools that are always listed check the brand themselves and return the needs_brand status;
+  // the rest are stopped by the dispatcher with the BRAND_NOT_SELECTED error.
+  if (tool.brandScoped) {
+    if (tool.surface.alwaysAvailable) add('needs_brand', needs.needs_brand());
+    else add('BRAND_NOT_SELECTED', codeMeaning.BRAND_NOT_SELECTED);
+  }
   const r = tool.surface.requiresRole;
   if (r && r !== 'viewer') add('needs_role', needs.needs_role(ROLE[r]));
   if (tool.surface.requiresIntegration) add('needs_integration', needs.needs_integration(tool.surface.requiresIntegration));
@@ -175,10 +180,21 @@ function roleFields(tool) {
   return { role: base, roleByAction: byAction };
 }
 
+// Related tools: the server's list, plus registered tools its description or our notes name.
+function relatedFor(tool, names) {
+  const text = [tool.description, ...(goodToKnow[tool.name] ?? [])].join(' ');
+  const named = [...names].filter(n => n !== tool.name && new RegExp(`\\b${n}\\b`).test(text));
+  return [...new Set([...tool.relatedTools, ...(relatedExtras[tool.name] ?? []), ...named])];
+}
+
 export function buildOutputs(source) {
+  const registeredNames = new Set(source.tools.map(t => t.name));
+  for (const tool of source.tools) tool.relatedTools = relatedFor(tool, registeredNames);
   for (const tool of source.tools) if (factOverrides[tool.name]) tool.facts = { ...tool.facts, ...factOverrides[tool.name] };
   const advertised = source.tools.filter(t => t.state === 'advertised');
   const internal = source.tools.filter(t => t.state === 'internal');
+  assert.deepEqual(unlistedAreas.flatMap(a => a.tools).sort(), internal.map(t => t.name).sort(), 'Unlisted tools drifted: update unlistedAreas in scripts/mcp-notes.mjs');
+  const unlistedSlug = new Map(unlistedAreas.flatMap(a => a.tools.map(n => [n, a.slug])));
   const byName = new Map(source.tools.map(t => [t.name, t]));
   const mapped = areas.flatMap(a => Object.keys(a.tools));
   assert.deepEqual([...mapped].sort(), advertised.map(t => t.name).sort(), 'Advertised tools drifted: update areas in scripts/mcp-notes.mjs');
@@ -227,14 +243,17 @@ export function buildOutputs(source) {
   const unbuilt = (t) => t.commonErrors.some(e => e.code === 'NOT_IMPLEMENTED' && /not yet implemented/i.test(e.reason));
   const unlistedLine = (t) => `${srv(t.summary)}${unbuilt(t) ? ' **Not available yet:** it returns `NOT_IMPLEMENTED`.' : ''}`;
   for (const t of internal)
-    overview += `| [${code(t.name)}](/mcp/tools/unlisted#${anchor(t.name)}) | ${cell(unlistedLine(t))} | ${t.mutates ? 'Yes' : 'No'} |\n`;
-  let unlisted = `---\ntitle: "Tools not in the tool list"\nsidebarTitle: "Not in the tool list"\ndescription: "The ${internal.length} tools the server accepts by name but doesn't advertise in tools/list: what each needs, its inputs, example calls, and errors."\n---\n\n${header}\n`;
-  unlisted += `${checked} These tools are registered and callable by name, but \`tools/list\` doesn't advertise them: most are writes and helpers the listed tools reach for you. Use the listed tool unless a result or a tool description names one of these, and fetch the live schema with \`help_describe\` first.\n\n| Tool | What it does | Changes things |\n| --- | --- | --- |\n`;
-  for (const t of internal) unlisted += `| [${code(t.name)}](#${anchor(t.name)}) | ${cell(unlistedLine(t))} | ${t.mutates ? 'Yes' : 'No'} |\n`;
-  unlisted += `\n`;
-  for (const t of internal) unlisted += toolSection(t, cell(unlistedLine(t)));
-  unlisted += `## What's next\n\n${next([['All tools', 'toolbox', '/mcp/tools', 'Every tool on one page, and the machine-readable index.'], ['Agent brief', 'robot', '/mcp/agent-brief', 'How an assistant should use these tools.']])}`;
-  files['mcp/tools/unlisted.mdx'] = unlisted;
+    overview += `| [${code(t.name)}](/mcp/tools/${unlistedSlug.get(t.name)}#${anchor(t.name)}) | ${cell(unlistedLine(t))} | ${t.mutates ? 'Yes' : 'No'} |\n`;
+  for (const area of unlistedAreas) {
+    let page = `---\ntitle: "${area.title}"\nsidebarTitle: "${area.sidebarTitle}"\ndescription: "${area.description}"\n---\n\n${header}\n`;
+    page += `${checked} These tools are registered and callable by name, but \`tools/list\` doesn't advertise them: most are writes and helpers the listed tools reach for you. Use the listed tool unless a result or a tool description names one of these, and fetch the live schema with \`help_describe\` first.\n\n| Tool | What it does | Changes things |\n| --- | --- | --- |\n`;
+    for (const name of area.tools) { const t = byName.get(name); page += `| [${code(name)}](#${anchor(name)}) | ${cell(unlistedLine(t))} | ${t.mutates ? 'Yes' : 'No'} |\n`; }
+    page += `\n`;
+    for (const name of area.tools) page += toolSection(byName.get(name), cell(unlistedLine(byName.get(name))));
+    const other = unlistedAreas.find(a => a !== area);
+    page += `## What's next\n\n${next([['All tools', 'toolbox', '/mcp/tools', 'Every tool on one page, and the machine-readable index.'], [other.title, 'arrow-right', `/mcp/tools/${other.slug}`, other.description.split(':')[0] + '.']])}`;
+    files[`mcp/tools/${area.slug}.mdx`] = page;
+  }
   overview += `\n## Ready-made prompts\n\nThe connector also offers three prompts your assistant may list in its menu:\n\n| Prompt | What it does |\n| --- | --- |\n| \`analytics-weekly-review\` | A weekly review across social and ads. |\n| \`analytics-top-and-bottom-posts\` | Your best and worst organic posts, and why. |\n| \`analytics-top-and-bottom-ads\` | Your best and worst ads, and why. |\n\n`;
   overview += `## What's next\n\n${next([['Agent brief', 'robot', '/mcp/agent-brief', 'How an assistant should use these tools.'], ['Server reference', 'server', '/mcp/reference', 'Endpoints, sign-in, confirmations, result codes, and limits.']])}`;
   files['mcp/tools.mdx'] = overview;
@@ -253,7 +272,7 @@ export function buildOutputs(source) {
         name: t.name,
         listed: t.state === 'advertised',
         ...(unbuilt(t) ? { available: false } : {}),
-        ...(area ? { area: area.slug, docs: `${SITE}/mcp/tools/${area.slug}#${anchor(t.name)}`, summary: area.tools[t.name].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : { docs: `${SITE}/mcp/tools/unlisted#${anchor(t.name)}`, summary: retire(t.summary) }),
+        ...(area ? { area: area.slug, docs: `${SITE}/mcp/tools/${area.slug}#${anchor(t.name)}`, summary: area.tools[t.name].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : { docs: `${SITE}/mcp/tools/${unlistedSlug.get(t.name)}#${anchor(t.name)}`, summary: retire(t.summary) }),
         mutates: t.mutates,
         ...roleFields(t),
         integration: t.surface.requiresIntegration ?? null,
@@ -306,13 +325,14 @@ function llms(index, files) {
   const walk = (group, prefix = '') => group.pages.flatMap(item => typeof item === 'string'
     ? (item === 'mcp/agent-brief' ? [] : [entry(item, prefix)]) : walk(item, `${prefix}${item.group}: `));
   let out = `# ${nav.name}\n\n> ${nav.description}\n\n`;
-  out += `These docs describe what Continuum ships today; don't infer features or prices that aren't written here. Product lines are Creative+, Organic+, and Performance+. Publishing, ad and budget changes, live creative swaps, final Forge renders, and deletions wait for the person's yes (Forge \`set_delete\` has no preview, so ask first). New campaigns, ad sets, and ads are created paused. Every page below is markdown; drop \`.md\` for the web page.\n\n`;
+  out += `These docs describe what Continuum ships today; don't infer features or prices that aren't written here. Product lines are Creative+, Organic+, and Performance+. Publishing, ad and budget changes, live creative swaps, final Forge renders, and deletions wait for the person's yes (Forge \`set_delete\` has no preview, so ask first). New campaigns, ad sets, and ads are created paused. Every page below is markdown (the docs host adds a short index header and a footer to each); drop \`.md\` for the web page.\n\n`;
   out += `## For agents\n\n`;
   out += `- [Agent brief](${SITE}/mcp/agent-brief.md): how an assistant should use the Continuum connector, and how to read these docs.\n`;
   out += `- [MCP tool index (JSON)](${SITE}/mcp/tools.json): all ${index.counts.registered} registered tools with role, connection, confirmation, completion, retry, actions and their inputs, example calls, and errors.\n`;
   out += `- [MCP tool schemas (JSON)](${SITE}/mcp/schemas/paid_manage.json): one file per tool at \`/mcp/schemas/<tool>.json\`, the input schema the server validates against.\n`;
   out += `- [Forge operation index (JSON)](${SITE}/forge/agent-manifest.json): per-action Forge contracts.\n`;
   out += `- [All docs in one file](${SITE}/llms-full.txt): every page below, in full.\n`;
+  out += `- [Agent skill](${SITE}/skill.md): the same rules and capabilities as a skill file.\n`;
   out += `- Docs search server (MCP, no sign-in): \`${SITE}/mcp\` with \`search_continuum\`, \`query_docs_filesystem_continuum\`, and \`submit_feedback\` (report a wrong or confusing page); listed in [/.well-known/mcp.json](${SITE}/.well-known/mcp.json).\n`;
   out += `- Continuum MCP server: \`https://api.trycontinuum.ai/mcp\` (ChatGPT: \`/mcp/chatgpt\`), OAuth 2.1 with PKCE, no API keys. Call \`help_describe\` for the live schema before calling a tool.\n\n`;
   for (const group of nav.navigation.groups) out += `## ${group.group}\n\n${walk(group).join('\n')}\n\n`;

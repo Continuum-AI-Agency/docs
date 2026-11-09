@@ -137,7 +137,7 @@ Rename a saved workflow:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-**Related:** `studio_deliver`, `media_search`, `content_create`.
+**Related:** `studio_deliver`, `media_search`, `content_create`, `help_describe`, `library_manage`, `unsplash_search`.
 
 Full schema: `help_describe {"tool":"studio_workflow","action":"get"}`. As JSON: [`/mcp/schemas/studio_workflow.json`](/mcp/schemas/studio_workflow.json).
 
@@ -224,7 +224,7 @@ Preview attaching a creative to a Planner draft:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `studio_workflow`, `content_create`, `paid_manage`.
+**Related:** `studio_workflow`, `content_create`, `paid_manage`, `help_describe`.
 
 Full schema: `help_describe {"tool":"studio_deliver","action":"find_targets"}`. As JSON: [`/mcp/schemas/studio_deliver.json`](/mcp/schemas/studio_deliver.json).
 
@@ -276,8 +276,10 @@ Find a saved pipeline:
 | Code | When |
 | --- | --- |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `pipeline_describe`, `pipeline_invoke`.
 
 Full schema: `help_describe {"tool":"pipeline_search"}`. As JSON: [`/mcp/schemas/pipeline_search.json`](/mcp/schemas/pipeline_search.json).
 
@@ -326,8 +328,10 @@ What a pipeline needs:
 | Code | When |
 | --- | --- |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `pipeline_invoke`, `pipeline_search`.
 
 Full schema: `help_describe {"tool":"pipeline_describe"}`. As JSON: [`/mcp/schemas/pipeline_describe.json`](/mcp/schemas/pipeline_describe.json).
 
@@ -414,6 +418,8 @@ Run a pipeline twice with different headlines:
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
+**Related:** `pipeline_describe`, `pipeline_run_status`.
+
 Full schema: `help_describe {"tool":"pipeline_invoke"}`. As JSON: [`/mcp/schemas/pipeline_invoke.json`](/mcp/schemas/pipeline_invoke.json).
 
 ### `pipeline_run_status`
@@ -462,8 +468,10 @@ Check a run:
 
 | Code | When |
 | --- | --- |
-| `needs_brand` | No brand is active. Call `brands_select`. |
+| `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `pipeline_describe`, `pipeline_invoke`.
 
 Full schema: `help_describe {"tool":"pipeline_run_status"}`. As JSON: [`/mcp/schemas/pipeline_run_status.json`](/mcp/schemas/pipeline_run_status.json).
 
@@ -523,7 +531,6 @@ Only the products, before wiring an element node:
 | --- | --- |
 | `BRAND_NOT_SELECTED` | Elements are per-brand. Call `brands_select` first. |
 | `needs_role` | Reading Elements needs the viewer role on the active brand. |
-| `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `studio_workflow`, `media_search`, `library_manage`.
