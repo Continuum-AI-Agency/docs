@@ -173,6 +173,28 @@ Audit log:
 }
 ```
 
+Confirm the previewed campaign with its token, after the person says yes:
+
+```json
+{
+  "name": "paid_manage",
+  "arguments": {
+    "action": "create_campaign",
+    "params": {
+      "mode": "confirm",
+      "platform": "meta_ads",
+      "ad_account_id": "act_123",
+      "campaign": {
+        "name": "Spring",
+        "objective": "OUTCOME_TRAFFIC",
+        "daily_budget": 1000
+      },
+      "confirm_token": "tok_7c1e9a2b4d6f8031"
+    }
+  }
+}
+```
+
 </Visibility>
 
 <Visibility for="agents">
@@ -181,6 +203,7 @@ Audit log:
 - Cut an ad set to ages 18–55: `{"name":"paid_manage","arguments":{"action":"update_entity","params":{"mode":"preview","platform":"meta_ads","entity_type":"adset","entity_id":"120200000000000000","changes":{"targeting":{"age_max":55}}}}}`
 - Restructure in one confirmation: `{"name":"paid_manage","arguments":{"action":"batch","params":{"mode":"preview","ops":[{"action":"duplicate","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1202…"}},{"action":"update_entity","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1201…","changes":{"status":"PAUSED"}}}]}}}`
 - Audit log: `{"name":"paid_manage","arguments":{"action":"activity","params":{"limit":20}}}`
+- Confirm the previewed campaign with its token, after the person says yes: `{"name":"paid_manage","arguments":{"action":"create_campaign","params":{"mode":"confirm","platform":"meta_ads","ad_account_id":"act_123","campaign":{"name":"Spring","objective":"OUTCOME_TRAFFIC","daily_budget":1000},"confirm_token":"tok_7c1e9a2b4d6f8031"}}}`
 </Visibility>
 
 **Errors and statuses:**
@@ -196,7 +219,7 @@ Audit log:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `hierarchy` and `activity`. Operator or higher for writes. Admin or Owner to set `guardrails`. Activating an ad, or raising a budget past the brand's limit, needs an Admin or Owner's approval. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `hierarchy` and `activity`. Operator or higher for writes. Admin or Owner to set `guardrails`. Activating an ad, or raising a budget past the brand's limit, needs an Admin or Owner's approval. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 
@@ -386,7 +409,7 @@ Approve one recommendation (the approval is the yes):
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `PERMISSION_DENIED` | The person's role can't do this. Ask an Admin or Owner. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher, on a brand with a Meta connection. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher, on a brand with a Meta connection. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 

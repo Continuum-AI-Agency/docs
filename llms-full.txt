@@ -247,6 +247,113 @@ Paste this into a new chat once the connector is on. Your assistant runs the fiv
 * [How to ask](https://docs.trycontinuum.ai/mcp/how-to-ask.md): Be specific, say what decision you're making, and say how you want it back.
 * [What you can do](https://docs.trycontinuum.ai/mcp/overview.md): Every area of Continuum you can use from your assistant.
 
+# Troubleshooting
+
+Source: https://docs.trycontinuum.ai/troubleshooting
+
+> Fixes for common problems, in two parts: your AI assistant and the connector (sign-in, brands, permissions, limits, jobs), and the Continuum app (integrations, data, plans, credits, the canvas).
+
+Find your problem below. Each answer says what's happening and what to do.
+
+## In your AI assistant
+
+### I added the connector but can't see Continuum in my chat
+
+Check the Continuum connector is switched on for this chat, or start a new chat. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first.
+
+### It can't find my brand
+
+Ask "Which brands can I access?" If yours isn't listed, ask an Admin or Owner on that brand to invite you in Continuum.
+
+### I'm not sure which accounts are connected
+
+Ask "Which platforms are connected to our brand?" You can connect anything missing from the same chat.
+
+### It asks me to pick a brand or connect an account
+
+That's normal. Answer the question, or open the link it gives you. Links work for 10 minutes.
+
+### An account won't connect, or a post can't be published
+
+First ask "Is our Instagram connection healthy?" (or whichever platform). If the connection has lapsed, ask Continuum to reconnect it, or re-sync it in the app (see [In the app](#in-the-app)). If that platform doesn't support publishing from your assistant yet, Continuum says so. See [Good to know](https://docs.trycontinuum.ai/mcp/limits.md).
+
+### It says my brand isn't ready
+
+Finish [setting up your brand](https://docs.trycontinuum.ai/brand/setup.md) in the Continuum app so your brand book can be built, then try again. Until then, you can still connect your accounts and look at your performance.
+
+### I'm not sure what the assistant just did
+
+Open **Settings → Activity** in Continuum. It lists every action you've taken through your assistant, and when. If something looks wrong, revoke the connection under **Settings → Connections** and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+
+### It says I don't have permission
+
+Your role doesn't allow that action. Viewers can read; asking Jaina or the Organic agent, and anything that creates, changes, or runs, needs Operator; switching on an ad needs an Admin or Owner. Ask an Admin or Owner on your brand. See [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md).
+
+### It says my session has expired
+
+Remove the Continuum connector in your assistant's settings and add it again. You'll be asked to sign in to Continuum once more.
+
+### ChatGPT won't finish signing in
+
+Check you used the ChatGPT address: `https://api.trycontinuum.ai/mcp/chatgpt`.
+
+### It says I've hit a limit
+
+Bigger jobs, like generating creative, have hourly limits to protect your budget. Ask for a smaller batch, such as three versions instead of ten, or try again in about an hour. The message says how long to wait.
+
+### It's taking a while
+
+Answers and reports usually take a minute or two. Images and video can take several minutes. Ask "Is it done yet?" to check, or come back to the same chat later.
+
+## In the app
+
+### An integration shows as stale or disconnected
+
+A connection goes stale when its token expires or the account password changes. Open **Settings → Integrations**, find the affected connection, and select **Re-sync** to restore data collection. See [Integrations](https://docs.trycontinuum.ai/integrations.md).
+
+### No data is showing in analytics
+
+Data appears only for accounts you've **assigned** to the active brand. Connecting a provider isn't enough — assign the specific ad or social accounts to this brand under **Settings → Integrations**, then give background collection time to run.
+
+### Performance+ or Organic+ is locked
+
+Each product line is part of a plan. If one is locked, check the brand's plans under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md) and [pricing](https://trycontinuum.ai/#pricing).
+
+### Generation stopped on the canvas
+
+The brand may be out of Canvas credits. Buy a credit pack or turn on auto-billing under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md).
+
+### Brand Spy has no competitor posts
+
+Tracking a competitor's organic posts relies on Instagram data. Connect an Instagram account in [Integrations](https://docs.trycontinuum.ai/integrations.md), then add competitors in Brand Spy's **Competitors** tab. See [Brand Spy](https://docs.trycontinuum.ai/brand/spy.md).
+
+### My brand book looks thin or empty
+
+If your brand book is empty, open **Settings → Brand Intelligence** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](https://docs.trycontinuum.ai/settings/knowledge.md), then recalculate your [readiness score](https://docs.trycontinuum.ai/brand/readiness.md).
+
+### A canvas node won't run
+
+A generation node runs only once every input it depends on has valid data. Check that upstream nodes show **Done**, that required connections are made, and that you've selected a model. A node that failed shows **Error**. See [Working on the canvas](https://docs.trycontinuum.ai/canvas/working-on-the-canvas.md).
+
+## Try it
+
+Ask your assistant these first. Their answers settle most problems:
+
+* "Which Continuum brand am I working on, and what's connected?"
+* "Which brands can I access?"
+* "Which of our connections are healthy, expired, or disconnected?"
+
+## Still stuck?
+
+Email [support@trycontinuum.ai](mailto:support@trycontinuum.ai). For an assistant problem, say which assistant you use and what you asked.
+
+## What's next
+
+* [Connect your assistant](https://docs.trycontinuum.ai/quickstart.md#connect-your-assistant): Set up the connector again, step by step.
+* [Integrations](https://docs.trycontinuum.ai/integrations.md): Connect, assign, and re-sync accounts.
+* [Good to know](https://docs.trycontinuum.ai/mcp/limits.md): Current limits by area.
+* [Billing](https://docs.trycontinuum.ai/settings/billing.md): Plans, Canvas credits, and auto-billing.
+
 # Core concepts
 
 Source: https://docs.trycontinuum.ai/concepts
@@ -458,11 +565,11 @@ Name the platform, the time period, the result you care about, and what you want
 | Instead of | Try |
 | - | - |
 | "How are our ads doing?" | "Compare our 5 best and 5 worst Meta ads by return on ad spend over the last 30 days, and tell me what the best ones have in common." |
-| "Show me spend." | "I need to cut \$2,000 from next week's ad spend. Where should it come from?" |
+| "Show me spend." | "I need to cut 2,000 from next week's ad spend. Where should it come from?" |
 
 ## Say what decision you're making
 
-"I need to cut \$2,000 from next week's ad spend. Where should it come from?" gets a sharper answer than "Show me spend." The decision tells Continuum which numbers matter.
+"I need to cut 2,000 from next week's ad spend. Where should it come from?" gets a sharper answer than "Show me spend." The decision tells Continuum which numbers matter.
 
 ## Say how you want it back
 
@@ -724,7 +831,7 @@ Manage your Meta ads from the conversation. Review campaigns, adjust budgets, pa
 
 * "Show me this week's budget recommendations and explain each one."
 * "Approve the recommendations for our prospecting campaigns, and reject the rest."
-* "Raise the daily budget on our retargeting ads to \$150. Show me the change first."
+* "Raise the daily budget on our retargeting ads to 150 a day. Show me the change first."
 * "Pause the ad sets with the highest cost per purchase. Show me first."
 * "Build a new audience of people similar to our past purchasers in the US."
 * "Set up a paused campaign to drive traffic to our spring sale."
@@ -890,7 +997,7 @@ Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, 
 
 ## Try it
 
-* "Raise the daily budget on our retargeting ads to \$150. Show me the change first."
+* "Raise the daily budget on our retargeting ads to 150 a day. Show me the change first."
 * "Move Thursday's posts to Friday. Show me first."
 * "Show me the paid changes waiting for my approval." (Admins and Owners)
 
@@ -1019,7 +1126,6 @@ immediately and returns no preview or confirmation token.
 | Every MCP tool as JSON | [`/mcp/tools.json`](https://docs.trycontinuum.ai/mcp/tools.json): role, connection, confirmation, completion, retry, actions with their inputs, example calls, and errors |
 | One tool's full input schema | `/mcp/schemas/<tool>.json`, for example [`/mcp/schemas/paid_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/paid_manage.json) |
 | Forge per-action contracts | [`/forge/agent-manifest.json`](https://docs.trycontinuum.ai/forge/agent-manifest.json) |
-| Search instead of reading | The docs MCP server at `https://docs.trycontinuum.ai/mcp` (no sign-in): `search_continuum` finds pages, `query_docs_filesystem_continuum` reads them, and `submit_feedback` reports a problem with a page. It's listed in [`/.well-known/mcp.json`](https://docs.trycontinuum.ai/.well-known/mcp.json). It searches these docs only; it can't act on a brand. |
 
 ## What's next
 
@@ -1727,7 +1833,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher to read. Operator or higher for `add_text`, `add_file`, `add_url`, `upload_url`, `upload_finalize`, `update`, `archive`, `restore`, and `save_permanent`. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher to read. Operator or higher for `add_text`, `add_file`, `add_url`, `upload_url`, `upload_finalize`, `update`, `archive`, `restore`, and `save_permanent`. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `creative_strategy`.
@@ -1774,7 +1880,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | Code | When |
 | - | - |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `needs_correction` | The question went to the wrong agent. Ask the `suggested_target` instead. |
 | `needs_followup` | In the finished job result: the agent produced text only. Continue with the same `sessionId`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
@@ -2142,7 +2248,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `VALIDATION_ERROR` | action=search requires `query`. |
 | `BRAND_NOT_SELECTED` | Call `brands_select` first. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher to read. Operator or higher for `refresh`. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher to read. Operator or higher for `refresh`. Ask an Admin or Owner. |
 
 **Related:** `brand_knowledge`, `analytics_query`, `content_create`, `analytics_creative_insights`.
 
@@ -2431,7 +2537,7 @@ Runs a fresh competitor scan, the same as the app's **Scan** button.
 | - | - |
 | `CONFLICT` | The item changed or is busy. Read it again, then retry with the current state. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `intel_competitor_ads`, `intel_competitor_moves`.
@@ -2519,7 +2625,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `get_week`, `proposal_status`, and `operation_status`. Operator or higher for every other action. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `get_week`, `proposal_status`, and `operation_status`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
@@ -2534,7 +2640,7 @@ Drafts, approves, and publishes posts, and deletes drafts.
 **Good to know:**
 
 * `approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.
-* `platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](https://docs.trycontinuum.ai/organic/publishing.md) has the status of the others, and X isn’t offered for publishing.
+* `platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](https://docs.trycontinuum.ai/organic/publishing.md) has the status of the others; X and Threads are for planning and drafts only.
 * `realize` (generating the creative) and `delete` are two-phase. A `realize` preview returns `approve_with`: send `approve_with.input` back as the next `realize` call to confirm exactly what was previewed. `delete` returns a `confirm_token` instead.
 * `reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.
 * `draft` needs a `prompt` unless you pass `generate: false`; then it saves the `caption` and `hashtags` you pass word for word.
@@ -2545,7 +2651,7 @@ Drafts, approves, and publishes posts, and deletes drafts.
 | Listed in your assistant | Always. |
 | Role | Viewer or higher for `list`. Operator or higher for every other action. |
 | Needs | An active brand. Connection: The connection for the post’s `platform`. |
-| Confirmation | The person approves the pending change; the approval is the yes. |
+| Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
 
@@ -2585,8 +2691,9 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VOICE_VIOLATION` | The copy breaks a brand voice rule, such as a banned word. `details` names the rule; rewrite and try again. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `list`. Operator or higher for every other action. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `list`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
+| `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`, `planner_manage`, `library_manage`, `unsplash_search`.
 
@@ -2703,7 +2810,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `jobs_status`, `video_editor`, `headless_content`.
@@ -2756,7 +2863,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `guide`, `inspect`, and `status`. Operator or higher for every other action. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `guide`, `inspect`, and `status`. Operator or higher for every other action. Ask an Admin or Owner. |
 
 **Related:** `jobs_status`, `list_elements`, `unsplash_search`.
 
@@ -2840,6 +2947,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 * Cut an ad set to ages 18–55: `{"name":"paid_manage","arguments":{"action":"update_entity","params":{"mode":"preview","platform":"meta_ads","entity_type":"adset","entity_id":"120200000000000000","changes":{"targeting":{"age_max":55}}}}}`
 * Restructure in one confirmation: `{"name":"paid_manage","arguments":{"action":"batch","params":{"mode":"preview","ops":[{"action":"duplicate","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1202…"}},{"action":"update_entity","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1201…","changes":{"status":"PAUSED"}}}]}}}`
 * Audit log: `{"name":"paid_manage","arguments":{"action":"activity","params":{"limit":20}}}`
+* Confirm the previewed campaign with its token, after the person says yes: `{"name":"paid_manage","arguments":{"action":"create_campaign","params":{"mode":"confirm","platform":"meta_ads","ad_account_id":"act_123","campaign":{"name":"Spring","objective":"OUTCOME_TRAFFIC","daily_budget":1000},"confirm_token":"tok_7c1e9a2b4d6f8031"}}}`
 
 **Errors and statuses:**
 
@@ -2854,7 +2962,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `hierarchy` and `activity`. Operator or higher for writes. Admin or Owner to set `guardrails`. Activating an ad, or raising a budget past the brand's limit, needs an Admin or Owner's approval. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `hierarchy` and `activity`. Operator or higher for writes. Admin or Owner to set `guardrails`. Activating an ad, or raising a budget past the brand's limit, needs an Admin or Owner's approval. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 
@@ -2989,7 +3097,7 @@ Approves or rejects recommendations and manages portfolios.
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `PERMISSION_DENIED` | The person's role can't do this. Ask an Admin or Owner. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher, on a brand with a Meta connection. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher, on a brand with a Meta connection. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -3081,7 +3189,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher, for every action. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher, for every action. Ask an Admin or Owner. |
 
 **Related:** `studio_deliver`, `media_search`, `content_create`, `help_describe`, `library_manage`, `unsplash_search`.
 
@@ -3132,7 +3240,7 @@ Previews and sends finished creative to a planned post, an organic publish, or a
 | `CONFLICT` | `draft_changed` / `paid_target_changed` — the destination moved since preview (stale-write refusal). Re-preview to pin the current version. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `studio_workflow`, `content_create`, `paid_manage`, `help_describe`.
@@ -3257,7 +3365,7 @@ Runs a pipeline, up to 10 versions per request.
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher, because a run can spend. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher, because a run can spend. Ask an Admin or Owner. |
 
 **Related:** `pipeline_describe`, `pipeline_run_status`.
 
@@ -3499,7 +3607,7 @@ Uploads a video to clip. Clipping finishes in the Continuum app.
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 
 **Related:** `forge_manage`, `video_editor`.
 
@@ -3548,7 +3656,7 @@ Turns a public web page into a screenshot or a scroll-through video in your Libr
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 
 **Related:** `video_editor`, `media_search`.
 
@@ -3888,7 +3996,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher. Admin or Owner for `template_forge`, `template_set_default`, and renders with `final: true`. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Admin or Owner for `template_forge`, `template_set_default`, and renders with `final: true`. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `forge_query`, `brand_knowledge`, `library_manage`, `media_upload_and_clip`, `paid_manage`.
@@ -3977,7 +4085,7 @@ Uploads STL, DXF, or 3MF files, then transforms, renders, validates, or exports 
 | - | - |
 | `BRAND_FORBIDDEN` | The person can't reach that brand. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `cad_query`.
@@ -4045,7 +4153,7 @@ Cancel a running Mode A job by jobId. Aborts the in-process AbortController and,
 | Code | When |
 | - | - |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `agent_ask`, `jobs_status`.
@@ -4086,7 +4194,7 @@ Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spen
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -4126,7 +4234,7 @@ Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with 
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
@@ -4167,7 +4275,7 @@ Ask the organic social agent a free-form question about social strategy, caption
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `agent_ask`, `jaina_ask`, `jobs_status`.
@@ -4360,7 +4468,7 @@ Configure the active brand's ad-naming convention for a platform: a delimiter (e
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 
 **Related:** `paid_naming_schema_get`, `paid_manage`.
 
@@ -4406,7 +4514,7 @@ Push a list of people (emails/phones/names, hashed server-side) to a Meta custom
 | `VALIDATION_ERROR` | Pass members\[] (emails/phones); segments built from brand data are not available. |
 | `NOT_IMPLEMENTED` | This path isn't available yet. Don't retry; use the listed tool for the job. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `paid_manage`, `analytics_cross_platform_spend`.
@@ -4438,7 +4546,7 @@ List all pending confirm tokens for the current brand that require admin approva
 | Code | When |
 | - | - |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Admin or Owner Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Admin or Owner. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `mcp_approval_grant`.
@@ -4476,7 +4584,7 @@ Grant admin approval for a pending confirm token. The token must have requires.r
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Admin or Owner Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Admin or Owner. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `mcp_approvals_list`, `paid_manage`.
@@ -4679,7 +4787,7 @@ Plan and schedule a week of organic content end-to-end in one call. mode='`plan_
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 
 **Related:** `content_create`, `mcp_approval_grant`, `help_describe`.
@@ -4820,7 +4928,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -4865,7 +4973,7 @@ Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available y
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -7010,7 +7118,7 @@ Make a price swappable and test it at its longest:
 
 1. Rename the price text layer to something clear, such as "Price — headline offer".
 2. Open **Window → Essential Graphics**, set **Primary** to the price's own composition, and drag the layer's **Source Text** property into the panel.
-3. Type the longest value you might ever render, such as "\$1,299.99", into the layer and check the layout still holds. Then set it back.
+3. Type the longest value you might ever render, such as `$1,299.99`, into the layer and check the layout still holds. Then set it back.
 4. Apply the Continuum animation preset to the layer.
 
 Repeat for each dynamic image and line of copy before you move on to [Delivery & handoff](https://docs.trycontinuum.ai/forge/after-effects/delivery.md).
@@ -7317,6 +7425,7 @@ Publishing runs from inside Continuum: you approve a post in the Planner and Con
 | - | - |
 | **Instagram** | Live and in use. |
 | **Facebook**, **LinkedIn**, **TikTok**, **YouTube** | [Contact support](mailto:support@trycontinuum.ai) before your first post on each, and the Continuum team publishes it with you. |
+| **X**, **Threads** | Plan and draft only. Publishing to them isn't offered. |
 
 > [!NOTE]
 >
@@ -7481,7 +7590,7 @@ In the **Jaina** tab, ask the question directly: "Why did ROAS drop last week?"
 From Claude or ChatGPT, ask:
 
 * "Ask Jaina why our cost per purchase jumped last week."
-* "Ask Jaina where to cut \$2,000 from next week's Meta spend."
+* "Ask Jaina where to cut 2,000 from next week's Meta spend."
 * "Ask Jaina for a weekly report on our Meta ads, with the top three actions."
 
 Asking Jaina from your assistant needs the **Operator** role or higher.
@@ -8135,110 +8244,3 @@ Rebuilt the documentation to match the shipped product — new guides for the [A
 
 * [Quickstart](https://docs.trycontinuum.ai/quickstart.md): Connect your assistant and ask the first five questions.
 * [Tool reference](https://docs.trycontinuum.ai/mcp/tools.md): Every tool your assistant can use.
-
-# Troubleshooting
-
-Source: https://docs.trycontinuum.ai/troubleshooting
-
-> Fixes for common problems, in two parts: your AI assistant and the connector (sign-in, brands, permissions, limits, jobs), and the Continuum app (integrations, data, plans, credits, the canvas).
-
-Find your problem below. Each answer says what's happening and what to do.
-
-## In your AI assistant
-
-### I added the connector but can't see Continuum in my chat
-
-Check the Continuum connector is switched on for this chat, or start a new chat. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first.
-
-### It can't find my brand
-
-Ask "Which brands can I access?" If yours isn't listed, ask an Admin or Owner on that brand to invite you in Continuum.
-
-### I'm not sure which accounts are connected
-
-Ask "Which platforms are connected to our brand?" You can connect anything missing from the same chat.
-
-### It asks me to pick a brand or connect an account
-
-That's normal. Answer the question, or open the link it gives you. Links work for 10 minutes.
-
-### An account won't connect, or a post can't be published
-
-First ask "Is our Instagram connection healthy?" (or whichever platform). If the connection has lapsed, ask Continuum to reconnect it, or re-sync it in the app (see [In the app](#in-the-app)). If that platform doesn't support publishing from your assistant yet, Continuum says so. See [Good to know](https://docs.trycontinuum.ai/mcp/limits.md).
-
-### It says my brand isn't ready
-
-Finish [setting up your brand](https://docs.trycontinuum.ai/brand/setup.md) in the Continuum app so your brand book can be built, then try again. Until then, you can still connect your accounts and look at your performance.
-
-### I'm not sure what the assistant just did
-
-Open **Settings → Activity** in Continuum. It lists every action you've taken through your assistant, and when. If something looks wrong, revoke the connection under **Settings → Connections** and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
-
-### It says I don't have permission
-
-Your role doesn't allow that action. Viewers can read; asking Jaina or the Organic agent, and anything that creates, changes, or runs, needs Operator; switching on an ad needs an Admin or Owner. Ask an Admin or Owner on your brand. See [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md).
-
-### It says my session has expired
-
-Remove the Continuum connector in your assistant's settings and add it again. You'll be asked to sign in to Continuum once more.
-
-### ChatGPT won't finish signing in
-
-Check you used the ChatGPT address: `https://api.trycontinuum.ai/mcp/chatgpt`.
-
-### It says I've hit a limit
-
-Bigger jobs, like generating creative, have hourly limits to protect your budget. Ask for a smaller batch, such as three versions instead of ten, or try again in about an hour. The message says how long to wait.
-
-### It's taking a while
-
-Answers and reports usually take a minute or two. Images and video can take several minutes. Ask "Is it done yet?" to check, or come back to the same chat later.
-
-## In the app
-
-### An integration shows as stale or disconnected
-
-A connection goes stale when its token expires or the account password changes. Open **Settings → Integrations**, find the affected connection, and select **Re-sync** to restore data collection. See [Integrations](https://docs.trycontinuum.ai/integrations.md).
-
-### No data is showing in analytics
-
-Data appears only for accounts you've **assigned** to the active brand. Connecting a provider isn't enough — assign the specific ad or social accounts to this brand under **Settings → Integrations**, then give background collection time to run.
-
-### Performance+ or Organic+ is locked
-
-Each product line is part of a plan. If one is locked, check the brand's plans under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md) and [pricing](https://trycontinuum.ai/#pricing).
-
-### Generation stopped on the canvas
-
-The brand may be out of Canvas credits. Buy a credit pack or turn on auto-billing under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md).
-
-### Brand Spy has no competitor posts
-
-Tracking a competitor's organic posts relies on Instagram data. Connect an Instagram account in [Integrations](https://docs.trycontinuum.ai/integrations.md), then add competitors in Brand Spy's **Competitors** tab. See [Brand Spy](https://docs.trycontinuum.ai/brand/spy.md).
-
-### My brand book looks thin or empty
-
-If your brand book is empty, open **Settings → Brand Intelligence** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](https://docs.trycontinuum.ai/settings/knowledge.md), then recalculate your [readiness score](https://docs.trycontinuum.ai/brand/readiness.md).
-
-### A canvas node won't run
-
-A generation node runs only once every input it depends on has valid data. Check that upstream nodes show **Done**, that required connections are made, and that you've selected a model. A node that failed shows **Error**. See [Working on the canvas](https://docs.trycontinuum.ai/canvas/working-on-the-canvas.md).
-
-## Try it
-
-Ask your assistant these first. Their answers settle most problems:
-
-* "Which Continuum brand am I working on, and what's connected?"
-* "Which brands can I access?"
-* "Which of our connections are healthy, expired, or disconnected?"
-
-## Still stuck?
-
-Email [support@trycontinuum.ai](mailto:support@trycontinuum.ai). For an assistant problem, say which assistant you use and what you asked.
-
-## What's next
-
-* [Connect your assistant](https://docs.trycontinuum.ai/quickstart.md#connect-your-assistant): Set up the connector again, step by step.
-* [Integrations](https://docs.trycontinuum.ai/integrations.md): Connect, assign, and re-sync accounts.
-* [Good to know](https://docs.trycontinuum.ai/mcp/limits.md): Current limits by area.
-* [Billing](https://docs.trycontinuum.ai/settings/billing.md): Plans, Canvas credits, and auto-billing.

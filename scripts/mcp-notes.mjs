@@ -148,6 +148,8 @@ const RUN = 'f4a8c2e6-0b3d-4a7f-9c1e-5b7d9f1a3c62';
 const DRAFT = '8b2d6f0a-4e7c-4b1d-a3f5-7c9e1b3d5f27';
 
 export const examples = {
+  // `last: true` places a reviewed example after the server's own, here right after its preview.
+  paid_manage: [{ last: true, title: 'Confirm the previewed campaign with its token, after the person says yes', arguments: { action: 'create_campaign', params: { mode: 'confirm', platform: 'meta_ads', ad_account_id: 'act_123', campaign: { name: 'Spring', objective: 'OUTCOME_TRAFFIC', daily_budget: 1000 }, confirm_token: 'tok_7c1e9a2b4d6f8031' } } }],
   account_map: [{ title: 'Platforms and accounts for the active brand', arguments: { depth: 'accounts' } }],
   agent_ask: [
     { title: 'Ask Jaina why a metric moved', arguments: { target: 'jaina', query: 'Why did our cost per purchase rise last week, and which ad sets drove it?' } },
@@ -235,7 +237,7 @@ export const goodToKnow = {
   ],
   content_create: [
     '`approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.',
-    '`platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](/organic/publishing) has the status of the others, and X isn’t offered for publishing.',
+    '`platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](/organic/publishing) has the status of the others; X and Threads are for planning and drafts only.',
     '`realize` (generating the creative) and `delete` are two-phase. A `realize` preview returns `approve_with`: send `approve_with.input` back as the next `realize` call to confirm exactly what was previewed. `delete` returns a `confirm_token` instead.',
     '`reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.',
     '`draft` needs a `prompt` unless you pass `generate: false`; then it saves the `caption` and `hashtags` you pass word for word.',
@@ -405,6 +407,8 @@ export const actionInputs = {
 export const factOverrides = {
   // Its description: "Two-phase: mode='preview' (default) → confirm_token; mode='confirm' uploads."
   intel_audience_push: { confirmation: 'two_phase_confirm_token', idempotency: 'confirm_token_single_use' },
+  // `approve` issues the confirm_token that `publish` redeems, and `delete` previews for one: two-phase.
+  content_create: { confirmation: 'two_phase_confirm_token' },
 };
 
 // Connections checked inside the handler rather than declared on the tool.

@@ -72,7 +72,7 @@ function errors(tool) {
   const r = tool.surface.requiresRole;
   const levels = roleLevels[tool.name];
   if ((r && r !== 'viewer') || (levels && (levels.all !== 'viewer' || levels.operator?.length || levels.admin?.length)))
-    add('needs_role', `The person's role is too low for this call. ${role(tool)} Ask an Admin or Owner.`);
+    add('needs_role', `The person's role is too low for this call. Needs: ${role(tool).replace(/\.?$/, '.')} Ask an Admin or Owner.`);
   if (tool.surface.requiresIntegration) add('needs_integration', needs.needs_integration(tool.surface.requiresIntegration));
   else if (connections(tool)) add('needs_integration', 'The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names.');
   if (['two_phase_confirm_token', 'elicitation_or_confirm_token'].includes(tool.facts.confirmation))
@@ -310,7 +310,8 @@ export function buildOutputs(source) {
           actionKey: t.actionKey,
           actions: actionRows(t).map(a => ({ name: a.name, required: a.required, ...(a.optional ? { uses: a.optional } : {}) })),
           ...(sharedInputs(t) ? { sharedInputs: sharedInputs(t) } : {}),
-          required: [t.actionKey],
+          // Inputs every action requires (agent_ask: target and query).
+          required: actionRows(t).map(a => a.required).reduce((all, r) => all.filter(x => r.includes(x))),
           ...confirmationByAction(t),
         } : { required: names(t.inputs, true) }),
         schema: `${SITE}/mcp/schemas/${t.name}.json`,
@@ -357,7 +358,6 @@ function llms(index, files) {
   out += `- [Forge operation index (JSON)](${SITE}/forge/agent-manifest.json): per-action Forge contracts.\n`;
   out += `- [All docs in one file](${SITE}/llms-full.txt): every page below, in full.\n`;
   out += `- [Agent skill](${SITE}/skill.md): the same rules and capabilities as a skill file.\n`;
-  out += `- Docs search server (MCP, no sign-in): \`${SITE}/mcp\` with \`search_continuum\`, \`query_docs_filesystem_continuum\`, and \`submit_feedback\` (report a wrong or confusing page); listed in [/.well-known/mcp.json](${SITE}/.well-known/mcp.json).\n`;
   out += `- Continuum MCP server: \`https://api.trycontinuum.ai/mcp\` (ChatGPT: \`/mcp/chatgpt\`), OAuth 2.1 with PKCE, no API keys. Call \`help_describe\` for the live schema before calling a tool.\n\n`;
   for (const group of nav.navigation.groups) out += `## ${group.group}\n\n${walk(group).join('\n')}\n\n`;
   return out.trimEnd() + '\n';

@@ -110,7 +110,9 @@ function examplesFor(spec: any, full: any, discriminator: any, server: any[]) {
   const reviewed = reviewedExamples[spec.name] ?? [];
   for (const e of reviewed) if (!valid(spec, e.arguments)) rejected.push(`${spec.name} ${e.title}: ${
     spec.inputSchema.safeParse(e.arguments).error?.issues.map((i: any) => `${i.path.join('.')}: ${i.message}`).join('; ') ?? 'unknown tool'}`);
-  const out = [...reviewed, ...server.filter(e => valid(spec, e.arguments))];
+  const strip = ({ last, ...e }: any) => e;
+  const out = [...reviewed.filter((e: any) => !e.last).map(strip), ...server.filter(e => valid(spec, e.arguments)),
+    ...reviewed.filter((e: any) => e.last).map(strip)];
   return out.length ? out : [generatedExample(spec, full, discriminator)].filter(Boolean);
 }
 const moduleByName = new Map(manifest.tools.map((t: { name: string; module: string }) => [t.name, t.module]));

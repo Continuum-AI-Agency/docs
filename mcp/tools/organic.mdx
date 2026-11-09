@@ -117,7 +117,7 @@ Move one post:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `get_week`, `proposal_status`, and `operation_status`. Operator or higher for every other action. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `get_week`, `proposal_status`, and `operation_status`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
@@ -132,7 +132,7 @@ Drafts, approves, and publishes posts, and deletes drafts.
 **Good to know:**
 
 - `approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.
-- `platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](/organic/publishing) has the status of the others, and X isn’t offered for publishing.
+- `platform` accepts every network the schema knows. Publishing is live on Instagram; [Publishing](/organic/publishing) has the status of the others; X and Threads are for planning and drafts only.
 - `realize` (generating the creative) and `delete` are two-phase. A `realize` preview returns `approve_with`: send `approve_with.input` back as the next `realize` call to confirm exactly what was previewed. `delete` returns a `confirm_token` instead.
 - `reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.
 - `draft` needs a `prompt` unless you pass `generate: false`; then it saves the `caption` and `hashtags` you pass word for word.
@@ -143,7 +143,7 @@ Drafts, approves, and publishes posts, and deletes drafts.
 | Listed in your assistant | Always. |
 | Role | Viewer or higher for `list`. Operator or higher for every other action. |
 | Needs | An active brand. Connection: The connection for the post’s `platform`. |
-| Confirmation | The person approves the pending change; the approval is the yes. |
+| Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
 
@@ -271,8 +271,9 @@ Redo slide 2 of a realized carousel on the same draft (then confirm with `approv
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VOICE_VIOLATION` | The copy breaks a brand voice rule, such as a banned word. `details` names the rule; rewrite and try again. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `list`. Operator or higher for every other action. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `list`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
+| `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`, `planner_manage`, `library_manage`, `unsplash_search`.
 
@@ -440,7 +441,7 @@ Read a reel and plan our version:
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `jobs_status`, `video_editor`, `headless_content`.
@@ -541,7 +542,7 @@ The approved Elements:
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Viewer or higher for `guide`, `inspect`, and `status`. Operator or higher for every other action. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Viewer or higher for `guide`, `inspect`, and `status`. Operator or higher for every other action. Ask an Admin or Owner. |
 
 **Related:** `jobs_status`, `list_elements`, `unsplash_search`.
 

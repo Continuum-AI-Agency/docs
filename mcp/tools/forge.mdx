@@ -242,7 +242,7 @@ Append selected draft rows once:
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher. Admin or Owner for `template_forge`, `template_set_default`, and renders with `final: true`. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Admin or Owner for `template_forge`, `template_set_default`, and renders with `final: true`. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `forge_query`, `brand_knowledge`, `library_manage`, `media_upload_and_clip`, `paid_manage`.
@@ -380,7 +380,7 @@ Run manufacturing checks on a revision:
 | --- | --- |
 | `BRAND_FORBIDDEN` | The person can't reach that brand. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Needs: Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `cad_query`.
