@@ -112,7 +112,10 @@ function refresh(args) {
   const exported = resolve(stage, 'source.json');
   execFileSync('bun', ['--no-env-file', '--tsconfig-override', config, resolve(root, 'scripts/forge-source.ts'), backend, monorepo, exported], {
     cwd: root, stdio: ['ignore', 'inherit', 'inherit'], timeout: 120_000,
-    env: { PATH: process.env.PATH },
+    // The server's env schema needs these to import; the export makes no network or database calls.
+    env: { PATH: process.env.PATH, HOME: process.env.HOME, SUPABASE_URL: 'http://127.0.0.1:9',
+      ...Object.fromEntries(['INTEGRATIONS_DOMAIN', 'SECRET_KEY', 'SUPABASE_SERVICE_ROLE_KEY', 'GOOGLE_CLIENT_ID',
+        'GOOGLE_CLIENT_SECRET', 'META_APP_ID', 'META_APP_SECRET'].map(k => [k, 'docs-export'])) },
   });
   const source = JSON.parse(readFileSync(exported, 'utf8'));
   for (const tool of source.tools) {

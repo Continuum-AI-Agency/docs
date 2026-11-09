@@ -14,7 +14,7 @@ Your assistant works in Continuum as you, inside the limits you already have. He
       tone: "gate",
       steps: ["You ask", "Preview", "Your yes", "It happens"],
       you: "Your yes",
-      note: "Publishing · ads, budgets, and audiences · swapping a live ad's creative · final Forge versions · deleting",
+      note: "Publishing · ads, budgets, and audiences · swapping a live ad's creative · final Forge versions · deleting · switching on an ad (Admin or Owner)",
     },
     {
       label: "Happens right away",
@@ -26,7 +26,7 @@ Your assistant works in Continuum as you, inside the limits you already have. He
       tone: "muted",
       steps: ["You decide"],
       you: "You decide",
-      note: "Switching on a campaign · turning on Autopilot for budget changes",
+      note: "Turning on Autopilot for budget changes",
     },
   ]}
 />
@@ -39,7 +39,8 @@ Continuum shows you a preview of what will happen and waits for your yes before 
 - **Creates, changes, or pauses** a campaign, ad set, ad, budget, or audience in your Meta account. Paid optimization itself never pauses an ad.
 - **Swaps the creative** in a live ad. The swap can be undone.
 - **Produces final versions** in Forge.
-- **Deletes** something.
+- **Deletes** something. The one exception is deleting a Forge render set, which has no preview step; your assistant asks you first.
+- **Switches on** a campaign, ad set, or ad. New ones are always created paused, and switching one on needs an Admin or Owner to approve that exact change.
 
 ## What happens right away
 
@@ -55,7 +56,6 @@ Continuum shows you a preview of what will happen and waits for your yes before 
 
 | Decision | Where it happens |
 | --- | --- |
-| Switching on a campaign | In Continuum. New campaigns from your assistant are always created paused. |
 | Autopilot (automatic budget changes) | Only you can turn it on, from the Paid optimization dashboard. |
 | Editing or deleting comments, collections, and share links | In the Continuum app. |
 
@@ -73,7 +73,7 @@ In Continuum, **Settings → Connections** lists every assistant you've connecte
 
 ## What your assistant sees
 
-Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, such as campaign figures, draft captions, and links to images. It never sees your Continuum password. That conversation follows your assistant's own privacy settings. Continuum's handling of your data is covered in our [privacy policy](https://trycontinuum.ai) and on the [Security](/security) page.
+Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, such as campaign figures, draft captions, and links to images. It never sees your Continuum password. That conversation follows your assistant's own privacy settings. Continuum's handling of your data is covered in our [privacy policy](https://app.trycontinuum.ai/privacy) and on the [Security](/security) page.
 
 ## What's next
 

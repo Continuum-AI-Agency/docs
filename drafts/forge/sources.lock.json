@@ -1,18 +1,18 @@
 {
-  "verifiedAt": "2026-10-29",
+  "verifiedAt": "2026-11-09",
   "sources": {
     "backend": {
       "repository": "Continuum-AI-Agency/continuum-backend",
-      "revision": "002d2d68ec39103043b2a2c61484429cac5c0830"
+      "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2"
     },
     "monorepo": {
       "repository": "Continuum-AI-Agency/Continuum-Monorepo",
-      "revision": "e5662d7a06c6226b743c88e976c97ba1e2e57d31"
+      "revision": "f35d79d4329227daf0f9fd239f7bc916e57aadb9"
     }
   },
-  "sourceSha256": "de6852d6c87a586772c1bdcad260fe51b933fe01eabe6d262e372ba7288c4843",
+  "sourceSha256": "b851d5bddbf46f70f32f310cf08f1856b4f0a106a38240b44843f268c5e84da3",
   "runtimeHelp": {
-    "checkedAt": "2026-10-29",
+    "checkedAt": "2026-11-09",
     "connector": "Continuum Test",
     "queryActions": [
       "templates",
@@ -42,6 +42,7 @@
       "apply_suggestions",
       "source_begin",
       "source_status",
+      "source_figma",
       "render_preview",
       "render_confirm",
       "scene_fill",
@@ -53,7 +54,7 @@
       "template_forge",
       "template_set_default"
     ],
-    "note": "Read-only help_describe observation; mutation callability and deployment qualification were not tested."
+    "note": "Read-only help_describe observation (manageActions re-read 2026-11-09; queryActions from 2026-10-29); mutation callability and deployment qualification were not tested."
   },
   "connector": {
     "checkedAt": "2026-10-29",

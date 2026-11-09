@@ -1,19 +1,19 @@
 {
-  "verifiedAt": "2026-10-29",
+  "verifiedAt": "2026-11-09",
   "sources": {
     "backend": {
       "repository": "Continuum-AI-Agency/continuum-backend",
-      "revision": "002d2d68ec39103043b2a2c61484429cac5c0830"
+      "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2"
     },
     "monorepo": {
       "repository": "Continuum-AI-Agency/Continuum-Monorepo",
-      "revision": "e5662d7a06c6226b743c88e976c97ba1e2e57d31"
+      "revision": "f35d79d4329227daf0f9fd239f7bc916e57aadb9"
     }
   },
   "availability": {
     "sourcePresence": "verified at pinned commits",
     "runtimeHelp": {
-      "checkedAt": "2026-10-29",
+      "checkedAt": "2026-11-09",
       "connector": "Continuum Test",
       "queryActions": [
         "templates",
@@ -43,6 +43,7 @@
         "apply_suggestions",
         "source_begin",
         "source_status",
+        "source_figma",
         "render_preview",
         "render_confirm",
         "scene_fill",
@@ -54,7 +55,7 @@
         "template_forge",
         "template_set_default"
       ],
-      "note": "Read-only help_describe observation; mutation callability and deployment qualification were not tested."
+      "note": "Read-only help_describe observation (manageActions re-read 2026-11-09; queryActions from 2026-10-29); mutation callability and deployment qualification were not tested."
     },
     "advertisedConnector": {
       "checkedAt": "2026-10-29",
@@ -110,7 +111,7 @@
       "returns": "items: key, bindingId, sourceAssetId; nextCursor",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -137,7 +138,7 @@
       "conditions": "Use bindingId from discovery when the key matches multiple workspaces.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -161,7 +162,7 @@
       "returns": "Saved render sets",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -187,7 +188,7 @@
       "returns": "id, revision, rows, resolved, settings, template revision pin",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -213,7 +214,7 @@
       "returns": "Kept set revisions for set_fork or set_diff",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -237,7 +238,7 @@
       "returns": "Slack/approval destinations, Meta account IDs, next",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -261,7 +262,7 @@
       "returns": "items containing job IDs and status",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -287,7 +288,7 @@
       "returns": "Render job, status and available outputs",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -313,7 +314,7 @@
       "returns": "batchId, done, counts, jobs[].outputs",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -337,7 +338,7 @@
       "returns": "items: assetId, versionId, outputs, field keys",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -364,7 +365,7 @@
       "conditions": "Supply rowIds=[a,b], or fromRevision with optional toRevision (default: current).",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -390,7 +391,7 @@
       "returns": "templateId, defaultVariantId, variants[].revisions",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -416,7 +417,7 @@
       "returns": "Layer inventory and supported edits",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -442,7 +443,7 @@
       "returns": "Revision: id, variantId, sourceAssetId, sourceVersionId, edits",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -468,7 +469,7 @@
       "returns": "from, to, edits",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -494,7 +495,7 @@
       "returns": "run (may be null), state and needs when present",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -518,7 +519,7 @@
       "returns": "items: assetId, family, parseState, forgeState; more",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.query.ts"
       }
     },
@@ -547,7 +548,7 @@
       "conditions": "Use bindingId when ambiguous; templateRevisionId, when supplied, must identify a published revision.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -575,7 +576,7 @@
       "conditions": "settings merges named keys; null clears nullable settings. Prefer rows_patch for surgical row changes.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -601,7 +602,7 @@
       "returns": "New set: id, revision and rows",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -627,7 +628,7 @@
       "returns": "deleted: set ID",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -652,7 +653,7 @@
       "conditions": "Provide setId or templateKey, and prompt or documentIds or mediaAssetIds. parentRowId requires setId.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -681,7 +682,7 @@
       "conditions": "Every selected row must retain its draft id.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -706,7 +707,7 @@
       "continuationMaySpend": true,
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -732,7 +733,37 @@
       "returns": "documentIds, mediaAssetIds, templateAssetIds, source_refs, sources",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
+        "path": "App/mcp/tools/forge.manage.ts"
+      }
+    },
+    {
+      "id": "forge_manage.source_figma",
+      "tool": "forge_manage",
+      "action": "source_figma",
+      "role": "Operator or higher",
+      "effect": "A file link lists its frames and imports nothing. A frame link, or figmaNodeIds (up to 5), imports each frame into the Library as a design template that renders as its templateKey with no build.",
+      "spend": "No generation started by this call.",
+      "confirmation": "None for this action.",
+      "execution": "Returns inline.",
+      "retry": "If the call times out, repeat it with the same arguments: it joins the import still running.",
+      "errors": [
+        "INTEGRATION_REQUIRED: connect Figma for the brand",
+        "PERMISSION_DENIED: the brand's Figma account can't open this file",
+        "NOT_FOUND: no such Figma file or frame",
+        "UNAUTHENTICATED: no signed-in session; import from the Forge page instead",
+        "VALIDATION_ERROR: not a figma.com/design link"
+      ],
+      "group": "Sources",
+      "summary": "Import Figma frames as design templates, or list the frames in a Figma file.",
+      "required": [
+        "figmaUrl"
+      ],
+      "returns": "File link without figmaNodeIds: fileKey, fileName, frames, next (nothing imported). Frame link or figmaNodeIds: fileKey, assets, templateAssetIds, templateKeys (web: plus the asset id), next",
+      "conditions": "Uses the brand's Figma connection and the signed-in person's Continuum session. Read forge_query sources until parsed, then forge_query template for its text columns.",
+      "evidence": {
+        "repository": "backend",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -759,7 +790,7 @@
       "conditions": "Omitted delivery/final settings inherit from the saved set; inspect them. null slackDestinationId disables posting. final=true requires Admin/Owner.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -785,7 +816,7 @@
       "returns": "batchId and render job records",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -813,7 +844,7 @@
       "conditions": "Use assetId/versionId/output IDs returned by scenes.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -840,7 +871,7 @@
       "conditions": "The service reloads the current scene at submission; immutable scene-version execution is not guaranteed. Recheck scenes before confirming; if it changed, fill/review again.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -868,7 +899,7 @@
       "conditions": "Supply nonempty rows or removeRowIds. Ask for explicit consent before removing rows.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -896,7 +927,7 @@
       "returns": "Updated set and template revision pin",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -925,7 +956,7 @@
       "conditions": "Read template_layers first. Edits are also checked against the revision edit contract.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -954,7 +985,7 @@
       "conditions": "Exactly one of name (new branch) or variantId (extend its current head). Requires a signed-in user session.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -982,7 +1013,7 @@
       "conditions": "step=start needs templateName; step=decisions needs decisions. Native HTML/components/Blender do not use this action.",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     },
@@ -1009,7 +1040,7 @@
       "returns": "templateId, defaultVariantId",
       "evidence": {
         "repository": "backend",
-        "revision": "002d2d68ec39103043b2a2c61484429cac5c0830",
+        "revision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
         "path": "App/mcp/tools/forge.manage.ts"
       }
     }
@@ -1567,7 +1598,19 @@
       "evidence": "Does not enter template_forge. No arbitrary customer-scene fidelity claim."
     },
     {
-      "name": "Figma / Canva",
+      "name": "Figma",
+      "families": [],
+      "extensions": [],
+      "upload": "forge_manage source_figma with a frame or file link (up to 5 frames)",
+      "parse": "Each frame becomes a web-component template; read forge_query sources until parsed",
+      "edit": "The text columns forge_query template exposes",
+      "preview": "render_preview preflight for its render set",
+      "render": "Renders as its templateKey (web: plus the asset id) with no build",
+      "export": "Returned render outputs; no Figma round-trip",
+      "evidence": "Needs the brand's Figma connection. A file link only lists frames."
+    },
+    {
+      "name": "Canva",
       "families": [],
       "extensions": [],
       "upload": "Not a local-file extension promise",

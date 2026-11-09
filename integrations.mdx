@@ -3,7 +3,7 @@ title: "Integrations"
 description: "Connect your ad and social platforms once, then assign specific accounts to a brand."
 ---
 
-Continuum uses a **connect once, assign many** model. You connect a provider (like Meta or Google) a single time at your account level, and Continuum discovers every asset you can access. You then assign the specific accounts — a Facebook Page, an Instagram profile, an ad account — to a given brand. Nothing syncs until you assign it, which keeps data from leaking between brands you manage.
+Continuum uses a **connect once, assign to a brand** model. You connect a provider (like Meta or Google) a single time at your account level, and Continuum discovers every asset you can access. You then assign the specific accounts — a Facebook Page, an Instagram profile, an ad account — to a given brand. Nothing syncs until you assign it, which keeps data from leaking between brands you manage.
 
 ## Supported channels
 
@@ -49,6 +49,18 @@ Assets that are discovered but not yet usable — for example, missing a permiss
 
 Continuum tracks each connection's last sync and health. If a connection breaks — a password change or an expired token — the account is marked stale and shows a **Re-sync** action to restore data collection.
 
+<Note>These are your ad and social platforms. AI assistants you've connected, such as Claude or ChatGPT, are listed under **Settings → Connections**. See [Connections and activity](/settings/connections).</Note>
+
+## Try it
+
+Ask Claude or ChatGPT:
+
+- "Which platforms are connected to our brand?"
+- "Connect our Instagram account."
+- "Is our Meta connection healthy?"
+
+When you ask to connect, you get a link to approve the connection. It works for 10 minutes.
+
 ## What's next
 
 <CardGroup cols={2}>
@@ -57,5 +69,8 @@ Continuum tracks each connection's last sync and health. If a connection breaks 
 </Card>
 <Card title="Paid analytics" icon="chart-line" href="/performance/analytics">
   See paid performance once Meta or Google is connected.
+</Card>
+<Card title="Security & privacy" icon="lock" href="/security">
+  How access is controlled and revoked.
 </Card>
 </CardGroup>

@@ -15,3 +15,4 @@ jobs:
           node-version: '22'
       - run: node scripts/forge-docs.mjs --check
       - run: node --test tests/forge-docs.test.mjs
+      - run: node scripts/mcp-docs.mjs --check
