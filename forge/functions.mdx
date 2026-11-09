@@ -16,6 +16,47 @@ The [operation index](/forge/agent-manifest.json) supplies compact routing facts
 
 <Warning>`render_preview` is a preflight, not a pixel render. Inspect saved delivery settings: omitted settings inherit. Show the person the rows, destinations and any spend before confirming. Use the exact `confirmationToken` returned by the Forge action.</Warning>
 
+## At a glance
+
+| Action | What it does | Role |
+| --- | --- | --- |
+| [`forge_query.templates`](#forge_query-templates) | List granted or built render templates. | Viewer or higher |
+| [`forge_query.template`](#forge_query-template) | Read exposed variables, required values, budgets, outputs and contractHash. | Viewer or higher |
+| [`forge_query.sets`](#forge_query-sets) | List saved sets, optionally filtered by templateKey. | Viewer or higher |
+| [`forge_query.set`](#forge_query-set) | Read saved rows, inherited effective values and delivery settings. | Viewer or higher |
+| [`forge_query.set_revisions`](#forge_query-set_revisions) | Read kept states of a set. | Viewer or higher |
+| [`forge_query.destinations`](#forge_query-destinations) | Read delivery and approval destinations. | Viewer or higher |
+| [`forge_query.jobs`](#forge_query-jobs) | List render jobs, optionally filtered by templateKey, setId, batchId or status. | Viewer or higher |
+| [`forge_query.job`](#forge_query-job) | Refresh a single render job and its output files. | Viewer or higher |
+| [`forge_query.batch`](#forge_query-batch) | Read a batch, waiting briefly for its jobs to settle. | Viewer or higher |
+| [`forge_query.scenes`](#forge_query-scenes) | List accessible 3D scenes and their fillable keys. | Viewer or higher |
+| [`forge_query.set_diff`](#forge_query-set_diff) | Compare two rows or two kept states as rendered. | Viewer or higher |
+| [`forge_query.template_tree`](#forge_query-template_tree) | Read branches, revision history, publications and the default variant. | Viewer or higher |
+| [`forge_query.template_layers`](#forge_query-template_layers) | Read editable compositions and layers of a revision. | Viewer or higher |
+| [`forge_query.template_revision`](#forge_query-template_revision) | Read a revision and its source identity. | Viewer or higher |
+| [`forge_query.template_diff`](#forge_query-template_diff) | Compare edits of two revisions of one template. | Viewer or higher |
+| [`forge_query.template_run`](#forge_query-template_run) | Read the publishing run for this exact revision source. | Viewer or higher |
+| [`forge_query.sources`](#forge_query-sources) | List the brand’s uploaded template sources and parse/build state. | Viewer or higher |
+| [`forge_manage.set_create`](#forge_manage-set_create) | Save rows for one template. | Operator or higher |
+| [`forge_manage.set_update`](#forge_manage-set_update) | Update a saved set with a revision check. | Operator or higher |
+| [`forge_manage.set_fork`](#forge_manage-set_fork) | Copy the current set or one of its kept states. | Operator or higher |
+| [`forge_manage.set_delete`](#forge_manage-set_delete) | Delete a saved render set. | Operator or higher |
+| [`forge_manage.suggest_rows`](#forge_manage-suggest_rows) | Draft values from a brief, documents or media. | Operator or higher |
+| [`forge_manage.apply_suggestions`](#forge_manage-apply_suggestions) | Append selected draft rows once. | Operator or higher |
+| [`forge_manage.source_begin`](#forge_manage-source_begin) | Create a signed-in mixed-file upload handoff. | Operator or higher |
+| [`forge_manage.source_status`](#forge_manage-source_status) | Read upload readiness and classified resource IDs. | Operator or higher |
+| [`forge_manage.source_figma`](#forge_manage-source_figma) | Import Figma frames as design templates, or list the frames in a Figma file. | Operator or higher |
+| [`forge_manage.render_preview`](#forge_manage-render_preview) | Validate selected rows and show where each result will go. | Operator or higher |
+| [`forge_manage.render_confirm`](#forge_manage-render_confirm) | Redeem the reviewed preflight token and queue the batch. | Operator or higher |
+| [`forge_manage.scene_fill`](#forge_manage-scene_fill) | Fill an accessible scene from the brand and brief. | Operator or higher |
+| [`forge_manage.scene_render`](#forge_manage-scene_render) | Redeem a reviewed scene fill and queue its outputs. | Operator or higher |
+| [`forge_manage.rows_patch`](#forge_manage-rows_patch) | Upsert or remove selected rows with a revision check. | Operator or higher |
+| [`forge_manage.set_retarget`](#forge_manage-set_retarget) | Pin an existing set to a published template revision. | Operator or higher |
+| [`forge_manage.template_preview`](#forge_manage-template_preview) | Preview proposed edits without saving a revision. | Operator or higher |
+| [`forge_manage.template_save`](#forge_manage-template_save) | Save edits as a new immutable revision. | Operator or higher |
+| [`forge_manage.template_forge`](#forge_manage-template_forge) | Start or advance publication of an eligible revision source. | Admin or Owner |
+| [`forge_manage.template_set_default`](#forge_manage-template_set_default) | Choose the variant everyone opens by default. | Admin or Owner |
+
 ## Sources
 
 ### `forge_query.sources`

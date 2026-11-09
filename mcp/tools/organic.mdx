@@ -116,6 +116,7 @@ Move one post:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `get_week`, `proposal_status`, and `operation_status`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
@@ -269,6 +270,7 @@ Redo slide 2 of a realized carousel on the same draft (then confirm with `approv
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VOICE_VIOLATION` | The copy breaks a brand voice rule, such as a banned word. `details` names the rule; rewrite and try again. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `list`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 
 **Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`, `planner_manage`, `library_manage`, `unsplash_search`.
@@ -437,7 +439,7 @@ Read a reel and plan our version:
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `jobs_status`, `video_editor`, `headless_content`.
@@ -538,6 +540,7 @@ The approved Elements:
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `guide`, `inspect`, and `status`. Operator or higher for every other action. Ask an Admin or Owner. |
 
 **Related:** `jobs_status`, `list_elements`, `unsplash_search`.
 

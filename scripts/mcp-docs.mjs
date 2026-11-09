@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { actionInputs, areas, codeMeaning, factOverrides, goodToKnow, integrationNotes, needs, relatedExtras, roleLevels, roles, terms, unlistedAreas } from './mcp-notes.mjs';
+import { actionInputs, areas, codeMeaning, confirmationExceptions, extraStatuses, factOverrides, goodToKnow, integrationNotes, needs, relatedExtras, roleLevels, roles, terms, unlistedAreas } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
@@ -70,12 +70,15 @@ function errors(tool) {
     else add('BRAND_NOT_SELECTED', codeMeaning.BRAND_NOT_SELECTED);
   }
   const r = tool.surface.requiresRole;
-  if (r && r !== 'viewer') add('needs_role', needs.needs_role(ROLE[r]));
+  const levels = roleLevels[tool.name];
+  if ((r && r !== 'viewer') || (levels && (levels.all !== 'viewer' || levels.operator?.length || levels.admin?.length)))
+    add('needs_role', `The person's role is too low for this call. ${role(tool)} Ask an Admin or Owner.`);
   if (tool.surface.requiresIntegration) add('needs_integration', needs.needs_integration(tool.surface.requiresIntegration));
   else if (connections(tool)) add('needs_integration', 'The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names.');
   if (['two_phase_confirm_token', 'elicitation_or_confirm_token'].includes(tool.facts.confirmation))
     add('CONFIRMATION_REQUIRED', codeMeaning.CONFIRMATION_REQUIRED);
   if (tool.rateLimit) add('RATE_LIMITED', codeMeaning.RATE_LIMITED);
+  for (const [status, when] of extraStatuses[tool.name] ?? []) add(status, when);
   add('VALIDATION_ERROR', codeMeaning.VALIDATION_ERROR);
   return [...out].map(([c, when]) => ({ code: c, kind: /^[A-Z_]+$/.test(c) ? 'error' : 'status', when }));
 }
@@ -166,6 +169,20 @@ function mergeInputs(rows) {
       ? { values: [...new Set([...(seen.values ?? []), ...(about.values ?? [])])] } : {}) } : about;
   }
   return merged;
+}
+
+// Per-action confirmation where it differs from the tool's: reads (Viewer actions) never confirm,
+// and reviewed exceptions such as Forge set_delete.
+function confirmationByAction(tool) {
+  const base = tool.facts?.confirmation ?? 'none';
+  if (base === 'none') return {};
+  const { roleByAction } = roleFields(tool);
+  const out = {};
+  for (const a of tool.actions) {
+    const value = confirmationExceptions[tool.name]?.[a.name] ?? (roleByAction?.[a.name] === 'viewer' ? 'none' : base);
+    if (value !== base) out[a.name] = value;
+  }
+  return Object.keys(out).length ? { confirmationExceptions: out } : {};
 }
 
 // Machine-readable role: the minimum brand role, plus per-action roles where they differ.
@@ -265,6 +282,7 @@ export function buildOutputs(source) {
     server: { url: 'https://api.trycontinuum.ai/mcp', chatgpt: 'https://api.trycontinuum.ai/mcp/chatgpt', auth: 'OAuth 2.1 with PKCE; no API keys' },
     discovery: { name: 'help_describe', arguments: { tool: '<name>', action: '<action>' }, note: 'The live schema wins over this index.' },
     counts: { registered: source.counts.registered, listed: advertised.length, notListed: internal.length },
+    legend: { confirmation: CONFIRMATION, completion: EXECUTION, retry: RETRY, role: { none: 'No brand role needed.', viewer: 'Viewer or higher.', operator: 'Operator or higher.', admin: 'Admin or Owner.' }, errorKind: { error: 'Returned as an error (isError: true).', status: 'Returned as a normal result whose status says what to do next.' } },
     docs: { overview: `${SITE}/mcp/tools`, agentBrief: `${SITE}/mcp/agent-brief`, serverReference: `${SITE}/mcp/reference` },
     tools: source.tools.map(t => {
       const area = areaOf.get(t.name);
@@ -288,6 +306,8 @@ export function buildOutputs(source) {
           actionKey: t.actionKey,
           actions: actionRows(t).map(a => ({ name: a.name, required: a.required, ...(a.optional ? { uses: a.optional } : {}) })),
           ...(sharedInputs(t) ? { sharedInputs: sharedInputs(t) } : {}),
+          required: [t.actionKey],
+          ...confirmationByAction(t),
         } : { required: names(t.inputs, true) }),
         schema: `${SITE}/mcp/schemas/${t.name}.json`,
         examples: t.examples.slice(0, 6).map(e => ({ title: e.title, arguments: e.arguments })),

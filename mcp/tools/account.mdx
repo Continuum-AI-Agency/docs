@@ -64,7 +64,7 @@ List brands:
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `brands_select`.
+**Related:** `brands_select`, `brands_create`.
 
 Full schema: `help_describe {"tool":"brands_list"}`. As JSON: [`/mcp/schemas/brands_list.json`](/mcp/schemas/brands_list.json).
 
@@ -169,6 +169,8 @@ Start a brand from its website:
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `brands_select`, `brands_list`.
+
 Full schema: `help_describe {"tool":"brands_create"}`. As JSON: [`/mcp/schemas/brands_create.json`](/mcp/schemas/brands_create.json).
 
 ### `account_map`
@@ -218,7 +220,7 @@ Platforms and accounts for the active brand:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `analytics_query`.
+**Related:** `accounts_list`, `integrations_list`, `analytics_query`.
 
 Full schema: `help_describe {"tool":"account_map"}`. As JSON: [`/mcp/schemas/account_map.json`](/mcp/schemas/account_map.json).
 
@@ -538,6 +540,7 @@ Check copy against the brand voice:
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher to read. Operator or higher for `add_text`, `add_file`, `add_url`, `upload_url`, `upload_finalize`, `update`, `archive`, `restore`, and `save_permanent`. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `creative_strategy`.
@@ -613,6 +616,9 @@ Ask the Organic agent for ideas:
 | Code | When |
 | --- | --- |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher. Ask an Admin or Owner. |
+| `needs_correction` | The question went to the wrong agent. Ask the `suggested_target` instead. |
+| `needs_followup` | In the finished job result: the agent produced text only. Continue with the same `sessionId`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `jobs_status`, `planner_manage`, `analytics_query`.

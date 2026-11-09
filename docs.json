@@ -99,10 +99,11 @@
             ]
           },
           {
-            "group": "Trust and limits",
+            "group": "Trust, security, and limits",
             "pages": [
               "mcp/control",
-              "mcp/limits"
+              "mcp/limits",
+              "security"
             ]
           },
           {
@@ -216,8 +217,7 @@
               "integrations",
               "settings/roles",
               "settings/connections",
-              "settings/billing",
-              "security"
+              "settings/billing"
             ]
           }
         ]

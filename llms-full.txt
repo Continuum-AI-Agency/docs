@@ -132,13 +132,13 @@ Go to **Settings → Connectors**, choose **Add custom connector**, name it `Con
 
 Click **Connect**, sign in to Continuum, pick the brand to connect, and click **Allow access**.
 
-The connector also works in the Claude mobile app. On a Claude Team or Enterprise plan, your organization owner may need to add it before you can use it.
+The connector also works in the Claude mobile app. On a Claude Team or Enterprise plan, your organization owner may need to add it before you can use it. If you don't see **Add custom connector**, your Claude plan or organization doesn't allow custom connectors.
 
 ### ChatGPT
 
 **1. Turn on developer mode**
 
-Go to **Settings → Apps & Connectors → Advanced settings** and switch on **Developer mode**. You only do this once.
+Go to **Settings → Apps & Connectors → Advanced settings** and switch on **Developer mode**. You only do this once. If you don't see **Developer mode**, your ChatGPT plan or workspace admin doesn't allow custom connectors.
 
 **2. Add the connector**
 
@@ -734,7 +734,7 @@ Manage your Meta ads from the conversation. Review campaigns, adjust budgets, pa
 * Approving a Paid optimization recommendation applies it right away. Your approval is the yes.
 * Switching a campaign, ad set, or ad on needs an Admin or Owner, who approves that exact change in the Continuum app or from their own assistant with `mcp_approval_grant`. A large budget increase needs the same approval. If you're an Admin or Owner, your own yes is enough.
 * Creating or changing ads, and approving or rejecting recommendations, needs the Operator role or higher. Viewers can read campaigns, results, and recommendations.
-* Paid optimization recommends budget moves for you to approve. It never pauses an ad unless you approve that specific pause. Autopilot, which makes budget moves automatically, can only be turned on from your dashboard.
+* Paid optimization recommends budget moves for you to approve. It never pauses an ad unless you approve that specific pause. Your assistant can't switch a portfolio to Autopilot, which makes budget moves automatically; turn it on from the Paid optimization dashboard.
 
 ## What's next
 
@@ -867,7 +867,7 @@ Continuum shows you a preview of what will happen and waits for your yes before 
 
 | Decision | Where it happens |
 | - | - |
-| Autopilot (automatic budget changes) | Only you can turn it on, from the Paid optimization dashboard. |
+| Autopilot (automatic budget changes) | Turn it on from the Paid optimization dashboard. Your assistant can't switch a portfolio to it. |
 | Editing or deleting comments, collections, and share links | In the Continuum app. |
 
 ## Your access, and no more
@@ -907,9 +907,9 @@ What to expect in each area today.
 
 | Area | What to expect |
 | - | - |
-| **Publishing** | Live on Instagram. Facebook, LinkedIn, TikTok, and YouTube are built, and your first post on each goes out with the Continuum team, supervised. TikTok posts publish as private until TikTok's app audit completes. See [Publishing](https://docs.trycontinuum.ai/organic/publishing.md). |
+| **Publishing** | Live on Instagram. For Facebook, LinkedIn, TikTok, and YouTube, contact support before your first post on each, and the Continuum team publishes it with you. TikTok posts publish as private until TikTok's app audit completes. See [Publishing](https://docs.trycontinuum.ai/organic/publishing.md). |
 | **Ads** | Meta ads can be managed from your assistant. New campaigns, ad sets, and ads start paused. Switching one on, or a large budget increase, needs an Admin or Owner to approve that exact change, in the app or from their own assistant. |
-| **Paid optimization** | Recommends budget moves for you to approve, and applies them when you do. It never pauses an ad unless you approve that specific pause. Autopilot, which makes budget moves automatically, can only be turned on from your dashboard. |
+| **Paid optimization** | Recommends budget moves for you to approve, and applies them when you do. It never pauses an ad unless you approve that specific pause. Your assistant can't switch a portfolio to Autopilot, which makes budget moves automatically; turn it on from your dashboard. |
 | **Canvas** | Generate images and videos from your assistant. Up to 10 runs an hour for each brand. If the canvas is open in Continuum, you can watch the run happen. |
 | **Pipelines** | Up to 10 versions per request. |
 | **Live ads** | Swapping the creative in a live ad shows a preview first and can be undone. |
@@ -936,6 +936,92 @@ Hourly limits protect your budget. Most are set for each brand: besides Canvas r
 
 * [You stay in control](https://docs.trycontinuum.ai/mcp/control.md): Previews, activity, and revoking access.
 * [Troubleshooting](https://docs.trycontinuum.ai/troubleshooting.md#in-your-ai-assistant): Fixes for the common snags.
+
+# Security & privacy
+
+Source: https://docs.trycontinuum.ai/security
+
+> How Continuum controls access: OAuth sign-in with no API keys, role-based permissions, a preview before anything goes live, an activity log, revocable assistant connections, and accounts assigned per brand.
+
+Continuum connects to your ad and social accounts and holds your brand's data. Here's how access is controlled, and how you check and revoke it.
+
+## At a glance
+
+| Area | How it works |
+| - | - |
+| **Assistant sign-in** | OAuth 2.1 with PKCE, using your Continuum login. No API keys. |
+| **Access** | Only the brands you belong to, and only what your role allows. |
+| **Going live** | Publishing, ad changes, spending, and deletions show a preview and wait for your yes. |
+| **Activity** | **Settings → Activity** lists your assistant actions. |
+| **Revoking** | **Settings → Connections** lists every connected assistant. Revoke any of them. |
+| **Ad and social accounts** | Connect once, assign to a brand. Nothing syncs until you assign it. |
+
+## Signing in your AI assistant
+
+* Claude, ChatGPT, and other assistants connect with **OAuth 2.1**, using the authorization code flow with PKCE.
+* There are **no API keys** to create, share, or leak.
+* You sign in with your normal Continuum login, pick a brand, and choose **Allow access** or **Deny**.
+* Your assistant never sees your Continuum password.
+
+The [server reference](https://docs.trycontinuum.ai/mcp/reference.md#authentication) has the protocol details.
+
+## Access follows your role
+
+A connected assistant works as you. It reaches only the brands you belong to and does only what your role on each brand allows. What it can do comes from your brands and roles, not from anything granted at sign-in.
+
+| Role | Can do |
+| - | - |
+| **Viewer** | Read results, plans, and the Library. |
+| **Operator** | Also ask Jaina and the Organic agent, and create, change, and run content, creative, and campaigns. |
+| **Admin**, **Owner** | Also manage people and settings, approve switching on ads, and produce final versions in Forge. |
+
+See [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md).
+
+## Nothing goes live without a yes
+
+Publishing, ad and budget changes, live creative swaps, final Forge versions, and deletions show a preview and wait for your yes. Each yes works once, applies only to the exact change you previewed, and expires. New campaigns, ad sets, and ads are always created **paused**, and switching one on needs an Admin or Owner. [You stay in control](https://docs.trycontinuum.ai/mcp/control.md) has the full list, the one exception, and what happens right away; the [server reference](https://docs.trycontinuum.ai/mcp/reference.md#confirmations) has each lifetime.
+
+## See and revoke assistant access
+
+* **Settings → Activity** lists every action you've taken through a connected assistant: the tool, whether it worked, and when. Each person sees their own activity.
+* Continuum logs only a fingerprint of what was asked, never the request itself.
+* **Settings → Connections** lists every assistant you've connected. Revoke any you no longer use.
+
+If something looks wrong, revoke the connection and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai). See [Connections and activity](https://docs.trycontinuum.ai/settings/connections.md).
+
+## Connected ad and social accounts
+
+Integrations follow one rule: **connect once, assign to a brand.**
+
+* You connect a provider through its own OAuth flow.
+* You then assign the specific accounts that belong to each brand. Nothing syncs until you assign it, so data stays separate between the brands you manage.
+* You can disconnect a provider or remove an assignment at any time from **Settings → Integrations**.
+
+See [Integrations](https://docs.trycontinuum.ai/integrations.md).
+
+## Sharing work outside your account
+
+A Library **share link** lets a client or partner see work without an account. You choose whether they can download, comment, or approve, and you can add a passcode. You can also lock a comment so it stays internal. See [Library](https://docs.trycontinuum.ai/canvas/library.md).
+
+## What your assistant sees
+
+Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, such as campaign figures, draft captions, and links to images. That conversation follows your assistant's own privacy settings. Continuum's handling of your data is covered in our [privacy policy](https://app.trycontinuum.ai/privacy).
+
+## Requesting details
+
+For data handling, retention, subprocessors, compliance, or documentation for a security review, contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+
+## Try it
+
+* Ask your assistant: "Which brand am I working on, and what's my role on it?" It answers with the brand and your role, so you know what it can do for you.
+* To cut off an assistant, go to **Settings → Connections**, find it, and revoke it.
+
+## What's next
+
+* [You stay in control](https://docs.trycontinuum.ai/mcp/control.md): What waits for your yes, and what happens right away.
+* [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md): What each role can do.
+* [Connections and activity](https://docs.trycontinuum.ai/settings/connections.md): Review and revoke connected assistants.
+* [Integrations](https://docs.trycontinuum.ai/integrations.md): Connect platforms and assign them to a brand.
 
 # Tool reference
 
@@ -1155,7 +1241,7 @@ Lists the brands you can access.
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `brands_select`.
+**Related:** `brands_select`, `brands_create`.
 
 Full schema: `help_describe {"tool":"brands_list"}`. As JSON: [`/mcp/schemas/brands_list.json`](https://docs.trycontinuum.ai/mcp/schemas/brands_list.json).
 
@@ -1227,6 +1313,8 @@ Starts a new brand. You finish setting it up in the Continuum app.
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `brands_select`, `brands_list`.
+
 Full schema: `help_describe {"tool":"brands_create"}`. As JSON: [`/mcp/schemas/brands_create.json`](https://docs.trycontinuum.ai/mcp/schemas/brands_create.json).
 
 ### `account_map`
@@ -1260,7 +1348,7 @@ Shows connected platforms and accounts, ad accounts, and your role.
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-**Related:** `analytics_query`.
+**Related:** `accounts_list`, `integrations_list`, `analytics_query`.
 
 Full schema: `help_describe {"tool":"account_map"}`. As JSON: [`/mcp/schemas/account_map.json`](https://docs.trycontinuum.ai/mcp/schemas/account_map.json).
 
@@ -1468,6 +1556,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher to read. Operator or higher for `add_text`, `add_file`, `add_url`, `upload_url`, `upload_finalize`, `update`, `archive`, `restore`, and `save_permanent`. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `creative_strategy`.
@@ -1514,6 +1603,9 @@ Other inputs, shared by every action (the live schema says which each action rea
 | Code | When |
 | - | - |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher. Ask an Admin or Owner. |
+| `needs_correction` | The question went to the wrong agent. Ask the `suggested_target` instead. |
+| `needs_followup` | In the finished job result: the agent produced text only. Continue with the same `sessionId`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `jobs_status`, `planner_manage`, `analytics_query`.
@@ -1879,6 +1971,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `VALIDATION_ERROR` | action=search requires `query`. |
 | `BRAND_NOT_SELECTED` | Call `brands_select` first. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher to read. Operator or higher for `refresh`. Ask an Admin or Owner. |
 
 **Related:** `brand_knowledge`, `analytics_query`, `content_create`, `analytics_creative_insights`.
 
@@ -1918,6 +2011,8 @@ Your brand's trends report.
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_trend_discovery`, `creative_strategy`.
 
 Full schema: `help_describe {"tool":"trends_manage"}`. As JSON: [`/mcp/schemas/trends_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/trends_manage.json).
 
@@ -2165,7 +2260,7 @@ Runs a fresh competitor scan, the same as the app's **Scan** button.
 | - | - |
 | `CONFLICT` | The item changed or is busy. Read it again, then retry with the current state. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `intel_competitor_ads`, `intel_competitor_moves`.
@@ -2252,6 +2347,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `get_week`, `proposal_status`, and `operation_status`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
@@ -2317,6 +2413,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VOICE_VIOLATION` | The copy breaks a brand voice rule, such as a banned word. `details` names the rule; rewrite and try again. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `list`. Operator or higher for every other action. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 
 **Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`, `planner_manage`, `library_manage`, `unsplash_search`.
@@ -2434,7 +2531,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `jobs_status`, `video_editor`, `headless_content`.
@@ -2487,6 +2584,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `guide`, `inspect`, and `status`. Operator or higher for every other action. Ask an Admin or Owner. |
 
 **Related:** `jobs_status`, `list_elements`, `unsplash_search`.
 
@@ -2584,6 +2682,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `hierarchy` and `activity`. Operator or higher for writes. Admin or Owner to set `guardrails`. Activating an ad, or raising a budget past the brand's limit, needs an Admin or Owner's approval. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 
@@ -2718,6 +2817,7 @@ Approves or rejects recommendations and manages portfolios.
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `PERMISSION_DENIED` | The person's role can't do this. Ask an Admin or Owner. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher, on a brand with a Meta connection. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -2809,6 +2909,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher, for every action. Ask an Admin or Owner. |
 
 **Related:** `studio_deliver`, `media_search`, `content_create`, `help_describe`, `library_manage`, `unsplash_search`.
 
@@ -2859,6 +2960,7 @@ Previews and sends finished creative to a planned post, an organic publish, or a
 | `CONFLICT` | `draft_changed` / `paid_target_changed` — the destination moved since preview (stale-write refusal). Re-preview to pin the current version. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher. Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `studio_workflow`, `content_create`, `paid_manage`, `help_describe`.
@@ -2983,6 +3085,7 @@ Runs a pipeline, up to 10 versions per request.
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher, because a run can spend. Ask an Admin or Owner. |
 
 **Related:** `pipeline_describe`, `pipeline_run_status`.
 
@@ -3224,7 +3327,7 @@ Uploads a video to clip. Clipping finishes in the Continuum app.
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 
 **Related:** `forge_manage`, `video_editor`.
 
@@ -3273,7 +3376,7 @@ Turns a public web page into a screenshot or a scroll-through video in your Libr
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 
 **Related:** `video_editor`, `media_search`.
 
@@ -3613,6 +3716,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher. Admin or Owner for `template_forge`, `template_set_default`, and renders with `final: true`. Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `forge_query`, `brand_knowledge`, `library_manage`, `media_upload_and_clip`, `paid_manage`.
@@ -3701,7 +3805,7 @@ Uploads STL, DXF, or 3MF files, then transforms, renders, validates, or exports 
 | - | - |
 | `BRAND_FORBIDDEN` | The person can't reach that brand. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `cad_query`.
@@ -3769,8 +3873,10 @@ Cancel a running Mode A job by jobId. Aborts the in-process AbortController and,
 | Code | When |
 | - | - |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `agent_ask`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"agent_cancel"}`. As JSON: [`/mcp/schemas/agent_cancel.json`](https://docs.trycontinuum.ai/mcp/schemas/agent_cancel.json).
 
@@ -3808,7 +3914,7 @@ Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spen
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -3848,7 +3954,7 @@ Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with 
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
@@ -3889,7 +3995,7 @@ Ask the organic social agent a free-form question about social strategy, caption
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `agent_ask`, `jaina_ask`, `jobs_status`.
@@ -4003,6 +4109,8 @@ Read the active brand's structured profile sections: voice, pmf (product-market 
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `brand_knowledge`, `brand_context_get`.
+
 Full schema: `help_describe {"tool":"brand_profile_get"}`. As JSON: [`/mcp/schemas/brand_profile_get.json`](https://docs.trycontinuum.ai/mcp/schemas/brand_profile_get.json).
 
 ### `brand_voice_validate`
@@ -4043,6 +4151,8 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `brand_knowledge`, `content_create`.
+
 Full schema: `help_describe {"tool":"brand_voice_validate","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/brand_voice_validate.json`](https://docs.trycontinuum.ai/mcp/schemas/brand_voice_validate.json).
 
 ### `paid_naming_schema_set`
@@ -4078,7 +4188,9 @@ Configure the active brand's ad-naming convention for a platform: a delimiter (e
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+
+**Related:** `paid_naming_schema_get`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"paid_naming_schema_set"}`. As JSON: [`/mcp/schemas/paid_naming_schema_set.json`](https://docs.trycontinuum.ai/mcp/schemas/paid_naming_schema_set.json).
 
@@ -4122,7 +4234,7 @@ Push a list of people (emails/phones/names, hashed server-side) to a Meta custom
 | `VALIDATION_ERROR` | Pass members\[] (emails/phones); segments built from brand data are not available. |
 | `NOT_IMPLEMENTED` | This path isn't available yet. Don't retry; use the listed tool for the job. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `paid_manage`, `analytics_cross_platform_spend`.
@@ -4154,7 +4266,7 @@ List all pending confirm tokens for the current brand that require admin approva
 | Code | When |
 | - | - |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Admin or Owner. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Admin or Owner Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `mcp_approval_grant`.
@@ -4192,7 +4304,7 @@ Grant admin approval for a pending confirm token. The token must have requires.r
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Admin or Owner. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Admin or Owner Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `mcp_approvals_list`, `paid_manage`.
@@ -4395,7 +4507,7 @@ Plan and schedule a week of organic content end-to-end in one call. mode='`plan_
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 
 **Related:** `content_create`, `mcp_approval_grant`, `help_describe`.
@@ -4536,7 +4648,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -4581,7 +4693,7 @@ Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available y
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `needs_integration` | The brand has no instagram connection. Call `integrations_connect`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -5059,7 +5171,7 @@ Omni 1.1 Flash offers `16:9` or `9:16`.
 >
 > Google retired Veo 3.1. If you pick **Veo 3.1**, **Veo 3.1 Fast**, or **Veo 3.1 Lite**, the clip is made with Omni 1.1 Flash. Any frames you attach are used as reference images.
 
-**Kling Omni**, **Pixverse V6**, and **Seedance 2.0** are listed as **Returning soon**. You can't select them yet.
+Some models in the menu, such as **Kling Omni**, **Pixverse V6**, and **Seedance 2.0**, can't be selected.
 
 ## Try it
 
@@ -6040,6 +6152,47 @@ The [operation index](https://docs.trycontinuum.ai/forge/agent-manifest.json) su
 > [!WARNING]
 >
 > `render_preview` is a preflight, not a pixel render. Inspect saved delivery settings: omitted settings inherit. Show the person the rows, destinations and any spend before confirming. Use the exact `confirmationToken` returned by the Forge action.
+
+## At a glance
+
+| Action | What it does | Role |
+| - | - | - |
+| [`forge_query.templates`](#forge_query-templates) | List granted or built render templates. | Viewer or higher |
+| [`forge_query.template`](#forge_query-template) | Read exposed variables, required values, budgets, outputs and contractHash. | Viewer or higher |
+| [`forge_query.sets`](#forge_query-sets) | List saved sets, optionally filtered by templateKey. | Viewer or higher |
+| [`forge_query.set`](#forge_query-set) | Read saved rows, inherited effective values and delivery settings. | Viewer or higher |
+| [`forge_query.set_revisions`](#forge_query-set_revisions) | Read kept states of a set. | Viewer or higher |
+| [`forge_query.destinations`](#forge_query-destinations) | Read delivery and approval destinations. | Viewer or higher |
+| [`forge_query.jobs`](#forge_query-jobs) | List render jobs, optionally filtered by templateKey, setId, batchId or status. | Viewer or higher |
+| [`forge_query.job`](#forge_query-job) | Refresh a single render job and its output files. | Viewer or higher |
+| [`forge_query.batch`](#forge_query-batch) | Read a batch, waiting briefly for its jobs to settle. | Viewer or higher |
+| [`forge_query.scenes`](#forge_query-scenes) | List accessible 3D scenes and their fillable keys. | Viewer or higher |
+| [`forge_query.set_diff`](#forge_query-set_diff) | Compare two rows or two kept states as rendered. | Viewer or higher |
+| [`forge_query.template_tree`](#forge_query-template_tree) | Read branches, revision history, publications and the default variant. | Viewer or higher |
+| [`forge_query.template_layers`](#forge_query-template_layers) | Read editable compositions and layers of a revision. | Viewer or higher |
+| [`forge_query.template_revision`](#forge_query-template_revision) | Read a revision and its source identity. | Viewer or higher |
+| [`forge_query.template_diff`](#forge_query-template_diff) | Compare edits of two revisions of one template. | Viewer or higher |
+| [`forge_query.template_run`](#forge_query-template_run) | Read the publishing run for this exact revision source. | Viewer or higher |
+| [`forge_query.sources`](#forge_query-sources) | List the brand’s uploaded template sources and parse/build state. | Viewer or higher |
+| [`forge_manage.set_create`](#forge_manage-set_create) | Save rows for one template. | Operator or higher |
+| [`forge_manage.set_update`](#forge_manage-set_update) | Update a saved set with a revision check. | Operator or higher |
+| [`forge_manage.set_fork`](#forge_manage-set_fork) | Copy the current set or one of its kept states. | Operator or higher |
+| [`forge_manage.set_delete`](#forge_manage-set_delete) | Delete a saved render set. | Operator or higher |
+| [`forge_manage.suggest_rows`](#forge_manage-suggest_rows) | Draft values from a brief, documents or media. | Operator or higher |
+| [`forge_manage.apply_suggestions`](#forge_manage-apply_suggestions) | Append selected draft rows once. | Operator or higher |
+| [`forge_manage.source_begin`](#forge_manage-source_begin) | Create a signed-in mixed-file upload handoff. | Operator or higher |
+| [`forge_manage.source_status`](#forge_manage-source_status) | Read upload readiness and classified resource IDs. | Operator or higher |
+| [`forge_manage.source_figma`](#forge_manage-source_figma) | Import Figma frames as design templates, or list the frames in a Figma file. | Operator or higher |
+| [`forge_manage.render_preview`](#forge_manage-render_preview) | Validate selected rows and show where each result will go. | Operator or higher |
+| [`forge_manage.render_confirm`](#forge_manage-render_confirm) | Redeem the reviewed preflight token and queue the batch. | Operator or higher |
+| [`forge_manage.scene_fill`](#forge_manage-scene_fill) | Fill an accessible scene from the brand and brief. | Operator or higher |
+| [`forge_manage.scene_render`](#forge_manage-scene_render) | Redeem a reviewed scene fill and queue its outputs. | Operator or higher |
+| [`forge_manage.rows_patch`](#forge_manage-rows_patch) | Upsert or remove selected rows with a revision check. | Operator or higher |
+| [`forge_manage.set_retarget`](#forge_manage-set_retarget) | Pin an existing set to a published template revision. | Operator or higher |
+| [`forge_manage.template_preview`](#forge_manage-template_preview) | Preview proposed edits without saving a revision. | Operator or higher |
+| [`forge_manage.template_save`](#forge_manage-template_save) | Save edits as a new immutable revision. | Operator or higher |
+| [`forge_manage.template_forge`](#forge_manage-template_forge) | Start or advance publication of an eligible revision source. | Admin or Owner |
+| [`forge_manage.template_set_default`](#forge_manage-template_set_default) | Choose the variant everyone opens by default. | Admin or Owner |
 
 ## Sources
 
@@ -7227,7 +7380,7 @@ Publishing runs from inside Continuum: you approve a post in the Planner and Con
 | Platform | Status |
 | - | - |
 | **Instagram** | Live and in use. |
-| **Facebook**, **LinkedIn**, **TikTok**, **YouTube** | Built, but not yet used by customers. Your first post on each one goes out with the Continuum team, supervised: [contact support](mailto:support@trycontinuum.ai) to set it up. |
+| **Facebook**, **LinkedIn**, **TikTok**, **YouTube** | [Contact support](mailto:support@trycontinuum.ai) before your first post on each, and the Continuum team publishes it with you. |
 
 > [!NOTE]
 >
@@ -7432,7 +7585,7 @@ Autopilot is opt-in for each portfolio. You can arm it only once both guardrail 
 
 > [!TIP]
 >
-> Start in **Recommend** and run the first few cycles yourself. Turn on Autopilot only from the dashboard; it can't be turned on from your AI assistant.
+> Start in **Recommend** and run the first few cycles yourself. Turn on Autopilot from the dashboard; your assistant can't switch a portfolio to it.
 
 ## Working with recommendations
 
@@ -7750,7 +7903,7 @@ Continuum uses a **connect once, assign to a brand** model. You connect a provid
 | **TikTok** | Organic performance. |
 | **YouTube** | Organic channel performance. |
 
-Instagram publishing is live. Publishing to Facebook, LinkedIn, TikTok, and YouTube is built, and your first post on each goes out supervised with the Continuum team. See [Publishing](https://docs.trycontinuum.ai/organic/publishing.md).
+Instagram publishing is live. For Facebook, LinkedIn, TikTok, and YouTube, contact support before your first post on each, and the Continuum team publishes it with you. See [Publishing](https://docs.trycontinuum.ai/organic/publishing.md).
 
 ## Connecting a channel
 
@@ -7922,92 +8075,6 @@ When a brand runs out and auto-billing is off, the node shows "Out of Canvas cre
 * [AI Canvas](https://docs.trycontinuum.ai/canvas/overview.md): What your Canvas credits power.
 * [Performance+](https://docs.trycontinuum.ai/performance/overview.md): Paid media, on the Performance+ plan.
 * [Providers and rates](https://docs.trycontinuum.ai/providers-and-rates.md): What each generation costs in Canvas credits.
-
-# Security & privacy
-
-Source: https://docs.trycontinuum.ai/security
-
-> How Continuum controls access: OAuth sign-in with no API keys, role-based permissions, a preview before anything goes live, an activity log, revocable assistant connections, and accounts assigned per brand.
-
-Continuum connects to your ad and social accounts and holds your brand's data. Here's how access is controlled, and how you check and revoke it.
-
-## At a glance
-
-| Area | How it works |
-| - | - |
-| **Assistant sign-in** | OAuth 2.1 with PKCE, using your Continuum login. No API keys. |
-| **Access** | Only the brands you belong to, and only what your role allows. |
-| **Going live** | Publishing, ad changes, spending, and deletions show a preview and wait for your yes. |
-| **Activity** | **Settings → Activity** lists your assistant actions. |
-| **Revoking** | **Settings → Connections** lists every connected assistant. Revoke any of them. |
-| **Ad and social accounts** | Connect once, assign to a brand. Nothing syncs until you assign it. |
-
-## Signing in your AI assistant
-
-* Claude, ChatGPT, and other assistants connect with **OAuth 2.1**, using the authorization code flow with PKCE.
-* There are **no API keys** to create, share, or leak.
-* You sign in with your normal Continuum login, pick a brand, and choose **Allow access** or **Deny**.
-* Your assistant never sees your Continuum password.
-
-The [server reference](https://docs.trycontinuum.ai/mcp/reference.md#authentication) has the protocol details.
-
-## Access follows your role
-
-A connected assistant works as you. It reaches only the brands you belong to and does only what your role on each brand allows. What it can do comes from your brands and roles, not from anything granted at sign-in.
-
-| Role | Can do |
-| - | - |
-| **Viewer** | Read results, plans, and the Library. |
-| **Operator** | Also ask Jaina and the Organic agent, and create, change, and run content, creative, and campaigns. |
-| **Admin**, **Owner** | Also manage people and settings, approve switching on ads, and produce final versions in Forge. |
-
-See [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md).
-
-## Nothing goes live without a yes
-
-Publishing, ad and budget changes, live creative swaps, final Forge versions, and deletions show a preview and wait for your yes. Each yes works once, applies only to the exact change you previewed, and expires. New campaigns, ad sets, and ads are always created **paused**, and switching one on needs an Admin or Owner. [You stay in control](https://docs.trycontinuum.ai/mcp/control.md) has the full list, the one exception, and what happens right away; the [server reference](https://docs.trycontinuum.ai/mcp/reference.md#confirmations) has each lifetime.
-
-## See and revoke assistant access
-
-* **Settings → Activity** lists every action you've taken through a connected assistant: the tool, whether it worked, and when. Each person sees their own activity.
-* Continuum logs only a fingerprint of what was asked, never the request itself.
-* **Settings → Connections** lists every assistant you've connected. Revoke any you no longer use.
-
-If something looks wrong, revoke the connection and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai). See [Connections and activity](https://docs.trycontinuum.ai/settings/connections.md).
-
-## Connected ad and social accounts
-
-Integrations follow one rule: **connect once, assign to a brand.**
-
-* You connect a provider through its own OAuth flow.
-* You then assign the specific accounts that belong to each brand. Nothing syncs until you assign it, so data stays separate between the brands you manage.
-* You can disconnect a provider or remove an assignment at any time from **Settings → Integrations**.
-
-See [Integrations](https://docs.trycontinuum.ai/integrations.md).
-
-## Sharing work outside your account
-
-A Library **share link** lets a client or partner see work without an account. You choose whether they can download, comment, or approve, and you can add a passcode. You can also lock a comment so it stays internal. See [Library](https://docs.trycontinuum.ai/canvas/library.md).
-
-## What your assistant sees
-
-Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, such as campaign figures, draft captions, and links to images. That conversation follows your assistant's own privacy settings. Continuum's handling of your data is covered in our [privacy policy](https://app.trycontinuum.ai/privacy).
-
-## Requesting details
-
-For data handling, retention, subprocessors, compliance, or documentation for a security review, contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
-
-## Try it
-
-* Ask your assistant: "Which brand am I working on, and what's my role on it?" It answers with the brand and your role, so you know what it can do for you.
-* To cut off an assistant, go to **Settings → Connections**, find it, and revoke it.
-
-## What's next
-
-* [You stay in control](https://docs.trycontinuum.ai/mcp/control.md): What waits for your yes, and what happens right away.
-* [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md): What each role can do.
-* [Connections and activity](https://docs.trycontinuum.ai/settings/connections.md): Review and revoke connected assistants.
-* [Integrations](https://docs.trycontinuum.ai/integrations.md): Connect platforms and assign them to a brand.
 
 # Changelog
 

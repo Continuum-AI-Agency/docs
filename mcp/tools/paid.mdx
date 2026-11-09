@@ -196,6 +196,7 @@ Audit log:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher for `hierarchy` and `activity`. Operator or higher for writes. Admin or Owner to set `guardrails`. Activating an ad, or raising a budget past the brand's limit, needs an Admin or Owner's approval. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 
@@ -385,6 +386,7 @@ Approve one recommendation (the approval is the yes):
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `PERMISSION_DENIED` | The person's role can't do this. Ask an Admin or Owner. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Operator or higher, on a brand with a Meta connection. Ask an Admin or Owner. |
 | `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 

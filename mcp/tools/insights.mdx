@@ -435,6 +435,7 @@ Read one insight:
 | `VALIDATION_ERROR` | action=search requires `query`. |
 | `BRAND_NOT_SELECTED` | Call `brands_select` first. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_role` | The person's role is too low for this call. Viewer or higher to read. Operator or higher for `refresh`. Ask an Admin or Owner. |
 
 **Related:** `brand_knowledge`, `analytics_query`, `content_create`, `analytics_creative_insights`.
 
@@ -488,6 +489,8 @@ Read the brand's trends report:
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `intel_trend_discovery`, `creative_strategy`.
 
 Full schema: `help_describe {"tool":"trends_manage"}`. As JSON: [`/mcp/schemas/trends_manage.json`](/mcp/schemas/trends_manage.json).
 
@@ -852,7 +855,7 @@ Track and scan one:
 | --- | --- |
 | `CONFLICT` | The item changed or is busy. Read it again, then retry with the current state. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `intel_competitor_ads`, `intel_competitor_moves`.

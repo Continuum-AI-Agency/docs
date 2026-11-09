@@ -68,8 +68,10 @@ Cancel a running agent job:
 | Code | When |
 | --- | --- |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `agent_ask`, `jobs_status`.
 
 Full schema: `help_describe {"tool":"agent_cancel"}`. As JSON: [`/mcp/schemas/agent_cancel.json`](/mcp/schemas/agent_cancel.json).
 
@@ -123,7 +125,7 @@ Ask Jaina directly:
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
@@ -193,7 +195,7 @@ A monthly campaign report:
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `needs_integration` | The brand has no facebook connection. Call `integrations_connect`. |
 | `RATE_LIMITED` | Wait `details.retry_after_seconds`, then retry. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
@@ -250,7 +252,7 @@ Ask the Organic agent directly:
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `JOB_ENQUEUE_FAILED` | The job couldn't start. Retry once, then contact support. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `agent_ask`, `jaina_ask`, `jobs_status`.
@@ -414,6 +416,8 @@ Read the brand voice section:
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
+**Related:** `brand_knowledge`, `brand_context_get`.
+
 Full schema: `help_describe {"tool":"brand_profile_get"}`. As JSON: [`/mcp/schemas/brand_profile_get.json`](/mcp/schemas/brand_profile_get.json).
 
 ### `brand_voice_validate`
@@ -470,6 +474,8 @@ Check an Instagram caption:
 | --- | --- |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
+
+**Related:** `brand_knowledge`, `content_create`.
 
 Full schema: `help_describe {"tool":"brand_voice_validate","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/brand_voice_validate.json`](/mcp/schemas/brand_voice_validate.json).
 
@@ -528,7 +534,9 @@ Set a Meta naming convention:
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
+
+**Related:** `paid_naming_schema_get`, `paid_manage`.
 
 Full schema: `help_describe {"tool":"paid_naming_schema_set"}`. As JSON: [`/mcp/schemas/paid_naming_schema_set.json`](/mcp/schemas/paid_naming_schema_set.json).
 
@@ -594,7 +602,7 @@ Push HVL audience:
 | `VALIDATION_ERROR` | Pass members[] (emails/phones); segments built from brand data are not available. |
 | `NOT_IMPLEMENTED` | This path isn't available yet. Don't retry; use the listed tool for the job. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Operator or higher. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Operator or higher Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `paid_manage`, `analytics_cross_platform_spend`.
@@ -640,7 +648,7 @@ Changes waiting for an Admin or Owner:
 | Code | When |
 | --- | --- |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Admin or Owner. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Admin or Owner Ask an Admin or Owner. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
 **Related:** `mcp_approval_grant`.
@@ -694,7 +702,7 @@ An Admin or Owner grants a pending change:
 | `NOT_FOUND` | The item doesn't exist, or this brand can't see it. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `BRAND_NOT_SELECTED` | No brand is active. Call `brands_select`. |
-| `needs_role` | The person's role is below Admin or Owner. Ask an Admin or Owner. |
+| `needs_role` | The person's role is too low for this call. Admin or Owner Ask an Admin or Owner. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
 **Related:** `mcp_approvals_list`, `paid_manage`.
