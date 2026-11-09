@@ -1,7 +1,10 @@
 ---
-title: "Troubleshooting"
-description: "Fixes for the most common issues across integrations, brand setup, and generation."
+title: "Troubleshooting the app"
+sidebarTitle: "App troubleshooting"
+description: "Fixes for common problems in the Continuum app: stale integrations, missing data, locked plans, Canvas credits, Brand Spy, the brand book, and canvas runs."
 ---
+
+Problem with your AI assistant? See [Troubleshooting the connector](/mcp/troubleshooting).
 
 <AccordionGroup>
 
@@ -16,11 +19,9 @@ Data appears only for accounts you've **assigned** to the active brand. Connecti
 <Accordion title="Performance+ or Organic+ is locked">
 Each product line is part of a plan. If one is locked, check the brand's plans under **Settings → Billing**. See [Billing](/settings/billing) and [pricing](https://trycontinuum.ai/#pricing).
 </Accordion>
+
 <Accordion title="Generation stopped on the canvas">
 The brand may be out of Canvas credits. Buy a credit pack or turn on auto-billing under **Settings → Billing**. See [Billing](/settings/billing).
-</Accordion>
-<Accordion title="Something's wrong in Claude or ChatGPT">
-See [If something isn't working](/mcp/troubleshooting) for connector fixes: a missing connector, brand access, expired sessions, and limits.
 </Accordion>
 
 <Accordion title="Brand Spy has no competitor posts">
@@ -32,7 +33,7 @@ If your brand book is empty, open **Settings → Brand Intelligence** and select
 </Accordion>
 
 <Accordion title="A canvas node won't run">
-A generation node runs only once every input it depends on has valid data. Check that upstream nodes have finished successfully (status `success`), that required connections are made, and that you've selected a model. Node status badges show `idle`, `running`, `success`, or `error`. See [the canvas](/canvas/working-on-the-canvas).
+A generation node runs only once every input it depends on has valid data. Check that upstream nodes show **Done**, that required connections are made, and that you've selected a model. A node that failed shows **Error**. See [Working on the canvas](/canvas/working-on-the-canvas).
 </Accordion>
 
 </AccordionGroup>
@@ -40,3 +41,17 @@ A generation node runs only once every input it depends on has valid data. Check
 ## Still stuck?
 
 Reach out to [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+
+## What's next
+
+<CardGroup cols={2}>
+<Card title="Integrations" icon="plug" href="/integrations">
+  Connect, assign, and re-sync accounts.
+</Card>
+<Card title="Billing" icon="credit-card" href="/settings/billing">
+  Plans, Canvas credits, and auto-billing.
+</Card>
+<Card title="Troubleshooting the connector" icon="life-ring" href="/mcp/troubleshooting">
+  Fixes for Claude, ChatGPT, and other assistants.
+</Card>
+</CardGroup>

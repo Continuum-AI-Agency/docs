@@ -1,16 +1,99 @@
 ---
 title: "Security & privacy"
-description: "How to reach us for details on data handling, security, and compliance."
+description: "How Continuum controls access: OAuth sign-in with no API keys, role-based permissions, a preview before anything goes live, an activity log, revocable assistant connections, and accounts assigned per brand."
 ---
 
-Continuum connects to your ad and social accounts and stores your brand data, so security and privacy matter. This page will grow into a full reference; in the meantime, here's how the essentials work and where to get details.
+Continuum connects to your ad and social accounts and holds your brand's data. Here's how access is controlled, and how you check and revoke it.
 
-## Connected accounts
+## At a glance
 
-You connect providers through their official OAuth flows and assign only the specific accounts you choose to a brand. You can disconnect a provider or remove an assignment at any time from **Settings → Integrations**.
+| Area | How it works |
+| --- | --- |
+| **Assistant sign-in** | OAuth 2.1 with PKCE, using your Continuum login. No API keys. |
+| **Access** | Only the brands you belong to, and only what your role allows. |
+| **Going live** | Publishing, ad changes, spending, and deletions show a preview and wait for your yes. |
+| **Activity** | **Settings → Activity** lists your assistant actions for about 90 days. |
+| **Revoking** | **Settings → Connections** lists every connected assistant. Revoke any of them. |
+| **Ad and social accounts** | Connect once, assign to a brand. Nothing syncs until you assign it. |
+
+## Signing in your AI assistant
+
+- Claude, ChatGPT, and other assistants connect with **OAuth 2.1**, using the authorization code flow with PKCE.
+- There are **no API keys** to create, share, or leak.
+- You sign in with your normal Continuum login, pick a brand, and choose **Allow access** or **Deny**.
+- Your assistant never sees your Continuum password.
+
+The [server reference](/mcp/reference#authentication) has the protocol details.
+
+## Access follows your role
+
+A connected assistant works as you. It reaches only the brands you belong to and does only what your role on each brand allows. What it can do comes from your brands and roles, not from anything granted at sign-in.
+
+| Role | Can do |
+| --- | --- |
+| **Viewer** | Look at everything. |
+| **Operator** | Also create and change content, creative, and campaigns. |
+| **Admin**, **Owner** | Also manage people and settings, and produce final versions in Forge. |
+
+See [Roles & permissions](/settings/roles).
+
+## Nothing goes live without a yes
+
+Continuum shows a preview and waits for your yes before it:
+
+- Publishes a post.
+- Creates or changes Meta campaigns, ad sets, ads, budgets, or audiences.
+- Swaps the creative in a live ad. The swap can be undone.
+- Produces final versions in Forge.
+- Deletes something. The one exception is deleting a Forge render set, which has no preview step; your assistant asks first.
+
+Each yes works once, expires (after 5 minutes for most changes, up to 24 hours for a proposed week plan), and applies only to the exact change you previewed. New campaigns are always created **paused**, and switching one on needs an Admin or Owner's approval. The [Optimizer](/performance/optimizer) never pauses ads, and only you can turn on Autopilot, from the dashboard. Hourly limits on bigger jobs protect your budget.
+
+See [You stay in control](/mcp/control) for what waits and what happens right away.
+
+## See and revoke assistant access
+
+- **Settings → Activity** lists every action you've taken through a connected assistant: the tool, whether it worked, and when. Each person sees their own activity. Entries are kept for about 90 days.
+- Continuum logs only a fingerprint of what was asked, never the request itself.
+- **Settings → Connections** lists every assistant you've connected. Revoke any you no longer use.
+
+If something looks wrong, revoke the connection and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai). See [Connections and activity](/settings/connections).
+
+## Connected ad and social accounts
+
+Integrations follow one rule: **connect once, assign to a brand.**
+
+- You connect a provider through its own OAuth flow.
+- You then assign the specific accounts that belong to each brand. Nothing syncs until you assign it, so data stays separate between the brands you manage.
+- You can disconnect a provider or remove an assignment at any time from **Settings → Integrations**.
+
+See [Integrations](/integrations).
+
+## Sharing work outside your account
+
+A Library **share link** lets a client or partner see work without an account. You choose whether they can download, comment, or approve, and you can add a passcode. You can also lock a comment so it stays internal. See [Library](/canvas/library).
+
+## What your assistant sees
+
+Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, such as campaign figures, draft captions, and links to images. That conversation follows your assistant's own privacy settings. Continuum's handling of your data is covered in our [privacy policy](https://app.trycontinuum.ai/privacy).
 
 ## Requesting details
 
-For specifics on data handling, retention, subprocessors, and compliance — including documentation for security reviews — contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+For data handling, retention, subprocessors, compliance, or documentation for a security review, contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
 
-<Note>This page is a starting point. Detailed security and compliance documentation is available on request and will be published here as it's finalized.</Note>
+## What's next
+
+<CardGroup cols={2}>
+<Card title="You stay in control" icon="shield-halved" href="/mcp/control">
+  What waits for your yes, and what happens right away.
+</Card>
+<Card title="Roles & permissions" icon="user-shield" href="/settings/roles">
+  What each role can do.
+</Card>
+<Card title="Connections and activity" icon="list-check" href="/settings/connections">
+  Review and revoke connected assistants.
+</Card>
+<Card title="Integrations" icon="plug" href="/integrations">
+  Connect platforms and assign them to a brand.
+</Card>
+</CardGroup>

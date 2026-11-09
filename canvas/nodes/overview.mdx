@@ -1,7 +1,7 @@
 ---
 title: "Node overview"
 sidebarTitle: "Overview"
-description: "Nodes are the building blocks of the AI Canvas. How to add them, how they connect, and how they run."
+description: "How to add, connect, and run nodes, the building blocks of every graph on the AI Canvas."
 ---
 
 A **node** is one step on the [canvas](/canvas/overview): a prompt, a reference, a generator, an edit, or a delivery. You connect nodes into a graph, and each node passes its output to the next one.
@@ -70,6 +70,15 @@ Each node shows a status badge while it works: **Running**, **Done**, or **Error
   Send creative to the Planner, a platform, or a Meta ad.
 </Card>
 </CardGroup>
+
+## Try it
+
+Make one image per headline with a **Batch** node:
+
+1. Right-click the canvas, choose **Add Node**, and type `Batch` in **Search nodes…**.
+2. Add your five headlines to the Batch list.
+3. Connect the Batch output to the prompt of an **Image Generation** node.
+4. Choose **Run Flow**. The generator runs once for each headline.
 
 ## What's next
 

@@ -1,6 +1,6 @@
 {
-  "backendRevision": "002d2d68ec39103043b2a2c61484429cac5c0830",
-  "monorepoRevision": "e5662d7a06c6226b743c88e976c97ba1e2e57d31",
+  "backendRevision": "d45c8a83b545ded37306583f7528172bed5fd6d2",
+  "monorepoRevision": "f35d79d4329227daf0f9fd239f7bc916e57aadb9",
   "tools": [
     {
       "name": "forge_query",
@@ -61,7 +61,7 @@
     },
     {
       "name": "forge_manage",
-      "description": "Change the brand’s Forge render sets and render them. A render set is rows of variable values for ONE template; a row with parentId inherits its parent’s values and overrides some (a variation). Read first with forge_query. action='set_create' (templateKey, bindingId when the key is in two workspaces, name, rows[{label, overrides, parentId}], description) — row ids are minted when omitted. 'set_update' (setId, expectedRevision from forge_query set, and any of name/description/rows/settings — rows REPLACES the whole list). settings (set_create/set_update; only the keys named change, null clears) are the set's delivery defaults: metaTarget {adAccountId, campaignId, adsetId} — a new PAUSED ad in that ad set for every row without its own target (ids from forge_query destinations and paid_manage action=hierarchy; replacing an existing ad stays a per-row delivery), slackDestinationId, approvalDestinationIds, final. 'set_fork' (setId, name optional) copies a set into a new one. 'set_delete' (setId). 'suggest_rows' drafts rows with AI (brief or documentIds/mediaAssetIds; setId or templateKey; count ceiling and autoCount; varyKeys; parentRowId) and saves NOTHING. Use brand_knowledge action=add_file for small documents, library_manage action=upload_inline for small images, or source_begin for a signed-in upload handoff (documents, images, videos, and template projects: an After Effects package or ZIP, PSD, AI, PowerPoint, HTML, .blend); source_status returns documentIds, mediaAssetIds and templateAssetIds when ready. 'apply_suggestions' (setId, expectedRevision, selected rows with their draft ids) appends selected rows once, preserving the rest of the set. 'render_preview' (setId, rowIds optional) checks every row as the Render tab does and returns readiness, destinations (where each row goes: library, new_ad, replace) and a single-use confirmationToken. Omitted slackDestinationId/approvalDestinationIds/final take the set's settings (slackDestinationId null = no post); a row's own delivery wins over the set's metaTarget; anything bound for Meta parks for approval; final=true is a non-proof render, owner/admin only. A refusal a person may override names its flag (acceptMissingFonts, acceptLinkedLineMismatch, acceptOffPaletteColor) in details.overrides — ask the person before passing it. 'render_confirm' (confirmationToken) queues the renders and returns a batchId; wait with forge_query action='batch' from a background subagent. Refusals keep the service's reason (e.g. render_set_revision_conflict: re-read the set). 'rows_patch' (setId, expectedRevision, rows upserted by id — no id appends — and removeRowIds). 'set_create' and 'set_retarget' (setId, expectedRevision) take templateRevisionId, a PUBLISHED revision; 'set_fork' takes revision, a kept state. Templates (forge_query template_tree, template_layers first): 'template_preview' (assetId, parentRevisionId, edits{layers[{compId, layerId, text|font|fontSize|visible|x|y|width|height|rotation|scale|opacity}], slots[{slotKey, defaultValue|publicName|required|exposed|charBudget}], orders[{compId, layerIds}], recolor{palette}}) saves nothing; 'template_save' (the same plus name, a new variant, OR variantId whose head is parentRevisionId) commits; the Original is never rewritten. Owner/admin: 'template_forge' (assetId: the revision's sourceAssetId; step start with templateName, decisions, draft, smoke, promote, resume) publishes it — after start the autopilot smokes and publishes on its own when nothing needs a person, so step in only where template_run parks; a CONFLICT means the run already moved; smoke renders cost money; 'template_set_default' (assetId, variantId). 3D product scenes (forge_query action='scenes'): 'scene_fill' (assetId, versionId, brief{productImageAssetId, headline, price, cta, text}, outputs optional) fills the scene from the brand — logo, palette, a product picture — and the brief, renders NOTHING, and returns the values plus a single-use confirmationToken; 'scene_render' (confirmationToken) queues one render per output into the Library. Poll with the template's scene render history in the Forge.",
+      "description": "Change the brand’s Forge render sets and render them. A render set is rows of variable values for ONE template; a row with parentId inherits its parent’s values and overrides some (a variation). Read first with forge_query. action='set_create' (templateKey, bindingId when the key is in two workspaces, name, rows[{label, overrides, parentId}], description) — row ids are minted when omitted. 'set_update' (setId, expectedRevision from forge_query set, and any of name/description/rows/settings — rows REPLACES the whole list). settings (set_create/set_update; only the keys named change, null clears) are the set's delivery defaults: metaTarget {adAccountId, campaignId, adsetId} — a new PAUSED ad in that ad set for every row without its own target (ids from forge_query destinations and paid_manage action=hierarchy; replacing an existing ad stays a per-row delivery), slackDestinationId, approvalDestinationIds, final. 'set_fork' (setId, name optional) copies a set into a new one. 'set_delete' (setId). 'suggest_rows' drafts rows with AI (brief or documentIds/mediaAssetIds; setId or templateKey; count ceiling and autoCount; varyKeys; parentRowId) and saves NOTHING. Use brand_knowledge action=add_file for small documents, library_manage action=upload_inline for small images, or source_begin for a signed-in upload handoff (documents, images, videos, and template projects: an After Effects package or ZIP, PSD, AI, PowerPoint, HTML, .blend); source_status returns documentIds, mediaAssetIds and templateAssetIds when ready. 'source_figma' (figmaUrl: a Figma frame link imports that frame; a file link lists its frames, then figmaNodeIds up to 5) makes each frame a design template with the brand's Figma connection: a web component that renders as its templateKey (web:<assetId>) with no build. 'apply_suggestions' (setId, expectedRevision, selected rows with their draft ids) appends selected rows once, preserving the rest of the set. 'render_preview' (setId, rowIds optional) checks every row as the Render tab does and returns readiness, destinations (where each row goes: library, new_ad, replace) and a single-use confirmationToken. Omitted slackDestinationId/approvalDestinationIds/final take the set's settings (slackDestinationId null = no post); a row's own delivery wins over the set's metaTarget; anything bound for Meta parks for approval; final=true is a non-proof render, owner/admin only. A refusal a person may override names its flag (acceptMissingFonts, acceptLinkedLineMismatch, acceptOffPaletteColor) in details.overrides — ask the person before passing it. 'render_confirm' (confirmationToken) queues the renders and returns a batchId; wait with forge_query action='batch' from a background subagent. Refusals keep the service's reason (e.g. render_set_revision_conflict: re-read the set). 'rows_patch' (setId, expectedRevision, rows upserted by id — no id appends — and removeRowIds). 'set_create' and 'set_retarget' (setId, expectedRevision) take templateRevisionId, a PUBLISHED revision; 'set_fork' takes revision, a kept state. Templates (forge_query template_tree, template_layers first): 'template_preview' (assetId, parentRevisionId, edits{layers[{compId, layerId, text|font|fontSize|visible|x|y|width|height|rotation|scale|opacity}], slots[{slotKey, defaultValue|publicName|required|exposed|charBudget}], orders[{compId, layerIds}], recolor{palette}}) saves nothing; 'template_save' (the same plus name, a new variant, OR variantId whose head is parentRevisionId) commits; the Original is never rewritten. Owner/admin: 'template_forge' (assetId: the revision's sourceAssetId; step start with templateName, decisions, draft, smoke, promote, resume) publishes it — after start the autopilot smokes and publishes on its own when nothing needs a person, so step in only where template_run parks; a CONFLICT means the run already moved; smoke renders cost money; 'template_set_default' (assetId, variantId). 3D product scenes (forge_query action='scenes'): 'scene_fill' (assetId, versionId, brief{productImageAssetId, headline, price, cta, text}, outputs optional) fills the scene from the brand — logo, palette, a product picture — and the brief, renders NOTHING, and returns the values plus a single-use confirmationToken; 'scene_render' (confirmationToken) queues one render per output into the Library. Poll with the template's scene render history in the Forge.",
       "annotations": {
         "title": "Upload, edit, publish and render video templates",
         "readOnlyHint": false,
@@ -104,6 +104,7 @@
         "apply_suggestions",
         "source_begin",
         "source_status",
+        "source_figma",
         "render_preview",
         "render_confirm",
         "scene_fill",
@@ -117,7 +118,7 @@
       ],
       "schema": {
         "path": "drafts/forge/schemas/forge_manage.json",
-        "sha256": "3ed5d74d135140c71bb89a02514ebade370a0e60fb6e70e5fb3116c7e615205a"
+        "sha256": "27ee9c644a137c404c07d7438adedf2d63308021b3a02a86efd09a0063f4cf15"
       }
     }
   ],
@@ -321,6 +322,14 @@
       ]
     },
     {
+      "id": "forge_manage.source_figma",
+      "inputAccepted": true,
+      "missingRequiredRejected": [
+        "action",
+        "figmaUrl"
+      ]
+    },
+    {
       "id": "forge_manage.render_preview",
       "inputAccepted": true,
       "missingRequiredRejected": [
@@ -412,7 +421,7 @@
     }
   ],
   "negativeExamplesRejected": 6,
-  "notesSha256": "09f08682314d6668f0159b30b24207ae530658a3ad66bb9a315dbf205c1209a2",
+  "notesSha256": "090769364f513e65d694490dd1213efccf10e3f03501e879d2f847b73478f8ef",
   "documentedExamples": [
     {
       "page": "forge/agents.mdx",
@@ -535,15 +544,15 @@
   },
   "runtime": {
     "bun": "1.4.2",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "fingerprints": {
     "backend": {
-      "App/Index.ts": "d6814bb6db220d1228b818a9c70c6c1fa8e116cbcce81f2edc3f1c7ff9680d2b",
-      "App/mcp/manifest.ts": "75fd94e321578abc6f4ade5cacb6c138274b0f18238abe2bc25ed7f7beaaaea5",
+      "App/Index.ts": "400cf607f07612aef8baf7e579f194b9563d61621157f146845f69393fedc8b3",
+      "App/mcp/manifest.ts": "ec9167a71ac1a8e5c0d57296021617549e12a2d626d77b0e6eb0f77bc9f305da",
       "App/mcp/tools/forge.query.ts": "851a1ee3a54da5f2a10548d6ebacc3f61c57cae51ea242f9a457d724a3689f8c",
-      "App/mcp/tools/forge.manage.ts": "9e5a5b8f7d2b3994cc10f77c7aecd4324c321f353593d22cfe1272ffea8048a8",
-      "App/mcp/tools/help.describe.ts": "c73aff9a78166c62765286c32e14f4fcc19b2e474100b38a323b000200f4c182",
+      "App/mcp/tools/forge.manage.ts": "e20507f966be47c45ff80cfe6f55fc2930e517768fa9afa2dff8e3eb557662f2",
+      "App/mcp/tools/help.describe.ts": "3ac6e7975e9f4b60d688b73a576b1d8e5cd2923a5d452ff3b8c6e302c56b14cb",
       "App/mcp/shared/serializeToolSpec.ts": "2cdb71b47208993b134f11f3a48ceefca75975138846cfed39c79a4b1e7754a6",
       "App/mcp/shared/forgeRenders.ts": "83e84f8190110617b1877c916da9a2e39ff11165f9ced8aa22e71a765cd7a9ff",
       "App/ai-studio/templates/sceneFill.ts": "effde4eb765bffb126bcfb23cfb21ec504b6ababf36ac792411fc7df06022a46",
@@ -551,16 +560,16 @@
       "App/ai-studio/api-renders/service.ts": "77896dde8566c37a5bd4135772fdc881dcba3793e75995fcf6df2d2574190b71",
       "App/ai-studio/api-renders/preflightToken.ts": "82774af42fe6e970f6fb6c3de5fb8373774957c6766ee8e6873c756bd6957f6e",
       "App/ai-studio/templates/templateRevisionEdits.ts": "729e5254ad5bb2fc97dbfb488854e79e1071cefbf38ab5a9562033642df93f88",
-      "App/ai-studio/hyperframes-agent/aepExport.ts": "d5479da5f7831e67746e47eb5023dfa8773b9df091cb0bd60cd8318d1576a986",
+      "App/ai-studio/hyperframes-agent/aepExport.ts": "d1b1fd07cc51854b25d2fc53ed51475383be31822e952cdfcbb9a2b8d46524b8",
       "App/ai-studio/templates/initialPreparation.ts": "4ed6459d8c89244f1b835db7d81be3c9c4c88ba237c2bfb4b0b1665186c21ebc",
       "App/ai-studio/templates/forgeAutopilot.ts": "55c080b9db20ce06c4d64dca740f082d60143e20336082439751dcdc340763c6",
-      "App/ai-studio/templates/routes.ts": "dadf926ec49d4af409eeb9e3f156490cb340322ea932d7655befcbce5cf5786d",
+      "App/ai-studio/templates/routes.ts": "26ff9cb55041356c8a46cfd853a57e4381e16c8a4c8b8427aa473099976c0088",
       "App/mcp/tools/cad.query.ts": "da17f458accd424de36d568583923c580dd33437338027f383582a2b9f2e68e1",
       "App/mcp/tools/cad.manage.ts": "c2fdb21e1d3642c11d433bd1e2714d95cf266502fe3be8ae3f2ff8907f52bfe2"
     },
     "monorepo": {
-      "packages/contracts/src/media/asset-formats.ts": "124fe2f466056478efd963f3a0eb4f3cf36f83cec29630e765bb9bc4fd7da6a0",
-      "packages/contracts/src/media/template-source.ts": "b5204f40e8974795da2b098a49ba71201305112c7d48235742422f57df6ebd22",
+      "packages/contracts/src/media/asset-formats.ts": "7af5107ab58f129819845edf22e811a253c482634bd23b4c0d28604664e634d0",
+      "packages/contracts/src/media/template-source.ts": "627f8768e2333a815c4adea773e1f6a15e599efed1c246e73e4ab4824a3038b7",
       "docs/capability-matrix-external.md": "84154423e1d7cff4ce9ef99e97865dcf69e932b3df12a209a2a585e574388381",
       "docs/capability-matrix.md": "5a2b2bb44483cdf19f680eeed990344ef5b4d50ffe45696f30d4e10315f1c2cf",
       "docs/mcp-user-guide.md": "103d2996e09c3be0e3209ed56cc7126fca5fb0a72a15a325f14b58f0c86e026e"

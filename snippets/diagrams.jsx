@@ -1,15 +1,23 @@
 // Brand diagrams. Styles are the .cn-* rules in style.css; text stays real text.
 
 // A numbered row of steps. `you` highlights the step that needs a person.
+// Markdown output (.md, llms-full.txt) gets the same steps as one line of text.
 export const Flow = ({ steps, you, label }) => (
-  <div className="cn-flow" role="list" aria-label={label}>
-    {steps.map((step, i) => (
-      <div key={step} role="listitem" className={step === you ? "cn-flow__step is-you" : "cn-flow__step"}>
-        <span className="cn-flow__idx" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-        <span>{step}</span>
+  <>
+    <Visibility for="humans">
+      <div className="cn-flow" role="list" aria-label={label}>
+        {steps.map((step, i) => (
+          <div key={step} role="listitem" className={step === you ? "cn-flow__step is-you" : "cn-flow__step"}>
+            <span className="cn-flow__idx" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <span>{step}</span>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
+    </Visibility>
+    <Visibility for="agents">
+      <p>{label ? `${label}: ` : ""}{steps.map((step, i) => `${i + 1}. ${step}${step === you ? " (you)" : ""}`).join(" → ")}</p>
+    </Visibility>
+  </>
 );
 
 // Stacked lanes, each a labelled Flow with an optional note. `tone` is "gate" (accent) or "muted".

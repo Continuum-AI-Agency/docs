@@ -60,31 +60,33 @@ Every call works on one brand.
 | Role | Can call |
 | --- | --- |
 | **Viewer** | Every read: analytics, the brand book, the Library, the calendar, Forge, trends, and competitors. |
-| **Operator** | Reads, plus writes: drafts, publishing, the canvas, pipelines, video edits, Meta ads, and Paid optimization approvals. |
+| **Operator** | Reads, plus writes: drafts, publishing, the canvas, pipelines, video edits, ads, and Paid optimization approvals. |
 | **Admin**, **Owner** | Everything an Operator can, plus final Forge renders. |
 
 A tool whose reads need a connection, such as Meta, appears only when a brand you can reach has that connection.
 
 ## Confirmations
 
-Anything that publishes, changes Meta ads or budgets, swaps a live creative, renders final Forge versions, or deletes takes two calls:
+Publishing, ad and budget changes, live creative swaps, final Forge renders, and most deletions take two calls:
 
 <Steps>
 <Step title="Preview">
-The first call returns a preview and a `confirm_token` (`tok_…`). Nothing has happened yet.
+The first call returns a preview, a `confirm_token` (`tok_…`), and its `expires_at`. Nothing has happened yet. Tools that take a `mode` input use `mode: "preview"` for this call.
 </Step>
 <Step title="Confirm">
-After the person says yes, repeat the call with the **same arguments** and the `confirm_token`.
+After the person says yes, repeat the call with the **same arguments** and the `confirm_token` (and `mode: "confirm"` where the tool takes a `mode`).
 </Step>
 </Steps>
 
 | Detail | Behavior |
 | --- | --- |
-| Lifetime | 5 minutes by default. A post approved for publishing has 15 minutes. |
+| Lifetime | Set per action and returned as `expires_at`: 10 minutes for ad changes and bulk calendar status changes, 15 minutes for a post approved for publishing, 24 hours for a proposed week plan, 5 minutes for the rest. |
 | Single use | Each token works once. |
 | Bound | Tied to the person, the brand, and the exact arguments. Changed arguments return `VALIDATION_ERROR`. |
 | Missing or expired | Returns `CONFIRMATION_REQUIRED`. Preview again. |
-| Brand approval | If the brand requires an Admin or Owner to approve first, the call returns `APPROVAL_REQUIRED`. |
+| Admin approval | Activating ads, raising a budget past the brand's guardrails, or any write on a brand with an approval chain returns `APPROVAL_REQUIRED`. An Admin or Owner grants that exact token with `mcp_approval_grant {"token": "…"}` (`mcp_approvals_list` shows what's waiting); then confirm as usual. |
+
+Forge uses its own pair: `render_preview` or `scene_fill` returns a `confirmationToken`, and `render_confirm` or `scene_render` redeems it. Forge `set_delete` is the one deletion with no preview: it deletes immediately, so call it only after an explicit yes. The [tool reference](/mcp/tools) lists each tool's confirmation behavior.
 
 Clients that support elicitation may also show a confirmation dialog for ad changes. See [You stay in control](/mcp/control) for the full list of what waits and what happens right away.
 
@@ -143,7 +145,7 @@ Limits protect your budget and your connected accounts. `RATE_LIMITED` includes 
 
 Reports, agent answers, and generations run as jobs and return a `job_id`.
 
-- `jobs_status` returns `pending`, `running`, `completed`, `failed`, or `cancelled`. Pass `wait_seconds` (up to 25) to wait on the server instead of polling quickly.
+- `jobs_status` takes only `job_id` and returns `pending`, `running`, `completed`, `failed`, or `cancelled`. Leave a few seconds between checks rather than polling in a tight loop. For an agent answer, `result.status` is `completed` (it wrote a draft or plan) or `needs_followup` (text only).
 - Pass `_meta.progressToken` on the call to receive `notifications/progress`.
 - Job results are kept for 7 days.
 - Pipeline runs report through `pipeline_run_status`: `queued`, `running`, `completed`, `refused`, `failed`, or `indeterminate`.
@@ -164,7 +166,7 @@ Every tool call is logged with the tool, action, status (`ok`, `error`, `denied`
 
 <CardGroup cols={2}>
 <Card title="Tool reference" icon="toolbox" href="/mcp/tools">
-  All 44 tools, grouped by area.
+  Every tool, its inputs, examples, and errors.
 </Card>
 <Card title="Agent brief" icon="robot" href="/mcp/agent-brief">
   How an assistant should use these tools well.

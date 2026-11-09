@@ -1,5 +1,4 @@
 // Run only through forge-docs.mjs --refresh; never start the application or call a handler.
-import { mock } from 'bun:test';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -11,9 +10,6 @@ if (!backendArg || !monorepoArg || !output) throw new Error('Expected backend, m
 const backend = resolve(backendArg);
 const monorepo = resolve(monorepoArg);
 globalThis.fetch = (() => { throw new Error('Network forbidden during Forge schema export'); }) as typeof fetch;
-mock.module(resolve(backend, 'App/integrations-ts/src/db.ts'), () => ({
-  getBrandIntegrationTokens: () => { throw new Error('Database forbidden during schema export'); },
-}));
 const { buildManifest } = await import(resolve(backend, 'App/mcp/manifest.ts'));
 const { serializeToolSpec, discriminatorValuesForSchema } =
   await import(resolve(backend, 'App/mcp/shared/serializeToolSpec.ts'));

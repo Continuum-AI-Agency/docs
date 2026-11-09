@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "verifiedAt": "2026-10-29",
+  "verifiedAt": "2026-11-09",
   "sourceRevisions": {
-    "backend": "002d2d68ec39103043b2a2c61484429cac5c0830",
-    "contracts": "e5662d7a06c6226b743c88e976c97ba1e2e57d31"
+    "backend": "d45c8a83b545ded37306583f7528172bed5fd6d2",
+    "contracts": "f35d79d4329227daf0f9fd239f7bc916e57aadb9"
   },
   "guide": "/forge/agents",
   "functions": "/forge/functions",
@@ -283,6 +283,17 @@
         "action",
         "upload_intent_id"
       ],
+      "maySpend": false
+    },
+    {
+      "id": "forge_manage.source_figma",
+      "group": "Sources",
+      "summary": "Import Figma frames as design templates, or list the frames in a Figma file.",
+      "required": [
+        "action",
+        "figmaUrl"
+      ],
+      "conditions": "Uses the brand's Figma connection and the signed-in person's Continuum session. Read forge_query sources until parsed, then forge_query template for its text columns.",
       "maySpend": false
     },
     {

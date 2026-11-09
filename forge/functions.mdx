@@ -8,7 +8,7 @@ description: "Choose a Forge MCP action, learn its prerequisites and follow its 
 
 Use [the quickstart](/forge/agents) first. Every call uses the active brand and normal [MCP sign-in and access rules](/mcp/reference).
 
-Checked 2026-10-29: **17 query actions** and **18 management actions**. These are contract entries, not a promise that every source format or client can execute them.
+Checked 2026-11-09: **17 query actions** and **19 management actions**. These are contract entries, not a promise that every source format or client can execute them.
 
 Fetch only the action you need with `help_describe {tool, action}`. Some connectors advertise an older action enum. If your client cannot represent an action, refresh its tool discovery or use a client that exposes the current contract; do not silently substitute another action.
 
@@ -74,6 +74,25 @@ Read upload readiness and classified resource IDs.
 | Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"source_status"}`.
+
+### forge_manage.source_figma
+
+Import Figma frames as design templates, or list the frames in a Figma file.
+
+| Contract | Behavior |
+| --- | --- |
+| Required inputs | `action`, `figmaUrl` |
+| Conditions | Uses the brand's Figma connection and the signed-in person's Continuum session. Read forge_query sources until parsed, then forge_query template for its text columns. |
+| Returns | File link without figmaNodeIds: fileKey, fileName, frames, next (nothing imported). Frame link or figmaNodeIds: fileKey, assets, templateAssetIds, templateKeys (web: plus the asset id), next |
+| Role | Operator or higher |
+| Side effects | A file link lists its frames and imports nothing. A frame link, or figmaNodeIds (up to 5), imports each frame into the Library as a design template that renders as its templateKey with no build. |
+| Potential spend | No generation started by this call. |
+| Confirmation | None for this action. |
+| Completion | Returns inline. |
+| Retry | If the call times out, repeat it with the same arguments: it joins the import still running. |
+| Errors | INTEGRATION_REQUIRED: connect Figma for the brand; PERMISSION_DENIED: the brand's Figma account can't open this file; NOT_FOUND: no such Figma file or frame; UNAUTHENTICATED: no signed-in session; import from the Forge page instead; VALIDATION_ERROR: not a figma.com/design link |
+
+Schema: `help_describe {"tool":"forge_manage","action":"source_figma"}`.
 
 
 ## Template revisions

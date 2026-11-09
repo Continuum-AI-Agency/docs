@@ -1,21 +1,65 @@
 ---
 title: "Quickstart"
-description: "Connect Continuum to Claude or ChatGPT in two minutes, then ask the five questions that set everything else up."
+description: "What you need, how to connect Continuum to Claude, ChatGPT, or another assistant in two minutes, how to check it worked, and the five questions to ask first."
 ---
 
 The fastest way to use Continuum is from the AI assistant you already have open. Connect it once, then ask in your own words.
 
-<Info>New to Continuum? [Set up your brand](/brand/setup) in the app first. It builds your brand book from your website in a few minutes, and everything your assistant writes draws on it.</Info>
+## Before you start
 
-## Pick your path
+| You need | Why |
+| --- | --- |
+| A Continuum login with access to a brand | Your assistant always works on one brand. If you're new, [set up your brand](/brand/setup) in the app first: it builds your brand book from your website in a few minutes. If a teammate invited you, accept the email invite. |
+| An assistant that allows custom connectors | Claude (web, desktop, or mobile), ChatGPT with **Developer mode**, or any MCP client. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first. |
+| The right role for what you'll do | **Viewer** can ask and read. Making drafts, publishing, or changing ads needs **Operator** or higher. See [Roles](/settings/roles). |
+| The right plan for what you'll use | Organic+ and Performance+ are each part of a plan, set per brand under **Settings → Billing**. Generating images and video uses Canvas credits. See [Billing](/settings/billing). |
 
-**You use Claude.** Go to **Settings → Connectors**, choose **Add custom connector**, and paste `https://api.trycontinuum.ai/mcp`. Click **Connect**, sign in to Continuum, and click **Allow access**.
+There are no API keys. You sign in with your Continuum login.
 
-**You use ChatGPT.** Switch on **Developer mode** under **Settings → Apps & Connectors → Advanced settings**, choose **Create**, and paste `https://api.trycontinuum.ai/mcp/chatgpt`. Sign in to Continuum and click **Allow access**.
+## Connect your assistant
 
-**You use another assistant.** Add `https://api.trycontinuum.ai/mcp` as a custom connector and sign in.
+### Claude
 
-Full steps for each assistant are in [Connect your assistant](/mcp/connect).
+<Steps>
+<Step title="Add the connector">
+Go to **Settings → Connectors**, choose **Add custom connector**, name it `Continuum`, and paste `https://api.trycontinuum.ai/mcp`.
+</Step>
+<Step title="Sign in">
+Click **Connect**, sign in to Continuum, pick the brand to connect, and click **Allow access**.
+</Step>
+</Steps>
+
+### ChatGPT
+
+<Steps>
+<Step title="Turn on developer mode">
+Go to **Settings → Apps & Connectors → Advanced settings** and switch on **Developer mode**. You only do this once.
+</Step>
+<Step title="Add the connector">
+Choose **Create**, name it `Continuum`, and paste `https://api.trycontinuum.ai/mcp/chatgpt`. ChatGPT needs this address, not the plain `/mcp` one.
+</Step>
+<Step title="Sign in">
+Sign in to Continuum, pick the brand to connect, and click **Allow access**.
+</Step>
+</Steps>
+
+### Claude Code, Cursor, VS Code, Codex, or another client
+
+Claude Code takes one command:
+
+```bash
+claude mcp add --transport http continuum https://api.trycontinuum.ai/mcp
+```
+
+Then run `/mcp`, choose `continuum`, and sign in. For Cursor, VS Code, Codex, and other clients, see [Connect your assistant](/mcp/connect).
+
+### Check that it worked
+
+Start a new chat and ask:
+
+> "Which Continuum brand am I working on, and what's connected?"
+
+You should get the brand's name and a list of its connected platforms. If your assistant says it has no Continuum tools, or sign-in keeps failing, see [Assistant troubleshooting](/mcp/troubleshooting).
 
 ## Your first five minutes
 
@@ -25,7 +69,7 @@ Start with these, in order. Each one builds on the last.
 <Step title="Check where you are">
 > "Which Continuum brand am I working on, and what's connected?"
 
-Continuum starts on the brand you last chose in your assistant, or otherwise your active brand in the app. To change it, say "Switch to Acme Coffee."
+You get the brand's name and what's connected. Continuum starts on the brand you last chose in your assistant, or otherwise your active brand in the app. To change it, say "Switch to Acme Coffee."
 </Step>
 <Step title="Connect your channels">
 > "Connect our Instagram account."
@@ -35,13 +79,17 @@ You get a link to approve the connection. Your Instagram needs to be a Business 
 <Step title="Ground everything in your brand">
 > "Read our brand book and tell me in three lines how we sound."
 
-From here on, everything the assistant writes is grounded in your voice.
+You get a three-line summary of your voice. From here on, everything the assistant writes is grounded in it.
 </Step>
 <Step title="See how you're doing">
 > "How did we do last week on Instagram and on our Meta ads?"
+
+You get last week's numbers for each connected platform, with the posts and ads that stood out.
 </Step>
 <Step title="Decide what's next">
 > "Based on that, what's the one thing we should do this week?"
+
+You get one recommendation and the reason for it. Nothing is changed until you ask.
 </Step>
 </Steps>
 
@@ -51,7 +99,7 @@ From here on, everything the assistant writes is grounded in your voice.
 
 Paste this into a new chat once the connector is on. Your assistant runs the five steps above and stops to ask you before connecting anything.
 
-```text Paste into Claude or ChatGPT wrap
+```text Paste into Claude or ChatGPT
 Use the Continuum connector. Tell me which brand I'm on and which platforms are
 connected. If Instagram or Meta ads aren't connected, give me the links to connect
 them and wait. Then read our brand book and summarize how we sound in three lines,

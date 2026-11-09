@@ -61,11 +61,12 @@ LinkedIn/TikTok integrations "coming soon."
 ## The assistant's confirmation model (keep docs consistent)
 
 - **Waits for a yes (preview first):** publishing a post; creating or changing Meta campaigns, ad sets,
-  ads, budgets, or audiences; swapping a live ad's creative; final Forge renders; deletions.
+  ads, budgets, or audiences; swapping a live ad's creative; final Forge renders; deletions. The one
+  exception is Forge `set_delete`, which deletes with no preview: docs tell the assistant to ask first.
 - **Happens right away:** rescheduling, caption rewrites, review status, comments; Canvas runs,
   pipeline runs, and video edits/exports (protected by hourly limits); approving a Paid optimization
   recommendation (the approval is the yes).
-- New campaigns are always created **paused**; activation happens in the app. The Optimizer never pauses ads.
+- New campaigns are always created **paused**; activating one needs an Admin or Owner's approval (`APPROVAL_REQUIRED` → `mcp_approval_grant`). The Optimizer never pauses ads.
 - **Settings → Activity** shows each person their own assistant actions; **Settings → Connections** lists
   and revokes connected assistants.
 
@@ -100,6 +101,13 @@ In use across the site: `<Steps>`/`<Step>`, `<Card>`/`<CardGroup>`, `<Columns>`,
 `<Info>`, `<Note>`, `<Warning>`, markdown tables, and `<Update>` (changelog entries).
 `<Accordion>`/`<AccordionGroup>`, `<Tabs>`/`<Tab>`, and `<CodeGroup>` are available when they aid
 scannability. For per-client setup, prefer one `###` section per client over tabs.
+
+## Generated pages
+
+- `mcp/tools.mdx`, `mcp/tools/*.mdx`, and `mcp/tools.json` come from `scripts/mcp-docs.mjs`. Edit
+  `scripts/mcp-notes.mjs` (areas and one-line summaries), never the output. When the server changes, run
+  `node scripts/mcp-docs.mjs --refresh <clean continuum-backend checkout> <clean monorepo checkout>`; CI runs `--check`.
+- Forge pages come from `scripts/forge-docs.mjs`; edit `scripts/forge-notes.mjs` and `scripts/forge-formats.mjs`.
 
 ## Agent context
 

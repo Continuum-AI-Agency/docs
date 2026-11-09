@@ -50,7 +50,10 @@ test('navigation and root-relative links reach existing public pages or static a
     const links = [...text.matchAll(/(?:href="|\]\()(\/[^"\s)]*)/g)].map(m => m[1]);
     for (const link of links) {
       const path = link.split('#')[0].split('?')[0].slice(1);
-      assert.ok(existsSync(resolve(root, path)) || existsSync(resolve(root, `${path}.mdx`)), `${page}: ${link}`);
+      // Mintlify serves these on the hosted site: the llms files, the docs MCP manifest, and page.md.
+      if (['llms.txt', 'llms-full.txt', '.well-known/mcp.json'].includes(path)) continue;
+      const page_ = path.endsWith('.md') ? path.slice(0, -3) : path;
+      assert.ok(existsSync(resolve(root, path)) || existsSync(resolve(root, `${page_}.mdx`)), `${page}: ${link}`);
     }
   }
 });
