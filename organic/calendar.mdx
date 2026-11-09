@@ -36,10 +36,16 @@ The [Organic agent](/organic/agent) can also fill the calendar with a plan in on
 
 The main path a post takes:
 
+<Visibility for="humans">
 <Flow
   label="A post's main path"
   steps={["Concept", "Generating", "Draft", "Scheduled", "Published"]}
 />
+</Visibility>
+
+<Visibility for="agents">
+A post's main path: 1. Concept. 2. Generating. 3. Draft. 4. Scheduled. 5. Published.
+</Visibility>
 
 | Status | What it means |
 | --- | --- |
@@ -73,6 +79,7 @@ Or ask Claude or ChatGPT:
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="Publishing" icon="paper-plane" href="/organic/publishing">
   Where posts go and what each status means.
@@ -81,3 +88,9 @@ Or ask Claude or ChatGPT:
   Let the agent fill your calendar.
 </Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [Publishing](/organic/publishing): Where posts go and what each status means.
+- [Organic agent](/organic/agent): Let the agent fill your calendar.
+</Visibility>

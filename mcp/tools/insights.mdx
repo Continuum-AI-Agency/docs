@@ -33,7 +33,7 @@ Organic, paid, and website results by platform: accounts, top posts, campaigns, 
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher. |
-| Needs | An active brand |
+| Needs | An active brand. Connection: The one for what you act on: Meta (Facebook), Google, LinkedIn, YouTube. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -91,6 +91,7 @@ Meta ad account overview, last 7 days:
 | `UPSTREAM_ERROR` | A platform or provider returned an error. `details` carries its message. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
+| `needs_integration` | The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names. |
 
 Full schema: `help_describe {"tool":"analytics_query","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/analytics_query.json`](/mcp/schemas/analytics_query.json).
 
@@ -103,7 +104,7 @@ Ranks your Meta ad creatives by video retention: hook rate and hold rate.
 | Changes things | No |
 | Listed in your assistant | When a brand you can reach has a facebook connection. |
 | Role | Viewer or higher |
-| Needs | An active brand, a facebook connection |
+| Needs | An active brand. Connection: Meta (Facebook). |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns a `job_id`. Read the result with `jobs_status`. |
 | Retry | Safe to retry: it only reads. |
@@ -154,7 +155,7 @@ Spend, conversions, cost per acquisition, and return on ad spend across your con
 | Changes things | No |
 | Listed in your assistant | When a brand you can reach has a facebook connection. |
 | Role | Viewer or higher |
-| Needs | An active brand, a facebook connection |
+| Needs | An active brand. Connection: Meta (Facebook). |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns a `job_id`. Read the result with `jobs_status`. |
 | Retry | Safe to retry: it only reads. |
@@ -207,7 +208,7 @@ Which Meta campaigns are pacing ahead of or behind budget, with a 0–100 health
 | Changes things | No |
 | Listed in your assistant | When a brand you can reach has a facebook connection. |
 | Role | Viewer or higher |
-| Needs | An active brand, a facebook connection |
+| Needs | An active brand. Connection: Meta (Facebook). |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns a `job_id`. Read the result with `jobs_status`. |
 | Retry | Safe to retry: it only reads. |
@@ -256,7 +257,7 @@ Your Meta audiences, ad set targeting, and demographic and placement breakdowns.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -317,7 +318,7 @@ What works for you: opening-line (hook) scoring, win rates, and competitive gaps
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher to read. Operator or higher for `refresh`. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -398,7 +399,7 @@ Your brand's trends report.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher. Operator or higher to force a fresh report with `force_regenerate`. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns what is ready now. A refresh keeps running in the background; read again shortly. |
 | Retry | Safe to retry: it only reads. |
@@ -442,7 +443,7 @@ The hashtags people post under on Instagram or TikTok, with post counts and grow
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Safe to retry: it only reads. |
@@ -492,7 +493,7 @@ A digest of what your tracked competitors run in paid ads and post organically, 
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -541,7 +542,7 @@ Ads from competitors you track, including how long each has run.
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -601,7 +602,7 @@ Organic posts from competitors you track.
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -646,7 +647,7 @@ Looks up any advertiser in the Meta Ad Library.
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -702,7 +703,7 @@ Runs a fresh competitor scan, the same as the app's **Scan** button.
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Operator or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns what is ready now. A refresh keeps running in the background; read again shortly. |
 | Retry | Safe to retry: repeating the call gives the same result. |
@@ -754,9 +755,18 @@ Full schema: `help_describe {"tool":"intel_competitor_scan"}`. As JSON: [`/mcp/s
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="All tools" icon="toolbox" href="/mcp/tools">Every tool on one page, and the machine-readable index.</Card>
 <Card title="Account, brand, and jobs" icon="arrow-right" href="/mcp/tools/account">Lists the brands you can access, and more.</Card>
 <Card title="Organic+ planning and publishing" icon="arrow-right" href="/mcp/tools/organic">Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.</Card>
 <Card title="Performance+ ads and optimization" icon="arrow-right" href="/mcp/tools/paid">Reads your campaign structure; creates paused campaigns, ad sets, and ads; updates or pauses them; builds audiences and lookalikes; and keeps an audit log of every write, and more.</Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [All tools](/mcp/tools): Every tool on one page, and the machine-readable index.
+- [Account, brand, and jobs](/mcp/tools/account): Lists the brands you can access, and more.
+- [Organic+ planning and publishing](/mcp/tools/organic): Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.
+- [Performance+ ads and optimization](/mcp/tools/paid): Reads your campaign structure; creates paused campaigns, ad sets, and ads; updates or pauses them; builds audiences and lookalikes; and keeps an audit log of every write, and more.
+</Visibility>

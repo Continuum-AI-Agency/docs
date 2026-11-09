@@ -26,7 +26,7 @@ Browses the Library, shows where a creative has run, adds comments, sets review 
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher to read. Operator or higher for `comment_add`, `set_review_status`, `import_ad_creative`, `upload_inline`, `upload_url`, `upload_begin`, `upload_finalize`, and `render_retry`. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
@@ -115,7 +115,7 @@ Finds media by describing it.
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -166,7 +166,7 @@ Uploads a video to clip. Clipping finishes in the Continuum app.
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Operator or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
@@ -225,7 +225,7 @@ Turns a public web page into a screenshot or a scroll-through video in your Libr
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Operator or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: repeating the call gives the same result. |
@@ -285,7 +285,7 @@ Searches Unsplash stock photos to use as references.
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -351,7 +351,7 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Not idempotent. Check the current state before retrying. |
@@ -363,13 +363,13 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `action` | string | Yes | The editor operation. Pass that operation’s own fields alongside it. One of `list_workflows`, `save_workflow`, `list_projects`, `create_project`, `get_project`, `get_transcript`, `get_beats`, `get_frame`, `apply_commands`, `undo`, `cut_silence`, `cut_ranges`, `beat_cut`, `collage`, `set_captions`, `set_speed`, `edit_caption_cues`, `get_composed_frame`, `set_format`, `add_text`, `add_clip`, `animate_clip`, `get_motion`, `keyframe_clip`, `stagger_clips`, `retime_motion`, `add_hyperframes_clip`, `add_motion_graphic`, `get_hyperframes_clip_motion`, `edit_hyperframes_clip_motion`, `add_transition`, `apply_effect`, `draft_cut`, `draft_cut_status`, `list_variants`, `export`, `export_status`, `get_pool`, `generate`, `generate_status`. |
 | `projectId` | string | No | — |
 | `name` | string | No | — |
-| `prompt` | one of | No | — |
+| `prompt` | string | No | — |
 | `limit` | integer | No | — |
 | `assetIds` | array | No | — |
 | `title` | string | No | — |
-| `preset` | one of | No | — |
+| `preset` | string | No | — |
 | `full` | boolean | No | — |
-| `clipId` | one of | No | — |
+| `clipId` | string | No | — |
 | `force` | boolean | No | — |
 | `timeSec` | number | No | — |
 | `maxWidth` | integer | No | — |
@@ -383,13 +383,13 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `ripple` | boolean | No | — |
 | `mode` | string | No | One of `cut_on_beat`, `switch_shots`, `jump_cuts`. |
 | `everyNBeats` | number | No | Beats per shot: 0.5 = every half beat, 0.25 = every quarter beat, 1 = every beat. For quick splices or doka doka doka use 0.5. |
-| `clipIds` | one of | No | — |
+| `clipIds` | array | No | — |
 | `audioClipId` | string | No | — |
 | `range` | object | No | — |
 | `layout` | string | No | One of `stack`, `side_by_side`, `grid`. |
-| `atSec` | one of | No | — |
-| `durationSec` | one of | No | — |
-| `style` | one of | No | — |
+| `atSec` | number | No | — |
+| `durationSec` | number | No | — |
+| `style` | string\|object | No | — |
 | `highlight` | string | No | One of `none`, `word`, `karaoke`. |
 | `maxWordsPerLine` | integer | No | — |
 | `position` | string | No | One of `bottom`, `middle`, `top`. |
@@ -397,9 +397,9 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `rate` | number | No | — |
 | `cues` | array | No | — |
 | `fit` | string | No | One of `cover`, `contain`. |
-| `kind` | one of | No | — |
+| `kind` | string | No | — |
 | `template` | string | No | One of `hook_title`, `lower_third`, `kinetic_words`, `cta_end_card`, `listicle_number`, `quote`, `stat_callout`, `subtitle_bar`. |
-| `text` | one of | No | — |
+| `text` | string | No | — |
 | `secondaryText` | string | No | — |
 | `startSec` | number | No | — |
 | `animationIn` | string | No | One of `none`, `fade`, `pop`, `scale-in`, `float-in`, `slide-up`, `slide-down`, `slide-left`, `slide-right`, `typewriter`, `word-pop`, `bounce`, `blur-in`, `zoom-out`, `wipe`. |
@@ -421,7 +421,7 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `bezier` | array | No | A custom ease as [x1, y1, x2, y2] (x1, x2 in 0..1), instead of ease |
 | `revisionId` | string | No | — |
 | `recipe` | string | No | `glass_graph`: a liquid glass card that refracts the footage under it while a line graph climbs to a figure (label, value, unit, points). `particle_push`: particle… One of `glass_graph`, `particle_push`, `dot_matrix`, `word_lock`, `screen_push`, `over_shoulder`. |
-| `color` | one of | No | — |
+| `color` | string | No | — |
 | `label` | string | No | `glass_graph`: the metric, 1–3 words ("Retention") |
 | `value` | number | No | `glass_graph`: the figure the graph climbs to |
 | `unit` | string | No | `glass_graph`: "%", "$", "k", "x" or empty |
@@ -500,9 +500,18 @@ Full schema: `help_describe {"tool":"video_editor"}`. As JSON: [`/mcp/schemas/vi
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="All tools" icon="toolbox" href="/mcp/tools">Every tool on one page, and the machine-readable index.</Card>
 <Card title="Account, brand, and jobs" icon="arrow-right" href="/mcp/tools/account">Lists the brands you can access, and more.</Card>
 <Card title="Analytics, trends, and competitors" icon="arrow-right" href="/mcp/tools/insights">Organic, paid, and website results by platform: accounts, top posts, campaigns, ad sets, and ads, and more.</Card>
 <Card title="Organic+ planning and publishing" icon="arrow-right" href="/mcp/tools/organic">Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.</Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [All tools](/mcp/tools): Every tool on one page, and the machine-readable index.
+- [Account, brand, and jobs](/mcp/tools/account): Lists the brands you can access, and more.
+- [Analytics, trends, and competitors](/mcp/tools/insights): Organic, paid, and website results by platform: accounts, top posts, campaigns, ad sets, and ads, and more.
+- [Organic+ planning and publishing](/mcp/tools/organic): Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.
+</Visibility>

@@ -106,6 +106,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -164,6 +165,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -275,6 +277,7 @@
         "idempotency": "none",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": "target",
       "flat": true,
       "inputSchema": {
@@ -428,6 +431,7 @@
         "idempotency": "naturally_idempotent",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -482,6 +486,7 @@
         "idempotency": "natural_read",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -591,6 +596,7 @@
         "idempotency": "natural_read",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -717,6 +723,7 @@
         "idempotency": "natural_read",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -816,6 +823,12 @@
         "analytics_linkedin_ads_performance",
         "analytics_meta_ads_performance",
         "analytics_youtube_organic"
+      ],
+      "delegateIntegrations": [
+        "facebook",
+        "google",
+        "linkedin",
+        "youtube"
       ],
       "actionKey": "platform",
       "flat": false,
@@ -1974,7 +1987,7 @@
             },
             {
               "name": "scope",
-              "type": "one of",
+              "type": "string",
               "required": false
             },
             {
@@ -2182,7 +2195,7 @@
             },
             {
               "name": "date_range",
-              "type": "one of",
+              "type": "object",
               "required": false
             }
           ]
@@ -2238,6 +2251,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": false,
       "inputSchema": {
@@ -2609,6 +2623,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -2664,6 +2679,7 @@
         "idempotency": "idempotency_key",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -6210,6 +6226,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -6279,6 +6296,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "platform",
       "flat": true,
       "inputSchema": {
@@ -6480,6 +6498,7 @@
         "idempotency": "none",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -6547,6 +6566,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -6589,6 +6609,7 @@
         "idempotency": "naturally_idempotent",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -6616,7 +6637,7 @@
       "inputs": [
         {
           "name": "brand_id",
-          "type": "one of",
+          "type": "string|null",
           "required": true,
           "description": "ID of an accessible brand from brands_list, or null to clear only the current session selection."
         }
@@ -6675,6 +6696,7 @@
         "idempotency": "idempotency_key",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": false,
       "inputSchema": {
@@ -7865,6 +7887,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -8289,6 +8312,9 @@
         "organic_draft_publish",
         "organic_draft_realize",
         "organic_draft_update"
+      ],
+      "delegateIntegrations": [
+        "instagram"
       ],
       "actionKey": "action",
       "flat": true,
@@ -9817,6 +9843,7 @@
         "idempotency": "confirm_token_single_use",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -10037,6 +10064,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -11127,6 +11155,7 @@
         "idempotency": "none",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -12248,7 +12277,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -12333,7 +12362,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -12513,7 +12542,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -12598,7 +12627,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -12778,7 +12807,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -12863,7 +12892,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13043,7 +13072,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13128,7 +13157,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13308,7 +13337,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13393,7 +13422,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13573,7 +13602,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13658,7 +13687,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13838,7 +13867,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -13923,7 +13952,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14103,7 +14132,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14188,7 +14217,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14368,7 +14397,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14453,7 +14482,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14633,7 +14662,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14718,7 +14747,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14898,7 +14927,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -14983,7 +15012,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -15163,7 +15192,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -15248,7 +15277,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -15428,7 +15457,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -15513,7 +15542,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -15693,7 +15722,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -15778,7 +15807,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -15958,7 +15987,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -16043,7 +16072,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -16223,7 +16252,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -16308,7 +16337,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -16488,7 +16517,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -16573,7 +16602,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -16753,7 +16782,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -16838,7 +16867,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -17018,7 +17047,7 @@
             },
             {
               "name": "description",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -17103,7 +17132,7 @@
             },
             {
               "name": "slackDestinationId",
-              "type": "one of",
+              "type": "string|null",
               "required": false
             },
             {
@@ -17322,6 +17351,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -19293,6 +19323,7 @@
         "idempotency": "none",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -21088,6 +21119,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -21161,6 +21193,7 @@
         "idempotency": "natural_read",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": "scope",
       "flat": true,
       "inputSchema": {
@@ -21397,6 +21430,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -21441,6 +21475,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "platform",
       "flat": true,
       "inputSchema": {
@@ -21670,6 +21705,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -21713,6 +21749,7 @@
         "idempotency": "none",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -21978,6 +22015,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22089,6 +22127,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22306,6 +22345,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22431,6 +22471,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22506,6 +22547,7 @@
         "idempotency": "naturally_idempotent",
         "execution": "background_refresh"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22589,6 +22631,7 @@
         "idempotency": "natural_read",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22699,6 +22742,7 @@
         "idempotency": "none",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22802,6 +22846,7 @@
         "idempotency": "none",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22925,6 +22970,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -22993,6 +23039,7 @@
         "idempotency": "idempotency_key",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -24002,7 +24049,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -24196,7 +24243,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -24390,7 +24437,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -24584,7 +24631,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -24778,7 +24825,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -24972,7 +25019,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -25166,7 +25213,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -25360,7 +25407,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -25554,7 +25601,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -25748,7 +25795,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -25942,7 +25989,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -26136,7 +26183,7 @@
             },
             {
               "name": "annotation",
-              "type": "one of",
+              "type": "object",
               "required": false,
               "description": "Pin the comment to the creative: {kind:\"box\",x,y,width,height} (normalized 0..1) on an image, or {kind:\"time\",timeMs,endMs?,box?} on a video. On a video, timeM…"
             },
@@ -26322,6 +26369,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -26424,6 +26472,7 @@
         "idempotency": "confirm_token_single_use",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -26482,6 +26531,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -26521,6 +26571,7 @@
         "idempotency": "naturally_idempotent",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -26694,6 +26745,7 @@
         "execution": "sync",
         "inlineMedia": true
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -26882,6 +26934,7 @@
         "idempotency": "idempotency_key",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -27017,6 +27070,7 @@
         "idempotency": "none",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": false,
       "inputSchema": {
@@ -28503,6 +28557,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": false,
       "inputSchema": {
@@ -29099,6 +29154,7 @@
         "idempotency": "none",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -29166,6 +29222,7 @@
         "execution": "sync",
         "inlineMedia": true
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -29224,6 +29281,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -29346,6 +29404,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "platform",
       "flat": true,
       "inputSchema": {
@@ -29713,6 +29772,7 @@
         "idempotency": "none",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -29831,6 +29891,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "platform",
       "flat": true,
       "inputSchema": {
@@ -30271,6 +30332,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "platform",
       "flat": true,
       "inputSchema": {
@@ -30513,6 +30575,7 @@
         "idempotency": "none",
         "execution": "async_job"
       },
+      "delegateIntegrations": [],
       "actionKey": "mode",
       "flat": false,
       "inputSchema": {
@@ -30780,6 +30843,10 @@
         "paid_hierarchy_list",
         "paid_media_upload",
         "paid_rules_manage"
+      ],
+      "delegateIntegrations": [
+        "facebook",
+        "google"
       ],
       "actionKey": "action",
       "flat": false,
@@ -35547,7 +35614,7 @@
             },
             {
               "name": "params",
-              "type": "one of",
+              "type": "object",
               "required": true,
               "values": [
                 "list",
@@ -35570,7 +35637,7 @@
             },
             {
               "name": "params",
-              "type": "one of",
+              "type": "object",
               "required": true,
               "values": [
                 "update_campaign_budget",
@@ -35662,7 +35729,7 @@
             },
             {
               "name": "params",
-              "type": "one of",
+              "type": "object",
               "required": true
             }
           ]
@@ -35805,6 +35872,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -35868,6 +35936,7 @@
         "idempotency": "naturally_idempotent",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -35974,6 +36043,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -36037,6 +36107,7 @@
         "idempotency": "idempotency_key",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -36371,6 +36442,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -36441,6 +36513,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -36533,6 +36606,9 @@
       "delegates": [
         "organic_calendar_approve",
         "organic_calendar_propose"
+      ],
+      "delegateIntegrations": [
+        "instagram"
       ],
       "actionKey": "action",
       "flat": true,
@@ -38253,6 +38329,7 @@
         "idempotency": "natural_read",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -38353,7 +38430,7 @@
         },
         {
           "name": "content",
-          "type": "one of",
+          "type": "object",
           "required": true
         },
         {
@@ -38431,6 +38508,7 @@
         "idempotency": "idempotency_key",
         "execution": "sync_then_async"
       },
+      "delegateIntegrations": [],
       "actionKey": "type",
       "flat": true,
       "inputSchema": {
@@ -38804,6 +38882,7 @@
         "idempotency": "none",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -39149,6 +39228,7 @@
         "idempotency": "idempotency_key",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": false,
       "inputSchema": {
@@ -40588,6 +40668,7 @@
         "execution": "sync_then_async",
         "inlineMedia": true
       },
+      "delegateIntegrations": [],
       "actionKey": "action",
       "flat": true,
       "inputSchema": {
@@ -42616,6 +42697,7 @@
         "idempotency": "natural_read",
         "execution": "background_refresh"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -42692,6 +42774,7 @@
         "idempotency": "natural_read",
         "execution": "sync"
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -42806,6 +42889,7 @@
         "execution": "sync_then_async",
         "inlineMedia": true
       },
+      "delegateIntegrations": [],
       "actionKey": null,
       "flat": false,
       "inputSchema": {
@@ -43958,7 +44042,7 @@
         },
         {
           "name": "prompt",
-          "type": "one of",
+          "type": "string",
           "required": false
         },
         {
@@ -43978,7 +44062,7 @@
         },
         {
           "name": "preset",
-          "type": "one of",
+          "type": "string",
           "required": false
         },
         {
@@ -43988,7 +44072,7 @@
         },
         {
           "name": "clipId",
-          "type": "one of",
+          "type": "string",
           "required": false
         },
         {
@@ -44064,7 +44148,7 @@
         },
         {
           "name": "clipIds",
-          "type": "one of",
+          "type": "array",
           "required": false
         },
         {
@@ -44089,17 +44173,17 @@
         },
         {
           "name": "atSec",
-          "type": "one of",
+          "type": "number",
           "required": false
         },
         {
           "name": "durationSec",
-          "type": "one of",
+          "type": "number",
           "required": false
         },
         {
           "name": "style",
-          "type": "one of",
+          "type": "string|object",
           "required": false
         },
         {
@@ -44153,7 +44237,7 @@
         },
         {
           "name": "kind",
-          "type": "one of",
+          "type": "string",
           "required": false
         },
         {
@@ -44173,7 +44257,7 @@
         },
         {
           "name": "text",
-          "type": "one of",
+          "type": "string",
           "required": false
         },
         {
@@ -44362,7 +44446,7 @@
         },
         {
           "name": "color",
-          "type": "one of",
+          "type": "string",
           "required": false
         },
         {

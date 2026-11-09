@@ -114,3 +114,28 @@ test('public call sequences use exactly the examples validated against the real 
     sourceCalls.find(a => a.action === 'template_forge').assetId);
   assert.match(validated[1].identities, /CONDITIONAL/);
 });
+
+test('every page is at most two sidebar clicks deep, with unique sidebar titles per group', () => {
+  for (const top of nav.navigation.groups) for (const item of top.pages) {
+    if (typeof item === 'string') continue;
+    assert.ok(item.pages.every(p => typeof p === 'string'), `${top.group} › ${item.group} nests another group`);
+    const titles = item.pages.map(p => (read(`${p}.mdx`).match(/^sidebarTitle: "(.*)"$/m) ?? read(`${p}.mdx`).match(/^title: "(.*)"$/m))[1]);
+    assert.equal(new Set(titles).size, titles.length, `${item.group} repeats a sidebar title`);
+  }
+});
+
+test('card groups give agents the same links as a plain list', () => {
+  for (const page of pages) {
+    const text = read(`${page}.mdx`);
+    for (const match of text.matchAll(/<CardGroup[\s\S]*?<\/CardGroup>\n/g)) {
+      const hrefs = [...match[0].matchAll(/<Card [^>]*href="([^"]+)"/g)].map(m => m[1]);
+      if (!hrefs.length) continue;
+      const before = text.slice(0, match.index).trimEnd();
+      assert.ok(before.endsWith('<Visibility for="humans">'), `${page}: card group outside <Visibility for="humans">`);
+      const rest = text.slice(match.index + match[0].length);
+      const agents = rest.match(/^<\/Visibility>\s*<Visibility for="agents">\n([\s\S]*?)<\/Visibility>/);
+      assert.ok(agents, `${page}: card group without an agents list`);
+      assert.deepEqual([...agents[1].matchAll(/\]\(([^)]+)\)/g)].map(m => m[1]), hrefs, `${page}: agents list differs from the cards`);
+    }
+  }
+});

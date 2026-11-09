@@ -7,11 +7,17 @@ import { Flow } from "/snippets/diagrams.jsx";
 
 The fastest way to use Continuum is from the AI assistant you already have open. Connect it once, then ask in your own words. You sign in with your normal Continuum login in the browser: there's no key to copy, and your assistant never sees your password.
 
+<Visibility for="humans">
 <Flow
   label="How connecting works"
   steps={["Paste the address", "Sign in to Continuum", "Pick a brand", "Allow access", "Ask"]}
   you="Allow access"
 />
+</Visibility>
+
+<Visibility for="agents">
+How connecting works: 1. Paste the address. 2. Sign in to Continuum. 3. Pick a brand. 4. Allow access (your step). 5. Ask.
+</Visibility>
 
 ## Before you start
 
@@ -73,7 +79,7 @@ Sign in to Continuum, pick the brand to connect, and click **Allow access**.
 
 ### Claude Code
 
-```bash wrap
+```bash
 claude mcp add --transport http continuum https://api.trycontinuum.ai/mcp
 ```
 
@@ -114,7 +120,7 @@ The first time Copilot uses it, VS Code opens a browser window to sign in to Con
 
 ### Codex
 
-```bash wrap
+```bash
 codex mcp add continuum --url https://api.trycontinuum.ai/mcp
 codex mcp login continuum
 ```
@@ -195,6 +201,7 @@ we should do this week.
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="How to ask" icon="comments" href="/mcp/how-to-ask">
   Be specific, say what decision you're making, and say how you want it back.
@@ -203,3 +210,9 @@ we should do this week.
   Every area of Continuum you can use from your assistant.
 </Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [How to ask](/mcp/how-to-ask): Be specific, say what decision you're making, and say how you want it back.
+- [What you can do](/mcp/overview): Every area of Continuum you can use from your assistant.
+</Visibility>
