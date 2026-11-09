@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { actionInputs, areas, codeMeaning, confirmationExceptions, extraStatuses, factOverrides, goodToKnow, integrationNotes, needs, relatedExtras, roleLevels, roles, terms, unlistedAreas } from './mcp-notes.mjs';
+import { actionInputs, areas, codeMeaning, confirmationExceptions, extraStatuses, factOverrides, goodToKnow, inputGlossary, integrationNotes, needs, relatedExtras, roleLevels, roles, terms, unlistedAreas } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
@@ -205,6 +205,10 @@ function relatedFor(tool, names) {
 }
 
 export function buildOutputs(source) {
+  // Fill undescribed inputs from the reviewed glossary, keeping the server's own descriptions.
+  for (const tool of source.tools)
+    for (const row of [...(tool.inputs ?? []), ...(tool.actions ?? []).flatMap(a => a.inputs)])
+      if (!row.description && inputGlossary[row.name]) row.description = inputGlossary[row.name];
   const registeredNames = new Set(source.tools.map(t => t.name));
   for (const tool of source.tools) tool.relatedTools = relatedFor(tool, registeredNames);
   for (const tool of source.tools) if (factOverrides[tool.name]) tool.facts = { ...tool.facts, ...factOverrides[tool.name] };

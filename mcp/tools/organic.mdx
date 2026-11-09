@@ -23,6 +23,7 @@ Reads and proposes a week of posts, approves it, reschedules and copies posts, a
 
 **Good to know:**
 
+- Commit a week the Organic agent planned with `approve_week` (its `plan_id`, `pending_approval_token`, and `placements`). Some server descriptions name `organic_calendar_approve` for this step; that tool isn’t callable.
 - `propose_week` runs as a job. `proposal_status` returns its `plan_id` and a `pending_approval_token` that lasts 24 hours.
 - `approve_week` commits the whole week in one step and is safe to repeat. The `job_id` from `propose_week` can stand in for `plan_id`, `pending_approval_token`, and `placements`.
 
@@ -296,10 +297,10 @@ Lists drafts on the calendar.
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
 | `dateRange` | object | No | — |
-| `status` | string | No | One of `draft`, `placeholder`, `approved`, `scheduled`, `published`, `failed`, `all`. |
-| `limit` | integer | No | — |
-| `cursor` | string | No | — |
-| `publishable_only` | boolean | No | — |
+| `status` | string | No | The status to filter by or set. See the allowed values. One of `draft`, `placeholder`, `approved`, `scheduled`, `published`, `failed`, `all`. |
+| `limit` | integer | No | The most items to return. |
+| `cursor` | string | No | The pagination cursor from the previous result; omit it for the first page. |
+| `publishable_only` | boolean | No | Only drafts that are ready to publish. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -353,7 +354,7 @@ Reads one draft.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `draftId` | string | Yes | — |
+| `draftId` | string | Yes | A Planner draft ID, from `organic_draft_list` or `planner_manage`. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 

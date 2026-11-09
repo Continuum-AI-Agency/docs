@@ -174,7 +174,7 @@ Audit a draft or published post for brand voice, hashtags, accessibility, and pl
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `account_id` | string | Yes | — |
+| `account_id` | string | Yes | The connected account to act on, from `accounts_list` or `account_map`. |
 | `content` | object | Yes | — |
 | `audit_dimensions` | array | No | — |
 | `force_refresh` | boolean | No | — |
@@ -501,8 +501,8 @@ Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available y
 | `inbox_id` | string | Yes | — |
 | `message` | string | Yes | — |
 | `inbox_type` | string | No | One of `dm`, `comment`, `mention`. |
-| `account_id` | string | No | — |
-| `idempotency_key` | string | No | — |
+| `account_id` | string | No | The connected account to act on, from `accounts_list` or `account_map`. |
+| `idempotency_key` | string | No | A key you choose. Reuse it only to retry the same request without doing it twice. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 

@@ -159,8 +159,8 @@ scannability. For per-client setup, prefer one `###` section per client over tab
 - Every new page **must** be registered in `docs.json` navigation, or it is orphaned (unreachable).
 - Per-client connection steps live only in `quickstart.mdx` (`/mcp/connect` redirects there), and
   troubleshooting lives only in `troubleshooting.mdx`, with an assistant section and an app section.
-- Keep every page at most two sidebar clicks deep. Top-level groups (Get started, AI assistant,
-  Creative+, Organic+, Performance+, Brand and account, Resources) always stay open; nest at most one
+- Keep every page at most two sidebar clicks deep. Top-level groups (Get started, AI assistant, For
+  developers and agents, Creative+, Organic+, Performance+, Brand and account, Resources) always stay open; nest at most one
   more level (for example AI Canvas or Forge inside Creative+), and never nest a group inside a nested
   group. Nested groups stay collapsed unless the reader is inside them. Give a group's first page
   `sidebarTitle: "Overview"`, and keep sidebar titles unique within a group.

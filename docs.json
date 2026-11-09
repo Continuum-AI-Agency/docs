@@ -99,13 +99,19 @@
             ]
           },
           {
-            "group": "Trust, security, and limits",
+            "group": "Trust and limits",
             "pages": [
               "mcp/control",
-              "mcp/limits",
-              "security"
+              "mcp/limits"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "group": "For developers and agents",
+        "pages": [
+          "mcp/agent-brief",
+          "mcp/reference",
           {
             "group": "Tool reference",
             "pages": [
@@ -119,13 +125,6 @@
               "mcp/tools/forge",
               "mcp/tools/unlisted",
               "mcp/tools/unlisted-posts"
-            ]
-          },
-          {
-            "group": "Server and agents",
-            "pages": [
-              "mcp/reference",
-              "mcp/agent-brief"
             ]
           }
         ]
@@ -217,7 +216,8 @@
               "integrations",
               "settings/roles",
               "settings/connections",
-              "settings/billing"
+              "settings/billing",
+              "security"
             ]
           }
         ]

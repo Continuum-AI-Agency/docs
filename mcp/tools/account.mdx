@@ -11,7 +11,7 @@ Generated from the server's own tool registry, as released on 2026-11-05. Every 
 | Tool | What it does | Changes things |
 | --- | --- | --- |
 | [`brands_list`](#brands_list) | Lists the brands you can access. | No |
-| [`brands_select`](#brands_select) | Sets the brand the conversation works on and lists its published pipelines. | Yes |
+| [`brands_select`](#brands_select) | Sets the brand the conversation works on, tries to save it as your default for future sessions, and lists its published pipelines. Pass `null` to clear this session only. | Yes |
 | [`brands_create`](#brands_create) | Starts a new brand. You finish setting it up in the Continuum app. | Yes |
 | [`account_map`](#account_map) | Shows connected platforms and accounts, ad accounts, and your role. | No |
 | [`accounts_list`](#accounts_list) | Lists the accounts assigned to the brand. | No |
@@ -70,7 +70,7 @@ Full schema: `help_describe {"tool":"brands_list"}`. As JSON: [`/mcp/schemas/bra
 
 ### `brands_select`
 
-Sets the brand the conversation works on and lists its published pipelines.
+Sets the brand the conversation works on, tries to save it as your default for future sessions, and lists its published pipelines. Pass `null` to clear this session only.
 
 | Contract | Behavior |
 | --- | --- |
@@ -138,8 +138,8 @@ Starts a new brand. You finish setting it up in the Continuum app.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `brand_name` | string | Yes | — |
-| `website_url` | string | No | — |
+| `brand_name` | string | Yes | The new brand's name. |
+| `website_url` | string | No | The brand's website, which Continuum analyzes to build the brand book. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -191,7 +191,7 @@ Shows connected platforms and accounts, ad accounts, and your role.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `depth` | string | No | One of `platforms`, `accounts`. |
+| `depth` | string | No | How much detail to return. See the allowed values. One of `platforms`, `accounts`. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -242,10 +242,10 @@ Lists the accounts assigned to the brand.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `platform` | string | No | One of `instagram`, `facebook`, `tiktok`, `google`, `linkedin`, `youtube`, `x`, `threads`. |
-| `search` | string | No | — |
-| `limit` | integer | No | — |
-| `cursor` | string | No | — |
+| `platform` | string | No | The network to act on. See the allowed values. One of `instagram`, `facebook`, `tiktok`, `google`, `linkedin`, `youtube`, `x`, `threads`. |
+| `search` | string | No | Filter by name. |
+| `limit` | integer | No | The most items to return. |
+| `cursor` | string | No | The pagination cursor from the previous result; omit it for the first page. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -631,7 +631,7 @@ Checks on a long-running job.
 
 **Good to know:**
 
-- Takes only `job_id`. In the result, `tool` is the tool you called and `executor` is the one that ran it.
+- Takes only `job_id`. In the result, `tool` is the tool you called and `executor` is the one that ran it. For an agent run, `result.status` is `completed` (it wrote a draft or plan) or `needs_followup` (text only). Forge renders report through `forge_query` `batch` or `job` instead.
 
 | Contract | Behavior |
 | --- | --- |
@@ -647,7 +647,7 @@ Checks on a long-running job.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `job_id` | string | Yes | — |
+| `job_id` | string | Yes | A job ID an earlier call returned. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -701,7 +701,7 @@ Describes any registered tool and its actions: the full input schema, examples, 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
 | `tool` | string | No | — |
-| `action` | string | No | — |
+| `action` | string | No | The operation to run. Each value is listed under Actions. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
