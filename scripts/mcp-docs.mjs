@@ -21,7 +21,7 @@ const retire = (text) => Object.entries(terms).reduce((t, [from, to]) => t.repla
 // Server-written prose: code-format snake_case identifiers and key=value fragments so they read as
 // code and Mintlify's markdown export doesn't escape them (help\_describe).
 const srv = (text) => retire(text).replace(/\{[^{}\n]*\}/g, (m) => `\`${m.replaceAll('`', '')}\``).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
-  : part.replace(/\b(?:[a-z][a-z0-9]*|[A-Z][A-Z0-9]*)(?:_[a-zA-Z0-9]+)+(?:=[\w'".:-]+)?/g, (m) => `\`${m}\``)).join('');
+  : part.replace(/\b(?:[a-z][a-z0-9]*|[A-Z][A-Z0-9]*)(?:_[a-zA-Z0-9*]*)+(?:\.[a-z_]+)*(?:=[\w'".:-]+)?/g, (m) => `\`${m}\``)).join('');
 const mdx = (text) => retire(text).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
   : part.replaceAll('{', '\\{').replaceAll('}', '\\}').replaceAll('<', '&lt;').replaceAll('>', '&gt;')).join('');
 const cell = (text) => mdx(text).replaceAll('|', '\\|').replaceAll('\n', ' ');
@@ -127,11 +127,11 @@ function toolSection(tool, oneLiner) {
   }
   // People get highlighted JSON. Agents get one call per line in inline code: Mintlify's markdown
   // export adds theme metadata to every code fence, which inline code avoids.
-  const calls = tool.examples.slice(0, 3);
+  const calls = tool.examples.slice(0, 6);
   out += `\n**Examples** (IDs are illustrative; use the ones earlier calls return):\n\n<Visibility for="humans">\n`;
   for (const example of calls)
-    out += `${cell(example.title)}:\n\n\`\`\`json\n${JSON.stringify({ name: tool.name, arguments: example.arguments }, null, 2)}\n\`\`\`\n\n`;
-  out += `</Visibility>\n\n<Visibility for="agents">\n${calls.map(e => `- ${cell(e.title)}: \`${JSON.stringify({ name: tool.name, arguments: e.arguments })}\``).join('\n')}\n</Visibility>\n\n`;
+    out += `${cell(srv(example.title))}:\n\n\`\`\`json\n${JSON.stringify({ name: tool.name, arguments: example.arguments }, null, 2)}\n\`\`\`\n\n`;
+  out += `</Visibility>\n\n<Visibility for="agents">\n${calls.map(e => `- ${cell(srv(e.title))}: \`${JSON.stringify({ name: tool.name, arguments: e.arguments })}\``).join('\n')}\n</Visibility>\n\n`;
   out += `**Errors and statuses:**\n\n| Code | When |\n| --- | --- |\n`;
   for (const e of errors(tool)) out += `| ${code(e.code)} | ${cell(e.when)} |\n`;
   if (tool.relatedTools.length) out += `\n**Related:** ${tool.relatedTools.map(code).join(', ')}.\n`;
@@ -149,6 +149,18 @@ function connections(tool) {
   if (tool.delegateIntegrations?.length)
     return `The one for what you act on: ${tool.delegateIntegrations.map(p => PLATFORM[p] ?? p).join(', ')}.`;
   return null;
+}
+
+// One entry per input across every action; allowed values are the union over actions, so a
+// discriminator such as `action` lists every action rather than the last branch's.
+function mergeInputs(rows) {
+  const merged = {};
+  for (const { name, required, ...about } of rows) {
+    const seen = merged[name];
+    merged[name] = seen ? { ...seen, ...about, ...(seen.values || about.values
+      ? { values: [...new Set([...(seen.values ?? []), ...(about.values ?? [])])] } : {}) } : about;
+  }
+  return merged;
 }
 
 // Machine-readable role: the minimum brand role, plus per-action roles where they differ.
@@ -252,21 +264,22 @@ export function buildOutputs(source) {
         retry: t.facts?.idempotency ?? null,
         roleNote: role(t),
         rateLimit: t.rateLimit,
-        inputs: Object.fromEntries((t.actions ? t.actions.flatMap(a => a.inputs) : t.inputs)
-          .map(({ name, required, ...about }) => [name, about])),
+        inputs: mergeInputs(t.actions ? t.actions.flatMap(a => a.inputs) : t.inputs),
         ...(t.actions ? {
           actionKey: t.actionKey,
           actions: actionRows(t).map(a => ({ name: a.name, required: a.required, ...(a.optional ? { uses: a.optional } : {}) })),
           ...(sharedInputs(t) ? { sharedInputs: sharedInputs(t) } : {}),
         } : { required: names(t.inputs, true) }),
         schema: `${SITE}/mcp/schemas/${t.name}.json`,
-        examples: t.examples.slice(0, 3).map(e => ({ title: e.title, arguments: e.arguments })),
+        examples: t.examples.slice(0, 6).map(e => ({ title: e.title, arguments: e.arguments })),
         errors: t.facts ? errors(t) : t.commonErrors.map(e => ({ code: e.code, when: retire(e.reason) })),
         ...(goodToKnow[t.name] ? { notes: goodToKnow[t.name].map(n => n.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')) } : {}),
         related: t.relatedTools,
       };
     }),
   };
+  for (const t of index.tools) if (t.actions)
+    assert.equal(t.inputs[t.actionKey]?.values?.length, t.actions.length, `${t.name}: ${t.actionKey} values drifted from its actions`);
   files["mcp/tools.json"] = `${JSON.stringify(index)}\n`;
   for (const t of source.tools) files[`mcp/schemas/${t.name}.json`] = `${JSON.stringify({ name: t.name, inputSchema: t.inputSchema })}\n`;
   files['llms.txt'] = llms(index, files);

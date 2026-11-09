@@ -124,12 +124,63 @@ Cut an ad set to ages 18–55:
 }
 ```
 
+Restructure in one confirmation:
+
+```json
+{
+  "name": "paid_manage",
+  "arguments": {
+    "action": "batch",
+    "params": {
+      "mode": "preview",
+      "ops": [
+        {
+          "action": "duplicate",
+          "params": {
+            "platform": "meta_ads",
+            "entity_type": "adset",
+            "entity_id": "1202…"
+          }
+        },
+        {
+          "action": "update_entity",
+          "params": {
+            "platform": "meta_ads",
+            "entity_type": "adset",
+            "entity_id": "1201…",
+            "changes": {
+              "status": "PAUSED"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Audit log:
+
+```json
+{
+  "name": "paid_manage",
+  "arguments": {
+    "action": "activity",
+    "params": {
+      "limit": 20
+    }
+  }
+}
+```
+
 </Visibility>
 
 <Visibility for="agents">
 - List campaigns: `{"name":"paid_manage","arguments":{"action":"hierarchy","params":{"platform":"meta_ads","ad_account_id":"act_123","level":"campaign"}}}`
 - Preview a campaign: `{"name":"paid_manage","arguments":{"action":"create_campaign","params":{"mode":"preview","platform":"meta_ads","ad_account_id":"act_123","campaign":{"name":"Spring","objective":"OUTCOME_TRAFFIC","daily_budget":1000}}}}`
 - Cut an ad set to ages 18–55: `{"name":"paid_manage","arguments":{"action":"update_entity","params":{"mode":"preview","platform":"meta_ads","entity_type":"adset","entity_id":"120200000000000000","changes":{"targeting":{"age_max":55}}}}}`
+- Restructure in one confirmation: `{"name":"paid_manage","arguments":{"action":"batch","params":{"mode":"preview","ops":[{"action":"duplicate","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1202…"}},{"action":"update_entity","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1201…","changes":{"status":"PAUSED"}}}]}}}`
+- Audit log: `{"name":"paid_manage","arguments":{"action":"activity","params":{"limit":20}}}`
 </Visibility>
 
 **Errors and statuses:**
@@ -138,7 +189,7 @@ Cut an ad set to ages 18–55:
 | --- | --- |
 | `APPROVAL_REQUIRED` | Activating, a budget raise over the brand's spend limits (default +30%) or an approval-chain brand: an admin calls `mcp_approval_grant` with the `confirm_token`, then retry mode='confirm'. |
 | `CONFIRMATION_REQUIRED` | Write actions are two-phase: call with params.mode='preview' to get a `confirm_token`, then params.mode='confirm' with that token. |
-| `VALIDATION_ERROR` | params is the chosen action's own input. objective must be valid for the platform (e.g. OUTCOME_* for `meta_ads`). |
+| `VALIDATION_ERROR` | params is the chosen action's own input. objective must be valid for the platform (e.g. `OUTCOME_*` for `meta_ads`). |
 | `CONFLICT` | The item changed or is busy. Read it again, then retry with the current state. |
 | `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |

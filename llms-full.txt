@@ -190,13 +190,7 @@ You should get the brand's name and a list of its connected platforms. If your a
 
 ## What you're allowing
 
-When you click **Allow access**, your assistant can work in Continuum as you:
-
-* It reaches only the brands you belong to, and does only what your [role](https://docs.trycontinuum.ai/settings/roles.md) allows.
-* Publishing, changes to your ads and budgets, and deletions show a preview first and wait for your yes.
-* Every action you take through it is listed under **Settings → Activity** in Continuum.
-
-See [You stay in control](https://docs.trycontinuum.ai/mcp/control.md) for the full picture.
+When you click **Allow access**, your assistant works in Continuum as you: only on your brands, only within your [role](https://docs.trycontinuum.ai/settings/roles.md), and with a preview before anything goes live. [You stay in control](https://docs.trycontinuum.ai/mcp/control.md) has the details.
 
 ### Disconnect
 
@@ -324,6 +318,12 @@ Read [organic](https://docs.trycontinuum.ai/organic/analytics.md) and [paid](htt
 | **Connector** | The link that lets Claude, ChatGPT, or another assistant work in Continuum for you. |
 
 See the [glossary](https://docs.trycontinuum.ai/glossary.md) for the full list.
+
+## Try it
+
+* "Which brand am I working on, and what's connected?"
+* "Summarize our brand book in five lines: voice, audience, and what we never say."
+* "What worked best on Instagram last month, and what should we make next because of it?"
 
 ## What's next
 
@@ -687,11 +687,7 @@ Plan a week of posts in one conversation, then review each one before it goes ou
 
 ## Where you can publish
 
-| Platform | From your assistant |
-| - | - |
-| **Instagram** | Plan, track, and publish |
-| **Facebook**, **LinkedIn**, **TikTok**, **YouTube** | Plan and track. Publishing is built; your first post on each goes out with the Continuum team, supervised. TikTok posts publish as private until TikTok's app audit completes. See [Publishing](https://docs.trycontinuum.ai/organic/publishing.md). |
-| **Other platforms** | Plan and track |
+Your assistant plans and tracks posts for every connected platform, and publishes to Instagram. [Publishing](https://docs.trycontinuum.ai/organic/publishing.md) has the status of every other platform.
 
 ## Prompts to try
 
@@ -740,7 +736,7 @@ Manage your Meta ads from the conversation. Review campaigns, adjust budgets, pa
 * Approving a Paid optimization recommendation applies it right away. Your approval is the yes.
 * Switching a campaign, ad set, or ad on needs an Admin or Owner, who approves that exact change in the Continuum app or from their own assistant with `mcp_approval_grant`. A large budget increase needs the same approval. If you're an Admin or Owner, your own yes is enough.
 * Creating or changing ads, and approving or rejecting recommendations, needs the Operator role or higher. Viewers can read campaigns, results, and recommendations.
-* Paid optimization recommends budget moves for you to approve. It never pauses an ad. Autopilot, which makes budget moves automatically, can only be turned on from your dashboard.
+* Paid optimization recommends budget moves for you to approve. It never pauses an ad unless you approve that specific pause. Autopilot, which makes budget moves automatically, can only be turned on from your dashboard.
 
 ## What's next
 
@@ -851,7 +847,7 @@ Your assistant works in Continuum as you, inside the limits you already have. He
 Continuum shows you a preview of what will happen and waits for your yes before it:
 
 * **Publishes** a post.
-* **Creates, changes, or pauses** a campaign, ad set, ad, budget, or audience in your Meta account. Paid optimization itself never pauses an ad.
+* **Creates, changes, or pauses** a campaign, ad set, ad, budget, or audience in your Meta account. Paid optimization never pauses an ad unless you approve that specific pause.
 * **Swaps the creative** in a live ad. The swap can be undone.
 * **Produces final versions** in Forge.
 * **Deletes** something. The one exception is deleting a Forge render set, which has no preview step; your assistant asks you first.
@@ -915,7 +911,7 @@ What to expect in each area today.
 | - | - |
 | **Publishing** | Live on Instagram. Facebook, LinkedIn, TikTok, and YouTube are built, and your first post on each goes out with the Continuum team, supervised. TikTok posts publish as private until TikTok's app audit completes. See [Publishing](https://docs.trycontinuum.ai/organic/publishing.md). |
 | **Ads** | Meta ads can be managed from your assistant. New campaigns, ad sets, and ads start paused. Switching one on, or a large budget increase, needs an Admin or Owner to approve that exact change, in the app or from their own assistant. |
-| **Paid optimization** | Recommends budget moves for you to approve, and applies them when you do. It never pauses an ad. Autopilot, which makes budget moves automatically, can only be turned on from your dashboard. |
+| **Paid optimization** | Recommends budget moves for you to approve, and applies them when you do. It never pauses an ad unless you approve that specific pause. Autopilot, which makes budget moves automatically, can only be turned on from your dashboard. |
 | **Canvas** | Generate images and videos from your assistant. Up to 10 runs an hour for each brand. If the canvas is open in Continuum, you can watch the run happen. |
 | **Pipelines** | Up to 10 versions per request. |
 | **Live ads** | Swapping the creative in a live ad shows a preview first and can be undone. |
@@ -931,6 +927,12 @@ Answers and reports usually take a minute or two. Images and video can take seve
 ## Limits
 
 Hourly limits protect your budget. Most are set for each brand: besides Canvas runs, they cover publishing, approvals, ad changes, and trend discovery. Connection links are limited per person. If you hit one, Continuum says how long to wait. Ask for a smaller batch — three versions instead of ten — or try again later. The [server reference](https://docs.trycontinuum.ai/mcp/reference.md#limits) lists every limit.
+
+## Try it
+
+* "Run the product-reveal pipeline once for each of these ten headlines." One call queues up to ten versions.
+* "Preview the budget change on our prospecting ad set, and wait for my yes before you apply it."
+* "Which connections does this brand have, and which ones have lapsed?"
 
 ## What's next
 
@@ -1082,7 +1084,7 @@ These are registered and callable by name, but `tools/list` doesn't advertise th
 | [`organic_inbox_reply`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_inbox_reply) | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
 | [`organic_media_list`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_media_list) | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
 | [`organic_profile_get`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_profile_get) | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
-| [`organic_workflow_run`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step`.arguments the … | Yes |
+| [`organic_workflow_run`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the … | Yes |
 | [`paid_naming_schema_set`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#paid_naming_schema_set) | Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '\|') plus an ordered list of field labels (e.g. \['funnel', 'format', 'audience']). Once set, ad… | Yes |
 | [`post_audit`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#post_audit) | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
 | [`post_create_instagram`](https://docs.trycontinuum.ai/mcp/tools/unlisted.md#post_create_instagram) | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
@@ -2282,6 +2284,9 @@ In this table, `a|b` means one of them and `a+b` means together.
 * Draft a post from a prompt: `{"name":"content_create","arguments":{"action":"draft","prompt":"a Reel about our summer launch","platform":"instagram"}}`
 * Rewrite a draft's caption (natural language): `{"name":"content_create","arguments":{"action":"extend","draftId":"00000000-0000-0000-0000-000000000000","prompt":"Rewrite the caption and CTA in Mexican Spanish; keep the concept and a friendly tone."}}`
 * Structured field change (reschedule a draft): `{"name":"content_create","arguments":{"action":"extend","draftId":"00000000-0000-0000-0000-000000000000","updates":{"scheduled_date":"2026-08-01T15:00:00.000Z"}}}`
+* Generate the creative — step 1: read the preview waiting for approval: `{"name":"content_create","arguments":{"action":"realize","draftId":"00000000-0000-0000-0000-000000000000"}}`
+* Generate the creative — step 2: approve that exact preview and spend: `{"name":"content_create","arguments":{"action":"realize","draftId":"00000000-0000-0000-0000-000000000000","preview_revision":"the preview_revision step 1 returned"}}`
+* Redo slide 2 of a realized carousel on the same draft (then confirm with `approve_with.input`): `{"name":"content_create","arguments":{"action":"realize","draftId":"00000000-0000-0000-0000-000000000000","regenerate":true,"slides":[2],"prompt":"warmer, golden-hour light"}}`
 
 **Errors and statuses:**
 
@@ -2543,6 +2548,8 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 * List campaigns: `{"name":"paid_manage","arguments":{"action":"hierarchy","params":{"platform":"meta_ads","ad_account_id":"act_123","level":"campaign"}}}`
 * Preview a campaign: `{"name":"paid_manage","arguments":{"action":"create_campaign","params":{"mode":"preview","platform":"meta_ads","ad_account_id":"act_123","campaign":{"name":"Spring","objective":"OUTCOME_TRAFFIC","daily_budget":1000}}}}`
 * Cut an ad set to ages 18–55: `{"name":"paid_manage","arguments":{"action":"update_entity","params":{"mode":"preview","platform":"meta_ads","entity_type":"adset","entity_id":"120200000000000000","changes":{"targeting":{"age_max":55}}}}}`
+* Restructure in one confirmation: `{"name":"paid_manage","arguments":{"action":"batch","params":{"mode":"preview","ops":[{"action":"duplicate","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1202…"}},{"action":"update_entity","params":{"platform":"meta_ads","entity_type":"adset","entity_id":"1201…","changes":{"status":"PAUSED"}}}]}}}`
+* Audit log: `{"name":"paid_manage","arguments":{"action":"activity","params":{"limit":20}}}`
 
 **Errors and statuses:**
 
@@ -2550,7 +2557,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 | - | - |
 | `APPROVAL_REQUIRED` | Activating, a budget raise over the brand's spend limits (default +30%) or an approval-chain brand: an admin calls `mcp_approval_grant` with the `confirm_token`, then retry mode='confirm'. |
 | `CONFIRMATION_REQUIRED` | Write actions are two-phase: call with params.mode='preview' to get a `confirm_token`, then params.mode='confirm' with that token. |
-| `VALIDATION_ERROR` | params is the chosen action's own input. objective must be valid for the platform (e.g. OUTCOME\_\* for `meta_ads`). |
+| `VALIDATION_ERROR` | params is the chosen action's own input. objective must be valid for the platform (e.g. `OUTCOME_*` for `meta_ads`). |
 | `CONFLICT` | The item changed or is busy. Read it again, then retry with the current state. |
 | `INTEGRATION_DISCONNECTED` | The connection lapsed. Reconnect it with `integrations_connect`. |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
@@ -3084,6 +3091,9 @@ In this table, `a|b` means one of them and `a+b` means together.
 * Browse approved creatives only: `{"name":"library_manage","arguments":{"action":"browse","reviewStatus":"approved","limit":20}}`
 * Read the feedback on an asset: `{"name":"library_manage","arguments":{"action":"asset_detail","assetId":"00000000-0000-0000-0000-000000000000"}}`
 * Which version of this creative is winning, and where is it running (last 7 days): `{"name":"library_manage","arguments":{"action":"asset_detail","assetId":"00000000-0000-0000-0000-000000000000","window":"d7"}}`
+* Import a running Meta ad creative into the Library so it can be reviewed: `{"name":"library_manage","arguments":{"action":"import_ad_creative","creativeRowId":"00000000-0000-0000-0000-000000000000"}}`
+* Leave a timestamped comment on a video: `{"name":"library_manage","arguments":{"action":"comment_add","assetId":"00000000-0000-0000-0000-000000000000","body":"Tighten the hook — cut to the product by second 2.","annotation":{"kind":"time","timeMs":2000}}}`
+* Approve an asset: `{"name":"library_manage","arguments":{"action":"set_review_status","assetId":"00000000-0000-0000-0000-000000000000","toStatus":"approved","note":"Cleared for paid usage."}}`
 
 **Errors and statuses:**
 
@@ -3550,6 +3560,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 * Open a signed-in mixed-file handoff: `{"name":"forge_manage","arguments":{"action":"source_begin"}}`
 * Read each uploaded source and its ready ID: `{"name":"forge_manage","arguments":{"action":"source_status","upload_intent_id":"00000000-0000-4000-8000-000000000000"}}`
 * Draft from extracted files and media without a fixed row count: `{"name":"forge_manage","arguments":{"action":"suggest_rows","setId":"00000000-0000-4000-8000-000000000000","documentIds":["00000000-0000-4000-8000-000000000001"],"mediaAssetIds":["00000000-0000-4000-8000-000000000002"],"autoCount":true,"count":10}}`
+* Append selected draft rows once: `{"name":"forge_manage","arguments":{"action":"apply_suggestions","setId":"00000000-0000-4000-8000-000000000000","expectedRevision":0,"rows":[{"id":"00000000-0000-4000-8000-000000000003","parentId":null,"label":"Offer","overrides":{"headline":"Today only"}}]}}`
 
 **Errors and statuses:**
 
@@ -3688,7 +3699,7 @@ Generated from the server's own tool registry, as released on 2026-11-05. These 
 | [`organic_inbox_reply`](#organic_inbox_reply) | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
 | [`organic_media_list`](#organic_media_list) | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
 | [`organic_profile_get`](#organic_profile_get) | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
-| [`organic_workflow_run`](#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step`.arguments the … | Yes |
+| [`organic_workflow_run`](#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the … | Yes |
 | [`paid_naming_schema_set`](#paid_naming_schema_set) | Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '\|') plus an ordered list of field labels (e.g. \['funnel', 'format', 'audience']). Once set, ad… | Yes |
 | [`post_audit`](#post_audit) | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
 | [`post_create_instagram`](#post_create_instagram) | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
@@ -4296,7 +4307,7 @@ Full schema: `help_describe {"tool":"organic_profile_get","action":"instagram"}`
 
 ### `organic_workflow_run`
 
-Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step`.arguments the …
+Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step.arguments` the …
 
 | Contract | Behavior |
 | - | - |
@@ -4323,7 +4334,7 @@ Plan and schedule a week of organic content end-to-end in one call. mode='`plan_
 
 | Code | When |
 | - | - |
-| `AWAITING_APPROVAL` | The run paused at a gate (stage '`awaiting_calendar_approval`' or '`awaiting_publish_approval`'). Re-call with mode='resume' and the `next_step`.arguments the gate returned; use `skip_placements` to drop placements. |
+| `AWAITING_APPROVAL` | The run paused at a gate (stage '`awaiting_calendar_approval`' or '`awaiting_publish_approval`'). Re-call with mode='resume' and the `next_step.arguments` the gate returned; use `skip_placements` to drop placements. |
 | `ADMIN_GRANT_REQUIRED` | Stage '`admin_grant_required`' lists pending `confirm_tokens`; an admin must run `mcp_approval_grant` before the run can resume. |
 | `CTX_MISSING_MODE_A_FIELDS` | The call is missing session context. Reconnect the assistant and retry. |
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
@@ -4937,6 +4948,281 @@ Or ask Claude or ChatGPT:
 * [Nodes](https://docs.trycontinuum.ai/canvas/nodes/overview.md): Every node, and how runs work.
 * [Workflows](https://docs.trycontinuum.ai/canvas/workflows.md): Save, load, and reuse graphs.
 
+# Models
+
+Source: https://docs.trycontinuum.ai/canvas/models
+
+> The image and video models available on the AI Canvas, their defaults, sizes, aspect ratios, and options.
+
+Generation nodes let you pick a model to match the job. The canvas only offers the settings a model supports. If a provider can't run a model, the picker marks it **Not enabled on this workspace** until you reload the page.
+
+## Image models
+
+**Nano Banana 2 Lite** is the default.
+
+| Model | Sizes | Notes |
+| - | - | - |
+| **Nano Banana** | Set by aspect ratio | 1024px only |
+| **Nano Banana Pro** | 1K, 2K, 4K | |
+| **Nano Banana 2** | 512px to 4K | |
+| **Nano Banana 2 Lite** | Set by aspect ratio | Default. 1K only |
+| **GPT Image 2.5 Sunburst** | Set by aspect ratio | |
+| **GPT Image 2.5 Flare** | Set by aspect ratio | |
+| **FLUX.2 Pro** | Set by aspect ratio | Beta |
+| **FLUX.2 Max** | Set by aspect ratio | Beta |
+
+### Aspect ratios
+
+* **Nano Banana 2** offers seven aspect ratios.
+* **Nano Banana 2 Lite**, **FLUX.2 Pro**, and **FLUX.2 Max** offer those seven plus `21:9`.
+* Every other image model offers `1:1`, `16:9`, `9:16`, `4:3`, and `3:4`.
+
+## Video models
+
+**Omni 1.1 Flash** is the default.
+
+| Model | Resolution | Duration | Inputs |
+| - | - | - | - |
+| **Omni 1.1 Flash** | 720p, 1080p, 4K | Set by the provider | Reference images |
+
+Omni 1.1 Flash offers `16:9` or `9:16`.
+
+> [!NOTE]
+>
+> Google retired Veo 3.1. If you pick **Veo 3.1**, **Veo 3.1 Fast**, or **Veo 3.1 Lite**, the clip is made with Omni 1.1 Flash. Any frames you attach are used as reference images.
+
+**Kling Omni**, **Pixverse V6**, and **Seedance 2.0** are listed as **Returning soon**. You can't select them yet.
+
+## Try it
+
+For a print-quality hero image, set an Image Generation node to **Nano Banana Pro** and pick `4K`. From your assistant, ask:
+
+* "Make the hero image again with Nano Banana Pro at 4K."
+* "Make an 8-second 9:16 clip of the product on a kitchen counter with Omni 1.1 Flash."
+
+## What's next
+
+* [Image nodes](https://docs.trycontinuum.ai/canvas/nodes/image.md): Where image models run.
+* [Video nodes](https://docs.trycontinuum.ai/canvas/nodes/video.md): Where video models run.
+* [Providers and rates](https://docs.trycontinuum.ai/providers-and-rates.md): Who makes each model and what it costs in credits.
+
+# Providers and rates
+
+Source: https://docs.trycontinuum.ai/providers-and-rates
+
+> Who makes each image, video, voice, and music model in Continuum, what each generation costs in Canvas credits, and the limits you can hit.
+
+Image, video, voiceover, and music generation is paid for with the brand's **Canvas credits**. The rates are the same wherever you generate: the AI Canvas, Pipelines, Video Studio, your assistant, Organic+ drafts, and Jaina's ad creatives.
+
+## How credits are counted
+
+* **Images** are charged per image.
+* **Video** is charged per second of footage.
+* **Voiceovers** are charged by the length of the speech, and **music** per track.
+* A generation that fails or is refused costs nothing.
+* Each run's total is rounded up to a whole credit. A run of several images can cost a credit less than the table adds up to.
+* Each generation spends rollover credits first, then this month's included credits, then purchased packs.
+
+## Image models
+
+| Model | Made by | Credits per image |
+| - | - | - |
+| **Nano Banana 2 Lite** (default) | Google | 4 |
+| **Nano Banana** | Google | 5 |
+| **Nano Banana 2** | Google | 6 at 512px, 8 at 1K, 12 at 2K, 18 at 4K |
+| **Nano Banana Pro** | Google | 16 at 1K or 2K, 28 at 4K |
+| **GPT Image 2.5 Sunburst** | OpenAI | 7 |
+| **GPT Image 2.5 Flare** | OpenAI | 7 |
+| **FLUX.2 Pro** (Beta) | Black Forest Labs | 6 |
+| **FLUX.2 Max** (Beta) | Black Forest Labs | 12 |
+
+## Video models
+
+| Model | Made by | Credits |
+| - | - | - |
+| **Omni 1.1 Flash** (default) | Google | 11.5 per second, rounded up per clip |
+
+An 8-second clip costs 92 credits, and a 10-second clip costs 115. You pay for the seconds the model actually renders. **Omni 1.1 Flash (Edit)** and **Extend Video** run on Omni 1.1 Flash at the same rate.
+
+> [!NOTE]
+>
+> Google retired Veo 3.1. If you pick **Veo 3.1**, **Veo 3.1 Fast**, or **Veo 3.1 Lite**, the clip is made with Omni 1.1 Flash and costs the same as Omni.
+
+**Returning soon:** Kling Omni (Kuaishou), Pixverse V6 (PixVerse), and Seedance 2.0 (ByteDance).
+
+## Voiceovers and music
+
+| Model | Made by | Used for | Credits |
+| - | - | - | - |
+| **Gemini 3.8 Flash TTS** | Google | Voiceovers | About 1 per 19 seconds of speech, rounded up per voiceover |
+| **Lyria 3.5** | Google | Music beds and songs | 10 per track |
+
+A 30-second voiceover costs 2 credits, and a 60-second one costs 4. Voiceovers and music made for your videos in Video Studio, Organic+ reels, and Jaina's ad creatives use these rates. When an edit needs a track with a steady beat to cut to, more than one track can be made, and each one is charged.
+
+## What doesn't use credits
+
+* Forge renders.
+* Conversations with the Organic agent and Jaina.
+* Jaina's reports and recommendations.
+
+> [!TIP]
+>
+> **Run Flow** skips nodes that haven't changed since their last run, so you aren't charged for them again. **Rerun all** regenerates every node.
+
+## Limits
+
+| Limit | Value |
+| - | - |
+| Images per Image Generation run | Up to 4 |
+| Canvas runs from your assistant | 10 an hour per brand |
+| Generation nodes in one assistant run | Up to 6 |
+| Pipeline versions per request | Up to 10 |
+
+The [server reference](https://docs.trycontinuum.ai/mcp/reference.md#limits) lists every limit that applies when you work from your assistant. If a brand runs out of credits, see [Billing](https://docs.trycontinuum.ai/settings/billing.md).
+
+Rates can change when a provider changes its pricing. This page shows the current rates. For plans and credit packs, see [pricing](https://trycontinuum.ai/#pricing).
+
+## Try it
+
+Work out a batch before you run it. Ten 8-second clips on **Omni 1.1 Flash** cost 10 × 92 = 920 Canvas credits. Check your balance under **Settings → Billing** before you ask your assistant for "ten 8-second clips of the product reveal, one per headline."
+
+## What's next
+
+* [Billing](https://docs.trycontinuum.ai/settings/billing.md): Check your balance, buy credit packs, and turn on auto-billing.
+* [Models](https://docs.trycontinuum.ai/canvas/models.md): Sizes, aspect ratios, and options for each model.
+
+# Workflows and techniques
+
+Source: https://docs.trycontinuum.ai/canvas/workflows
+
+> Save a canvas graph as a workflow you can reload and rerun, start from pre-mades, and save any selection of nodes as a technique.
+
+Once a graph works, you don't want to rebuild it. Save it as a **workflow** to reload and rerun it, or save part of it as a **technique** to drop into other graphs.
+
+## Save a workflow
+
+**1. Open the save dialog**
+
+Right-click the canvas and choose **Save** from **Canvas Actions**.
+
+**2. Choose Workflow**
+
+The dialog has a **Workflow** | **Pipeline** toggle. Leave it on **Workflow** to save the graph for yourself and your team. Choose **Pipeline** to publish it with declared inputs; see [Pipelines](https://docs.trycontinuum.ai/canvas/pipelines.md).
+
+**3. Name it and save**
+
+Give it a name you'll recognize later.
+
+Your canvas also autosaves as you go, so you won't lose a graph in progress. A saved workflow is what you reload on purpose.
+
+## Load a workflow
+
+Choose **Load Workflow** from **Canvas Actions** to open **My Workflows**. It has three tabs:
+
+| Tab | What's in it |
+| - | - |
+| **Pre-mades** | Templates that ship with Continuum. A good place to start. |
+| **Saved** | Workflows your team has saved. |
+| **Pipelines** | Published pipelines. |
+
+From **My Workflows** you can search, load, rename, and delete.
+
+## Rerun with new inputs
+
+Load a workflow, swap the inputs — a new product shot, a different prompt — and choose **Run Flow**. Nodes that didn't change are skipped. Choose **Rerun all** to regenerate everything.
+
+## Techniques
+
+A **technique** is a saved selection of nodes. Select the nodes, right-click, and choose **Save selection**. Techniques appear in the **Techniques** submenu at the top of **Add Node**, so you can drop a proven chunk of graph into any canvas.
+
+## Try it
+
+Right-click the canvas, choose **Load Workflow**, open **Pre-mades**, and load one. Swap in your own product shot and choose **Run Flow**.
+
+Or ask Claude or ChatGPT:
+
+* "Which canvas workflows have we saved?"
+* "Load our 'Product on white' workflow onto my open canvas and run it with this photo."
+* "Save this canvas as a workflow called 'Holiday flat lay'."
+
+## What's next
+
+* [Pipelines](https://docs.trycontinuum.ai/canvas/pipelines.md): Publish a workflow others can run with new inputs.
+* [Skills and grounding](https://docs.trycontinuum.ai/canvas/skills-and-grounding.md): Keep every rerun on-brand.
+
+# Creative skills and brand grounding
+
+Source: https://docs.trycontinuum.ai/canvas/skills-and-grounding
+
+> Keep every generation on-brand: the grounding chip steers each node with your brand book, creative direction, and design system, and creative skills add reusable direction.
+
+Two things keep canvas output on-brand without extra prompting. **Brand grounding** steers each generation with your brand book, creative direction, and design system. **Creative skills** add reusable creative direction on top.
+
+## The grounding chip
+
+Every generation node carries a grounding chip, such as **Brand · Light · Skills 2**. Open it to see and change what steers that node. It has four sections:
+
+| Section | What it applies |
+| - | - |
+| **Brand book** | Pieces of your [brand book](https://docs.trycontinuum.ai/brand/overview.md). |
+| **Creative direction** | How your brand looks and behaves in creative. |
+| **Design system** | Sections of your brand's design system. |
+| **Creative skills** | The skills you've added to this node. |
+
+## How much of the brand book applies
+
+| Mode | What it does |
+| - | - |
+| **Full** | Applies the entire brand book. |
+| **Light** | Applies colors, typography, and logo. |
+| **Off** | Applies none of it. |
+| **N pieces** | Applies only the pieces you pick. |
+
+Nodes you add by hand start on **Light**. Nodes the Composer builds use the full brand book.
+
+The brand-book pieces are **Colors**, **Typography**, **Voice**, **Vision / Imagery**, **Personality**, **Audience**, and **Logo**, or the **Entire brand book**.
+
+> [!TIP]
+>
+> To ground several nodes at once, select them, right-click, and choose **Enforce brand book on selection**.
+
+## Creative direction
+
+Creative direction captures how your brand behaves in creative, beyond the basics. Pieces include **Visual thesis**, **Composition**, **Typography behaviour**, **Colour behaviour**, **Photography**, **Illustration and graphics**, **Motion**, **People and characters**, **The product in the world**, **Where the mark goes**, **Brand signature**, and **Refusals**.
+
+## Design system
+
+Apply sections of your brand's design system: **Palette**, **Typography**, **Spacing**, **Radii**, **Shadows**, **Layout**, **Components**, **Iconography**, **Motion**, **Voice**, **Imagery**, **Logo**, and **Formats**. To bring one section in as a visible reference, use a [Design Reference node](https://docs.trycontinuum.ai/canvas/nodes/image.md).
+
+## Shortcuts in the Composer
+
+| Shortcut | Effect |
+| - | - |
+| `/brand` | Ground in your brand. |
+| `/brand:colors` | Ground in your colors. |
+| `/brand:logo` | Ground in your logo. |
+| `/nobrand` | Turn brand grounding off. |
+
+## Creative skills
+
+A **creative skill** is a reusable creative-direction directive — a repeatable instruction for how something should look or feel. Skills are folded into canvas generations and agent content behind the scenes.
+
+* Add skills to a node from the **Creative skills** section of its grounding chip, or type `@` in the Composer.
+* Manage skills in **Settings → Skills**. Create your own, browse the first-party library, and edit or archive existing ones.
+
+Grounding steers a generation. It doesn't block anything. Pieces your brand book hasn't built yet can't be applied — a nudge to [deepen your brand book](https://docs.trycontinuum.ai/brand/readiness.md).
+
+## Try it
+
+* **In the Composer:** type `/brand:colors` and then "a flat lay of our new mug on linen". The result uses your brand colors.
+* **On a node:** open its grounding chip and switch it from **Light** to **Full** for a campaign hero image.
+* **Make a skill:** in **Settings → Skills**, create one such as "Shoot products at a 45-degree angle on a neutral backdrop". Add it to a node from the grounding chip, or type `@` in the Composer.
+
+## What's next
+
+* [Nodes](https://docs.trycontinuum.ai/canvas/nodes/overview.md): The generation nodes that carry grounding.
+* [Brand book](https://docs.trycontinuum.ai/brand/overview.md): What grounding draws from.
+
 # Node overview
 
 Source: https://docs.trycontinuum.ai/canvas/nodes/overview
@@ -5300,208 +5586,6 @@ Swapping a live ad's creative shows a preview and waits for your yes.
 * [Content calendar](https://docs.trycontinuum.ai/organic/calendar.md): Where Planner drafts land.
 * [Action and tool nodes](https://docs.trycontinuum.ai/canvas/nodes/actions.md): Finish creative before you deliver it.
 
-# Models
-
-Source: https://docs.trycontinuum.ai/canvas/models
-
-> The image and video models available on the AI Canvas, their defaults, sizes, aspect ratios, and options.
-
-Generation nodes let you pick a model to match the job. The canvas only offers the settings a model supports. If a provider can't run a model, the picker marks it **Not enabled on this workspace** until you reload the page.
-
-## Image models
-
-**Nano Banana 2 Lite** is the default.
-
-| Model | Sizes | Notes |
-| - | - | - |
-| **Nano Banana** | Set by aspect ratio | 1024px only |
-| **Nano Banana Pro** | 1K, 2K, 4K | |
-| **Nano Banana 2** | 512px to 4K | |
-| **Nano Banana 2 Lite** | Set by aspect ratio | Default. 1K only |
-| **GPT Image 2.5 Sunburst** | Set by aspect ratio | |
-| **GPT Image 2.5 Flare** | Set by aspect ratio | |
-| **FLUX.2 Pro** | Set by aspect ratio | Beta |
-| **FLUX.2 Max** | Set by aspect ratio | Beta |
-
-### Aspect ratios
-
-* **Nano Banana 2** offers seven aspect ratios.
-* **Nano Banana 2 Lite**, **FLUX.2 Pro**, and **FLUX.2 Max** offer those seven plus `21:9`.
-* Every other image model offers `1:1`, `16:9`, `9:16`, `4:3`, and `3:4`.
-
-## Video models
-
-**Omni 1.1 Flash** is the default.
-
-| Model | Resolution | Duration | Inputs |
-| - | - | - | - |
-| **Omni 1.1 Flash** | 720p, 1080p, 4K | Set by the provider | Reference images |
-
-Omni 1.1 Flash offers `16:9` or `9:16`.
-
-> [!NOTE]
->
-> Google retired Veo 3.1. If you pick **Veo 3.1**, **Veo 3.1 Fast**, or **Veo 3.1 Lite**, the clip is made with Omni 1.1 Flash. Any frames you attach are used as reference images.
-
-**Kling Omni**, **Pixverse V6**, and **Seedance 2.0** are listed as **Returning soon**. You can't select them yet.
-
-## Try it
-
-For a print-quality hero image, set an Image Generation node to **Nano Banana Pro** and pick `4K`. From your assistant, ask:
-
-* "Make the hero image again with Nano Banana Pro at 4K."
-* "Make an 8-second 9:16 clip of the product on a kitchen counter with Omni 1.1 Flash."
-
-## What's next
-
-* [Image nodes](https://docs.trycontinuum.ai/canvas/nodes/image.md): Where image models run.
-* [Video nodes](https://docs.trycontinuum.ai/canvas/nodes/video.md): Where video models run.
-* [Providers and rates](https://docs.trycontinuum.ai/providers-and-rates.md): Who makes each model and what it costs in credits.
-
-# Providers and rates
-
-Source: https://docs.trycontinuum.ai/providers-and-rates
-
-> Who makes each image, video, voice, and music model in Continuum, what each generation costs in Canvas credits, and the limits you can hit.
-
-Image, video, voiceover, and music generation is paid for with the brand's **Canvas credits**. The rates are the same wherever you generate: the AI Canvas, Pipelines, Video Studio, your assistant, Organic+ drafts, and Jaina's ad creatives.
-
-## How credits are counted
-
-* **Images** are charged per image.
-* **Video** is charged per second of footage.
-* **Voiceovers** are charged by the length of the speech, and **music** per track.
-* A generation that fails or is refused costs nothing.
-* Each run's total is rounded up to a whole credit. A run of several images can cost a credit less than the table adds up to.
-* Each generation spends rollover credits first, then this month's included credits, then purchased packs.
-
-## Image models
-
-| Model | Made by | Credits per image |
-| - | - | - |
-| **Nano Banana 2 Lite** (default) | Google | 4 |
-| **Nano Banana** | Google | 5 |
-| **Nano Banana 2** | Google | 6 at 512px, 8 at 1K, 12 at 2K, 18 at 4K |
-| **Nano Banana Pro** | Google | 16 at 1K or 2K, 28 at 4K |
-| **GPT Image 2.5 Sunburst** | OpenAI | 7 |
-| **GPT Image 2.5 Flare** | OpenAI | 7 |
-| **FLUX.2 Pro** (Beta) | Black Forest Labs | 6 |
-| **FLUX.2 Max** (Beta) | Black Forest Labs | 12 |
-
-## Video models
-
-| Model | Made by | Credits |
-| - | - | - |
-| **Omni 1.1 Flash** (default) | Google | 11.5 per second, rounded up per clip |
-
-An 8-second clip costs 92 credits, and a 10-second clip costs 115. You pay for the seconds the model actually renders. **Omni 1.1 Flash (Edit)** and **Extend Video** run on Omni 1.1 Flash at the same rate.
-
-> [!NOTE]
->
-> Google retired Veo 3.1. If you pick **Veo 3.1**, **Veo 3.1 Fast**, or **Veo 3.1 Lite**, the clip is made with Omni 1.1 Flash and costs the same as Omni.
-
-**Returning soon:** Kling Omni (Kuaishou), Pixverse V6 (PixVerse), and Seedance 2.0 (ByteDance).
-
-## Voiceovers and music
-
-| Model | Made by | Used for | Credits |
-| - | - | - | - |
-| **Gemini 3.8 Flash TTS** | Google | Voiceovers | About 1 per 19 seconds of speech, rounded up per voiceover |
-| **Lyria 3.5** | Google | Music beds and songs | 10 per track |
-
-A 30-second voiceover costs 2 credits, and a 60-second one costs 4. Voiceovers and music made for your videos in Video Studio, Organic+ reels, and Jaina's ad creatives use these rates. When an edit needs a track with a steady beat to cut to, more than one track can be made, and each one is charged.
-
-## What doesn't use credits
-
-* Forge renders.
-* Conversations with the Organic agent and Jaina.
-* Jaina's reports and recommendations.
-
-> [!TIP]
->
-> **Run Flow** skips nodes that haven't changed since their last run, so you aren't charged for them again. **Rerun all** regenerates every node.
-
-## Limits
-
-| Limit | Value |
-| - | - |
-| Images per Image Generation run | Up to 4 |
-| Canvas runs from your assistant | 10 an hour per brand |
-| Generation nodes in one assistant run | Up to 6 |
-| Pipeline versions per request | Up to 10 |
-
-The [server reference](https://docs.trycontinuum.ai/mcp/reference.md#limits) lists every limit that applies when you work from your assistant. If a brand runs out of credits, see [Billing](https://docs.trycontinuum.ai/settings/billing.md).
-
-Rates can change when a provider changes its pricing. This page shows the current rates. For plans and credit packs, see [pricing](https://trycontinuum.ai/#pricing).
-
-## Try it
-
-Work out a batch before you run it. Ten 8-second clips on **Omni 1.1 Flash** cost 10 × 92 = 920 Canvas credits. Check your balance under **Settings → Billing** before you ask your assistant for "ten 8-second clips of the product reveal, one per headline."
-
-## What's next
-
-* [Billing](https://docs.trycontinuum.ai/settings/billing.md): Check your balance, buy credit packs, and turn on auto-billing.
-* [Models](https://docs.trycontinuum.ai/canvas/models.md): Sizes, aspect ratios, and options for each model.
-
-# Workflows and techniques
-
-Source: https://docs.trycontinuum.ai/canvas/workflows
-
-> Save a canvas graph as a workflow you can reload and rerun, start from pre-mades, and save any selection of nodes as a technique.
-
-Once a graph works, you don't want to rebuild it. Save it as a **workflow** to reload and rerun it, or save part of it as a **technique** to drop into other graphs.
-
-## Save a workflow
-
-**1. Open the save dialog**
-
-Right-click the canvas and choose **Save** from **Canvas Actions**.
-
-**2. Choose Workflow**
-
-The dialog has a **Workflow** | **Pipeline** toggle. Leave it on **Workflow** to save the graph for yourself and your team. Choose **Pipeline** to publish it with declared inputs; see [Pipelines](https://docs.trycontinuum.ai/canvas/pipelines.md).
-
-**3. Name it and save**
-
-Give it a name you'll recognize later.
-
-Your canvas also autosaves as you go, so you won't lose a graph in progress. A saved workflow is what you reload on purpose.
-
-## Load a workflow
-
-Choose **Load Workflow** from **Canvas Actions** to open **My Workflows**. It has three tabs:
-
-| Tab | What's in it |
-| - | - |
-| **Pre-mades** | Templates that ship with Continuum. A good place to start. |
-| **Saved** | Workflows your team has saved. |
-| **Pipelines** | Published pipelines. |
-
-From **My Workflows** you can search, load, rename, and delete.
-
-## Rerun with new inputs
-
-Load a workflow, swap the inputs — a new product shot, a different prompt — and choose **Run Flow**. Nodes that didn't change are skipped. Choose **Rerun all** to regenerate everything.
-
-## Techniques
-
-A **technique** is a saved selection of nodes. Select the nodes, right-click, and choose **Save selection**. Techniques appear in the **Techniques** submenu at the top of **Add Node**, so you can drop a proven chunk of graph into any canvas.
-
-## Try it
-
-Right-click the canvas, choose **Load Workflow**, open **Pre-mades**, and load one. Swap in your own product shot and choose **Run Flow**.
-
-Or ask Claude or ChatGPT:
-
-* "Which canvas workflows have we saved?"
-* "Load our 'Product on white' workflow onto my open canvas and run it with this photo."
-* "Save this canvas as a workflow called 'Holiday flat lay'."
-
-## What's next
-
-* [Pipelines](https://docs.trycontinuum.ai/canvas/pipelines.md): Publish a workflow others can run with new inputs.
-* [Skills and grounding](https://docs.trycontinuum.ai/canvas/skills-and-grounding.md): Keep every rerun on-brand.
-
 # Pipelines
 
 Source: https://docs.trycontinuum.ai/canvas/pipelines
@@ -5608,79 +5692,6 @@ You create and edit Elements in the app. Your assistant can list and use them. S
 
 * [Image nodes](https://docs.trycontinuum.ai/canvas/nodes/image.md): The Element node and the generators it feeds.
 * [Pipelines](https://docs.trycontinuum.ai/canvas/pipelines.md): Run a saved recipe with an Element as input.
-
-# Creative skills and brand grounding
-
-Source: https://docs.trycontinuum.ai/canvas/skills-and-grounding
-
-> Keep every generation on-brand: the grounding chip steers each node with your brand book, creative direction, and design system, and creative skills add reusable direction.
-
-Two things keep canvas output on-brand without extra prompting. **Brand grounding** steers each generation with your brand book, creative direction, and design system. **Creative skills** add reusable creative direction on top.
-
-## The grounding chip
-
-Every generation node carries a grounding chip, such as **Brand · Light · Skills 2**. Open it to see and change what steers that node. It has four sections:
-
-| Section | What it applies |
-| - | - |
-| **Brand book** | Pieces of your [brand book](https://docs.trycontinuum.ai/brand/overview.md). |
-| **Creative direction** | How your brand looks and behaves in creative. |
-| **Design system** | Sections of your brand's design system. |
-| **Creative skills** | The skills you've added to this node. |
-
-## How much of the brand book applies
-
-| Mode | What it does |
-| - | - |
-| **Full** | Applies the entire brand book. |
-| **Light** | Applies colors, typography, and logo. |
-| **Off** | Applies none of it. |
-| **N pieces** | Applies only the pieces you pick. |
-
-Nodes you add by hand start on **Light**. Nodes the Composer builds use the full brand book.
-
-The brand-book pieces are **Colors**, **Typography**, **Voice**, **Vision / Imagery**, **Personality**, **Audience**, and **Logo**, or the **Entire brand book**.
-
-> [!TIP]
->
-> To ground several nodes at once, select them, right-click, and choose **Enforce brand book on selection**.
-
-## Creative direction
-
-Creative direction captures how your brand behaves in creative, beyond the basics. Pieces include **Visual thesis**, **Composition**, **Typography behaviour**, **Colour behaviour**, **Photography**, **Illustration and graphics**, **Motion**, **People and characters**, **The product in the world**, **Where the mark goes**, **Brand signature**, and **Refusals**.
-
-## Design system
-
-Apply sections of your brand's design system: **Palette**, **Typography**, **Spacing**, **Radii**, **Shadows**, **Layout**, **Components**, **Iconography**, **Motion**, **Voice**, **Imagery**, **Logo**, and **Formats**. To bring one section in as a visible reference, use a [Design Reference node](https://docs.trycontinuum.ai/canvas/nodes/image.md).
-
-## Shortcuts in the Composer
-
-| Shortcut | Effect |
-| - | - |
-| `/brand` | Ground in your brand. |
-| `/brand:colors` | Ground in your colors. |
-| `/brand:logo` | Ground in your logo. |
-| `/nobrand` | Turn brand grounding off. |
-
-## Creative skills
-
-A **creative skill** is a reusable creative-direction directive — a repeatable instruction for how something should look or feel. Skills are folded into canvas generations and agent content behind the scenes.
-
-* Add skills to a node from the **Creative skills** section of its grounding chip, or type `@` in the Composer.
-* Manage skills in **Settings → Skills**. Create your own, browse the first-party library, and edit or archive existing ones.
-
-Grounding steers a generation. It doesn't block anything. Pieces your brand book hasn't built yet can't be applied — a nudge to [deepen your brand book](https://docs.trycontinuum.ai/brand/readiness.md).
-
-## Try it
-
-* **In the Composer:** type `/brand:colors` and then "a flat lay of our new mug on linen". The result uses your brand colors.
-* **On a node:** open its grounding chip and switch it from **Light** to **Full** for a campaign hero image.
-* **Make a skill:** in **Settings → Skills**, create one such as "Shoot products at a 45-degree angle on a neutral backdrop". Add it to a node from the grounding chip, or type `@` in the Composer.
-
-## What's next
-
-* [Nodes](https://docs.trycontinuum.ai/canvas/nodes/overview.md): The generation nodes that carry grounding.
-* [Brand book](https://docs.trycontinuum.ai/brand/overview.md): What grounding draws from.
 
 # Video Studio
 
@@ -6908,6 +6919,12 @@ Run through this before you send:
 2. Name the folder after the project, such as `SpringPromo_9x16_handoff`, and open it. Check that every font your text layers use is there, such as `BrandSans-Bold.otf`. Add any font file that's missing.
 3. Run through the checklist above, then send the folder to your Continuum contact.
 
+Once the template is published, ask your assistant:
+
+* "Which Forge templates are published and ready to render?"
+* "Make a render set from the spring promo template with these three headlines."
+* "Preview the render for that set, and show me where each version will go before anything is queued."
+
 ## What's next
 
 * [Back to overview](https://docs.trycontinuum.ai/forge/after-effects/overview.md): Review how integration works and the key terms.
@@ -7975,83 +7992,83 @@ Find your problem below. Each answer says what's happening and what to do.
 
 ## In your AI assistant
 
-> [accordion] I added the connector but can't see Continuum in my chat
->
-> Check the Continuum connector is switched on for this chat, or start a new chat. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first.
+### I added the connector but can't see Continuum in my chat
 
-> [accordion] It can't find my brand
->
-> Ask "Which brands can I access?" If yours isn't listed, ask an Admin or Owner on that brand to invite you in Continuum.
+Check the Continuum connector is switched on for this chat, or start a new chat. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first.
 
-> [accordion] I'm not sure which accounts are connected
->
-> Ask "Which platforms are connected to our brand?" You can connect anything missing from the same chat.
+### It can't find my brand
 
-> [accordion] It asks me to pick a brand or connect an account
->
-> That's normal. Answer the question, or open the link it gives you. Links work for 10 minutes.
+Ask "Which brands can I access?" If yours isn't listed, ask an Admin or Owner on that brand to invite you in Continuum.
 
-> [accordion] An account won't connect, or a post can't be published
->
-> First ask "Is our Instagram connection healthy?" (or whichever platform). If the connection has lapsed, ask Continuum to reconnect it, or re-sync it in the app (see [In the app](#in-the-app)). If that platform doesn't support publishing from your assistant yet, Continuum says so. See [Good to know](https://docs.trycontinuum.ai/mcp/limits.md).
+### I'm not sure which accounts are connected
 
-> [accordion] It says my brand isn't ready
->
-> Finish [setting up your brand](https://docs.trycontinuum.ai/brand/setup.md) in the Continuum app so your brand book can be built, then try again. Until then, you can still connect your accounts and look at your performance.
+Ask "Which platforms are connected to our brand?" You can connect anything missing from the same chat.
 
-> [accordion] I'm not sure what the assistant just did
->
-> Open **Settings → Activity** in Continuum. It lists every action you've taken through your assistant, and when. If something looks wrong, revoke the connection under **Settings → Connections** and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+### It asks me to pick a brand or connect an account
 
-> [accordion] It says I don't have permission
->
-> Your role doesn't allow that action. Viewers can read; asking Jaina or the Organic agent, and anything that creates, changes, or runs, needs Operator; switching on an ad needs an Admin or Owner. Ask an Admin or Owner on your brand. See [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md).
+That's normal. Answer the question, or open the link it gives you. Links work for 10 minutes.
 
-> [accordion] It says my session has expired
->
-> Remove the Continuum connector in your assistant's settings and add it again. You'll be asked to sign in to Continuum once more.
+### An account won't connect, or a post can't be published
 
-> [accordion] ChatGPT won't finish signing in
->
-> Check you used the ChatGPT address: `https://api.trycontinuum.ai/mcp/chatgpt`.
+First ask "Is our Instagram connection healthy?" (or whichever platform). If the connection has lapsed, ask Continuum to reconnect it, or re-sync it in the app (see [In the app](#in-the-app)). If that platform doesn't support publishing from your assistant yet, Continuum says so. See [Good to know](https://docs.trycontinuum.ai/mcp/limits.md).
 
-> [accordion] It says I've hit a limit
->
-> Bigger jobs, like generating creative, have hourly limits to protect your budget. Ask for a smaller batch, such as three versions instead of ten, or try again in about an hour. The message says how long to wait.
+### It says my brand isn't ready
 
-> [accordion] It's taking a while
->
-> Answers and reports usually take a minute or two. Images and video can take several minutes. Ask "Is it done yet?" to check, or come back to the same chat later.
+Finish [setting up your brand](https://docs.trycontinuum.ai/brand/setup.md) in the Continuum app so your brand book can be built, then try again. Until then, you can still connect your accounts and look at your performance.
+
+### I'm not sure what the assistant just did
+
+Open **Settings → Activity** in Continuum. It lists every action you've taken through your assistant, and when. If something looks wrong, revoke the connection under **Settings → Connections** and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+
+### It says I don't have permission
+
+Your role doesn't allow that action. Viewers can read; asking Jaina or the Organic agent, and anything that creates, changes, or runs, needs Operator; switching on an ad needs an Admin or Owner. Ask an Admin or Owner on your brand. See [Roles & permissions](https://docs.trycontinuum.ai/settings/roles.md).
+
+### It says my session has expired
+
+Remove the Continuum connector in your assistant's settings and add it again. You'll be asked to sign in to Continuum once more.
+
+### ChatGPT won't finish signing in
+
+Check you used the ChatGPT address: `https://api.trycontinuum.ai/mcp/chatgpt`.
+
+### It says I've hit a limit
+
+Bigger jobs, like generating creative, have hourly limits to protect your budget. Ask for a smaller batch, such as three versions instead of ten, or try again in about an hour. The message says how long to wait.
+
+### It's taking a while
+
+Answers and reports usually take a minute or two. Images and video can take several minutes. Ask "Is it done yet?" to check, or come back to the same chat later.
 
 ## In the app
 
-> [accordion] An integration shows as stale or disconnected
->
-> A connection goes stale when its token expires or the account password changes. Open **Settings → Integrations**, find the affected connection, and select **Re-sync** to restore data collection. See [Integrations](https://docs.trycontinuum.ai/integrations.md).
+### An integration shows as stale or disconnected
 
-> [accordion] No data is showing in analytics
->
-> Data appears only for accounts you've **assigned** to the active brand. Connecting a provider isn't enough — assign the specific ad or social accounts to this brand under **Settings → Integrations**, then give background collection time to run.
+A connection goes stale when its token expires or the account password changes. Open **Settings → Integrations**, find the affected connection, and select **Re-sync** to restore data collection. See [Integrations](https://docs.trycontinuum.ai/integrations.md).
 
-> [accordion] Performance+ or Organic+ is locked
->
-> Each product line is part of a plan. If one is locked, check the brand's plans under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md) and [pricing](https://trycontinuum.ai/#pricing).
+### No data is showing in analytics
 
-> [accordion] Generation stopped on the canvas
->
-> The brand may be out of Canvas credits. Buy a credit pack or turn on auto-billing under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md).
+Data appears only for accounts you've **assigned** to the active brand. Connecting a provider isn't enough — assign the specific ad or social accounts to this brand under **Settings → Integrations**, then give background collection time to run.
 
-> [accordion] Brand Spy has no competitor posts
->
-> Tracking a competitor's organic posts relies on Instagram data. Connect an Instagram account in [Integrations](https://docs.trycontinuum.ai/integrations.md), then add competitors in Brand Spy's **Competitors** tab. See [Brand Spy](https://docs.trycontinuum.ai/brand/spy.md).
+### Performance+ or Organic+ is locked
 
-> [accordion] My brand book looks thin or empty
->
-> If your brand book is empty, open **Settings → Brand Intelligence** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](https://docs.trycontinuum.ai/settings/knowledge.md), then recalculate your [readiness score](https://docs.trycontinuum.ai/brand/readiness.md).
+Each product line is part of a plan. If one is locked, check the brand's plans under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md) and [pricing](https://trycontinuum.ai/#pricing).
 
-> [accordion] A canvas node won't run
->
-> A generation node runs only once every input it depends on has valid data. Check that upstream nodes show **Done**, that required connections are made, and that you've selected a model. A node that failed shows **Error**. See [Working on the canvas](https://docs.trycontinuum.ai/canvas/working-on-the-canvas.md).
+### Generation stopped on the canvas
+
+The brand may be out of Canvas credits. Buy a credit pack or turn on auto-billing under **Settings → Billing**. See [Billing](https://docs.trycontinuum.ai/settings/billing.md).
+
+### Brand Spy has no competitor posts
+
+Tracking a competitor's organic posts relies on Instagram data. Connect an Instagram account in [Integrations](https://docs.trycontinuum.ai/integrations.md), then add competitors in Brand Spy's **Competitors** tab. See [Brand Spy](https://docs.trycontinuum.ai/brand/spy.md).
+
+### My brand book looks thin or empty
+
+If your brand book is empty, open **Settings → Brand Intelligence** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](https://docs.trycontinuum.ai/settings/knowledge.md), then recalculate your [readiness score](https://docs.trycontinuum.ai/brand/readiness.md).
+
+### A canvas node won't run
+
+A generation node runs only once every input it depends on has valid data. Check that upstream nodes show **Done**, that required connections are made, and that you've selected a model. A node that failed shows **Error**. See [Working on the canvas](https://docs.trycontinuum.ai/canvas/working-on-the-canvas.md).
 
 ## Still stuck?
 

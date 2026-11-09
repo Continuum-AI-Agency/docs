@@ -91,12 +91,58 @@ Which version of this creative is winning, and where is it running (last 7 days)
 }
 ```
 
+Import a running Meta ad creative into the Library so it can be reviewed:
+
+```json
+{
+  "name": "library_manage",
+  "arguments": {
+    "action": "import_ad_creative",
+    "creativeRowId": "00000000-0000-0000-0000-000000000000"
+  }
+}
+```
+
+Leave a timestamped comment on a video:
+
+```json
+{
+  "name": "library_manage",
+  "arguments": {
+    "action": "comment_add",
+    "assetId": "00000000-0000-0000-0000-000000000000",
+    "body": "Tighten the hook — cut to the product by second 2.",
+    "annotation": {
+      "kind": "time",
+      "timeMs": 2000
+    }
+  }
+}
+```
+
+Approve an asset:
+
+```json
+{
+  "name": "library_manage",
+  "arguments": {
+    "action": "set_review_status",
+    "assetId": "00000000-0000-0000-0000-000000000000",
+    "toStatus": "approved",
+    "note": "Cleared for paid usage."
+  }
+}
+```
+
 </Visibility>
 
 <Visibility for="agents">
 - Browse approved creatives only: `{"name":"library_manage","arguments":{"action":"browse","reviewStatus":"approved","limit":20}}`
 - Read the feedback on an asset: `{"name":"library_manage","arguments":{"action":"asset_detail","assetId":"00000000-0000-0000-0000-000000000000"}}`
 - Which version of this creative is winning, and where is it running (last 7 days): `{"name":"library_manage","arguments":{"action":"asset_detail","assetId":"00000000-0000-0000-0000-000000000000","window":"d7"}}`
+- Import a running Meta ad creative into the Library so it can be reviewed: `{"name":"library_manage","arguments":{"action":"import_ad_creative","creativeRowId":"00000000-0000-0000-0000-000000000000"}}`
+- Leave a timestamped comment on a video: `{"name":"library_manage","arguments":{"action":"comment_add","assetId":"00000000-0000-0000-0000-000000000000","body":"Tighten the hook — cut to the product by second 2.","annotation":{"kind":"time","timeMs":2000}}}`
+- Approve an asset: `{"name":"library_manage","arguments":{"action":"set_review_status","assetId":"00000000-0000-0000-0000-000000000000","toStatus":"approved","note":"Cleared for paid usage."}}`
 </Visibility>
 
 **Errors and statuses:**

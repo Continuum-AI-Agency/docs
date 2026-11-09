@@ -143,7 +143,7 @@ test('card groups give agents the same links as a plain list', () => {
 test('code fences are for people only, so agent markdown carries no fence metadata', () => {
   for (const page of pages) {
     const text = read(`${page}.mdx`);
-    for (const match of text.matchAll(/^```/gm)) {
+    for (const match of text.matchAll(/^```|^<Accordion /gm)) {
       const before = text.slice(0, match.index);
       assert.ok(before.lastIndexOf('<Visibility for="humans">') > before.lastIndexOf('</Visibility>'),
         `${page}: code fence outside <Visibility for="humans"> (give agents an inline-code twin)`);
