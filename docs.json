@@ -116,6 +116,7 @@
               "mcp/tools/creative",
               "mcp/tools/library",
               "mcp/tools/forge",
+              "mcp/tools/unlisted",
               "mcp/reference",
               "mcp/agent-brief"
             ]
@@ -138,6 +139,7 @@
               "canvas/nodes/actions",
               "canvas/nodes/delivery",
               "canvas/models",
+              "providers-and-rates",
               "canvas/workflows",
               "canvas/pipelines",
               "canvas/elements",
@@ -204,7 +206,6 @@
               "settings/roles",
               "settings/connections",
               "settings/billing",
-              "providers-and-rates",
               "security"
             ]
           }

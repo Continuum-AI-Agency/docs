@@ -64,6 +64,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 List campaigns:
 
 ```json
@@ -123,6 +124,14 @@ Cut an ad set to ages 18–55:
 }
 ```
 
+</Visibility>
+
+<Visibility for="agents">
+- List campaigns: `{"name":"paid_manage","arguments":{"action":"hierarchy","params":{"platform":"meta_ads","ad_account_id":"act_123","level":"campaign"}}}`
+- Preview a campaign: `{"name":"paid_manage","arguments":{"action":"create_campaign","params":{"mode":"preview","platform":"meta_ads","ad_account_id":"act_123","campaign":{"name":"Spring","objective":"OUTCOME_TRAFFIC","daily_budget":1000}}}}`
+- Cut an ad set to ages 18–55: `{"name":"paid_manage","arguments":{"action":"update_entity","params":{"mode":"preview","platform":"meta_ads","entity_type":"adset","entity_id":"120200000000000000","changes":{"targeting":{"age_max":55}}}}}`
+</Visibility>
+
 **Errors and statuses:**
 
 | Code | When |
@@ -165,6 +174,7 @@ Your brand's campaign naming convention.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 The Meta naming convention:
 
 ```json
@@ -175,6 +185,12 @@ The Meta naming convention:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- The Meta naming convention: `{"name":"paid_naming_schema_get","arguments":{"platform":"meta"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -218,6 +234,7 @@ Portfolios, pending recommendations, performance, and the optimization log.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 A portfolio's pending recommendations:
 
 ```json
@@ -230,6 +247,12 @@ A portfolio's pending recommendations:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- A portfolio's pending recommendations: `{"name":"optimizer_query","arguments":{"action":"pending_recs","brand_id":"5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92","portfolio_id":"3f6b2c1e-8a4d-4f7b-9c2e-1d5a7b9e0c43"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -273,6 +296,7 @@ Approves or rejects recommendations and manages portfolios.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Approve one recommendation (the approval is the yes):
 
 ```json
@@ -288,6 +312,12 @@ Approve one recommendation (the approval is the yes):
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Approve one recommendation (the approval is the yes): `{"name":"optimizer_manage","arguments":{"action":"set_recommendation_status","payload":{"portfolio_id":"3f6b2c1e-8a4d-4f7b-9c2e-1d5a7b9e0c43","recommendation_id":"9a1d4e7c-2b6f-4c8a-b3e5-7f0d2a6c9b18","status":"approved"}}}`
+</Visibility>
 
 **Errors and statuses:**
 

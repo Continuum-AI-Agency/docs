@@ -61,6 +61,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Read the current canvas:
 
 ```json
@@ -117,6 +118,14 @@ Rename a saved workflow:
 }
 ```
 
+</Visibility>
+
+<Visibility for="agents">
+- Read the current canvas: `{"name":"studio_workflow","arguments":{"action":"get"}}`
+- Build an image workflow onto the canvas: `{"name":"studio_workflow","arguments":{"action":"build","target":"canvas","nodes":[{"ref":"prompt","type":"string","data":{"value":"a sneaker on concrete"}},{"ref":"img","type":"nanoGen"}],"connections":[{"from_ref":"prompt","to_ref":"img","role":"prompt"}]}}`
+- Rename a saved workflow: `{"name":"studio_workflow","arguments":{"action":"rename","workflow_id":"wf_123","name":"Summer launch"}}`
+</Visibility>
+
 **Errors and statuses:**
 
 | Code | When |
@@ -166,6 +175,7 @@ Previews and sends finished creative to a planned post, an organic publish, or a
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Find organic drafts to deliver to:
 
 ```json
@@ -196,6 +206,13 @@ Preview attaching a creative to a Planner draft:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Find organic drafts to deliver to: `{"name":"studio_deliver","arguments":{"action":"find_targets","target_type":"organic_draft","format":"image"}}`
+- Preview attaching a creative to a Planner draft: `{"name":"studio_deliver","arguments":{"action":"preview","intent":"attach_to_planner","draft_id":"00000000-0000-0000-0000-000000000000","expected_updated_at":"2026-07-24T00:00:00.000Z","format":"image","asset_ids":["11111111-1111-4111-8111-111111111111"]}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -235,6 +252,7 @@ Finds your team's saved pipelines.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Find a saved pipeline:
 
 ```json
@@ -246,6 +264,12 @@ Find a saved pipeline:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Find a saved pipeline: `{"name":"pipeline_search","arguments":{"query":"product photo to lifestyle","limit":5}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -279,6 +303,7 @@ Shows what a pipeline needs.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 What a pipeline needs:
 
 ```json
@@ -289,6 +314,12 @@ What a pipeline needs:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- What a pipeline needs: `{"name":"pipeline_describe","arguments":{"pipeline_id":"1c4e7a9d-3b5f-4d2a-8e6c-9f0b2d4a6c81"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -335,6 +366,7 @@ Runs a pipeline, up to 10 versions per request.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Run a pipeline twice with different headlines:
 
 ```json
@@ -368,6 +400,12 @@ Run a pipeline twice with different headlines:
 }
 ```
 
+</Visibility>
+
+<Visibility for="agents">
+- Run a pipeline twice with different headlines: `{"name":"pipeline_invoke","arguments":{"pipeline_id":"1c4e7a9d-3b5f-4d2a-8e6c-9f0b2d4a6c81","family_id":"6d9b2f4a-8c1e-4f3b-b7d5-2a4c6e8f0b39","revision":3,"contract_hash":"4e9f1c7a2b8d3e6f0a5c9b1d7e2f4a8c6b0d3e5f7a9c1b2d4e6f8a0c2e4b6d81","idempotency_key":"autumn-launch-2026-11-09","runs":[{"text_inputs":[{"input_id":"headline","value":"Autumn roast, out now"}]},{"text_inputs":[{"input_id":"headline","value":"Limited batch: autumn roast"}]}]}}`
+</Visibility>
+
 **Errors and statuses:**
 
 | Code | When |
@@ -400,6 +438,7 @@ Checks a pipeline run.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Check a run:
 
 ```json
@@ -412,6 +451,12 @@ Check a run:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Check a run: `{"name":"pipeline_run_status","arguments":{"run_ids":["f4a8c2e6-0b3d-4a7f-9c1e-5b7d9f1a3c62"]}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -444,6 +489,7 @@ Lists your saved Elements.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Every Element this brand has saved:
 
 ```json
@@ -463,6 +509,13 @@ Only the products, before wiring an element node:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Every Element this brand has saved: `{"name":"list_elements","arguments":{}}`
+- Only the products, before wiring an element node: `{"name":"list_elements","arguments":{"category":"product"}}`
+</Visibility>
 
 **Errors and statuses:**
 

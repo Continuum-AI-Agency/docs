@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { actionInputs, areas, codeMeaning, factOverrides, goodToKnow, integrationNotes, needs, roles, terms } from './mcp-notes.mjs';
+import { actionInputs, areas, codeMeaning, factOverrides, goodToKnow, integrationNotes, needs, roleLevels, roles, terms } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
@@ -125,9 +125,13 @@ function toolSection(tool, oneLiner) {
   } else {
     out += `**Inputs:** none.\n`;
   }
-  out += `\n**Examples** (IDs are illustrative; use the ones earlier calls return):\n\n`;
-  for (const example of tool.examples.slice(0, 3))
+  // People get highlighted JSON. Agents get one call per line in inline code: Mintlify's markdown
+  // export adds theme metadata to every code fence, which inline code avoids.
+  const calls = tool.examples.slice(0, 3);
+  out += `\n**Examples** (IDs are illustrative; use the ones earlier calls return):\n\n<Visibility for="humans">\n`;
+  for (const example of calls)
     out += `${cell(example.title)}:\n\n\`\`\`json\n${JSON.stringify({ name: tool.name, arguments: example.arguments }, null, 2)}\n\`\`\`\n\n`;
+  out += `</Visibility>\n\n<Visibility for="agents">\n${calls.map(e => `- ${cell(e.title)}: \`${JSON.stringify({ name: tool.name, arguments: e.arguments })}\``).join('\n')}\n</Visibility>\n\n`;
   out += `**Errors and statuses:**\n\n| Code | When |\n| --- | --- |\n`;
   for (const e of errors(tool)) out += `| ${code(e.code)} | ${cell(e.when)} |\n`;
   if (tool.relatedTools.length) out += `\n**Related:** ${tool.relatedTools.map(code).join(', ')}.\n`;
@@ -145,6 +149,18 @@ function connections(tool) {
   if (tool.delegateIntegrations?.length)
     return `The one for what you act on: ${tool.delegateIntegrations.map(p => PLATFORM[p] ?? p).join(', ')}.`;
   return null;
+}
+
+// Machine-readable role: the minimum brand role, plus per-action roles where they differ.
+function roleFields(tool) {
+  const levels = roleLevels[tool.name];
+  const base = tool.surface.requiresRole ?? levels?.all ?? (tool.brandScoped ? 'viewer' : 'none');
+  if (!levels || !tool.actions) return { role: base };
+  const byAction = Object.fromEntries(tool.actions.map(a => [a.name,
+    ['viewer', 'operator', 'admin'].find(r => levels[r]?.includes(a.name)) ?? levels.all]));
+  for (const r of ['viewer', 'operator', 'admin'])
+    for (const action of levels[r] ?? []) assert.ok(action in byAction, `roleLevels: ${tool.name} has no action ${action}`);
+  return { role: base, roleByAction: byAction };
 }
 
 export function buildOutputs(source) {
@@ -197,8 +213,16 @@ export function buildOutputs(source) {
   overview += `## Not in the tool list\n\nThese are registered and callable by name, but \`tools/list\` doesn't advertise them: most are writes and helpers the listed tools reach for you. Use the listed tool unless a result or a tool description names one of these. Their full schemas come from \`help_describe\`.\n\n| Tool | What the server says it does | Changes things |\n| --- | --- | --- |\n`;
   // A whole tool that isn't built yet, as opposed to one unsupported input ("Non-Instagram platforms not yet supported").
   const unbuilt = (t) => t.commonErrors.some(e => e.code === 'NOT_IMPLEMENTED' && /not yet implemented/i.test(e.reason));
+  const unlistedLine = (t) => `${srv(t.summary)}${unbuilt(t) ? ' **Not available yet:** it returns `NOT_IMPLEMENTED`.' : ''}`;
   for (const t of internal)
-    overview += `| ${code(t.name)} | ${cell(srv(t.summary))}${unbuilt(t) ? ' **Not available yet:** it returns `NOT_IMPLEMENTED`.' : ''} | ${t.mutates ? 'Yes' : 'No'} |\n`;
+    overview += `| [${code(t.name)}](/mcp/tools/unlisted#${anchor(t.name)}) | ${cell(unlistedLine(t))} | ${t.mutates ? 'Yes' : 'No'} |\n`;
+  let unlisted = `---\ntitle: "Tools not in the tool list"\nsidebarTitle: "Not in the tool list"\ndescription: "The ${internal.length} tools the server accepts by name but doesn't advertise in tools/list: what each needs, its inputs, example calls, and errors."\n---\n\n${header}\n`;
+  unlisted += `${checked} These tools are registered and callable by name, but \`tools/list\` doesn't advertise them: most are writes and helpers the listed tools reach for you. Use the listed tool unless a result or a tool description names one of these, and fetch the live schema with \`help_describe\` first.\n\n| Tool | What it does | Changes things |\n| --- | --- | --- |\n`;
+  for (const t of internal) unlisted += `| [${code(t.name)}](#${anchor(t.name)}) | ${cell(unlistedLine(t))} | ${t.mutates ? 'Yes' : 'No'} |\n`;
+  unlisted += `\n`;
+  for (const t of internal) unlisted += toolSection(t, cell(unlistedLine(t)));
+  unlisted += `## What's next\n\n${next([['All tools', 'toolbox', '/mcp/tools', 'Every tool on one page, and the machine-readable index.'], ['Agent brief', 'robot', '/mcp/agent-brief', 'How an assistant should use these tools.']])}`;
+  files['mcp/tools/unlisted.mdx'] = unlisted;
   overview += `\n## Ready-made prompts\n\nThe connector also offers three prompts your assistant may list in its menu:\n\n| Prompt | What it does |\n| --- | --- |\n| \`analytics-weekly-review\` | A weekly review across social and ads. |\n| \`analytics-top-and-bottom-posts\` | Your best and worst organic posts, and why. |\n| \`analytics-top-and-bottom-ads\` | Your best and worst ads, and why. |\n\n`;
   overview += `## What's next\n\n${next([['Agent brief', 'robot', '/mcp/agent-brief', 'How an assistant should use these tools.'], ['Server reference', 'server', '/mcp/reference', 'Endpoints, sign-in, confirmations, result codes, and limits.']])}`;
   files['mcp/tools.mdx'] = overview;
@@ -217,9 +241,9 @@ export function buildOutputs(source) {
         name: t.name,
         listed: t.state === 'advertised',
         ...(unbuilt(t) ? { available: false } : {}),
-        ...(area ? { area: area.slug, docs: `${SITE}/mcp/tools/${area.slug}#${anchor(t.name)}`, summary: area.tools[t.name].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : { summary: retire(t.summary) }),
+        ...(area ? { area: area.slug, docs: `${SITE}/mcp/tools/${area.slug}#${anchor(t.name)}`, summary: area.tools[t.name].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : { docs: `${SITE}/mcp/tools/unlisted#${anchor(t.name)}`, summary: retire(t.summary) }),
         mutates: t.mutates,
-        role: t.surface.requiresRole ?? null,
+        ...roleFields(t),
         integration: t.surface.requiresIntegration ?? null,
         ...(connections(t) ? { connectionNote: connections(t).replace(/`/g, '') } : {}),
         brandScoped: t.brandScoped,
@@ -261,7 +285,9 @@ function llms(index, files) {
   const entry = (page, prefix = '') => {
     const { title, description } = front(page);
     assert.ok(title && description, `${page}: frontmatter needs a title and description`);
-    return `- [${prefix}${title}](${SITE}/${page}.md): ${description}`;
+    // Skip the group prefix when the title already names it ("AI Canvas", "Forge").
+    const label = prefix && title.startsWith(prefix.replace(/: $/, '')) ? title : `${prefix}${title}`;
+    return `- [${label}](${SITE}/${page}.md): ${description}`;
   };
   // The agent brief is already the first entry under For agents.
   const walk = (group, prefix = '') => group.pages.flatMap(item => typeof item === 'string'

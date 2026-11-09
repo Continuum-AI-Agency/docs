@@ -139,3 +139,31 @@ test('card groups give agents the same links as a plain list', () => {
     }
   }
 });
+
+test('code fences are for people only, so agent markdown carries no fence metadata', () => {
+  for (const page of pages) {
+    const text = read(`${page}.mdx`);
+    for (const match of text.matchAll(/^```/gm)) {
+      const before = text.slice(0, match.index);
+      assert.ok(before.lastIndexOf('<Visibility for="humans">') > before.lastIndexOf('</Visibility>'),
+        `${page}: code fence outside <Visibility for="humans"> (give agents an inline-code twin)`);
+    }
+  }
+});
+
+test('llms-full.txt is current: every page, in order, with its title, description, and headings', () => {
+  const full = read('llms-full.txt');
+  const sections = full.split(/\n(?=# )/).slice(1);
+  const navPages = flatten(nav.navigation).filter(p => existsSync(resolve(root, `${p}.mdx`)));
+  assert.deepEqual(sections.map(s => s.match(/^Source: https:\/\/docs\.trycontinuum\.ai\/(.*)$/m)?.[1]), navPages,
+    'llms-full.txt is stale: run `node scripts/llms-full.mjs http://localhost:3000` with mint dev running');
+  for (const [i, page] of navPages.entries()) {
+    const text = read(`${page}.mdx`);
+    const field = (key) => text.match(new RegExp(`^${key}: "(.*)"$`, 'm'))[1];
+    assert.ok(sections[i].startsWith(`# ${field('title')}\n`), `llms-full.txt: stale title for ${page}`);
+    assert.ok(sections[i].includes(`> ${field('description')}`), `llms-full.txt: stale description for ${page}`);
+    const prose = text.replace(/^```[\s\S]*?^```/gm, '');
+    for (const [, heading] of prose.matchAll(/^## (.+)$/gm))
+      assert.ok(sections[i].includes(`## ${heading.replace(/[*`]/g, '')}`) || sections[i].includes(`## ${heading}`), `llms-full.txt: ${page} lacks "## ${heading}"`);
+  }
+});

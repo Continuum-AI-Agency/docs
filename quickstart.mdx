@@ -79,9 +79,15 @@ Sign in to Continuum, pick the brand to connect, and click **Allow access**.
 
 ### Claude Code
 
+<Visibility for="humans">
 ```bash
 claude mcp add --transport http continuum https://api.trycontinuum.ai/mcp
 ```
+</Visibility>
+
+<Visibility for="agents">
+Run `claude mcp add --transport http continuum https://api.trycontinuum.ai/mcp`.
+</Visibility>
 
 Then run `/mcp` inside Claude Code, choose `continuum`, and sign in to Continuum in the browser window it opens.
 
@@ -89,6 +95,7 @@ Then run `/mcp` inside Claude Code, choose `continuum`, and sign in to Continuum
 
 Add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor/mcp.json` for one project:
 
+<Visibility for="humans">
 ```json ~/.cursor/mcp.json
 {
   "mcpServers": {
@@ -98,6 +105,11 @@ Add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor
   }
 }
 ```
+</Visibility>
+
+<Visibility for="agents">
+In `~/.cursor/mcp.json`: `{"mcpServers":{"continuum":{"url":"https://api.trycontinuum.ai/mcp"}}}`
+</Visibility>
 
 Open **Cursor Settings → MCP**, find `continuum`, and sign in to Continuum when Cursor asks.
 
@@ -105,6 +117,7 @@ Open **Cursor Settings → MCP**, find `continuum`, and sign in to Continuum whe
 
 Run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Continuum to `.vscode/mcp.json`:
 
+<Visibility for="humans">
 ```json .vscode/mcp.json
 {
   "servers": {
@@ -115,15 +128,26 @@ Run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Con
   }
 }
 ```
+</Visibility>
+
+<Visibility for="agents">
+In `.vscode/mcp.json`: `{"servers":{"continuum":{"type":"http","url":"https://api.trycontinuum.ai/mcp"}}}`
+</Visibility>
 
 The first time Copilot uses it, VS Code opens a browser window to sign in to Continuum.
 
 ### Codex
 
+<Visibility for="humans">
 ```bash
 codex mcp add continuum --url https://api.trycontinuum.ai/mcp
 codex mcp login continuum
 ```
+</Visibility>
+
+<Visibility for="agents">
+Run `codex mcp add continuum --url https://api.trycontinuum.ai/mcp`, then `codex mcp login continuum`.
+</Visibility>
 
 The login command opens a browser window to sign in to Continuum.
 
@@ -191,6 +215,7 @@ You get one recommendation and the reason for it. Nothing is changed until you a
 
 Paste this into a new chat once the connector is on. Your assistant runs the five steps above and stops to ask you before connecting anything.
 
+<Visibility for="humans">
 ```text Paste into Claude or ChatGPT
 Use the Continuum connector. Tell me which brand I'm on and which platforms are
 connected. If Instagram or Meta ads aren't connected, give me the links to connect
@@ -198,6 +223,11 @@ them and wait. Then read our brand book and summarize how we sound in three line
 show me last week's results on Instagram and Meta ads, and finish with the one thing
 we should do this week.
 ```
+</Visibility>
+
+<Visibility for="agents">
+> Use the Continuum connector. Tell me which brand I'm on and which platforms are connected. If Instagram or Meta ads aren't connected, give me the links to connect them and wait. Then read our brand book and summarize how we sound in three lines, show me last week's results on Instagram and Meta ads, and finish with the one thing we should do this week.
+</Visibility>
 
 ## What's next
 

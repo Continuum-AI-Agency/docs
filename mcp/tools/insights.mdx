@@ -53,6 +53,7 @@ Organic, paid, and website results by platform: accounts, top posts, campaigns, 
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Top Instagram posts by engagement, last 30 days:
 
 ```json
@@ -81,6 +82,13 @@ Meta ad account overview, last 7 days:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Top Instagram posts by engagement, last 30 days: `{"name":"analytics_query","arguments":{"platform":"instagram","scope":"top_posts","metric":"engagement_rate","date_window":"last_30d","top_n":5}}`
+- Meta ad account overview, last 7 days: `{"name":"analytics_query","arguments":{"platform":"meta","account_id":"act_1234567890","scope":"overview","date_window":"last_7d"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -121,6 +129,7 @@ Ranks your Meta ad creatives by video retention: hook rate and hold rate.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Top 10 IG ads:
 
 ```json
@@ -133,6 +142,12 @@ Top 10 IG ads:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Top 10 IG ads: `{"name":"analytics_creative_insights","arguments":{"platform":"meta_ads","lookback_days":30,"top_n":10}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -172,6 +187,7 @@ Spend, conversions, cost per acquisition, and return on ad spend across your con
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Spend last 30d:
 
 ```json
@@ -186,6 +202,12 @@ Spend last 30d:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Spend last 30d: `{"name":"analytics_cross_platform_spend","arguments":{"platforms":["meta_ads"],"since":"2026-04-01","until":"2026-04-30"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -224,6 +246,7 @@ Which Meta campaigns are pacing ahead of or behind budget, with a 0–100 health
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Pacing health:
 
 ```json
@@ -235,6 +258,12 @@ Pacing health:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Pacing health: `{"name":"analytics_pacing_diagnostic","arguments":{"platform":"meta_ads","ad_account_id":"act_123"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -273,6 +302,7 @@ Your Meta audiences, ad set targeting, and demographic and placement breakdowns.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 List custom audiences:
 
 ```json
@@ -299,6 +329,13 @@ Results by age, last 30 days:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- List custom audiences: `{"name":"audience_query","arguments":{"action":"list_audiences","ad_account_id":"act_1234567890","kind":"custom"}}`
+- Results by age, last 30 days: `{"name":"audience_query","arguments":{"action":"breakdown","ad_account_id":"act_1234567890","dimension":"age","date_window":"last_30d"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -340,6 +377,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Inventory + leaderboards:
 
 ```json
@@ -378,6 +416,14 @@ Read one insight:
 }
 ```
 
+</Visibility>
+
+<Visibility for="agents">
+- Inventory + leaderboards: `{"name":"creative_strategy","arguments":{"action":"overview"}}`
+- Find winning hooks: `{"name":"creative_strategy","arguments":{"action":"search","query":"curiosity hook","kinds":["hook"]}}`
+- Read one insight: `{"name":"creative_strategy","arguments":{"action":"read","insight_id":"hook-problem_agitation"}}`
+</Visibility>
+
 **Errors and statuses:**
 
 | Code | When |
@@ -414,6 +460,7 @@ Your brand's trends report.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Read the brand's trends report:
 
 ```json
@@ -422,6 +469,12 @@ Read the brand's trends report:
   "arguments": {}
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Read the brand's trends report: `{"name":"trends_manage","arguments":{}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -461,6 +514,7 @@ The hashtags people post under on Instagram or TikTok, with post counts and grow
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Trending IG:
 
 ```json
@@ -471,6 +525,12 @@ Trending IG:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Trending IG: `{"name":"intel_trend_discovery","arguments":{"platform":"instagram"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -511,6 +571,7 @@ A digest of what your tracked competitors run in paid ads and post organically, 
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 What competitors ran in paid and organic since August:
 
 ```json
@@ -523,6 +584,12 @@ What competitors ran in paid and organic since August:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- What competitors ran in paid and organic since August: `{"name":"intel_competitor_moves","arguments":{"source":"all","since":"2026-08-01","limit":20}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -569,6 +636,7 @@ Ads from competitors you track, including how long each has run.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Longest-running active competitor ads:
 
 ```json
@@ -583,6 +651,12 @@ Longest-running active competitor ads:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Longest-running active competitor ads: `{"name":"intel_competitor_ads","arguments":{"status":"active","minDaysRunning":30,"sort":"first_seen_at","dir":"asc","limit":10}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -617,6 +691,7 @@ Organic posts from competitors you track.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 One competitor's recent organic posts:
 
 ```json
@@ -628,6 +703,12 @@ One competitor's recent organic posts:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- One competitor's recent organic posts: `{"name":"intel_competitor_organic","arguments":{"competitorRef":"Blue Bottle Coffee","limit":10}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -664,6 +745,7 @@ Looks up any advertiser in the Meta Ad Library.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 A Page's ads:
 
 ```json
@@ -675,6 +757,12 @@ A Page's ads:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- A Page's ads: `{"name":"intel_competitor_ad_library","arguments":{"page_id":"189799134443528","country":"MX"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -716,6 +804,7 @@ Runs a fresh competitor scan, the same as the app's **Scan** button.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Rescan tracked competitors:
 
 ```json
@@ -739,6 +828,13 @@ Track and scan one:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Rescan tracked competitors: `{"name":"intel_competitor_scan","arguments":{}}`
+- Track and scan one: `{"name":"intel_competitor_scan","arguments":{"competitors":[{"name":"Smart Fit"}]}}`
+</Visibility>
 
 **Errors and statuses:**
 

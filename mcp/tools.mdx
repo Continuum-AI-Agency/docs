@@ -125,26 +125,26 @@ These are registered and callable by name, but `tools/list` doesn't advertise th
 
 | Tool | What the server says it does | Changes things |
 | --- | --- | --- |
-| `agent_cancel` | Cancel a running Mode A job by jobId. Aborts the in-process AbortController and, for organic jobs, sends a best-effort HTTP cancel to the agent. | Yes |
-| `brand_context_get` | Read the active brand's voice, mission/vision, negative keywords, primary URLs, and taxonomy tags. | No |
-| `brand_profile_get` | Read the active brand's structured profile sections: voice, pmf (product-market fit), audience, and persona. Use section='all' to retrieve everything or specify a single section. … | No |
-| `brand_voice_validate` | Brand voice rule checker. Validates copy against the brand's banned words (the brand DNA's one list, including brand.md edits), any configured `voice_rules` (required disclosures, e… | No |
-| `insights_get` | Fetch Jaina-generated insights for an account, posts, or campaign with cache-first reads. | No |
-| `intel_audience_push` | Push a list of people (emails/phones/names, hashed server-side) to a Meta customer-list Custom Audience — new or appended. Two-phase: mode='preview' (default) → `confirm_token`; mod… | Yes |
-| `jaina_ask` | Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spend, campaign or ad set/ad performance, pacing, attribution, reporting. Use when the question is about … | Yes |
-| `jaina_pro_run` | Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with }` — poll `jobs_status` for the report (or consume progress frames). | Yes |
-| `mcp_approval_grant` | Grant admin approval for a pending confirm token. The token must have requires.role = 'admin'. After granting, the token's approvals array is updated and the originating tool can … | Yes |
-| `mcp_approvals_list` | List all pending confirm tokens for the current brand that require admin approval. Returns only tokens where requires.role = 'admin'. Admin-only. | No |
-| `organic_ask` | Ask the organic social agent a free-form question about social strategy, captions, hashtags, content ideas, or organic post/account performance. Use when the question is about wha… | Yes |
-| `organic_inbox_list` | List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`. | No |
-| `organic_inbox_reply` | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
-| `organic_media_list` | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
-| `organic_profile_get` | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
-| `organic_workflow_run` | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step`.arguments the … | Yes |
-| `paid_naming_schema_set` | Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '\|') plus an ordered list of field labels (e.g. ['funnel', 'format', 'audience']). Once set, ad… | Yes |
-| `post_audit` | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
-| `post_create_instagram` | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
-| `post_manage` | Manage an existing post: unschedule, reschedule, edit caption, or delete. Use `preview_delete` first for published posts to get a `confirm_token` before deleting. | Yes |
+| [`agent_cancel`](/mcp/tools/unlisted#agent_cancel) | Cancel a running Mode A job by jobId. Aborts the in-process AbortController and, for organic jobs, sends a best-effort HTTP cancel to the agent. | Yes |
+| [`brand_context_get`](/mcp/tools/unlisted#brand_context_get) | Read the active brand's voice, mission/vision, negative keywords, primary URLs, and taxonomy tags. | No |
+| [`brand_profile_get`](/mcp/tools/unlisted#brand_profile_get) | Read the active brand's structured profile sections: voice, pmf (product-market fit), audience, and persona. Use section='all' to retrieve everything or specify a single section. … | No |
+| [`brand_voice_validate`](/mcp/tools/unlisted#brand_voice_validate) | Brand voice rule checker. Validates copy against the brand's banned words (the brand DNA's one list, including brand.md edits), any configured `voice_rules` (required disclosures, e… | No |
+| [`insights_get`](/mcp/tools/unlisted#insights_get) | Fetch Jaina-generated insights for an account, posts, or campaign with cache-first reads. | No |
+| [`intel_audience_push`](/mcp/tools/unlisted#intel_audience_push) | Push a list of people (emails/phones/names, hashed server-side) to a Meta customer-list Custom Audience — new or appended. Two-phase: mode='preview' (default) → `confirm_token`; mod… | Yes |
+| [`jaina_ask`](/mcp/tools/unlisted#jaina_ask) | Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spend, campaign or ad set/ad performance, pacing, attribution, reporting. Use when the question is about … | Yes |
+| [`jaina_pro_run`](/mcp/tools/unlisted#jaina_pro_run) | Run a Jaina Pro long-form report. Returns immediately with `{ job_id, poll_with }` — poll `jobs_status` for the report (or consume progress frames). | Yes |
+| [`mcp_approval_grant`](/mcp/tools/unlisted#mcp_approval_grant) | Grant admin approval for a pending confirm token. The token must have requires.role = 'admin'. After granting, the token's approvals array is updated and the originating tool can … | Yes |
+| [`mcp_approvals_list`](/mcp/tools/unlisted#mcp_approvals_list) | List all pending confirm tokens for the current brand that require admin approval. Returns only tokens where requires.role = 'admin'. Admin-only. | No |
+| [`organic_ask`](/mcp/tools/unlisted#organic_ask) | Ask the organic social agent a free-form question about social strategy, captions, hashtags, content ideas, or organic post/account performance. Use when the question is about wha… | Yes |
+| [`organic_inbox_list`](/mcp/tools/unlisted#organic_inbox_list) | List unified inbox items (DMs, comments, mentions) for a connected Instagram account (cache-first, 30s TTL). **Not available yet:** it returns `NOT_IMPLEMENTED`. | No |
+| [`organic_inbox_reply`](/mcp/tools/unlisted#organic_inbox_reply) | Reply to an inbox item (DM, comment, or mention) on Instagram. **Not available yet:** it returns `NOT_IMPLEMENTED`. | Yes |
+| [`organic_media_list`](/mcp/tools/unlisted#organic_media_list) | List recent organic media for a connected account (cache-first, 5-minute TTL). | No |
+| [`organic_profile_get`](/mcp/tools/unlisted#organic_profile_get) | Fetch the public profile (handle, follower count, picture, bio) for a connected organic account. | No |
+| [`organic_workflow_run`](/mcp/tools/unlisted#organic_workflow_run) | Plan and schedule a week of organic content end-to-end in one call. mode='`plan_week`' starts a run; mode='resume' continues past an approval gate (pass the `next_step`.arguments the … | Yes |
+| [`paid_naming_schema_set`](/mcp/tools/unlisted#paid_naming_schema_set) | Configure the active brand's ad-naming convention for a platform: a delimiter (e.g. '\|') plus an ordered list of field labels (e.g. ['funnel', 'format', 'audience']). Once set, ad… | Yes |
+| [`post_audit`](/mcp/tools/unlisted#post_audit) | Audit a draft or published post for brand voice, hashtags, accessibility, and platform fit. | No |
+| [`post_create_instagram`](/mcp/tools/unlisted#post_create_instagram) | Publish an Instagram image, carousel, or reel. Call with mode='preview' first to validate and get a `confirm_token`, then mode='publish' with the token to execute. | Yes |
+| [`post_manage`](/mcp/tools/unlisted#post_manage) | Manage an existing post: unschedule, reschedule, edit caption, or delete. Use `preview_delete` first for published posts to get a `confirm_token` before deleting. | Yes |
 
 ## Ready-made prompts
 

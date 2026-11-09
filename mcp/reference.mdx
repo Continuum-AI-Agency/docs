@@ -80,7 +80,7 @@ After the person says yes, repeat the call with the **same arguments** and the `
 
 | Detail | Behavior |
 | --- | --- |
-| Lifetime | Set per action and returned as `expires_at`: 10 minutes for ad changes and bulk calendar status changes, 15 minutes for a post approved for publishing, 24 hours for a proposed week plan, 5 minutes for the rest. |
+| Lifetime | Set per action and returned as `expires_at`: 10 minutes for ad changes and bulk calendar status changes, 15 minutes for a post approved for publishing, 30 minutes for a `content_reference` remake, 24 hours for a proposed week plan, 5 minutes for the rest. |
 | Single use | Each token works once. |
 | Bound | Tied to the person, the brand, and the exact arguments. Changed arguments return `VALIDATION_ERROR`. |
 | Missing or expired | Returns `CONFIRMATION_REQUIRED`. Preview again. |
