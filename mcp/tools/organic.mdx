@@ -200,12 +200,57 @@ Structured field change (reschedule a draft):
 }
 ```
 
+Generate the creative — step 1: read the preview waiting for approval:
+
+```json
+{
+  "name": "content_create",
+  "arguments": {
+    "action": "realize",
+    "draftId": "00000000-0000-0000-0000-000000000000"
+  }
+}
+```
+
+Generate the creative — step 2: approve that exact preview and spend:
+
+```json
+{
+  "name": "content_create",
+  "arguments": {
+    "action": "realize",
+    "draftId": "00000000-0000-0000-0000-000000000000",
+    "preview_revision": "the preview_revision step 1 returned"
+  }
+}
+```
+
+Redo slide 2 of a realized carousel on the same draft (then confirm with `approve_with.input`):
+
+```json
+{
+  "name": "content_create",
+  "arguments": {
+    "action": "realize",
+    "draftId": "00000000-0000-0000-0000-000000000000",
+    "regenerate": true,
+    "slides": [
+      2
+    ],
+    "prompt": "warmer, golden-hour light"
+  }
+}
+```
+
 </Visibility>
 
 <Visibility for="agents">
 - Draft a post from a prompt: `{"name":"content_create","arguments":{"action":"draft","prompt":"a Reel about our summer launch","platform":"instagram"}}`
 - Rewrite a draft's caption (natural language): `{"name":"content_create","arguments":{"action":"extend","draftId":"00000000-0000-0000-0000-000000000000","prompt":"Rewrite the caption and CTA in Mexican Spanish; keep the concept and a friendly tone."}}`
 - Structured field change (reschedule a draft): `{"name":"content_create","arguments":{"action":"extend","draftId":"00000000-0000-0000-0000-000000000000","updates":{"scheduled_date":"2026-08-01T15:00:00.000Z"}}}`
+- Generate the creative — step 1: read the preview waiting for approval: `{"name":"content_create","arguments":{"action":"realize","draftId":"00000000-0000-0000-0000-000000000000"}}`
+- Generate the creative — step 2: approve that exact preview and spend: `{"name":"content_create","arguments":{"action":"realize","draftId":"00000000-0000-0000-0000-000000000000","preview_revision":"the preview_revision step 1 returned"}}`
+- Redo slide 2 of a realized carousel on the same draft (then confirm with `approve_with.input`): `{"name":"content_create","arguments":{"action":"realize","draftId":"00000000-0000-0000-0000-000000000000","regenerate":true,"slides":[2],"prompt":"warmer, golden-hour light"}}`
 </Visibility>
 
 **Errors and statuses:**

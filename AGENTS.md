@@ -66,7 +66,7 @@ LinkedIn/TikTok integrations "coming soon."
 - **Happens right away:** rescheduling, caption rewrites, review status, comments; Canvas runs,
   pipeline runs, and video edits/exports (protected by hourly limits); approving a Paid optimization
   recommendation (the approval is the yes).
-- New campaigns are always created **paused**; activating one needs an Admin or Owner's approval (`APPROVAL_REQUIRED` → `mcp_approval_grant`). The Optimizer never pauses ads.
+- New campaigns are always created **paused**; activating one needs an Admin or Owner's approval (`APPROVAL_REQUIRED` → `mcp_approval_grant`). The Optimizer never pauses an ad without a person approving that specific pause.
 - **Settings → Activity** shows each person their own assistant actions; **Settings → Connections** lists
   and revokes connected assistants.
 

@@ -198,12 +198,36 @@ Draft from extracted files and media without a fixed row count:
 }
 ```
 
+Append selected draft rows once:
+
+```json
+{
+  "name": "forge_manage",
+  "arguments": {
+    "action": "apply_suggestions",
+    "setId": "00000000-0000-4000-8000-000000000000",
+    "expectedRevision": 0,
+    "rows": [
+      {
+        "id": "00000000-0000-4000-8000-000000000003",
+        "parentId": null,
+        "label": "Offer",
+        "overrides": {
+          "headline": "Today only"
+        }
+      }
+    ]
+  }
+}
+```
+
 </Visibility>
 
 <Visibility for="agents">
 - Open a signed-in mixed-file handoff: `{"name":"forge_manage","arguments":{"action":"source_begin"}}`
 - Read each uploaded source and its ready ID: `{"name":"forge_manage","arguments":{"action":"source_status","upload_intent_id":"00000000-0000-4000-8000-000000000000"}}`
 - Draft from extracted files and media without a fixed row count: `{"name":"forge_manage","arguments":{"action":"suggest_rows","setId":"00000000-0000-4000-8000-000000000000","documentIds":["00000000-0000-4000-8000-000000000001"],"mediaAssetIds":["00000000-0000-4000-8000-000000000002"],"autoCount":true,"count":10}}`
+- Append selected draft rows once: `{"name":"forge_manage","arguments":{"action":"apply_suggestions","setId":"00000000-0000-4000-8000-000000000000","expectedRevision":0,"rows":[{"id":"00000000-0000-4000-8000-000000000003","parentId":null,"label":"Offer","overrides":{"headline":"Today only"}}]}}`
 </Visibility>
 
 **Errors and statuses:**

@@ -106,7 +106,7 @@
             ]
           },
           {
-            "group": "Reference",
+            "group": "Tool reference",
             "pages": [
               "mcp/tools",
               "mcp/tools/account",
@@ -116,7 +116,12 @@
               "mcp/tools/creative",
               "mcp/tools/library",
               "mcp/tools/forge",
-              "mcp/tools/unlisted",
+              "mcp/tools/unlisted"
+            ]
+          },
+          {
+            "group": "Server and agents",
+            "pages": [
               "mcp/reference",
               "mcp/agent-brief"
             ]
@@ -132,20 +137,25 @@
             "pages": [
               "canvas/overview",
               "canvas/working-on-the-canvas",
+              "canvas/models",
+              "providers-and-rates",
+              "canvas/workflows",
+              "canvas/skills-and-grounding"
+            ]
+          },
+          {
+            "group": "Canvas nodes",
+            "pages": [
               "canvas/nodes/overview",
               "canvas/nodes/image",
               "canvas/nodes/video",
               "canvas/nodes/text-audio-documents",
               "canvas/nodes/actions",
-              "canvas/nodes/delivery",
-              "canvas/models",
-              "providers-and-rates",
-              "canvas/workflows",
-              "canvas/pipelines",
-              "canvas/elements",
-              "canvas/skills-and-grounding"
+              "canvas/nodes/delivery"
             ]
           },
+          "canvas/pipelines",
+          "canvas/elements",
           "canvas/video-studio",
           "canvas/library",
           {

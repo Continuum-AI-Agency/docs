@@ -7,6 +7,7 @@ Find your problem below. Each answer says what's happening and what to do.
 
 ## In your AI assistant
 
+<Visibility for="humans">
 <AccordionGroup>
 <Accordion title="I added the connector but can't see Continuum in my chat">
 Check the Continuum connector is switched on for this chat, or start a new chat. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first.
@@ -45,9 +46,61 @@ Bigger jobs, like generating creative, have hourly limits to protect your budget
 Answers and reports usually take a minute or two. Images and video can take several minutes. Ask "Is it done yet?" to check, or come back to the same chat later.
 </Accordion>
 </AccordionGroup>
+</Visibility>
+
+<Visibility for="agents">
+### I added the connector but can't see Continuum in my chat
+
+Check the Continuum connector is switched on for this chat, or start a new chat. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first.
+
+### It can't find my brand
+
+Ask "Which brands can I access?" If yours isn't listed, ask an Admin or Owner on that brand to invite you in Continuum.
+
+### I'm not sure which accounts are connected
+
+Ask "Which platforms are connected to our brand?" You can connect anything missing from the same chat.
+
+### It asks me to pick a brand or connect an account
+
+That's normal. Answer the question, or open the link it gives you. Links work for 10 minutes.
+
+### An account won't connect, or a post can't be published
+
+First ask "Is our Instagram connection healthy?" (or whichever platform). If the connection has lapsed, ask Continuum to reconnect it, or re-sync it in the app (see [In the app](#in-the-app)). If that platform doesn't support publishing from your assistant yet, Continuum says so. See [Good to know](/mcp/limits).
+
+### It says my brand isn't ready
+
+Finish [setting up your brand](/brand/setup) in the Continuum app so your brand book can be built, then try again. Until then, you can still connect your accounts and look at your performance.
+
+### I'm not sure what the assistant just did
+
+Open **Settings → Activity** in Continuum. It lists every action you've taken through your assistant, and when. If something looks wrong, revoke the connection under **Settings → Connections** and contact [support@trycontinuum.ai](mailto:support@trycontinuum.ai).
+
+### It says I don't have permission
+
+Your role doesn't allow that action. Viewers can read; asking Jaina or the Organic agent, and anything that creates, changes, or runs, needs Operator; switching on an ad needs an Admin or Owner. Ask an Admin or Owner on your brand. See [Roles & permissions](/settings/roles).
+
+### It says my session has expired
+
+Remove the Continuum connector in your assistant's settings and add it again. You'll be asked to sign in to Continuum once more.
+
+### ChatGPT won't finish signing in
+
+Check you used the ChatGPT address: `https://api.trycontinuum.ai/mcp/chatgpt`.
+
+### It says I've hit a limit
+
+Bigger jobs, like generating creative, have hourly limits to protect your budget. Ask for a smaller batch, such as three versions instead of ten, or try again in about an hour. The message says how long to wait.
+
+### It's taking a while
+
+Answers and reports usually take a minute or two. Images and video can take several minutes. Ask "Is it done yet?" to check, or come back to the same chat later.
+</Visibility>
 
 ## In the app
 
+<Visibility for="humans">
 <AccordionGroup>
 
 <Accordion title="An integration shows as stale or disconnected">
@@ -79,6 +132,37 @@ A generation node runs only once every input it depends on has valid data. Check
 </Accordion>
 
 </AccordionGroup>
+</Visibility>
+
+<Visibility for="agents">
+### An integration shows as stale or disconnected
+
+A connection goes stale when its token expires or the account password changes. Open **Settings → Integrations**, find the affected connection, and select **Re-sync** to restore data collection. See [Integrations](/integrations).
+
+### No data is showing in analytics
+
+Data appears only for accounts you've **assigned** to the active brand. Connecting a provider isn't enough — assign the specific ad or social accounts to this brand under **Settings → Integrations**, then give background collection time to run.
+
+### Performance+ or Organic+ is locked
+
+Each product line is part of a plan. If one is locked, check the brand's plans under **Settings → Billing**. See [Billing](/settings/billing) and [pricing](https://trycontinuum.ai/#pricing).
+
+### Generation stopped on the canvas
+
+The brand may be out of Canvas credits. Buy a credit pack or turn on auto-billing under **Settings → Billing**. See [Billing](/settings/billing).
+
+### Brand Spy has no competitor posts
+
+Tracking a competitor's organic posts relies on Instagram data. Connect an Instagram account in [Integrations](/integrations), then add competitors in Brand Spy's **Competitors** tab. See [Brand Spy](/brand/spy).
+
+### My brand book looks thin or empty
+
+If your brand book is empty, open **Settings → Brand Intelligence** and select **Generate Brand Book** to build it from your website. Improve it over time by filling gaps and adding documents to your [knowledge base](/settings/knowledge), then recalculate your [readiness score](/brand/readiness).
+
+### A canvas node won't run
+
+A generation node runs only once every input it depends on has valid data. Check that upstream nodes show **Done**, that required connections are made, and that you've selected a model. A node that failed shows **Error**. See [Working on the canvas](/canvas/working-on-the-canvas).
+</Visibility>
 
 ## Still stuck?
 
