@@ -12,6 +12,7 @@ These docs describe what Continuum ships today; don't infer features or prices t
 - [Forge operation index (JSON)](https://docs.trycontinuum.ai/forge/agent-manifest.json): per-action Forge contracts.
 - [All docs in one file](https://docs.trycontinuum.ai/llms-full.txt): every page below, in full.
 - [Agent skill](https://docs.trycontinuum.ai/skill.md): the same rules and capabilities as a skill file.
+- Docs search (MCP, no sign-in): `https://docs.trycontinuum.ai/mcp` searches and reads these pages and returns their MDX source. It is also named "Continuum" but can't act on a brand; the product server is below.
 - Continuum MCP server: `https://api.trycontinuum.ai/mcp` (ChatGPT: `/mcp/chatgpt`), OAuth 2.1 with PKCE, no API keys. Call `help_describe` for the live schema before calling a tool.
 
 ## Get started

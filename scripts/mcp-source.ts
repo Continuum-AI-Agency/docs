@@ -51,8 +51,9 @@ function fields(schema: any, prefix = '', skip?: string): any[] {
     rows.push(row);
     if (!prefix && name === 'params' && prop.properties) rows.push(...fields(prop, 'params.'));
     if (!prefix && name === 'params' && (prop.oneOf || prop.anyOf)) {
+      // A params union keyed by `op` (paid_manage google_ads): list the ops as their own input.
       const ops = (prop.oneOf ?? prop.anyOf).map((b: any) => b.properties?.op?.const).filter(Boolean);
-      if (ops.length) row.values = ops;
+      if (ops.length) rows.push({ name: 'params.op', type: 'string', required: true, values: ops });
     }
   }
   return rows;

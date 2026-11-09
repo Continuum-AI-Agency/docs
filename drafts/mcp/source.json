@@ -35615,6 +35615,11 @@
             {
               "name": "params",
               "type": "object",
+              "required": true
+            },
+            {
+              "name": "params.op",
+              "type": "string",
               "required": true,
               "values": [
                 "list",
@@ -35638,6 +35643,11 @@
             {
               "name": "params",
               "type": "object",
+              "required": true
+            },
+            {
+              "name": "params.op",
+              "type": "string",
               "required": true,
               "values": [
                 "update_campaign_budget",

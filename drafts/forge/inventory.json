@@ -1607,7 +1607,7 @@
       "preview": "render_preview preflight for its render set",
       "render": "Renders as its templateKey (web: plus the asset id) with no build",
       "export": "Returned render outputs; no Figma round-trip",
-      "evidence": "Needs the brand's Figma connection. A file link only lists frames."
+      "evidence": "Needs a Figma connection on the brand; ask support to set one up. A file link only lists frames."
     },
     {
       "name": "Canva",

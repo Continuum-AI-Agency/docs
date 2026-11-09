@@ -843,7 +843,7 @@ Manage your Meta ads from the conversation. Review campaigns, adjust budgets, pa
 * Approving a Paid optimization recommendation applies it right away. Your approval is the yes.
 * Switching a campaign, ad set, or ad on needs an Admin or Owner, who approves that exact change in the Continuum app or from their own assistant with `mcp_approval_grant`. A large budget increase needs the same approval. If you're an Admin or Owner, your own yes is enough.
 * Creating or changing ads, and approving or rejecting recommendations, needs the Operator role or higher. Viewers can read campaigns, results, and recommendations.
-* Paid optimization recommends budget moves for you to approve. It never pauses an ad unless you approve that specific pause. Your assistant can't switch a portfolio to Autopilot, which makes budget moves automatically; turn it on from the Paid optimization dashboard.
+* Paid optimization recommends budget moves for you to approve. [Paid optimization](https://docs.trycontinuum.ai/performance/optimizer.md) covers pauses and Autopilot.
 
 ## What's next
 
@@ -1018,7 +1018,7 @@ What to expect in each area today.
 | - | - |
 | **Publishing** | Live on Instagram. For Facebook, LinkedIn, TikTok, and YouTube, contact support before your first post on each, and the Continuum team publishes it with you. TikTok posts publish as private until TikTok's app audit completes. See [Publishing](https://docs.trycontinuum.ai/organic/publishing.md). |
 | **Ads** | Meta ads can be managed from your assistant. New campaigns, ad sets, and ads start paused. Switching one on, or a large budget increase, needs an Admin or Owner to approve that exact change, in the app or from their own assistant. |
-| **Paid optimization** | Recommends budget moves for you to approve, and applies them when you do. It never pauses an ad unless you approve that specific pause. Your assistant can't switch a portfolio to Autopilot, which makes budget moves automatically; turn it on from your dashboard. |
+| **Paid optimization** | Recommends budget moves for you to approve. See [Paid optimization](https://docs.trycontinuum.ai/performance/optimizer.md) for pauses and Autopilot. |
 | **Canvas** | Generate images and videos from your assistant. Up to 10 runs an hour for each brand. If the canvas is open in Continuum, you can watch the run happen. |
 | **Pipelines** | Up to 10 versions per request. |
 | **Live ads** | Swapping the creative in a live ad shows a preview first and can be undone. |
@@ -1126,6 +1126,7 @@ immediately and returns no preview or confirmation token.
 | Every MCP tool as JSON | [`/mcp/tools.json`](https://docs.trycontinuum.ai/mcp/tools.json): role, connection, confirmation, completion, retry, actions with their inputs, example calls, and errors |
 | One tool's full input schema | `/mcp/schemas/<tool>.json`, for example [`/mcp/schemas/paid_manage.json`](https://docs.trycontinuum.ai/mcp/schemas/paid_manage.json) |
 | Forge per-action contracts | [`/forge/agent-manifest.json`](https://docs.trycontinuum.ai/forge/agent-manifest.json) |
+| Search these docs | The docs host's own MCP server at `https://docs.trycontinuum.ai/mcp` (also named "Continuum", no sign-in). It searches and reads these pages and returns their MDX source, so prefer the `.md` pages for clean text. It can't act on a brand: for that, use `https://api.trycontinuum.ai/mcp`. |
 
 ## What's next
 
@@ -2589,6 +2590,7 @@ Reads and proposes a week of posts, approves it, reschedules and copies posts, a
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Each `confirm_token` works once. Preview again to retry. |
+| Rate limit | Calendar changes 120 and week plans 20 an hour, per brand. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
 
 **Actions** (`action`):
 
@@ -2654,6 +2656,7 @@ Drafts, approves, and publishes posts, and deletes drafts.
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
+| Rate limit | Publishing 30, approvals 60, and deletions 30 an hour, per brand. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
 
 **Actions** (`action`):
 
@@ -2900,6 +2903,8 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 **Good to know:**
 
 * Every write is two-phase: `params.mode: "preview"` returns a diff and a `confirm_token` that lasts 10 minutes; repeat the call with `params.mode: "confirm"` and the token.
+* Budgets are in minor units of the ad account’s currency: `daily_budget: 1000` is 10.00. Google Ads budgets use micros: `1000000` is 1.00.
+* `guardrails` reads the brand’s spend caps for any Viewer; setting them (`mode: "set"`) needs an Admin or Owner.
 * Campaigns, ad sets, ads, and copies are created paused. Activating one, raising a budget past the brand's limit (by default, more than 30%), or any write on a brand with an approval chain returns `APPROVAL_REQUIRED` until an Admin or Owner calls `mcp_approval_grant`.
 * `batch` previews many writes under one token.
 * Each write receipt includes `undo`: the call that reverses it, or null with the reason it can’t be undone.
@@ -2934,8 +2939,8 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 | `create_customer_list_audience` | `action`, `params`, `params.mode`, `params.platform`, `params.members` | `params.ad_account_id`, `params.audience_id`, `params.name`, `params.description`, `params.customer_file_source`, `params.default_country_code`, `params.idempotency_key`, `params.confirm_token` |
 | `delete_audience` | `action`, `params`, `params.mode`, `params.platform`, `params.audience_id` | `params.idempotency_key`, `params.confirm_token` |
 | `send_conversions` | `action`, `params`, `params.mode`, `params.platform`, `params.dataset_id`, `params.events` | `params.default_country_code`, `params.test_event_code`, `params.idempotency_key`, `params.confirm_token` |
-| `manage_rules` | `action`, `params` | — |
-| `google_ads` | `action`, `params` | — |
+| `manage_rules` | `action`, `params`, `params.op` | — |
+| `google_ads` | `action`, `params`, `params.op` | — |
 | `batch` | `action`, `params`, `params.mode`, `params.ops` | `params.confirm_token` |
 | `activity` | `action`, `params` | `params.limit`, `params.tool` |
 | `guardrails` | `action`, `params` | — |
@@ -3152,6 +3157,7 @@ Builds, edits, runs, saves, and lists canvas workflows.
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Not idempotent. Check the current state before retrying. |
+| Rate limit | Canvas runs: 10 an hour, per brand. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
 
 **Actions** (`action`):
 
@@ -3339,6 +3345,7 @@ Runs a pipeline, up to 10 versions per request.
 | Confirmation | None. The call runs when made. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
+| Rate limit | Up to 10 runs in one call. See [Limits](https://docs.trycontinuum.ai/mcp/reference.md#limits). |
 
 **Inputs:**
 
@@ -3801,7 +3808,7 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `words` | array | No | `dot_matrix`: 1–6 words, shown one after another |
 | `keyword` | string | No | `word_lock`: the one word locked in the centre |
 | `lines` | array | No | `word_lock`: 3–10 sentences, each containing the keyword |
-| `cards` | array | No | `over_shoulder`: the start card (over the left shoulder) then the end card, each `{ label, big, small }` — "BEFORE" \| "\$3,200" \| "per month" |
+| `cards` | array | No | `over_shoulder`: the start card (over the left shoulder) then the end card, each `{ label, big, small }` — "BEFORE" \| "`$3,200`" \| "per month" |
 | `lightSpeed` | boolean | No | `over_shoulder`: the start card's big text flies into the end card at light speed |
 | `faceX` | number | No | `over_shoulder`: the middle of the face across the frame, 0–1, read from `get_frame` |
 | `faceWidth` | number | No | `over_shoulder`: the head's width ear to ear as a share of the frame width |
@@ -6972,7 +6979,7 @@ Your brand kit supplies logos, palette and typography; the brand book supplies c
 | HTML / HyperFrames | HTML or classified bundle | Native source; inspect family and parseState | Only the native contract’s exposed fields | Source/Library preview does not certify rendered frames | Use only the execution path exposed for that source | Only artifacts returned by that path | Does not enter `template_forge`. Browser/native rendering fidelity is not qualified by this documentation run. |
 | Web components | ZIP with a recognized component manifest | Bundle contents decide the family | Declared component contract only | Inspect the source’s supported preview | Only an exposed template/output contract | Returned artifacts, not arbitrary source conversion | Does not enter `template_forge`. A generic ZIP is not automatically a component. |
 | Blender / scenes | Library source; accessible scenes come from scenes | Inspect native source/scene readiness | `scene_fill` values, not unrestricted scene editing | Review filled values; this is not a pixel preview | `scene_fill` → `scene_render` for listed outputs | Scene results in Library; use scene history | Does not enter `template_forge`. No arbitrary customer-scene fidelity claim. |
-| Figma | `forge_manage` `source_figma` with a frame or file link (up to 5 frames) | Each frame becomes a web-component template; read `forge_query` sources until parsed | The text columns `forge_query` template exposes | `render_preview` preflight for its render set | Renders as its templateKey (web: plus the asset id) with no build | Returned render outputs; no Figma round-trip | Needs the brand's Figma connection. A file link only lists frames. |
+| Figma | `forge_manage` `source_figma` with a frame or file link (up to 5 frames) | Each frame becomes a web-component template; read `forge_query` sources until parsed | The text columns `forge_query` template exposes | `render_preview` preflight for its render set | Renders as its templateKey (web: plus the asset id) with no build | Returned render outputs; no Figma round-trip | Needs a Figma connection on the brand; ask support to set one up. A file link only lists frames. |
 | Canva | Not a local-file extension promise | Connected import is separate from file intake | No dedicated action in the captured Forge pair | Do not infer from connection availability | No general execution recipe verified here | No round-trip promise | A connection or source-family enum alone is not an executable function. |
 | CAD / 3D model files | Library model intake; CAD has separate tools | Use the CAD capability guide for CAD resources | Not `forge_manage` template edits | Model viewer does not establish CAD rendering | Separate `cad_query` / `cad_manage` contract | Separate CAD artifacts; no manufacturing qualification implied | Adjacent interface, not a Forge render-set family. Inspect `help_describe` before use. |
 | Fonts | Licensed font intake | Font metadata and dependency checks | A dependency, not an image/template | No standalone font preview promise | Required faces can block template rendering | Do not assume fonts can be downloaded or redistributed | Brand typography names do not prove the required font bytes are available. |
@@ -8220,7 +8227,7 @@ Notable product and documentation updates, newest first.
 
 Documentation
 
-The [tool reference](https://docs.trycontinuum.ai/mcp/tools.md) now covers every tool the connector lists, plus the ones it accepts by name. Each area page gives each tool's role, confirmation, inputs, an example call, and its errors, and agents can read it all as [JSON](https://docs.trycontinuum.ai/mcp/tools.json). New: Forge [Figma import](https://docs.trycontinuum.ai/forge/functions.md#forge_manage-source_figma), the per-action [confirmation lifetimes](https://docs.trycontinuum.ai/mcp/reference.md#confirmations), and how an Admin or Owner [approves a change](https://docs.trycontinuum.ai/mcp/control.md#what-waits-for-your-yes) from an assistant.
+The [tool reference](https://docs.trycontinuum.ai/mcp/tools.md) now covers every tool the connector lists, plus the ones it accepts by name. Each area page gives each tool's role, confirmation, inputs, an example call, and its errors, and agents can read it all as [JSON](https://docs.trycontinuum.ai/mcp/tools.json). New: the per-action [confirmation lifetimes](https://docs.trycontinuum.ai/mcp/reference.md#confirmations), and how an Admin or Owner [approves a change](https://docs.trycontinuum.ai/mcp/control.md#what-waits-for-your-yes) from an assistant.
 
 **October 2026**
 

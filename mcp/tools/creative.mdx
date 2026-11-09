@@ -38,6 +38,7 @@ Builds, edits, runs, saves, and lists canvas workflows.
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Not idempotent. Check the current state before retrying. |
+| Rate limit | Canvas runs: 10 an hour, per brand. See [Limits](/mcp/reference#limits). |
 
 **Actions** (`action`):
 
@@ -355,6 +356,7 @@ Runs a pipeline, up to 10 versions per request.
 | Confirmation | None. The call runs when made. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
+| Rate limit | Up to 10 runs in one call. See [Limits](/mcp/reference#limits). |
 
 **Inputs:**
 
