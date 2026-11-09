@@ -120,9 +120,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Platforms and accounts for the active brand",
+          "arguments": {
+            "depth": "accounts"
+          }
         }
       ],
       "errorCodes": [],
@@ -202,7 +203,6 @@
       "rateLimit": null,
       "commonErrors": [],
       "relatedTools": [
-        "metrics_query",
         "insights_get"
       ]
     },
@@ -231,6 +231,15 @@
           "name": "jaina",
           "inputs": [
             {
+              "name": "target",
+              "type": "string",
+              "required": true,
+              "values": [
+                "jaina",
+                "organic"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": true
@@ -251,6 +260,15 @@
           "name": "organic",
           "inputs": [
             {
+              "name": "target",
+              "type": "string",
+              "required": true,
+              "values": [
+                "jaina",
+                "organic"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": true
@@ -270,12 +288,18 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (target=jaina)",
+          "title": "Ask Jaina why a metric moved",
           "arguments": {
             "target": "jaina",
-            "query": "<query>"
-          },
-          "generated": true
+            "query": "Why did our cost per purchase rise last week, and which ad sets drove it?"
+          }
+        },
+        {
+          "title": "Ask the Organic agent for ideas",
+          "arguments": {
+            "target": "organic",
+            "query": "Give me three Reel ideas for our autumn launch, based on what performed best last month."
+          }
         }
       ],
       "errorCodes": [],
@@ -313,11 +337,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Cancel a running agent job",
           "arguments": {
-            "jobId": "jobId_123"
-          },
-          "generated": true
+            "jobId": "job_8f2c41d7"
+          }
         }
       ],
       "errorCodes": [],
@@ -567,6 +590,14 @@
           "name": "instagram",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -639,6 +670,14 @@
         {
           "name": "facebook",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "facebook"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -713,6 +752,14 @@
           "name": "tiktok",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "tiktok"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -785,6 +832,14 @@
         {
           "name": "linkedin",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "linkedin"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -919,6 +974,14 @@
           "name": "youtube",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "youtube"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -980,6 +1043,14 @@
         {
           "name": "google_ads",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "google_ads"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -1062,6 +1133,14 @@
         {
           "name": "meta",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "meta"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -1173,6 +1252,14 @@
           "name": "google_analytics",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "google_analytics"
+              ]
+            },
+            {
               "name": "property_id",
               "type": "string",
               "required": false,
@@ -1188,14 +1275,29 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (platform=instagram)",
+          "title": "Top Instagram posts by engagement, last 30 days",
           "arguments": {
-            "platform": "instagram"
-          },
-          "generated": true
+            "platform": "instagram",
+            "scope": "top_posts",
+            "metric": "engagement_rate",
+            "date_window": "last_30d",
+            "top_n": 5
+          }
+        },
+        {
+          "title": "Meta ad account overview, last 7 days",
+          "arguments": {
+            "platform": "meta",
+            "account_id": "act_1234567890",
+            "scope": "overview",
+            "date_window": "last_7d"
+          }
         }
       ],
       "errorCodes": [
+        "ACCOUNT_FORBIDDEN",
+        "PERMISSION_DENIED",
+        "UPSTREAM_ERROR",
         "VALIDATION_ERROR"
       ],
       "rateLimit": null,
@@ -1227,6 +1329,14 @@
           "name": "list_audiences",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list_audiences"
+              ]
+            },
+            {
               "name": "ad_account_id",
               "type": "string",
               "required": true
@@ -1247,6 +1357,14 @@
           "name": "targeting",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "targeting"
+              ]
+            },
+            {
               "name": "ad_account_id",
               "type": "string",
               "required": true
@@ -1261,6 +1379,14 @@
         {
           "name": "breakdown",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "breakdown"
+              ]
+            },
             {
               "name": "ad_account_id",
               "type": "string",
@@ -1327,6 +1453,14 @@
           "name": "organic_demographics",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "organic_demographics"
+              ]
+            },
+            {
               "name": "platform",
               "type": "string",
               "required": true,
@@ -1357,12 +1491,21 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (action=list_audiences)",
+          "title": "List custom audiences",
           "arguments": {
             "action": "list_audiences",
-            "ad_account_id": "ad_account_id_123"
-          },
-          "generated": true
+            "ad_account_id": "act_1234567890",
+            "kind": "custom"
+          }
+        },
+        {
+          "title": "Results by age, last 30 days",
+          "arguments": {
+            "action": "breakdown",
+            "ad_account_id": "act_1234567890",
+            "dimension": "age",
+            "date_window": "last_30d"
+          }
         }
       ],
       "errorCodes": [
@@ -1446,6 +1589,28 @@
         {
           "name": "overview",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -1643,6 +1808,28 @@
           "name": "search",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -1839,6 +2026,28 @@
           "name": "read",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -2034,6 +2243,28 @@
         {
           "name": "validate",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -2231,6 +2462,28 @@
           "name": "document_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -2426,6 +2679,28 @@
         {
           "name": "cross_reference",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -2623,6 +2898,28 @@
           "name": "add_text",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -2818,6 +3115,28 @@
         {
           "name": "add_file",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -3015,6 +3334,28 @@
           "name": "add_url",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -3211,6 +3552,28 @@
           "name": "upload_url",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -3406,6 +3769,28 @@
         {
           "name": "upload_finalize",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -3603,6 +3988,28 @@
           "name": "update",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -3798,6 +4205,28 @@
         {
           "name": "archive",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -3995,6 +4424,28 @@
           "name": "restore",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -4191,6 +4642,28 @@
           "name": "save_permanent",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "validate",
+                "document_status",
+                "cross_reference",
+                "add_text",
+                "add_file",
+                "add_url",
+                "upload_url",
+                "upload_finalize",
+                "update",
+                "archive",
+                "restore",
+                "save_permanent"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -4386,11 +4859,25 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (action=overview)",
+          "title": "See what the knowledge base holds",
           "arguments": {
             "action": "overview"
-          },
-          "generated": true
+          }
+        },
+        {
+          "title": "Search the brand book",
+          "arguments": {
+            "action": "search",
+            "query": "tone of voice for promotions"
+          }
+        },
+        {
+          "title": "Check copy against the brand voice",
+          "arguments": {
+            "action": "validate",
+            "copy": "Autumn is here. Our new single-origin roast is out now, in a limited batch.",
+            "platform": "instagram"
+          }
         }
       ],
       "errorCodes": [
@@ -4442,9 +4929,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Read the brand voice section",
+          "arguments": {
+            "section": "voice"
+          }
         }
       ],
       "errorCodes": [
@@ -4484,6 +4972,19 @@
               "name": "copy",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "x"
+              ]
             }
           ]
         },
@@ -4494,6 +4995,19 @@
               "name": "copy",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "x"
+              ]
             }
           ]
         },
@@ -4504,6 +5018,19 @@
               "name": "copy",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "x"
+              ]
             }
           ]
         },
@@ -4514,6 +5041,19 @@
               "name": "copy",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "x"
+              ]
             }
           ]
         },
@@ -4524,6 +5064,19 @@
               "name": "copy",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "x"
+              ]
             }
           ]
         },
@@ -4534,18 +5087,30 @@
               "name": "copy",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "x"
+              ]
             }
           ]
         }
       ],
       "examples": [
         {
-          "title": "Minimal valid call (platform=instagram)",
+          "title": "Check an Instagram caption",
           "arguments": {
-            "copy": "<copy>",
+            "copy": "Autumn is here. Our new single-origin roast is out now, in a limited batch.",
             "platform": "instagram"
-          },
-          "generated": true
+          }
         }
       ],
       "errorCodes": [],
@@ -4587,11 +5152,11 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Start a brand from its website",
           "arguments": {
-            "brand_name": "<brand_name>"
-          },
-          "generated": true
+            "brand_name": "Acme Coffee",
+            "website_url": "https://acmecoffee.example"
+          }
         }
       ],
       "errorCodes": [
@@ -4743,6 +5308,14 @@
               "name": "requestId",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "upload_begin"
+              ]
             }
           ]
         },
@@ -4758,6 +5331,14 @@
               "name": "assetId",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "upload_finalize"
+              ]
             }
           ]
         },
@@ -4788,6 +5369,14 @@
               "name": "operations",
               "type": "array",
               "required": true
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "apply"
+              ]
             }
           ]
         },
@@ -4838,6 +5427,14 @@
               "name": "fps",
               "type": "number",
               "required": true
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "render"
+              ]
             }
           ]
         },
@@ -4872,6 +5469,14 @@
                 "stl",
                 "dxf",
                 "3mf"
+              ]
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "export"
               ]
             }
           ]
@@ -4922,6 +5527,14 @@
               "name": "profile",
               "type": "object",
               "required": false
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "validate"
+              ]
             }
           ]
         },
@@ -4971,6 +5584,14 @@
               "name": "profile",
               "type": "object",
               "required": false
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "manufacturing_export"
+              ]
             }
           ]
         },
@@ -5018,12 +5639,28 @@
               "values": [
                 "offline-fff-pla-0.4-v1"
               ]
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "benchmark"
+              ]
             }
           ]
         },
         {
           "name": "cancel",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "cancel"
+              ]
+            },
             {
               "name": "brandId",
               "type": "string",
@@ -5039,13 +5676,15 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (action=upload_finalize)",
+          "title": "Run manufacturing checks on a revision",
           "arguments": {
-            "brandId": "11111111-1111-4111-8111-111111111111",
-            "assetId": "11111111-1111-4111-8111-111111111111",
-            "action": "upload_finalize"
-          },
-          "generated": true
+            "action": "validate",
+            "brandId": "5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92",
+            "assetId": "b7d3f9a1-4c6e-4a2b-8d5f-6e9c1b3a7d40",
+            "revisionId": "c3e5a7b9d1f2a4c6e8b0d2f4a6c8e0b2d4f6a8c0e2b4d6f8a0c2e4b6d8f0a2c4",
+            "requestId": "0d3f5b7a-9c1e-4a2b-8f4d-6b8a0c2e4f71",
+            "format": "stl"
+          }
         }
       ],
       "errorCodes": [
@@ -5085,6 +5724,19 @@
           "name": "capabilities",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "capabilities",
+                "asset",
+                "entities",
+                "revision",
+                "job",
+                "artifact"
+              ]
+            },
+            {
               "name": "assetId",
               "type": "string",
               "required": false
@@ -5119,6 +5771,19 @@
         {
           "name": "asset",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "capabilities",
+                "asset",
+                "entities",
+                "revision",
+                "job",
+                "artifact"
+              ]
+            },
             {
               "name": "assetId",
               "type": "string",
@@ -5155,6 +5820,19 @@
           "name": "entities",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "capabilities",
+                "asset",
+                "entities",
+                "revision",
+                "job",
+                "artifact"
+              ]
+            },
+            {
               "name": "assetId",
               "type": "string",
               "required": false
@@ -5189,6 +5867,19 @@
         {
           "name": "revision",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "capabilities",
+                "asset",
+                "entities",
+                "revision",
+                "job",
+                "artifact"
+              ]
+            },
             {
               "name": "assetId",
               "type": "string",
@@ -5225,6 +5916,19 @@
           "name": "job",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "capabilities",
+                "asset",
+                "entities",
+                "revision",
+                "job",
+                "artifact"
+              ]
+            },
+            {
               "name": "assetId",
               "type": "string",
               "required": false
@@ -5260,6 +5964,19 @@
           "name": "artifact",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "capabilities",
+                "asset",
+                "entities",
+                "revision",
+                "job",
+                "artifact"
+              ]
+            },
+            {
               "name": "assetId",
               "type": "string",
               "required": false
@@ -5294,11 +6011,17 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (action=capabilities)",
+          "title": "Which CAD files and operations are supported",
           "arguments": {
             "action": "capabilities"
-          },
-          "generated": true
+          }
+        },
+        {
+          "title": "Read a CAD file and its revisions",
+          "arguments": {
+            "action": "asset",
+            "assetId": "b7d3f9a1-4c6e-4a2b-8d5f-6e9c1b3a7d40"
+          }
         }
       ],
       "errorCodes": [
@@ -5340,6 +6063,20 @@
         {
           "name": "list",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list",
+                "draft",
+                "extend",
+                "realize",
+                "approve",
+                "publish",
+                "delete"
+              ]
+            },
             {
               "name": "prompt",
               "type": "string",
@@ -5495,6 +6232,20 @@
           "name": "draft",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list",
+                "draft",
+                "extend",
+                "realize",
+                "approve",
+                "publish",
+                "delete"
+              ]
+            },
+            {
               "name": "prompt",
               "type": "string",
               "required": false
@@ -5648,6 +6399,20 @@
         {
           "name": "extend",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list",
+                "draft",
+                "extend",
+                "realize",
+                "approve",
+                "publish",
+                "delete"
+              ]
+            },
             {
               "name": "prompt",
               "type": "string",
@@ -5803,6 +6568,20 @@
           "name": "realize",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list",
+                "draft",
+                "extend",
+                "realize",
+                "approve",
+                "publish",
+                "delete"
+              ]
+            },
+            {
               "name": "prompt",
               "type": "string",
               "required": false
@@ -5956,6 +6735,20 @@
         {
           "name": "approve",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list",
+                "draft",
+                "extend",
+                "realize",
+                "approve",
+                "publish",
+                "delete"
+              ]
+            },
             {
               "name": "prompt",
               "type": "string",
@@ -6111,6 +6904,20 @@
           "name": "publish",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list",
+                "draft",
+                "extend",
+                "realize",
+                "approve",
+                "publish",
+                "delete"
+              ]
+            },
+            {
               "name": "prompt",
               "type": "string",
               "required": false
@@ -6264,6 +7071,20 @@
         {
           "name": "delete",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "list",
+                "draft",
+                "extend",
+                "realize",
+                "approve",
+                "publish",
+                "delete"
+              ]
+            },
             {
               "name": "prompt",
               "type": "string",
@@ -6479,10 +7300,13 @@
         }
       ],
       "errorCodes": [
+        "CONFLICT",
         "INTERNAL",
         "JOB_ENQUEUE_FAILED",
         "NOT_FOUND",
-        "VALIDATION_ERROR"
+        "UPSTREAM_ERROR",
+        "VALIDATION_ERROR",
+        "VOICE_VIOLATION"
       ],
       "rateLimit": null,
       "commonErrors": [
@@ -6537,6 +7361,16 @@
           "name": "inspect",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "inspect",
+                "recreate"
+              ],
+              "description": "inspect: a public Instagram post's structure (hook pattern, beats and timing, format, text density, pacing, proof, CTA) and a plan to remake it for the brand. …"
+            },
+            {
               "name": "url",
               "type": "string",
               "required": false,
@@ -6581,6 +7415,16 @@
         {
           "name": "recreate",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "inspect",
+                "recreate"
+              ],
+              "description": "inspect: a public Instagram post's structure (hook pattern, beats and timing, format, text density, pacing, proof, CTA) and a plan to remake it for the brand. …"
+            },
             {
               "name": "url",
               "type": "string",
@@ -6674,6 +7518,21 @@
         {
           "name": "overview",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -6772,6 +7631,21 @@
           "name": "search",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -6868,6 +7742,21 @@
         {
           "name": "read",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -6966,6 +7855,21 @@
           "name": "refresh",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -7062,6 +7966,21 @@
         {
           "name": "score_hook",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -7160,6 +8079,21 @@
           "name": "competitive_gaps",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -7257,6 +8191,21 @@
           "name": "winrates",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false
@@ -7353,6 +8302,21 @@
         {
           "name": "vector_signals",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "overview",
+                "search",
+                "read",
+                "refresh",
+                "score_hook",
+                "competitive_gaps",
+                "winrates",
+                "vector_signals"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -7523,6 +8487,32 @@
         {
           "name": "set_create",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -7763,6 +8753,32 @@
           "name": "set_update",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -8001,6 +9017,32 @@
         {
           "name": "set_fork",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -8241,6 +9283,32 @@
           "name": "set_delete",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -8479,6 +9547,32 @@
         {
           "name": "suggest_rows",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -8719,6 +9813,32 @@
           "name": "apply_suggestions",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -8957,6 +10077,32 @@
         {
           "name": "source_begin",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -9197,6 +10343,32 @@
           "name": "source_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -9435,6 +10607,32 @@
         {
           "name": "source_figma",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -9675,6 +10873,32 @@
           "name": "render_preview",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -9913,6 +11137,32 @@
         {
           "name": "render_confirm",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -10153,6 +11403,32 @@
           "name": "scene_fill",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -10391,6 +11667,32 @@
         {
           "name": "scene_render",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -10631,6 +11933,32 @@
           "name": "rows_patch",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -10869,6 +12197,32 @@
         {
           "name": "set_retarget",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -11109,6 +12463,32 @@
           "name": "template_preview",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -11347,6 +12727,32 @@
         {
           "name": "template_save",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -11587,6 +12993,32 @@
           "name": "template_forge",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
+            {
               "name": "setId",
               "type": "string",
               "required": false
@@ -11825,6 +13257,32 @@
         {
           "name": "template_set_default",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_create",
+                "set_update",
+                "set_fork",
+                "set_delete",
+                "suggest_rows",
+                "apply_suggestions",
+                "source_begin",
+                "source_status",
+                "source_figma",
+                "render_preview",
+                "render_confirm",
+                "scene_fill",
+                "scene_render",
+                "rows_patch",
+                "set_retarget",
+                "template_preview",
+                "template_save",
+                "template_forge",
+                "template_set_default"
+              ]
+            },
             {
               "name": "setId",
               "type": "string",
@@ -12157,6 +13615,30 @@
           "name": "templates",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -12238,6 +13720,30 @@
         {
           "name": "template",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -12321,6 +13827,30 @@
           "name": "sets",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -12402,6 +13932,30 @@
         {
           "name": "set",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -12485,6 +14039,30 @@
           "name": "set_revisions",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -12566,6 +14144,30 @@
         {
           "name": "destinations",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -12649,6 +14251,30 @@
           "name": "jobs",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -12730,6 +14356,30 @@
         {
           "name": "job",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -12813,6 +14463,30 @@
           "name": "batch",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -12894,6 +14568,30 @@
         {
           "name": "scenes",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -12977,6 +14675,30 @@
           "name": "set_diff",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -13058,6 +14780,30 @@
         {
           "name": "template_tree",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -13141,6 +14887,30 @@
           "name": "template_layers",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -13222,6 +14992,30 @@
         {
           "name": "template_revision",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -13305,6 +15099,30 @@
           "name": "template_diff",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -13387,6 +15205,30 @@
           "name": "template_run",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
+            {
               "name": "templateKey",
               "type": "string",
               "required": false
@@ -13468,6 +15310,30 @@
         {
           "name": "sources",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "templates",
+                "template",
+                "sets",
+                "set",
+                "set_revisions",
+                "destinations",
+                "jobs",
+                "job",
+                "batch",
+                "scenes",
+                "set_diff",
+                "template_tree",
+                "template_layers",
+                "template_revision",
+                "template_diff",
+                "template_run",
+                "sources"
+              ]
+            },
             {
               "name": "templateKey",
               "type": "string",
@@ -13609,6 +15475,23 @@
           "name": "guide",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
+            {
               "name": "portfolio_id",
               "type": "string",
               "required": false,
@@ -13732,6 +15615,23 @@
         {
           "name": "inspect",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
             {
               "name": "portfolio_id",
               "type": "string",
@@ -13857,6 +15757,23 @@
           "name": "create",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
+            {
               "name": "portfolio_id",
               "type": "string",
               "required": false,
@@ -13980,6 +15897,23 @@
         {
           "name": "create_spec",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
             {
               "name": "portfolio_id",
               "type": "string",
@@ -14105,6 +16039,23 @@
           "name": "create_stills",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
+            {
               "name": "portfolio_id",
               "type": "string",
               "required": false,
@@ -14228,6 +16179,23 @@
         {
           "name": "act",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
             {
               "name": "portfolio_id",
               "type": "string",
@@ -14353,6 +16321,23 @@
           "name": "style_draft",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
+            {
               "name": "portfolio_id",
               "type": "string",
               "required": false,
@@ -14477,6 +16462,23 @@
           "name": "recompose",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
+            {
               "name": "portfolio_id",
               "type": "string",
               "required": false,
@@ -14600,6 +16602,23 @@
         {
           "name": "status",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guide",
+                "inspect",
+                "create",
+                "create_spec",
+                "create_stills",
+                "act",
+                "style_draft",
+                "recompose",
+                "status"
+              ],
+              "description": "guide: what create accepts (angles, personas, approved people, places and products, concepts, effects, templates, layouts, edits, shortcuts). inspect: the type…"
+            },
             {
               "name": "portfolio_id",
               "type": "string",
@@ -14745,13 +16764,6 @@
           }
         },
         {
-          "title": "Is the reel ready",
-          "arguments": {
-            "action": "status",
-            "run_id": "<runId>"
-          }
-        },
-        {
           "title": "The approved Elements",
           "arguments": {
             "action": "inspect",
@@ -14815,9 +16827,14 @@
       ],
       "examples": [
         {
-          "title": "Describe metrics_query",
+          "title": "List every registered tool",
+          "arguments": {}
+        },
+        {
+          "title": "Fetch one action of a tool",
           "arguments": {
-            "tool": "metrics_query"
+            "tool": "paid_manage",
+            "action": "create_campaign"
           }
         }
       ],
@@ -14864,6 +16881,16 @@
               "required": true
             },
             {
+              "name": "scope",
+              "type": "string",
+              "required": true,
+              "values": [
+                "account",
+                "posts",
+                "campaign"
+              ]
+            },
+            {
               "name": "target_ids",
               "type": "array",
               "required": false
@@ -14892,6 +16919,16 @@
               "name": "account_id",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "scope",
+              "type": "string",
+              "required": true,
+              "values": [
+                "account",
+                "posts",
+                "campaign"
+              ]
             },
             {
               "name": "target_ids",
@@ -14924,6 +16961,16 @@
               "required": true
             },
             {
+              "name": "scope",
+              "type": "string",
+              "required": true,
+              "values": [
+                "account",
+                "posts",
+                "campaign"
+              ]
+            },
+            {
               "name": "target_ids",
               "type": "array",
               "required": false
@@ -14948,12 +16995,12 @@
       ],
       "examples": [
         {
-          "title": "Account performance insights",
+          "title": "Insights for one campaign",
           "arguments": {
-            "integration_account_id": "00000000-0000-0000-0000-000000000000",
-            "scope": "account",
-            "insight_types": [
-              "performance"
+            "account_id": "5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92",
+            "scope": "campaign",
+            "target_ids": [
+              "120200000000000000"
             ]
           }
         }
@@ -14969,7 +17016,6 @@
         }
       ],
       "relatedTools": [
-        "metrics_query",
         "post_audit"
       ]
     },
@@ -15035,35 +17081,163 @@
       "actions": [
         {
           "name": "instagram",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         },
         {
           "name": "facebook",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         },
         {
           "name": "tiktok",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         },
         {
           "name": "linkedin",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         },
         {
           "name": "youtube",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         },
         {
           "name": "x",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         },
         {
           "name": "threads",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         },
         {
           "name": "google",
-          "inputs": []
+          "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "tiktok",
+                "linkedin",
+                "youtube",
+                "x",
+                "threads",
+                "google"
+              ]
+            }
+          ]
         }
       ],
       "examples": [
@@ -15430,9 +17604,14 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Longest-running active competitor ads",
+          "arguments": {
+            "status": "active",
+            "minDaysRunning": 30,
+            "sort": "first_seen_at",
+            "dir": "asc",
+            "limit": 10
+          }
         }
       ],
       "errorCodes": [],
@@ -15503,9 +17682,12 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "What competitors ran in paid and organic since August",
+          "arguments": {
+            "source": "all",
+            "since": "2026-08-01",
+            "limit": 20
+          }
         }
       ],
       "errorCodes": [],
@@ -15556,9 +17738,11 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "One competitor's recent organic posts",
+          "arguments": {
+            "competitorRef": "Blue Bottle Coffee",
+            "limit": 10
+          }
         }
       ],
       "errorCodes": [],
@@ -15732,11 +17916,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Ask Jaina directly",
           "arguments": {
-            "query": "<query>"
-          },
-          "generated": true
+            "query": "Which ad sets spent the most last week without a purchase?"
+          }
         }
       ],
       "errorCodes": [
@@ -15783,19 +17966,24 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "A monthly campaign report",
           "arguments": {
             "reportSpec": {
               "period": {
-                "start": "<start>",
-                "end": "<end>"
+                "start": "2026-10-01",
+                "end": "2026-10-31"
               },
               "scopes": [
-                "account"
-              ]
+                "campaign"
+              ],
+              "kpis": [
+                "spend",
+                "roas",
+                "cpa"
+              ],
+              "format": "mixed"
             }
-          },
-          "generated": true
+          }
         }
       ],
       "errorCodes": [
@@ -15887,6 +18075,25 @@
         {
           "name": "browse",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -16063,6 +18270,25 @@
           "name": "asset_detail",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false,
@@ -16237,6 +18463,25 @@
         {
           "name": "comment_add",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -16413,6 +18658,25 @@
           "name": "set_review_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false,
@@ -16587,6 +18851,25 @@
         {
           "name": "import_ad_creative",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -16763,6 +19046,25 @@
           "name": "upload_inline",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false,
@@ -16937,6 +19239,25 @@
         {
           "name": "upload_url",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -17113,6 +19434,25 @@
           "name": "upload_finalize",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false,
@@ -17287,6 +19627,25 @@
         {
           "name": "upload_begin",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -17463,6 +19822,25 @@
           "name": "upload_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false,
@@ -17638,6 +20016,25 @@
           "name": "render_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
+            {
               "name": "query",
               "type": "string",
               "required": false,
@@ -17812,6 +20209,25 @@
         {
           "name": "render_retry",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "browse",
+                "asset_detail",
+                "comment_add",
+                "set_review_status",
+                "import_ad_creative",
+                "upload_inline",
+                "upload_url",
+                "upload_finalize",
+                "upload_begin",
+                "upload_status",
+                "render_status",
+                "render_retry"
+              ]
+            },
             {
               "name": "query",
               "type": "string",
@@ -18178,11 +20594,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "An Admin or Owner grants a pending change",
           "arguments": {
-            "token": "<token>"
-          },
-          "generated": true
+            "token": "tok_9b1e5c2f4a7d3e60"
+          }
         }
       ],
       "errorCodes": [
@@ -18217,9 +20632,8 @@
       "inputs": [],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Changes waiting for an Admin or Owner",
+          "arguments": {}
         }
       ],
       "errorCodes": [],
@@ -18421,11 +20835,13 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Find approved product shots",
           "arguments": {
-            "query": "<query>"
-          },
-          "generated": true
+            "query": "flat lay of the coffee bag on a wooden table",
+            "kind": "image",
+            "reviewStatus": "approved",
+            "limit": 10
+          }
         }
       ],
       "errorCodes": [],
@@ -18505,9 +20921,13 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Start a signed upload of a long video",
+          "arguments": {
+            "file_name": "founder-interview.mp4",
+            "mime_type": "video/mp4",
+            "title": "Founder interview",
+            "clip": true
+          }
         }
       ],
       "errorCodes": [
@@ -18551,6 +20971,14 @@
           "name": "create_portfolio",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_portfolio"
+              ]
+            },
+            {
               "name": "payload",
               "type": "object",
               "required": true
@@ -18560,6 +20988,14 @@
         {
           "name": "create_from_suggestion",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_from_suggestion"
+              ]
+            },
             {
               "name": "payload",
               "type": "object",
@@ -18571,6 +21007,14 @@
           "name": "enroll_adsets",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "enroll_adsets"
+              ]
+            },
+            {
               "name": "payload",
               "type": "object",
               "required": true
@@ -18580,6 +21024,14 @@
         {
           "name": "convert_cbo",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "convert_cbo"
+              ]
+            },
             {
               "name": "payload",
               "type": "object",
@@ -18591,6 +21043,14 @@
           "name": "set_recommendation_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_recommendation_status"
+              ]
+            },
+            {
               "name": "payload",
               "type": "object",
               "required": true
@@ -18600,6 +21060,14 @@
         {
           "name": "set_recommendation_statuses",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_recommendation_statuses"
+              ]
+            },
             {
               "name": "payload",
               "type": "object",
@@ -18611,6 +21079,14 @@
           "name": "set_renewal_task_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "set_renewal_task_status"
+              ]
+            },
+            {
               "name": "payload",
               "type": "object",
               "required": true
@@ -18620,6 +21096,14 @@
         {
           "name": "update_portfolio",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "update_portfolio"
+              ]
+            },
             {
               "name": "payload",
               "type": "object",
@@ -18631,6 +21115,14 @@
           "name": "archive_portfolio",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "archive_portfolio"
+              ]
+            },
+            {
               "name": "payload",
               "type": "object",
               "required": true
@@ -18640,6 +21132,14 @@
         {
           "name": "unenroll_adsets",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "unenroll_adsets"
+              ]
+            },
             {
               "name": "payload",
               "type": "object",
@@ -18651,6 +21151,14 @@
           "name": "run_now",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "run_now"
+              ]
+            },
+            {
               "name": "payload",
               "type": "object",
               "required": true
@@ -18660,20 +21168,15 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (action=create_portfolio)",
+          "title": "Approve one recommendation (the approval is the yes)",
           "arguments": {
-            "action": "create_portfolio",
+            "action": "set_recommendation_status",
             "payload": {
-              "brand_id": "11111111-1111-4111-8111-111111111111",
-              "ad_account_id": "ad_account_id_123",
-              "config": {
-                "name": "<name>",
-                "objective": "purchase",
-                "daily_total": 1
-              }
+              "portfolio_id": "3f6b2c1e-8a4d-4f7b-9c2e-1d5a7b9e0c43",
+              "recommendation_id": "9a1d4e7c-2b6f-4c8a-b3e5-7f0d2a6c9b18",
+              "status": "approved"
             }
-          },
-          "generated": true
+          }
         }
       ],
       "errorCodes": [
@@ -18717,6 +21220,14 @@
           "name": "portfolios",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "portfolios"
+              ]
+            },
+            {
               "name": "brand_id",
               "type": "string",
               "required": true
@@ -18727,6 +21238,14 @@
           "name": "logs",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "logs"
+              ]
+            },
+            {
               "name": "brand_id",
               "type": "string",
               "required": true
@@ -18736,6 +21255,14 @@
         {
           "name": "suggestions",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "suggestions"
+              ]
+            },
             {
               "name": "brand_id",
               "type": "string",
@@ -18761,6 +21288,14 @@
           "name": "performance",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "performance"
+              ]
+            },
+            {
               "name": "brand_id",
               "type": "string",
               "required": true
@@ -18775,6 +21310,14 @@
         {
           "name": "cpa_series",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "cpa_series"
+              ]
+            },
             {
               "name": "brand_id",
               "type": "string",
@@ -18791,6 +21334,14 @@
           "name": "angle_matrix",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "angle_matrix"
+              ]
+            },
+            {
               "name": "brand_id",
               "type": "string",
               "required": true
@@ -18805,6 +21356,14 @@
         {
           "name": "pending_recs",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "pending_recs"
+              ]
+            },
             {
               "name": "brand_id",
               "type": "string",
@@ -18821,6 +21380,14 @@
           "name": "adsets",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "adsets"
+              ]
+            },
+            {
               "name": "brand_id",
               "type": "string",
               "required": true
@@ -18835,6 +21402,14 @@
         {
           "name": "status",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "status"
+              ]
+            },
             {
               "name": "brand_id",
               "type": "string",
@@ -18851,6 +21426,14 @@
           "name": "insight",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "insight"
+              ]
+            },
+            {
               "name": "brand_id",
               "type": "string",
               "required": true
@@ -18865,6 +21448,14 @@
         {
           "name": "renewal_tasks",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "renewal_tasks"
+              ]
+            },
             {
               "name": "brand_id",
               "type": "string",
@@ -18885,12 +21476,12 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (action=portfolios)",
+          "title": "A portfolio's pending recommendations",
           "arguments": {
-            "action": "portfolios",
-            "brand_id": "11111111-1111-4111-8111-111111111111"
-          },
-          "generated": true
+            "action": "pending_recs",
+            "brand_id": "5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92",
+            "portfolio_id": "3f6b2c1e-8a4d-4f7b-9c2e-1d5a7b9e0c43"
+          }
         }
       ],
       "errorCodes": [
@@ -18935,11 +21526,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Ask the Organic agent directly",
           "arguments": {
-            "query": "<query>"
-          },
-          "generated": true
+            "query": "Which hooks worked best on our Reels this month?"
+          }
         }
       ],
       "errorCodes": [
@@ -18981,11 +21571,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Read one draft",
           "arguments": {
-            "draftId": "draftId_123"
-          },
-          "generated": true
+            "draftId": "8b2d6f0a-4e7c-4b1d-a3f5-7c9e1b3d5f27"
+          }
         }
       ],
       "errorCodes": [
@@ -19055,9 +21644,12 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Approved drafts ready to publish",
+          "arguments": {
+            "status": "approved",
+            "publishable_only": true,
+            "limit": 20
+          }
         }
       ],
       "errorCodes": [
@@ -19093,6 +21685,20 @@
           "name": "instagram",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "kinds",
               "type": "array",
               "required": false
@@ -19117,6 +21723,20 @@
         {
           "name": "facebook",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "kinds",
               "type": "array",
@@ -19143,6 +21763,20 @@
           "name": "linkedin",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "kinds",
               "type": "array",
               "required": false
@@ -19167,6 +21801,20 @@
         {
           "name": "tiktok",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "kinds",
               "type": "array",
@@ -19193,6 +21841,20 @@
           "name": "youtube",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "kinds",
               "type": "array",
               "required": false
@@ -19218,6 +21880,20 @@
           "name": "threads",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "kinds",
               "type": "array",
               "required": false
@@ -19242,6 +21918,20 @@
         {
           "name": "x",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "kinds",
               "type": "array",
@@ -19394,6 +22084,20 @@
           "name": "instagram",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19428,6 +22132,20 @@
         {
           "name": "facebook",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -19464,6 +22182,20 @@
           "name": "linkedin",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19498,6 +22230,20 @@
         {
           "name": "tiktok",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -19534,6 +22280,20 @@
           "name": "youtube",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19569,6 +22329,20 @@
           "name": "threads",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19603,6 +22377,20 @@
         {
           "name": "x",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -19683,6 +22471,20 @@
           "name": "instagram",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19692,6 +22494,20 @@
         {
           "name": "facebook",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -19703,6 +22519,20 @@
           "name": "linkedin",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19712,6 +22542,20 @@
         {
           "name": "tiktok",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -19723,6 +22567,20 @@
           "name": "youtube",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19733,6 +22591,20 @@
           "name": "threads",
           "inputs": [
             {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
+            {
               "name": "account_id",
               "type": "string",
               "required": false
@@ -19742,6 +22614,20 @@
         {
           "name": "x",
           "inputs": [
+            {
+              "name": "platform",
+              "type": "string",
+              "required": true,
+              "values": [
+                "instagram",
+                "facebook",
+                "linkedin",
+                "tiktok",
+                "youtube",
+                "threads",
+                "x"
+              ]
+            },
             {
               "name": "account_id",
               "type": "string",
@@ -19770,8 +22656,7 @@
         }
       ],
       "relatedTools": [
-        "organic_media_list",
-        "organic_metrics_query"
+        "organic_media_list"
       ]
     },
     {
@@ -19801,6 +22686,14 @@
           "name": "plan_week",
           "inputs": [
             {
+              "name": "mode",
+              "type": "string",
+              "required": true,
+              "values": [
+                "plan_week"
+              ]
+            },
+            {
               "name": "weekStart",
               "type": "string",
               "required": true
@@ -19826,6 +22719,14 @@
           "name": "resume",
           "inputs": [
             {
+              "name": "mode",
+              "type": "string",
+              "required": true,
+              "values": [
+                "resume"
+              ]
+            },
+            {
               "name": "workflow_id",
               "type": "string",
               "required": true
@@ -19850,16 +22751,12 @@
       ],
       "examples": [
         {
-          "title": "Start a content week",
+          "title": "Plan next week end to end",
           "arguments": {
-            "mode": "plan_week"
-          }
-        },
-        {
-          "title": "Resume past a gate",
-          "arguments": {
-            "mode": "resume",
-            "workflow_id": "wf_123"
+            "mode": "plan_week",
+            "weekStart": "2026-11-16",
+            "timezone": "America/New_York",
+            "brief": "Lead with the autumn roast launch."
           }
         }
       ],
@@ -19882,7 +22779,6 @@
         }
       ],
       "relatedTools": [
-        "organic_calendar_approve",
         "content_create",
         "mcp_approval_grant"
       ]
@@ -19934,6 +22830,14 @@
         {
           "name": "hierarchy",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "hierarchy"
+              ]
+            },
             {
               "name": "params",
               "type": "object",
@@ -19993,6 +22897,14 @@
           "name": "create_campaign",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_campaign"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20046,6 +22958,14 @@
           "name": "create_adset",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_adset"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20098,6 +23018,14 @@
           "name": "create_ad",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_ad"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20149,6 +23077,14 @@
         {
           "name": "upload_media",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "upload_media"
+              ]
+            },
             {
               "name": "params",
               "type": "object",
@@ -20209,6 +23145,14 @@
         {
           "name": "update_entity",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "update_entity"
+              ]
+            },
             {
               "name": "params",
               "type": "object",
@@ -20272,6 +23216,14 @@
           "name": "update_ad_copy",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "update_ad_copy"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20323,6 +23275,14 @@
         {
           "name": "duplicate",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "duplicate"
+              ]
+            },
             {
               "name": "params",
               "type": "object",
@@ -20391,6 +23351,14 @@
           "name": "create_audience",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_audience"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20455,6 +23423,14 @@
           "name": "create_lookalike",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_lookalike"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20517,6 +23493,14 @@
         {
           "name": "create_customer_list_audience",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "create_customer_list_audience"
+              ]
+            },
             {
               "name": "params",
               "type": "object",
@@ -20603,6 +23587,14 @@
           "name": "delete_audience",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "delete_audience"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20644,6 +23636,14 @@
         {
           "name": "send_conversions",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "send_conversions"
+              ]
+            },
             {
               "name": "params",
               "type": "object",
@@ -20707,6 +23707,14 @@
           "name": "manage_rules",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "manage_rules"
+              ]
+            },
+            {
               "name": "params",
               "type": "one of",
               "required": true,
@@ -20721,6 +23729,14 @@
         {
           "name": "google_ads",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "google_ads"
+              ]
+            },
             {
               "name": "params",
               "type": "one of",
@@ -20738,6 +23754,14 @@
         {
           "name": "batch",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "batch"
+              ]
+            },
             {
               "name": "params",
               "type": "object",
@@ -20769,6 +23793,14 @@
           "name": "activity",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "activity"
+              ]
+            },
+            {
               "name": "params",
               "type": "object",
               "required": true
@@ -20789,6 +23821,14 @@
         {
           "name": "guardrails",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "guardrails"
+              ]
+            },
             {
               "name": "params",
               "type": "one of",
@@ -20884,7 +23924,11 @@
       ],
       "errorCodes": [
         "CONFIRMATION_REQUIRED",
+        "CONFLICT",
+        "INTEGRATION_DISCONNECTED",
         "INTERNAL",
+        "NOT_FOUND",
+        "UPSTREAM_ERROR",
         "VALIDATION_ERROR"
       ],
       "rateLimit": {
@@ -20945,9 +23989,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "The Meta naming convention",
+          "arguments": {
+            "platform": "meta"
+          }
         }
       ],
       "errorCodes": [
@@ -21003,14 +24048,16 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Set a Meta naming convention",
           "arguments": {
-            "delimiter": "<delimiter>",
+            "platform": "meta",
+            "delimiter": "|",
             "fields": [
-              "<fields>"
+              "funnel",
+              "format",
+              "audience"
             ]
-          },
-          "generated": true
+          }
         }
       ],
       "errorCodes": [
@@ -21056,11 +24103,10 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "What a pipeline needs",
           "arguments": {
-            "pipeline_id": "11111111-1111-4111-8111-111111111111"
-          },
-          "generated": true
+            "pipeline_id": "1c4e7a9d-3b5f-4d2a-8e6c-9f0b2d4a6c81"
+          }
         }
       ],
       "errorCodes": [
@@ -21151,15 +24197,32 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Run a pipeline twice with different headlines",
           "arguments": {
-            "pipeline_id": "11111111-1111-4111-8111-111111111111",
-            "family_id": "11111111-1111-4111-8111-111111111111",
-            "revision": 1,
-            "contract_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            "idempotency_key": "<idempotency_key>"
-          },
-          "generated": true
+            "pipeline_id": "1c4e7a9d-3b5f-4d2a-8e6c-9f0b2d4a6c81",
+            "family_id": "6d9b2f4a-8c1e-4f3b-b7d5-2a4c6e8f0b39",
+            "revision": 3,
+            "contract_hash": "4e9f1c7a2b8d3e6f0a5c9b1d7e2f4a8c6b0d3e5f7a9c1b2d4e6f8a0c2e4b6d81",
+            "idempotency_key": "autumn-launch-2026-11-09",
+            "runs": [
+              {
+                "text_inputs": [
+                  {
+                    "input_id": "headline",
+                    "value": "Autumn roast, out now"
+                  }
+                ]
+              },
+              {
+                "text_inputs": [
+                  {
+                    "input_id": "headline",
+                    "value": "Limited batch: autumn roast"
+                  }
+                ]
+              }
+            ]
+          }
         }
       ],
       "errorCodes": [
@@ -21206,13 +24269,12 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "Check a run",
           "arguments": {
             "run_ids": [
-              "11111111-1111-4111-8111-111111111111"
+              "f4a8c2e6-0b3d-4a7f-9c1e-5b7d9f1a3c62"
             ]
-          },
-          "generated": true
+          }
         }
       ],
       "errorCodes": [],
@@ -21268,9 +24330,11 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Find a saved pipeline",
+          "arguments": {
+            "query": "product photo to lifestyle",
+            "limit": 5
+          }
         }
       ],
       "errorCodes": [
@@ -21314,6 +24378,23 @@
         {
           "name": "get_week",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
             {
               "name": "week_start",
               "type": "string",
@@ -21439,6 +24520,23 @@
           "name": "propose_week",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
+            {
               "name": "week_start",
               "type": "string",
               "required": false
@@ -21562,6 +24660,23 @@
         {
           "name": "proposal_status",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
             {
               "name": "week_start",
               "type": "string",
@@ -21687,6 +24802,23 @@
           "name": "approve_week",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
+            {
               "name": "week_start",
               "type": "string",
               "required": false
@@ -21810,6 +24942,23 @@
         {
           "name": "reschedule",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
             {
               "name": "week_start",
               "type": "string",
@@ -21935,6 +25084,23 @@
           "name": "reschedule_many",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
+            {
               "name": "week_start",
               "type": "string",
               "required": false
@@ -22058,6 +25224,23 @@
         {
           "name": "copy",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
             {
               "name": "week_start",
               "type": "string",
@@ -22183,6 +25366,23 @@
           "name": "attach_media",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
+            {
               "name": "week_start",
               "type": "string",
               "required": false
@@ -22306,6 +25506,23 @@
         {
           "name": "bulk_transition",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
             {
               "name": "week_start",
               "type": "string",
@@ -22431,6 +25648,23 @@
           "name": "operation_status",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get_week",
+                "propose_week",
+                "proposal_status",
+                "approve_week",
+                "reschedule",
+                "reschedule_many",
+                "copy",
+                "attach_media",
+                "bulk_transition",
+                "operation_status"
+              ]
+            },
+            {
               "name": "week_start",
               "type": "string",
               "required": false
@@ -22554,16 +25788,36 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (action=get_week)",
+          "title": "Read next week's calendar",
           "arguments": {
-            "action": "get_week"
-          },
-          "generated": true
+            "action": "get_week",
+            "week_start": "2026-11-16",
+            "timezone": "America/New_York"
+          }
+        },
+        {
+          "title": "Propose a week of posts",
+          "arguments": {
+            "action": "propose_week",
+            "week_start": "2026-11-16",
+            "timezone": "America/New_York"
+          }
+        },
+        {
+          "title": "Move one post",
+          "arguments": {
+            "action": "reschedule",
+            "draft_id": "8b2d6f0a-4e7c-4b1d-a3f5-7c9e1b3d5f27",
+            "day": "2026-11-19",
+            "time_of_day": "09:30"
+          }
         }
       ],
       "errorCodes": [
         "CONFLICT",
+        "CTX_MISSING_MODE_A_FIELDS",
         "INTERNAL",
+        "JOB_ENQUEUE_FAILED",
         "JOB_PENDING",
         "NOT_FOUND",
         "VALIDATION_ERROR"
@@ -22622,26 +25876,21 @@
       ],
       "examples": [
         {
-          "title": "Audit a draft",
+          "title": "Audit a draft caption before publishing",
           "arguments": {
-            "integration_account_id": "00000000-0000-0000-0000-000000000000",
+            "account_id": "5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92",
             "content": {
               "type": "post",
-              "caption": "Draft caption",
+              "caption": "Autumn is here. Our new single-origin roast is out now.",
               "hashtags": [
-                "#tag"
+                "#coffee",
+                "#autumn"
               ]
-            }
-          }
-        },
-        {
-          "title": "Force fresh audit (async)",
-          "arguments": {
-            "integration_account_id": "00000000-0000-0000-0000-000000000000",
-            "content": {
-              "post_id": "ig_post_xyz"
             },
-            "force_refresh": true
+            "audit_dimensions": [
+              "brand_voice",
+              "hashtag_strategy"
+            ]
           }
         }
       ],
@@ -22693,6 +25942,16 @@
               "name": "account_id",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": true,
+              "values": [
+                "image",
+                "carousel",
+                "reel"
+              ]
             },
             {
               "name": "caption",
@@ -22754,6 +26013,16 @@
               "required": true
             },
             {
+              "name": "type",
+              "type": "string",
+              "required": true,
+              "values": [
+                "image",
+                "carousel",
+                "reel"
+              ]
+            },
+            {
               "name": "caption",
               "type": "string",
               "required": true
@@ -22813,6 +26082,16 @@
               "required": true
             },
             {
+              "name": "type",
+              "type": "string",
+              "required": true,
+              "values": [
+                "image",
+                "carousel",
+                "reel"
+              ]
+            },
+            {
               "name": "caption",
               "type": "string",
               "required": true
@@ -22866,21 +26145,19 @@
       ],
       "examples": [
         {
-          "title": "Publish image",
+          "title": "Preview an image post (publish only after a yes)",
           "arguments": {
-            "integration_account_id": "00000000-0000-0000-0000-000000000000",
-            "format": "image",
-            "caption": "Hello world",
-            "hashtags": [
-              "#launch"
-            ],
+            "account_id": "5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92",
+            "type": "image",
+            "caption": "Autumn is here. Our new single-origin roast is out now.",
             "media": [
               {
-                "kind": "image",
-                "url": "https://cdn.example.com/x.jpg"
+                "type": "image",
+                "source_url": "https://cdn.example.com/autumn-roast.jpg"
               }
             ],
-            "idempotency_key": "post-2026-04-21-001"
+            "idempotency_key": "autumn-roast-post-2026-11-09",
+            "mode": "preview"
           }
         }
       ],
@@ -22945,6 +26222,18 @@
               "required": true
             },
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "unschedule",
+                "delete",
+                "edit_caption",
+                "reschedule",
+                "preview_delete"
+              ]
+            },
+            {
               "name": "caption",
               "type": "string",
               "required": false
@@ -22978,6 +26267,18 @@
               "name": "post_id",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "unschedule",
+                "delete",
+                "edit_caption",
+                "reschedule",
+                "preview_delete"
+              ]
             },
             {
               "name": "caption",
@@ -23015,6 +26316,18 @@
               "required": true
             },
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "unschedule",
+                "delete",
+                "edit_caption",
+                "reschedule",
+                "preview_delete"
+              ]
+            },
+            {
               "name": "caption",
               "type": "string",
               "required": false
@@ -23048,6 +26361,18 @@
               "name": "post_id",
               "type": "string",
               "required": true
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "unschedule",
+                "delete",
+                "edit_caption",
+                "reschedule",
+                "preview_delete"
+              ]
             },
             {
               "name": "caption",
@@ -23085,6 +26410,18 @@
               "required": true
             },
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "unschedule",
+                "delete",
+                "edit_caption",
+                "reschedule",
+                "preview_delete"
+              ]
+            },
+            {
               "name": "caption",
               "type": "string",
               "required": false
@@ -23109,18 +26446,13 @@
       ],
       "examples": [
         {
-          "title": "Unschedule a draft",
+          "title": "Move a scheduled post",
           "arguments": {
-            "post_id": "draft_abc",
-            "action": "unschedule"
-          }
-        },
-        {
-          "title": "Edit caption on published post",
-          "arguments": {
-            "post_id": "ig_post_xyz",
-            "action": "edit_caption",
-            "caption": "Updated copy"
+            "account_id": "5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92",
+            "post_id": "17895695668004550",
+            "action": "reschedule",
+            "schedule_at": "2026-11-20T15:00:00Z",
+            "idempotency_key": "reschedule-17895695668004550-1120"
           }
         }
       ],
@@ -23175,6 +26507,20 @@
         {
           "name": "find_targets",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "find_targets",
+                "preview",
+                "attach_to_planner",
+                "publish_organic",
+                "replace_paid_creative",
+                "restore_paid_creative",
+                "status"
+              ]
+            },
             {
               "name": "target_type",
               "type": "string",
@@ -23317,6 +26663,20 @@
           "name": "preview",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "find_targets",
+                "preview",
+                "attach_to_planner",
+                "publish_organic",
+                "replace_paid_creative",
+                "restore_paid_creative",
+                "status"
+              ]
+            },
+            {
               "name": "target_type",
               "type": "string",
               "required": false,
@@ -23457,6 +26817,20 @@
         {
           "name": "attach_to_planner",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "find_targets",
+                "preview",
+                "attach_to_planner",
+                "publish_organic",
+                "replace_paid_creative",
+                "restore_paid_creative",
+                "status"
+              ]
+            },
             {
               "name": "target_type",
               "type": "string",
@@ -23599,6 +26973,20 @@
           "name": "publish_organic",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "find_targets",
+                "preview",
+                "attach_to_planner",
+                "publish_organic",
+                "replace_paid_creative",
+                "restore_paid_creative",
+                "status"
+              ]
+            },
+            {
               "name": "target_type",
               "type": "string",
               "required": false,
@@ -23739,6 +27127,20 @@
         {
           "name": "replace_paid_creative",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "find_targets",
+                "preview",
+                "attach_to_planner",
+                "publish_organic",
+                "replace_paid_creative",
+                "restore_paid_creative",
+                "status"
+              ]
+            },
             {
               "name": "target_type",
               "type": "string",
@@ -23881,6 +27283,20 @@
           "name": "restore_paid_creative",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "find_targets",
+                "preview",
+                "attach_to_planner",
+                "publish_organic",
+                "replace_paid_creative",
+                "restore_paid_creative",
+                "status"
+              ]
+            },
+            {
               "name": "target_type",
               "type": "string",
               "required": false,
@@ -24021,6 +27437,20 @@
         {
           "name": "status",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "find_targets",
+                "preview",
+                "attach_to_planner",
+                "publish_organic",
+                "replace_paid_creative",
+                "restore_paid_creative",
+                "status"
+              ]
+            },
             {
               "name": "target_type",
               "type": "string",
@@ -24236,6 +27666,26 @@
           "name": "get",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
+            {
               "name": "target",
               "type": "string",
               "required": false,
@@ -24324,6 +27774,26 @@
         {
           "name": "list",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
             {
               "name": "target",
               "type": "string",
@@ -24414,6 +27884,26 @@
           "name": "build",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
+            {
               "name": "target",
               "type": "string",
               "required": false,
@@ -24502,6 +27992,26 @@
         {
           "name": "edit",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
             {
               "name": "target",
               "type": "string",
@@ -24592,6 +28102,26 @@
           "name": "run",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
+            {
               "name": "target",
               "type": "string",
               "required": false,
@@ -24680,6 +28210,26 @@
         {
           "name": "run_status",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
             {
               "name": "target",
               "type": "string",
@@ -24770,6 +28320,26 @@
           "name": "rename",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
+            {
               "name": "target",
               "type": "string",
               "required": false,
@@ -24858,6 +28428,26 @@
         {
           "name": "delete",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
             {
               "name": "target",
               "type": "string",
@@ -24948,6 +28538,26 @@
           "name": "workspace_list",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
+            {
               "name": "target",
               "type": "string",
               "required": false,
@@ -25036,6 +28646,26 @@
         {
           "name": "workspace_create",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
             {
               "name": "target",
               "type": "string",
@@ -25126,6 +28756,26 @@
           "name": "workspace_delete",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
+            {
               "name": "target",
               "type": "string",
               "required": false,
@@ -25215,6 +28865,26 @@
           "name": "save",
           "inputs": [
             {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
+            {
               "name": "target",
               "type": "string",
               "required": false,
@@ -25303,6 +28973,26 @@
         {
           "name": "save_as_copy",
           "inputs": [
+            {
+              "name": "action",
+              "type": "string",
+              "required": true,
+              "values": [
+                "get",
+                "list",
+                "build",
+                "edit",
+                "run",
+                "run_status",
+                "rename",
+                "delete",
+                "workspace_list",
+                "workspace_create",
+                "workspace_delete",
+                "save",
+                "save_as_copy"
+              ]
+            },
             {
               "name": "target",
               "type": "string",
@@ -25495,9 +29185,8 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
-          "arguments": {},
-          "generated": true
+          "title": "Read the brand's trends report",
+          "arguments": {}
         }
       ],
       "errorCodes": [
@@ -26357,11 +30046,18 @@
       ],
       "examples": [
         {
-          "title": "Minimal valid call (minimal call)",
+          "title": "List Video Studio projects",
           "arguments": {
-            "action": "list_workflows"
-          },
-          "generated": true
+            "action": "list_projects"
+          }
+        },
+        {
+          "title": "Cut silences from a project",
+          "arguments": {
+            "action": "cut_silence",
+            "projectId": "b7d3f9a1-4c6e-4a2b-8d5f-6e9c1b3a7d40",
+            "minSilenceSec": 0.6
+          }
         }
       ],
       "errorCodes": [

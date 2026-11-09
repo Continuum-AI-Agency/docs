@@ -14,7 +14,10 @@ const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
 const hash = (value) => createHash('sha256').update(value).digest('hex');
 const sourcePath = 'drafts/forge/source.json';
 const lockPath = 'drafts/forge/sources.lock.json';
-const cell = (text) => text.replaceAll('|', '\\|').replaceAll('\n', ' ');
+// Code-format snake_case identifiers so they read as code and the markdown export doesn't escape them.
+const ids = (text) => text.split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
+  : part.replace(/\b(?:[a-z][a-zA-Z0-9]*|[A-Z][A-Z0-9]*)(?:_[a-zA-Z0-9]+)+(?:=[\w'".:-]+)?/g, (m) => `\`${m}\``)).join('');
+const cell = (text) => ids(text).replaceAll('|', '\\|').replaceAll('\n', ' ');
 const cards = `\n## What's next\n\n<CardGroup cols={2}>\n<Card title="Agent quickstart" icon="robot" href="/forge/agents">Choose a function and execute safely.</Card>\n<Card title="Design systems" icon="layer-group" href="/forge/design-systems">Check source formats and execution boundaries.</Card>\n</CardGroup>\n`;
 
 export function buildOutputs(source, lock) {
@@ -31,7 +34,7 @@ export function buildOutputs(source, lock) {
   for (const group of groups) {
     functions += `\n## ${group}\n\n`;
     for (const op of operations.filter(o => o.group === group)) {
-      functions += `### ${op.tool}.${op.action}\n\n${op.summary}\n\n| Contract | Behavior |\n| --- | --- |\n`;
+      functions += `### \`${op.tool}.${op.action}\`\n\n${ids(op.summary)}\n\n| Contract | Behavior |\n| --- | --- |\n`;
       for (const [label, value] of [
         ['Required inputs', ['action', ...op.required].map(x => `\`${x}\``).join(', ')],
         ['Conditions', op.conditions ?? 'Use only identifiers returned for this brand.'],

@@ -1,9 +1,17 @@
 ---
 title: "Quickstart"
-description: "What you need, how to connect Continuum to Claude, ChatGPT, or another assistant in two minutes, how to check it worked, and the five questions to ask first."
+description: "Everything to go from nothing to a first answer: what you need, how to connect Claude, ChatGPT, Claude Code, Cursor, VS Code, Codex, or any MCP client, how to check it worked, and the five questions to ask first."
 ---
 
-The fastest way to use Continuum is from the AI assistant you already have open. Connect it once, then ask in your own words.
+import { Flow } from "/snippets/diagrams.jsx";
+
+The fastest way to use Continuum is from the AI assistant you already have open. Connect it once, then ask in your own words. You sign in with your normal Continuum login in the browser: there's no key to copy, and your assistant never sees your password.
+
+<Flow
+  label="How connecting works"
+  steps={["Paste the address", "Sign in to Continuum", "Pick a brand", "Allow access", "Ask"]}
+  you="Allow access"
+/>
 
 ## Before you start
 
@@ -14,7 +22,14 @@ The fastest way to use Continuum is from the AI assistant you already have open.
 | The right role for what you'll do | **Viewer** can ask and read. Making drafts, publishing, or changing ads needs **Operator** or higher. See [Roles](/settings/roles). |
 | The right plan for what you'll use | Organic+ and Performance+ are each part of a plan, set per brand under **Settings → Billing**. Generating images and video uses Canvas credits. See [Billing](/settings/billing). |
 
-There are no API keys. You sign in with your Continuum login.
+## Server addresses
+
+| Assistant | Address |
+| --- | --- |
+| Claude, and every other assistant that supports custom connectors | `https://api.trycontinuum.ai/mcp` |
+| ChatGPT | `https://api.trycontinuum.ai/mcp/chatgpt` |
+
+<Warning>ChatGPT needs its own address. If ChatGPT won't finish signing in, check that you used the `/mcp/chatgpt` address.</Warning>
 
 ## Connect your assistant
 
@@ -28,6 +43,8 @@ Go to **Settings → Connectors**, choose **Add custom connector**, name it `Con
 Click **Connect**, sign in to Continuum, pick the brand to connect, and click **Allow access**.
 </Step>
 </Steps>
+
+The connector also works in the Claude mobile app. On a Claude Team or Enterprise plan, your organization owner may need to add it before you can use it.
 
 ### ChatGPT
 
@@ -43,23 +60,81 @@ Sign in to Continuum, pick the brand to connect, and click **Allow access**.
 </Step>
 </Steps>
 
-### Claude Code, Cursor, VS Code, Codex, or another client
+### Claude Code
 
-Claude Code takes one command:
-
-```bash
+```bash wrap
 claude mcp add --transport http continuum https://api.trycontinuum.ai/mcp
 ```
 
-Then run `/mcp`, choose `continuum`, and sign in. For Cursor, VS Code, Codex, and other clients, see [Connect your assistant](/mcp/connect).
+Then run `/mcp` inside Claude Code, choose `continuum`, and sign in to Continuum in the browser window it opens.
 
-### Check that it worked
+### Cursor
+
+Add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor/mcp.json` for one project:
+
+```json ~/.cursor/mcp.json
+{
+  "mcpServers": {
+    "continuum": {
+      "url": "https://api.trycontinuum.ai/mcp"
+    }
+  }
+}
+```
+
+Open **Cursor Settings → MCP**, find `continuum`, and sign in to Continuum when Cursor asks.
+
+### VS Code
+
+Run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Continuum to `.vscode/mcp.json`:
+
+```json .vscode/mcp.json
+{
+  "servers": {
+    "continuum": {
+      "type": "http",
+      "url": "https://api.trycontinuum.ai/mcp"
+    }
+  }
+}
+```
+
+The first time Copilot uses it, VS Code opens a browser window to sign in to Continuum.
+
+### Codex
+
+```bash wrap
+codex mcp add continuum --url https://api.trycontinuum.ai/mcp
+codex mcp login continuum
+```
+
+The login command opens a browser window to sign in to Continuum.
+
+### Any other assistant
+
+Any assistant that supports custom (remote) MCP connectors can use `https://api.trycontinuum.ai/mcp`. Add it as a remote server, then sign in to Continuum in the browser window it opens.
+
+## Check that it worked
 
 Start a new chat and ask:
 
 > "Which Continuum brand am I working on, and what's connected?"
 
-You should get the brand's name and a list of its connected platforms. If your assistant says it has no Continuum tools, or sign-in keeps failing, see [Assistant troubleshooting](/mcp/troubleshooting).
+You should get the brand's name and a list of its connected platforms. If your assistant says it has no Continuum tools, or sign-in keeps failing, see [Assistant troubleshooting](/troubleshooting#in-your-ai-assistant).
+
+## What you're allowing
+
+When you click **Allow access**, your assistant can work in Continuum as you:
+
+- It reaches only the brands you belong to, and does only what your [role](/settings/roles) allows.
+- Publishing, changes to your ads and budgets, and deletions show a preview first and wait for your yes.
+- Every action you take through it is listed under **Settings → Activity** in Continuum.
+
+See [You stay in control](/mcp/control) for the full picture.
+
+### Disconnect
+
+In Continuum, **Settings → Connections** lists every assistant you've connected. Revoke any you no longer use. You can also remove the connector from your assistant's own settings.
 
 ## Your first five minutes
 

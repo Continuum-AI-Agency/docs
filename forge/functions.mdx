@@ -18,7 +18,7 @@ The [operation index](/forge/agent-manifest.json) supplies compact routing facts
 
 ## Sources
 
-### forge_query.sources
+### `forge_query.sources`
 
 List the brand’s uploaded template sources and parse/build state.
 
@@ -33,11 +33,11 @@ List the brand’s uploaded template sources and parse/build state.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"sources"}`.
 
-### forge_manage.source_begin
+### `forge_manage.source_begin`
 
 Create a signed-in mixed-file upload handoff.
 
@@ -45,18 +45,18 @@ Create a signed-in mixed-file upload handoff.
 | --- | --- |
 | Required inputs | `action` |
 | Conditions | Use only identifiers returned for this brand. |
-| Returns | upload_intent_id, open_url, expires_at, max_files |
+| Returns | `upload_intent_id`, `open_url`, `expires_at`, `max_files` |
 | Role | Operator or higher |
 | Side effects | Creates an upload intent; completing an eligible source upload can start automatic preparation. |
 | Potential spend | No generation started by this call. |
-| Confirmation | Explain automatic preparation and smoke-render spend and obtain permission BEFORE completing an eligible source upload; waiting for template_forge does not prevent it. |
+| Confirmation | Explain automatic preparation and smoke-render spend and obtain permission BEFORE completing an eligible source upload; waiting for `template_forge` does not prevent it. |
 | Completion | Returns inline; upload, parsing and eligible preparation continue separately. |
 | Retry | Do not retry blindly: another call creates another handoff. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"source_begin"}`.
 
-### forge_manage.source_status
+### `forge_manage.source_status`
 
 Read upload readiness and classified resource IDs.
 
@@ -64,25 +64,25 @@ Read upload readiness and classified resource IDs.
 | --- | --- |
 | Required inputs | `action`, `upload_intent_id` |
 | Conditions | Use only identifiers returned for this brand. |
-| Returns | documentIds, mediaAssetIds, templateAssetIds, source_refs, sources |
+| Returns | documentIds, mediaAssetIds, templateAssetIds, `source_refs`, sources |
 | Role | Operator or higher |
 | Side effects | Reads the handoff; saves nothing. |
 | Potential spend | No generation started by this call. |
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again while processing. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"source_status"}`.
 
-### forge_manage.source_figma
+### `forge_manage.source_figma`
 
 Import Figma frames as design templates, or list the frames in a Figma file.
 
 | Contract | Behavior |
 | --- | --- |
 | Required inputs | `action`, `figmaUrl` |
-| Conditions | Uses the brand's Figma connection and the signed-in person's Continuum session. Read forge_query sources until parsed, then forge_query template for its text columns. |
+| Conditions | Uses the brand's Figma connection and the signed-in person's Continuum session. Read `forge_query` sources until parsed, then `forge_query` template for its text columns. |
 | Returns | File link without figmaNodeIds: fileKey, fileName, frames, next (nothing imported). Frame link or figmaNodeIds: fileKey, assets, templateAssetIds, templateKeys (web: plus the asset id), next |
 | Role | Operator or higher |
 | Side effects | A file link lists its frames and imports nothing. A frame link, or figmaNodeIds (up to 5), imports each frame into the Library as a design template that renders as its templateKey with no build. |
@@ -90,14 +90,14 @@ Import Figma frames as design templates, or list the frames in a Figma file.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | If the call times out, repeat it with the same arguments: it joins the import still running. |
-| Errors | INTEGRATION_REQUIRED: connect Figma for the brand; PERMISSION_DENIED: the brand's Figma account can't open this file; NOT_FOUND: no such Figma file or frame; UNAUTHENTICATED: no signed-in session; import from the Forge page instead; VALIDATION_ERROR: not a figma.com/design link |
+| Errors | `INTEGRATION_REQUIRED`: connect Figma for the brand; `PERMISSION_DENIED`: the brand's Figma account can't open this file; `NOT_FOUND`: no such Figma file or frame; UNAUTHENTICATED: no signed-in session; import from the Forge page instead; `VALIDATION_ERROR`: not a figma.com/design link |
 
 Schema: `help_describe {"tool":"forge_manage","action":"source_figma"}`.
 
 
 ## Template revisions
 
-### forge_query.templates
+### `forge_query.templates`
 
 List granted or built render templates.
 
@@ -112,11 +112,11 @@ List granted or built render templates.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"templates"}`.
 
-### forge_query.template
+### `forge_query.template`
 
 Read exposed variables, required values, budgets, outputs and contractHash.
 
@@ -131,11 +131,11 @@ Read exposed variables, required values, budgets, outputs and contractHash.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"template"}`.
 
-### forge_query.template_tree
+### `forge_query.template_tree`
 
 Read branches, revision history, publications and the default variant.
 
@@ -150,11 +150,11 @@ Read branches, revision history, publications and the default variant.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"template_tree"}`.
 
-### forge_query.template_layers
+### `forge_query.template_layers`
 
 Read editable compositions and layers of a revision.
 
@@ -169,11 +169,11 @@ Read editable compositions and layers of a revision.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"template_layers"}`.
 
-### forge_query.template_revision
+### `forge_query.template_revision`
 
 Read a revision and its source identity.
 
@@ -188,11 +188,11 @@ Read a revision and its source identity.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"template_revision"}`.
 
-### forge_query.template_diff
+### `forge_query.template_diff`
 
 Compare edits of two revisions of one template.
 
@@ -207,11 +207,11 @@ Compare edits of two revisions of one template.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | VALIDATION_ERROR: revisions must belong to one template |
+| Errors | `VALIDATION_ERROR`: revisions must belong to one template |
 
 Schema: `help_describe {"tool":"forge_query","action":"template_diff"}`.
 
-### forge_query.template_run
+### `forge_query.template_run`
 
 Read the publishing run for this exact revision source.
 
@@ -226,18 +226,18 @@ Read the publishing run for this exact revision source.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"template_run"}`.
 
-### forge_manage.template_preview
+### `forge_manage.template_preview`
 
 Preview proposed edits without saving a revision.
 
 | Contract | Behavior |
 | --- | --- |
 | Required inputs | `action`, `assetId`, `parentRevisionId`, `edits` |
-| Conditions | Read template_layers first. Edits are also checked against the revision edit contract. |
+| Conditions | Read `template_layers` first. Edits are also checked against the revision edit contract. |
 | Returns | Edited layer values, svgBytes, next; no SVG body |
 | Role | Operator or higher |
 | Side effects | Validates and previews; saves nothing. |
@@ -245,11 +245,11 @@ Preview proposed edits without saving a revision.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Re-read state after an uncertain response; no general replay guarantee. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"template_preview"}`.
 
-### forge_manage.template_save
+### `forge_manage.template_save`
 
 Save edits as a new immutable revision.
 
@@ -261,14 +261,14 @@ Save edits as a new immutable revision.
 | Role | Operator or higher |
 | Side effects | Writes a source/version and revision; preserves the Original. Eligible saved sources can automatically prepare and publish. |
 | Potential spend | Yes: parsing the saved package can start automatic preparation and smoke-render spend. |
-| Confirmation | Obtain explicit permission for saving and its automatic preparation/spend BEFORE template_save; there is no separate render-preview token for this path. |
+| Confirmation | Obtain explicit permission for saving and its automatic preparation/spend BEFORE `template_save`; there is no separate render-preview token for this path. |
 | Completion | Returns inline. |
 | Retry | Same save derives a replay key; optional UUID idempotencyKey. Re-read after a head conflict. |
-| Errors | PERMISSION_DENIED: signed-in session required; CONFLICT: branch head changed |
+| Errors | `PERMISSION_DENIED`: signed-in session required; CONFLICT: branch head changed |
 
 Schema: `help_describe {"tool":"forge_manage","action":"template_save"}`.
 
-### forge_manage.template_forge
+### `forge_manage.template_forge`
 
 Start or advance publication of an eligible revision source.
 
@@ -276,18 +276,18 @@ Start or advance publication of an eligible revision source.
 | --- | --- |
 | Required inputs | `action`, `assetId`, `step` |
 | Conditions | step=start needs templateName; step=decisions needs decisions. Native HTML/components/Blender do not use this action. |
-| Returns | source or run, next; inspect template_run |
+| Returns | source or run, next; inspect `template_run` |
 | Role | Admin or Owner |
 | Side effects | Changes publishing state; can run smoke renders and publish automatically. |
 | Potential spend | Yes: smoke renders can spend provider budget, including after start. |
-| Confirmation | Obtain explicit permission for this publishing run and its smoke-render spend before starting; this action has no render_preview token. |
-| Completion | Returns inline; inspect template_run while the run continues. |
-| Retry | Read template_run first. Step in only where parked; on CONFLICT re-read instead of replaying steps. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Confirmation | Obtain explicit permission for this publishing run and its smoke-render spend before starting; this action has no `render_preview` token. |
+| Completion | Returns inline; inspect `template_run` while the run continues. |
+| Retry | Read `template_run` first. Step in only where parked; on CONFLICT re-read instead of replaying steps. |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"template_forge"}`.
 
-### forge_manage.template_set_default
+### `forge_manage.template_set_default`
 
 Choose the variant everyone opens by default.
 
@@ -301,15 +301,15 @@ Choose the variant everyone opens by default.
 | Potential spend | No generation started by this call. |
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
-| Retry | Re-read template_tree before retrying; confirm the intended default. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Retry | Re-read `template_tree` before retrying; confirm the intended default. |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"template_set_default"}`.
 
 
 ## Render sets
 
-### forge_query.sets
+### `forge_query.sets`
 
 List saved sets, optionally filtered by templateKey.
 
@@ -324,11 +324,11 @@ List saved sets, optionally filtered by templateKey.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"sets"}`.
 
-### forge_query.set
+### `forge_query.set`
 
 Read saved rows, inherited effective values and delivery settings.
 
@@ -343,11 +343,11 @@ Read saved rows, inherited effective values and delivery settings.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"set"}`.
 
-### forge_query.set_revisions
+### `forge_query.set_revisions`
 
 Read kept states of a set.
 
@@ -355,18 +355,18 @@ Read kept states of a set.
 | --- | --- |
 | Required inputs | `action`, `setId` |
 | Conditions | Use only identifiers returned for this brand. |
-| Returns | Kept set revisions for set_fork or set_diff |
+| Returns | Kept set revisions for `set_fork` or `set_diff` |
 | Role | Viewer or higher |
 | Side effects | Reads state; starts no render. |
 | Potential spend | No generation started by this call. |
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"set_revisions"}`.
 
-### forge_query.set_diff
+### `forge_query.set_diff`
 
 Compare two rows or two kept states as rendered.
 
@@ -381,11 +381,11 @@ Compare two rows or two kept states as rendered.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"set_diff"}`.
 
-### forge_manage.set_create
+### `forge_manage.set_create`
 
 Save rows for one template.
 
@@ -400,30 +400,30 @@ Save rows for one template.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | No general replay guarantee; discover existing sets after an uncertain response. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"set_create"}`.
 
-### forge_manage.set_update
+### `forge_manage.set_update`
 
 Update a saved set with a revision check.
 
 | Contract | Behavior |
 | --- | --- |
 | Required inputs | `action`, `setId`, `expectedRevision` |
-| Conditions | settings merges named keys; null clears nullable settings. Prefer rows_patch for surgical row changes. |
+| Conditions | settings merges named keys; null clears nullable settings. Prefer `rows_patch` for surgical row changes. |
 | Returns | Saved set with its new revision |
 | Role | Operator or higher |
 | Side effects | Writes supplied fields; rows replaces the ENTIRE row list. |
 | Potential spend | No generation started by this call. |
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
-| Retry | On render_set_revision_conflict, re-read set and reconcile; never replace expectedRevision blindly. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Retry | On `render_set_revision_conflict`, re-read set and reconcile; never replace expectedRevision blindly. |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"set_update"}`.
 
-### forge_manage.set_fork
+### `forge_manage.set_fork`
 
 Copy the current set or one of its kept states.
 
@@ -438,11 +438,11 @@ Copy the current set or one of its kept states.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | No general replay guarantee; inspect sets after an uncertain response. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"set_fork"}`.
 
-### forge_manage.set_delete
+### `forge_manage.set_delete`
 
 Delete a saved render set.
 
@@ -457,11 +457,11 @@ Delete a saved render set.
 | Confirmation | Ask for an explicit yes before calling. This action directly deletes; it does not issue its own confirmationToken. |
 | Completion | Returns inline. |
 | Retry | Do not retry blindly; re-read the set after an uncertain response. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"set_delete"}`.
 
-### forge_manage.suggest_rows
+### `forge_manage.suggest_rows`
 
 Draft values from a brief, documents or media.
 
@@ -475,12 +475,12 @@ Draft values from a brief, documents or media.
 | Potential spend | AI drafting may consume model budget. |
 | Confirmation | Use only when the person’s request authorizes AI drafting and its potential model spend; that request is sufficient consent. No server confirmation token is issued. |
 | Completion | Returns inline. |
-| Retry | Another call drafts again; retain selected draft IDs for apply_suggestions. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Retry | Another call drafts again; retain selected draft IDs for `apply_suggestions`. |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"suggest_rows"}`.
 
-### forge_manage.apply_suggestions
+### `forge_manage.apply_suggestions`
 
 Append selected draft rows once.
 
@@ -495,11 +495,11 @@ Append selected draft rows once.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Selected draft IDs provide replay protection; on a genuine revision conflict, re-read and reconcile. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"apply_suggestions"}`.
 
-### forge_manage.rows_patch
+### `forge_manage.rows_patch`
 
 Upsert or remove selected rows with a revision check.
 
@@ -514,11 +514,11 @@ Upsert or remove selected rows with a revision check.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Use stable row IDs; re-read on a revision conflict. ID-less appends can duplicate on retry. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"rows_patch"}`.
 
-### forge_manage.set_retarget
+### `forge_manage.set_retarget`
 
 Pin an existing set to a published template revision.
 
@@ -533,14 +533,14 @@ Pin an existing set to a published template revision.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Re-read on revision conflict; do not substitute an unpublished or unrelated revision. |
-| Errors | VALIDATION_ERROR: template_revision_unpublished; CONFLICT: render_set_revision_conflict |
+| Errors | `VALIDATION_ERROR`: `template_revision_unpublished`; CONFLICT: `render_set_revision_conflict` |
 
 Schema: `help_describe {"tool":"forge_manage","action":"set_retarget"}`.
 
 
 ## Rendering
 
-### forge_query.destinations
+### `forge_query.destinations`
 
 Read delivery and approval destinations.
 
@@ -555,11 +555,11 @@ Read delivery and approval destinations.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"destinations"}`.
 
-### forge_query.jobs
+### `forge_query.jobs`
 
 List render jobs, optionally filtered by templateKey, setId, batchId or status.
 
@@ -574,11 +574,11 @@ List render jobs, optionally filtered by templateKey, setId, batchId or status.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"jobs"}`.
 
-### forge_query.job
+### `forge_query.job`
 
 Refresh a single render job and its output files.
 
@@ -593,11 +593,11 @@ Refresh a single render job and its output files.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"job"}`.
 
-### forge_query.batch
+### `forge_query.batch`
 
 Read a batch, waiting briefly for its jobs to settle.
 
@@ -612,11 +612,11 @@ Read a batch, waiting briefly for its jobs to settle.
 | Confirmation | None for this action. |
 | Completion | Bounded wait: waitSeconds 0–55; use 50 in a background task until done=true. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"batch"}`.
 
-### forge_manage.render_preview
+### `forge_manage.render_preview`
 
 Validate selected rows and show where each result will go.
 
@@ -631,11 +631,11 @@ Validate selected rows and show where each result will go.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Refresh after changed inputs or an expired token. Override a refusal only after the person agrees to its named flag. |
-| Errors | VALIDATION_ERROR: render_fonts_missing; CONFLICT: render_set_revision_conflict |
+| Errors | `VALIDATION_ERROR`: `render_fonts_missing`; CONFLICT: `render_set_revision_conflict` |
 
 Schema: `help_describe {"tool":"forge_manage","action":"render_preview"}`.
 
-### forge_manage.render_confirm
+### `forge_manage.render_confirm`
 
 Redeem the reviewed preflight token and queue the batch.
 
@@ -648,16 +648,16 @@ Redeem the reviewed preflight token and queue the batch.
 | Side effects | Queues rendering and the reviewed delivery/approval work. |
 | Potential spend | Yes: rendering can spend provider budget. |
 | Confirmation | Show readiness, rows and destinations; wait for the person’s yes, then pass the exact returned confirmationToken. |
-| Completion | Returns a batch immediately; read forge_query batch/job. |
+| Completion | Returns a batch immediately; read `forge_query` batch/job. |
 | Retry | Single-use token. After an uncertain response inspect existing jobs; do not obtain another token and blindly render twice. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_manage","action":"render_confirm"}`.
 
 
 ## Scenes
 
-### forge_query.scenes
+### `forge_query.scenes`
 
 List accessible 3D scenes and their fillable keys.
 
@@ -672,11 +672,11 @@ List accessible 3D scenes and their fillable keys.
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
 | Retry | Safe to read again. |
-| Errors | needs_brand / needs_role: resolve access first; NOT_FOUND / VALIDATION_ERROR: retain the returned reason |
+| Errors | `needs_brand` / `needs_role`: resolve access first; `NOT_FOUND` / `VALIDATION_ERROR`: retain the returned reason |
 
 Schema: `help_describe {"tool":"forge_query","action":"scenes"}`.
 
-### forge_manage.scene_fill
+### `forge_manage.scene_fill`
 
 Fill an accessible scene from the brand and brief.
 
@@ -690,12 +690,12 @@ Fill an accessible scene from the brand and brief.
 | Potential spend | No generation started by this call. |
 | Confirmation | None for this action. |
 | Completion | Returns inline. |
-| Retry | On scene_version_stale re-read scenes; a new fill creates a fresh confirmation. |
-| Errors | CONFLICT: scene_version_stale; VALIDATION_ERROR: scene_output_unknown |
+| Retry | On `scene_version_stale` re-read scenes; a new fill creates a fresh confirmation. |
+| Errors | CONFLICT: `scene_version_stale`; `VALIDATION_ERROR`: `scene_output_unknown` |
 
 Schema: `help_describe {"tool":"forge_manage","action":"scene_fill"}`.
 
-### forge_manage.scene_render
+### `forge_manage.scene_render`
 
 Redeem a reviewed scene fill and queue its outputs.
 
@@ -707,10 +707,10 @@ Redeem a reviewed scene fill and queue its outputs.
 | Role | Operator or higher |
 | Side effects | Queues one scene render per output into the Library. |
 | Potential spend | Yes: scene rendering can spend provider budget; this response does not supply a price estimate. |
-| Confirmation | Show filled values and outputs, explain potential spend (estimate may be unavailable), wait for a yes, then pass the exact scene_fill token. |
+| Confirmation | Show filled values and outputs, explain potential spend (estimate may be unavailable), wait for a yes, then pass the exact `scene_fill` token. |
 | Completion | Scene jobs use the template’s scene history in Forge and the Library; they are not Forge render-set batches. |
 | Retry | Token is single-use; after an uncertain response inspect history before another fill/render. |
-| Errors | VALIDATION_ERROR: expired_confirmation; CONFLICT: confirmation_spent |
+| Errors | `VALIDATION_ERROR`: `expired_confirmation`; CONFLICT: `confirmation_spent` |
 
 Schema: `help_describe {"tool":"forge_manage","action":"scene_render"}`.
 

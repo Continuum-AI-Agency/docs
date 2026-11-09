@@ -12,6 +12,7 @@ const { buildManifest } = await import(resolve(backend, 'App/mcp/manifest.ts'));
 const { serializeToolSpec, serializeActionSchema, discriminatorValuesForSchema } =
   await import(resolve(backend, 'App/mcp/shared/serializeToolSpec.ts'));
 const help = await import(resolve(backend, 'App/mcp/tools/help.describe.ts'));
+const { examples: reviewedExamples } = await import(resolve(import.meta.dir, 'mcp-notes.mjs'));
 const { TOOL_RATE_POLICIES } = await import(resolve(backend, 'App/mcp/shared/toolRateLimit.ts'));
 
 const manifest = await buildManifest();
@@ -98,6 +99,21 @@ function generatedExample(spec: any, full: any, discriminator: any) {
   }
   return null;
 }
+// Reviewed examples (mcp-notes.mjs) first, then the server's own examples that pass the tool's
+// validator and name only registered tools. A placeholder call is the last resort.
+const rejected: string[] = [];
+const valid = (spec: any, args: any) => spec.inputSchema.safeParse(args).success
+  && (spec.name !== 'help_describe' || !args.tool || specs.has(args.tool));
+function examplesFor(spec: any, full: any, discriminator: any, server: any[]) {
+  const reviewed = reviewedExamples[spec.name] ?? [];
+  for (const e of reviewed) if (!valid(spec, e.arguments)) rejected.push(`${spec.name} ${e.title}: ${
+    spec.inputSchema.safeParse(e.arguments).error?.issues.map((i: any) => `${i.path.join('.')}: ${i.message}`).join('; ') ?? 'unknown tool'}`);
+  const out = [...reviewed, ...server.filter(e => valid(spec, e.arguments))];
+  return out.length ? out : [generatedExample(spec, full, discriminator)].filter(Boolean);
+}
+const moduleByName = new Map(manifest.tools.map((t: { name: string; module: string }) => [t.name, t.module]));
+const moduleOf = (name: string) => moduleByName.get(name) as string;
+
 // Error codes the tool's own module can return. Framework outcomes (brand, role, integration,
 // rate limit) are added by mcp-docs.mjs from the tool's surface and facts.
 const codesIn = (module: string) => [...new Set(
@@ -114,7 +130,7 @@ for (const entry of registered) {
   const actions = discriminator
     ? discriminator.values.map((action: string) => ({
         name: action,
-        inputs: fields(serializeActionSchema(spec, action), '', discriminator.key),
+        inputs: fields(serializeActionSchema(spec, action)),
       }))
     : null;
   tools.push({
@@ -130,13 +146,14 @@ for (const entry of registered) {
     ...(entry.delegates ? { delegates: entry.delegates } : {}),
     actionKey: discriminator?.key ?? null,
     ...(actions ? { actions } : { inputs: fields(full.inputSchema) }),
-    examples: described.examples?.length ? described.examples : [generatedExample(spec, full, discriminator)].filter(Boolean),
-    errorCodes: codesIn(entry.module),
+    examples: examplesFor(spec, full, discriminator, described.examples ?? []),
+    errorCodes: [...new Set([entry.module, ...(entry.delegates ?? []).map(moduleOf)].flatMap(codesIn))].sort(),
     rateLimit: TOOL_RATE_POLICIES[entry.name] ?? null,
     commonErrors: described.common_errors ?? [],
-    relatedTools: described.related_tools ?? [],
+    relatedTools: (described.related_tools ?? []).filter((name: string) => specs.has(name)),
   });
 }
+if (rejected.length) throw new Error(`Reviewed examples rejected by the tool's validator:\n${rejected.join('\n')}`);
 const git = (...args: string[]) => execFileSync('git', ['-C', backend, ...args], { encoding: 'utf8' }).trim();
 writeFileSync(output, JSON.stringify({
   backend: { repository: 'Continuum-AI-Agency/continuum-backend', revision: git('rev-parse', 'HEAD'), date: git('log', '-1', '--format=%cs') },
