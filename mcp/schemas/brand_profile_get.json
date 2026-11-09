@@ -1,0 +1,1 @@
+{"name":"brand_profile_get","inputSchema":{"type":"object","properties":{"section":{"default":"all","type":"string","enum":["voice","pmf","audience","persona","all"]}},"additionalProperties":false}}

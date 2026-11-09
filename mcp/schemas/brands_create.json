@@ -1,0 +1,1 @@
+{"name":"brands_create","inputSchema":{"type":"object","properties":{"brand_name":{"type":"string","minLength":1,"maxLength":120},"website_url":{"type":"string","format":"uri"}},"required":["brand_name"],"additionalProperties":false}}

@@ -1,0 +1,1 @@
+{"name":"organic_ask","inputSchema":{"type":"object","properties":{"query":{"type":"string","minLength":1},"sessionId":{"type":"string"}},"required":["query"],"additionalProperties":false}}

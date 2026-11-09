@@ -120,6 +120,22 @@ const codesIn = (module: string) => [...new Set(
   [...readFileSync(resolve(backend, `App/mcp/tools/${module}.ts`), 'utf8')
     .matchAll(/toolError\(\s*['"]([A-Z_]+)['"]/g)].map(m => m[1]))].sort();
 
+// Some umbrella tools take one flat input object for every action and enforce each action's
+// requirements in the validator. Probe that validator to learn what each action really requires.
+function probeRequired(spec: any, schema: any, key: string, action: string): string[] {
+  const args: Record<string, unknown> = { [key]: action };
+  const required: string[] = [];
+  for (let i = 0; i < 10; i++) {
+    const parsed = spec.inputSchema.safeParse(args);
+    if (parsed.success) return required;
+    const missing = [...new Set(parsed.error.issues.map((x: any) => x.path[0])
+      .filter((name: any) => typeof name === 'string' && args[name] === undefined && schema.properties?.[name]))] as string[];
+    if (!missing.length) return required;
+    for (const name of missing) { required.push(name); args[name] = placeholder(schema.properties[name], name); }
+  }
+  return required;
+}
+
 const index = await call({});
 const tools = [];
 for (const entry of registered) {
@@ -127,11 +143,16 @@ for (const entry of registered) {
   const [described] = await call({ tool: entry.name });
   const full = serializeToolSpec(spec);
   const discriminator = discriminatorValuesForSchema(full.inputSchema);
+  // Flat: every action's narrowed schema is the whole input object.
+  const flat = Boolean(discriminator) && discriminator.values.every((action: string) =>
+    JSON.stringify(serializeActionSchema(spec, action)) === JSON.stringify(full.inputSchema));
   const actions = discriminator
-    ? discriminator.values.map((action: string) => ({
-        name: action,
-        inputs: fields(serializeActionSchema(spec, action)),
-      }))
+    ? discriminator.values.map((action: string) => {
+        if (!flat) return { name: action, inputs: fields(serializeActionSchema(spec, action)) };
+        const required = new Set([discriminator.key, ...probeRequired(spec, full.inputSchema, discriminator.key, action)]);
+        return { name: action, inputs: fields(full.inputSchema).filter((i: any) => !i.name.includes('.'))
+          .map((i: any) => ({ ...i, required: required.has(i.name) })) };
+      })
     : null;
   tools.push({
     name: entry.name,
@@ -145,6 +166,8 @@ for (const entry of registered) {
     facts: entry.facts,
     ...(entry.delegates ? { delegates: entry.delegates } : {}),
     actionKey: discriminator?.key ?? null,
+    flat,
+    inputSchema: full.inputSchema,
     ...(actions ? { actions } : { inputs: fields(full.inputSchema) }),
     examples: examplesFor(spec, full, discriminator, described.examples ?? []),
     errorCodes: [...new Set([entry.module, ...(entry.delegates ?? []).map(moduleOf)].flatMap(codesIn))].sort(),

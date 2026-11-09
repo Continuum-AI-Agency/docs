@@ -59,7 +59,7 @@ List brands:
 
 **Related:** `brands_select`.
 
-Full schema: `help_describe {"tool":"brands_list"}`.
+Full schema: `help_describe {"tool":"brands_list"}`. As JSON: [`/mcp/schemas/brands_list.json`](/mcp/schemas/brands_list.json).
 
 ### `brands_select`
 
@@ -104,7 +104,7 @@ Select brand:
 
 **Related:** `brands_list`, `integrations_list`.
 
-Full schema: `help_describe {"tool":"brands_select"}`.
+Full schema: `help_describe {"tool":"brands_select"}`. As JSON: [`/mcp/schemas/brands_select.json`](/mcp/schemas/brands_select.json).
 
 ### `brands_create`
 
@@ -148,7 +148,7 @@ Start a brand from its website:
 | `INTERNAL` | Something went wrong on our side. Retry once, then contact support. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"brands_create"}`.
+Full schema: `help_describe {"tool":"brands_create"}`. As JSON: [`/mcp/schemas/brands_create.json`](/mcp/schemas/brands_create.json).
 
 ### `account_map`
 
@@ -190,7 +190,7 @@ Platforms and accounts for the active brand:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"account_map"}`.
+Full schema: `help_describe {"tool":"account_map"}`. As JSON: [`/mcp/schemas/account_map.json`](/mcp/schemas/account_map.json).
 
 ### `accounts_list`
 
@@ -249,7 +249,7 @@ Filter by platform:
 
 **Related:** `insights_get`.
 
-Full schema: `help_describe {"tool":"accounts_list"}`.
+Full schema: `help_describe {"tool":"accounts_list"}`. As JSON: [`/mcp/schemas/accounts_list.json`](/mcp/schemas/accounts_list.json).
 
 ### `integrations_list`
 
@@ -288,7 +288,7 @@ List linked integrations:
 
 **Related:** `integrations_connect`, `accounts_list`.
 
-Full schema: `help_describe {"tool":"integrations_list"}`.
+Full schema: `help_describe {"tool":"integrations_list"}`. As JSON: [`/mcp/schemas/integrations_list.json`](/mcp/schemas/integrations_list.json).
 
 ### `integrations_connect`
 
@@ -307,16 +307,18 @@ Returns a one-time link to connect a platform. Links work for 10 minutes.
 
 **Actions** (`platform`):
 
-| platform | Required inputs | Optional inputs |
-| --- | --- | --- |
-| `instagram` | `platform` | — |
-| `facebook` | `platform` | — |
-| `tiktok` | `platform` | — |
-| `linkedin` | `platform` | — |
-| `youtube` | `platform` | — |
-| `x` | `platform` | — |
-| `threads` | `platform` | — |
-| `google` | `platform` | — |
+| platform | Required inputs |
+| --- | --- |
+| `instagram` | `platform` |
+| `facebook` | `platform` |
+| `tiktok` | `platform` |
+| `linkedin` | `platform` |
+| `youtube` | `platform` |
+| `x` | `platform` |
+| `threads` | `platform` |
+| `google` | `platform` |
+
+Other inputs, shared by every action (the live schema says which each action reads): —.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -342,7 +344,7 @@ Connect Instagram:
 
 **Related:** `integrations_list`.
 
-Full schema: `help_describe {"tool":"integrations_connect","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value.
+Full schema: `help_describe {"tool":"integrations_connect","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/integrations_connect.json`](/mcp/schemas/integrations_connect.json).
 
 ### `integration_health_check`
 
@@ -382,7 +384,7 @@ Check connections:
 
 **Related:** `integrations_connect`, `integrations_list`.
 
-Full schema: `help_describe {"tool":"integration_health_check"}`.
+Full schema: `help_describe {"tool":"integration_health_check"}`. As JSON: [`/mcp/schemas/integration_health_check.json`](/mcp/schemas/integration_health_check.json).
 
 ### `brand_knowledge`
 
@@ -392,7 +394,7 @@ Reads and searches your brand book and knowledge base, checks copy against your 
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher to read. Operator or higher for `add_text`, `add_file`, `add_url`, `upload_url`, `upload_finalize`, `update`, `archive`, `restore`, and `save_permanent`. |
 | Needs | An active brand |
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
@@ -400,23 +402,25 @@ Reads and searches your brand book and knowledge base, checks copy against your 
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
-| `overview` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `search` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `read` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `validate` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `document_status` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `cross_reference` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `add_text` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `add_file` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `add_url` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `upload_url` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `upload_finalize` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `update` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `archive` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `restore` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
-| `save_permanent` | `action` | `query`, `sources`, `categories`, `limit`, `source`, `design_section`, `format`, `section`, `purpose`, `full`, `copy`, `platform`, `document_id`, `name`, and 13 more |
+| `overview` | `action` | — |
+| `search` | `action`, `query` | `sources`, `categories`, `limit` |
+| `read` | `action`, `source` | `full`, `purpose`, `section`, `design_section`, `format` |
+| `validate` | `action`, `copy`, `platform` | — |
+| `document_status` | `action`, `document_id` | — |
+| `cross_reference` | `action` | `lens_limit` |
+| `add_text` | `action`, `name`, `text` | `category`, `retention` |
+| `add_file` | `action`, `file_name`, `mime_type`, `file_base64` | `category`, `operation_id` |
+| `add_url` | `action`, `name`, `url` | `category`, `retention` |
+| `upload_url` | `action`, `file_name`, `mime_type` | — |
+| `upload_finalize` | `action`, `upload_path` | `name`, `category`, `retention` |
+| `update` | `action`, `document_id`, `name\|category` | `expected_updated_at` |
+| `archive` | `action`, `document_id` | `mode`, `confirm_token` |
+| `restore` | `action`, `document_id` | — |
+| `save_permanent` | `action`, `document_id` | — |
+
+In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -469,7 +473,7 @@ Check copy against the brand voice:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
-Full schema: `help_describe {"tool":"brand_knowledge","action":"overview"}`.
+Full schema: `help_describe {"tool":"brand_knowledge","action":"overview"}`. As JSON: [`/mcp/schemas/brand_knowledge.json`](/mcp/schemas/brand_knowledge.json).
 
 ### `agent_ask`
 
@@ -486,7 +490,7 @@ Asks [Jaina](/performance/jaina) or the [Organic agent](/organic/agent) a questi
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Operator or higher. |
 | Needs | An active brand |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns a `job_id`. Read the result with `jobs_status`. |
@@ -494,10 +498,12 @@ Asks [Jaina](/performance/jaina) or the [Organic agent](/organic/agent) a questi
 
 **Actions** (`target`):
 
-| target | Required inputs | Optional inputs |
-| --- | --- | --- |
-| `jaina` | `target`, `query` | `sessionId`, `context` |
-| `organic` | `target`, `query` | `sessionId`, `context` |
+| target | Required inputs |
+| --- | --- |
+| `jaina` | `target`, `query` |
+| `organic` | `target`, `query` |
+
+Other inputs, shared by every action (the live schema says which each action reads): `query`, `sessionId`, `context`.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -532,7 +538,7 @@ Ask the Organic agent for ideas:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"agent_ask","action":"jaina"}`. `help_describe`'s `action` takes a `target` value.
+Full schema: `help_describe {"tool":"agent_ask","action":"jaina"}`. `help_describe`'s `action` takes a `target` value. As JSON: [`/mcp/schemas/agent_ask.json`](/mcp/schemas/agent_ask.json).
 
 ### `jobs_status`
 
@@ -582,7 +588,7 @@ Check a job:
 
 **Related:** `post_audit`, `insights_get`.
 
-Full schema: `help_describe {"tool":"jobs_status"}`.
+Full schema: `help_describe {"tool":"jobs_status"}`. As JSON: [`/mcp/schemas/jobs_status.json`](/mcp/schemas/jobs_status.json).
 
 ### `help_describe`
 
@@ -638,7 +644,7 @@ Fetch one action of a tool:
 
 **Related:** `brands_list`, `brands_select`.
 
-Full schema: `help_describe {"tool":"help_describe"}`.
+Full schema: `help_describe {"tool":"help_describe"}`. As JSON: [`/mcp/schemas/help_describe.json`](/mcp/schemas/help_describe.json).
 
 ## What's next
 

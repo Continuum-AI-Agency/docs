@@ -12,7 +12,7 @@ Continuum connects to your ad and social accounts and holds your brand's data. H
 | **Assistant sign-in** | OAuth 2.1 with PKCE, using your Continuum login. No API keys. |
 | **Access** | Only the brands you belong to, and only what your role allows. |
 | **Going live** | Publishing, ad changes, spending, and deletions show a preview and wait for your yes. |
-| **Activity** | **Settings → Activity** lists your assistant actions for about 90 days. |
+| **Activity** | **Settings → Activity** lists your assistant actions. |
 | **Revoking** | **Settings → Connections** lists every connected assistant. Revoke any of them. |
 | **Ad and social accounts** | Connect once, assign to a brand. Nothing syncs until you assign it. |
 
@@ -31,9 +31,9 @@ A connected assistant works as you. It reaches only the brands you belong to and
 
 | Role | Can do |
 | --- | --- |
-| **Viewer** | Look at everything. |
-| **Operator** | Also create and change content, creative, and campaigns. |
-| **Admin**, **Owner** | Also manage people and settings, and produce final versions in Forge. |
+| **Viewer** | Read results, plans, and the Library. |
+| **Operator** | Also ask Jaina and the Organic agent, and create, change, and run content, creative, and campaigns. |
+| **Admin**, **Owner** | Also manage people and settings, approve switching on ads, and produce final versions in Forge. |
 
 See [Roles & permissions](/settings/roles).
 
@@ -47,13 +47,13 @@ Continuum shows a preview and waits for your yes before it:
 - Produces final versions in Forge.
 - Deletes something. The one exception is deleting a Forge render set, which has no preview step; your assistant asks first.
 
-Each yes works once, applies only to the exact change you previewed, and expires: after 5 to 15 minutes for most changes, and 24 hours for a proposed week plan. The [server reference](/mcp/reference#confirmations) lists each lifetime. New campaigns are always created **paused**, and switching one on needs an Admin or Owner's approval. The [Optimizer](/performance/optimizer) never pauses ads, and only you can turn on Autopilot, from the dashboard. Hourly limits on bigger jobs protect your budget.
+Each yes works once, applies only to the exact change you previewed, and expires: after 5 to 15 minutes for most changes, and 24 hours for a proposed week plan. The [server reference](/mcp/reference#confirmations) lists each lifetime. New campaigns, ad sets, and ads are always created **paused**. Switching one on needs an Admin or Owner to approve that exact change, in the app or with `mcp_approval_grant` from their own assistant. The [Optimizer](/performance/optimizer) never pauses ads, and only you can turn on Autopilot, from the dashboard. Hourly limits on bigger jobs protect your budget.
 
 See [You stay in control](/mcp/control) for what waits and what happens right away.
 
 ## See and revoke assistant access
 
-- **Settings → Activity** lists every action you've taken through a connected assistant: the tool, whether it worked, and when. Each person sees their own activity. Entries are kept for about 90 days.
+- **Settings → Activity** lists every action you've taken through a connected assistant: the tool, whether it worked, and when. Each person sees their own activity.
 - Continuum logs only a fingerprint of what was asked, never the request itself.
 - **Settings → Connections** lists every assistant you've connected. Revoke any you no longer use.
 

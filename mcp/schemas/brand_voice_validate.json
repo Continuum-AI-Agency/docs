@@ -1,0 +1,1 @@
+{"name":"brand_voice_validate","inputSchema":{"type":"object","properties":{"copy":{"type":"string","minLength":1,"maxLength":10000},"platform":{"type":"string","enum":["instagram","facebook","linkedin","tiktok","youtube","x"]}},"required":["copy","platform"],"additionalProperties":false}}

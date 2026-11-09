@@ -59,7 +59,7 @@ Every call works on one brand.
 
 | Role | Can call |
 | --- | --- |
-| **Viewer** | Every read: analytics, the brand book, the Library, the calendar, Forge, trends, and competitors. |
+| **Viewer** | Reads: analytics, the brand book, the Library, the calendar, Forge, trends, and competitors. Asking Jaina or the Organic agent (`agent_ask`) needs Operator. |
 | **Operator** | Reads, plus writes: drafts, publishing, the canvas, pipelines, video edits, ads, and Paid optimization approvals. |
 | **Admin**, **Owner** | Everything an Operator can, plus final Forge renders. |
 
@@ -147,7 +147,6 @@ Reports, agent answers, and generations run as jobs and return a `job_id`.
 
 - `jobs_status` takes only `job_id` and returns `pending`, `running`, `completed`, `failed`, or `cancelled`. Leave a few seconds between checks rather than polling in a tight loop. For an agent answer, `result.status` is `completed` (it wrote a draft or plan) or `needs_followup` (text only).
 - Pass `_meta.progressToken` on the call to receive `notifications/progress`.
-- Job results are kept for 7 days.
 - Pipeline runs report through `pipeline_run_status`: `queued`, `running`, `completed`, `refused`, `failed`, or `indeterminate`.
 
 ## Prompts
@@ -160,7 +159,7 @@ Reports, agent answers, and generations run as jobs and return a `job_id`.
 
 ## Activity log
 
-Every tool call is logged with the tool, action, status (`ok`, `error`, `denied`, or `rate_limited`), duration, brand, and client. Arguments are stored only as a fingerprint, never in full. Each person sees their own calls under **Settings → Activity**, filtered by status, client, or tool. Entries are kept for about 90 days.
+Every tool call is logged with the tool, action, status (`ok`, `error`, `denied`, or `rate_limited`), duration, brand, and client. Arguments are stored only as a fingerprint, never in full. Each person sees their own calls under **Settings → Activity**, filtered by status, client, or tool.
 
 ## What's next
 

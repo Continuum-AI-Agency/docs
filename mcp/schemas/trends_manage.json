@@ -1,0 +1,1 @@
+{"name":"trends_manage","inputSchema":{"type":"object","properties":{"force_regenerate":{"type":"boolean"},"generationId":{"type":"string"},"windowsDays":{"type":"array","items":{"type":"integer","minimum":1,"maximum":365}}},"additionalProperties":false}}

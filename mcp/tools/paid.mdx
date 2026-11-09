@@ -31,7 +31,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher for `hierarchy` and `activity`. Operator or higher for writes. Admin or Owner to set `guardrails`. Activating an ad, or raising a budget past the brand's limit, needs an Admin or Owner's approval. |
 | Needs | An active brand |
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns the result in the same call. |
@@ -40,7 +40,7 @@ Reads your campaign structure; creates paused campaigns, ad sets, and ads; updat
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
 | `hierarchy` | `action`, `params`, `params.platform`, `params.ad_account_id`, `params.level` | `params.parent_id`, `params.limit`, `params.cursor`, `params.include_deleted`, `params.include_archived` |
 | `create_campaign` | `action`, `params`, `params.platform`, `params.campaign`, `params.mode`, `params.ad_account_id` | `params.adsets`, `params.idempotency_key`, `params.confirm_token` |
@@ -139,7 +139,7 @@ Cut an ad set to ages 18–55:
 
 **Related:** `analytics_query`, `account_map`.
 
-Full schema: `help_describe {"tool":"paid_manage","action":"hierarchy"}`.
+Full schema: `help_describe {"tool":"paid_manage","action":"hierarchy"}`. As JSON: [`/mcp/schemas/paid_manage.json`](/mcp/schemas/paid_manage.json).
 
 ### `paid_naming_schema_get`
 
@@ -182,7 +182,7 @@ The Meta naming convention:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"paid_naming_schema_get"}`.
+Full schema: `help_describe {"tool":"paid_naming_schema_get"}`. As JSON: [`/mcp/schemas/paid_naming_schema_get.json`](/mcp/schemas/paid_naming_schema_get.json).
 
 ### `optimizer_query`
 
@@ -192,7 +192,7 @@ Portfolios, pending recommendations, performance, and the optimization log.
 | --- | --- |
 | Changes things | No |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher, on a brand with a Meta connection. |
 | Needs | An active brand |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
@@ -200,7 +200,7 @@ Portfolios, pending recommendations, performance, and the optimization log.
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
 | `portfolios` | `action`, `brand_id` | — |
 | `logs` | `action`, `brand_id` | — |
@@ -236,7 +236,7 @@ A portfolio's pending recommendations:
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-Full schema: `help_describe {"tool":"optimizer_query","action":"portfolios"}`.
+Full schema: `help_describe {"tool":"optimizer_query","action":"portfolios"}`. As JSON: [`/mcp/schemas/optimizer_query.json`](/mcp/schemas/optimizer_query.json).
 
 ### `optimizer_manage`
 
@@ -246,7 +246,7 @@ Approves or rejects recommendations and manages portfolios.
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Operator or higher, on a brand with a Meta connection. |
 | Needs | An active brand |
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns the result in the same call. |
@@ -254,7 +254,7 @@ Approves or rejects recommendations and manages portfolios.
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
 | `create_portfolio` | `action`, `payload` | — |
 | `create_from_suggestion` | `action`, `payload` | — |
@@ -299,7 +299,7 @@ Approve one recommendation (the approval is the yes):
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"optimizer_manage","action":"create_portfolio"}`.
+Full schema: `help_describe {"tool":"optimizer_manage","action":"create_portfolio"}`. As JSON: [`/mcp/schemas/optimizer_manage.json`](/mcp/schemas/optimizer_manage.json).
 
 ## What's next
 

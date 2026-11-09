@@ -1,0 +1,1 @@
+{"name":"integrations_connect","inputSchema":{"type":"object","properties":{"platform":{"type":"string","enum":["instagram","facebook","tiktok","linkedin","youtube","x","threads","google"]}},"required":["platform"],"additionalProperties":false}}

@@ -24,13 +24,13 @@ Reads and proposes a week of posts, approves it, reschedules and copies posts, a
 **Good to know:**
 
 - `propose_week` runs as a job. `proposal_status` returns its `plan_id` and a `pending_approval_token` that lasts 24 hours.
-- `approve_week` commits the whole week in one step and is safe to repeat.
+- `approve_week` commits the whole week in one step and is safe to repeat. The `job_id` from `propose_week` can stand in for `plan_id`, `pending_approval_token`, and `placements`.
 
 | Contract | Behavior |
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher for `get_week`, `proposal_status`, and `operation_status`. Operator or higher for every other action. |
 | Needs | An active brand |
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
@@ -38,18 +38,20 @@ Reads and proposes a week of posts, approves it, reschedules and copies posts, a
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
-| `get_week` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `propose_week` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `proposal_status` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `approve_week` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `reschedule` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `reschedule_many` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `copy` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `attach_media` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `bulk_transition` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
-| `operation_status` | `action` | `week_start`, `timezone`, `platform_account_ids`, `job_id`, `plan_id`, `pending_approval_token`, `placements`, `draft_id`, `day`, `time_of_day`, `expected_updated_at`, `targets`, `source_day`, `draft_ids`, and 7 more |
+| `get_week` | `action` | `week_start`, `timezone` |
+| `propose_week` | `action` | `week_start`, `timezone`, `platform_account_ids` |
+| `proposal_status` | `action`, `job_id` | — |
+| `approve_week` | `action`, `job_id\|plan_id+pending_approval_token+placements` | `operation_id` |
+| `reschedule` | `action`, `draft_id`, `day` | `time_of_day`, `expected_updated_at`, `timezone`, `atomicity`, `operation_id` |
+| `reschedule_many` | `action`, `targets` | `timezone`, `atomicity`, `operation_id` |
+| `copy` | `action`, `day`, `draft_ids\|source_day` | `timezone`, `atomicity`, `operation_id` |
+| `attach_media` | `action`, `assets`, `draft_ids\|draft_id` | `replace`, `expected_updated_at`, `atomicity`, `operation_id` |
+| `bulk_transition` | `action`, `to_status`, `draft_ids` | `mode`, `confirm_token`, `expected_updated_at`, `atomicity`, `operation_id` |
+| `operation_status` | `action`, `operation_id` | — |
+
+In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -107,7 +109,7 @@ Move one post:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `CONFIRMATION_REQUIRED` | This write needs a preview first. Preview, get a yes, then confirm with the returned token. |
 
-Full schema: `help_describe {"tool":"planner_manage","action":"get_week"}`.
+Full schema: `help_describe {"tool":"planner_manage","action":"get_week"}`. As JSON: [`/mcp/schemas/planner_manage.json`](/mcp/schemas/planner_manage.json).
 
 ### `content_create`
 
@@ -117,13 +119,14 @@ Drafts, approves, and publishes posts, and deletes drafts.
 
 - `approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.
 - `realize` (generating the creative) and `delete` are two-phase: the first call previews and returns a token, the second confirms.
-- `reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation.
+- `reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.
+- With `generate: false`, `draft` needs no `prompt` and saves the `caption` and `hashtags` you pass word for word.
 
 | Contract | Behavior |
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher for `list`. Operator or higher for every other action. |
 | Needs | An active brand |
 | Confirmation | The person approves the pending change; the approval is the yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
@@ -131,15 +134,17 @@ Drafts, approves, and publishes posts, and deletes drafts.
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
-| `list` | `action` | `prompt`, `platform`, `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `draftId`, `preview_revision`, `regenerate`, and 10 more |
-| `draft` | `action` | `prompt`, `platform`, `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `draftId`, `preview_revision`, `regenerate`, and 10 more |
-| `extend` | `action` | `prompt`, `platform`, `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `draftId`, `preview_revision`, `regenerate`, and 10 more |
-| `realize` | `action` | `prompt`, `platform`, `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `draftId`, `preview_revision`, `regenerate`, and 10 more |
-| `approve` | `action` | `prompt`, `platform`, `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `draftId`, `preview_revision`, `regenerate`, and 10 more |
-| `publish` | `action` | `prompt`, `platform`, `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `draftId`, `preview_revision`, `regenerate`, and 10 more |
-| `delete` | `action` | `prompt`, `platform`, `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `draftId`, `preview_revision`, `regenerate`, and 10 more |
+| `list` | `action` | `publishable_only`, `listStatus`, `limit`, `cursor` |
+| `draft` | `action`, `platform`, `prompt` | `format`, `scheduledAt`, `accountId`, `timezone`, `reference_assets`, `unsplash_photos`, `generate`, `caption`, `hashtags`, `idempotency_key` |
+| `extend` | `action`, `draftId`, `updates\|prompt` | `idempotency_key` |
+| `realize` | `action`, `draftId` | `preview_revision`, `regenerate`, `slides`, `prompt`, `reference_assets`, `unsplash_photos` |
+| `approve` | `action`, `draftId` | — |
+| `publish` | `action`, `draftId`, `confirm_token` | `accountId`, `operation_id` |
+| `delete` | `action`, `draftId`, `mode` | `confirm_token`, `idempotency_key` |
+
+In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -200,7 +205,7 @@ Structured field change (reschedule a draft):
 
 **Related:** `organic_draft_get`, `organic_draft_list`, `agent_ask`.
 
-Full schema: `help_describe {"tool":"content_create","action":"list"}`.
+Full schema: `help_describe {"tool":"content_create","action":"list"}`. As JSON: [`/mcp/schemas/content_create.json`](/mcp/schemas/content_create.json).
 
 ### `organic_draft_list`
 
@@ -249,7 +254,7 @@ Approved drafts ready to publish:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"organic_draft_list"}`.
+Full schema: `help_describe {"tool":"organic_draft_list"}`. As JSON: [`/mcp/schemas/organic_draft_list.json`](/mcp/schemas/organic_draft_list.json).
 
 ### `organic_draft_get`
 
@@ -293,7 +298,7 @@ Read one draft:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"organic_draft_get"}`.
+Full schema: `help_describe {"tool":"organic_draft_get"}`. As JSON: [`/mcp/schemas/organic_draft_get.json`](/mcp/schemas/organic_draft_get.json).
 
 ### `content_reference`
 
@@ -311,10 +316,12 @@ Remakes a public Instagram post or reel as your brand's own: its structure, neve
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
-| `inspect` | `action` | `url`, `plan`, `mode`, `confirm_token`, `max_usd`, `footage_asset_ids` |
-| `recreate` | `action` | `url`, `plan`, `mode`, `confirm_token`, `max_usd`, `footage_asset_ids` |
+| `inspect` | `action`, `url` | — |
+| `recreate` | `action`, `plan` | `mode`, `confirm_token`, `max_usd`, `footage_asset_ids` |
+
+In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -342,7 +349,7 @@ Read a reel and plan our version:
 
 **Related:** `jobs_status`, `video_editor`, `headless_content`.
 
-Full schema: `help_describe {"tool":"content_reference","action":"inspect"}`.
+Full schema: `help_describe {"tool":"content_reference","action":"inspect"}`. As JSON: [`/mcp/schemas/content_reference.json`](/mcp/schemas/content_reference.json).
 
 ### `headless_content`
 
@@ -352,7 +359,7 @@ Makes vertical reels, stills, and carousels from your brand guide without openin
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher for `guide`, `inspect`, and `status`. Operator or higher for every other action. |
 | Needs | An active brand |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns a `job_id`. Read the result with `jobs_status`. |
@@ -360,17 +367,19 @@ Makes vertical reels, stills, and carousels from your brand guide without openin
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
-| `guide` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `inspect` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `create` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `create_spec` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `create_stills` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `act` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `style_draft` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `recompose` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
-| `status` | `action` | `portfolio_id`, `schema`, `view`, `id`, `revision`, `guidance`, `request_json`, `graph_action`, `payload_json`, `shortcuts`, `brandBook`, `max_usd`, `dry_run`, `run_id`, and 2 more |
+| `guide` | `action` | `portfolio_id`, `schema` |
+| `inspect` | `action`, `view` | `id`, `revision` |
+| `create` | `action`, `max_usd`, `guidance` | `dry_run`, `shortcuts`, `brandBook` |
+| `create_spec` | `action`, `max_usd`, `request_json` | `shortcuts`, `brandBook` |
+| `create_stills` | `action`, `max_usd`, `request_json` | `shortcuts`, `brandBook` |
+| `act` | `action`, `graph_action`, `payload_json` | `max_usd` |
+| `style_draft` | `action`, `payload_json` | — |
+| `recompose` | `action`, `reel_asset_id`, `ops_json` | — |
+| `status` | `action`, `run_id` | — |
+
+In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -430,7 +439,7 @@ The approved Elements:
 
 **Related:** `jobs_status`, `list_elements`, `unsplash_search`.
 
-Full schema: `help_describe {"tool":"headless_content","action":"guide"}`.
+Full schema: `help_describe {"tool":"headless_content","action":"guide"}`. As JSON: [`/mcp/schemas/headless_content.json`](/mcp/schemas/headless_content.json).
 
 ## What's next
 

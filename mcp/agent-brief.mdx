@@ -62,12 +62,13 @@ immediately and returns no preview or confirmation token.
 
 | You need | Fetch |
 | --- | --- |
-| A map of every page | [`/llms.txt`](/llms.txt): titles, links, and one-line summaries |
+| A map of every page, with the agent surfaces first | [`/llms.txt`](/llms.txt) |
 | Everything in one file | [`/llms-full.txt`](/llms-full.txt) |
 | One page as markdown | Add `.md` to its path, for example [`/mcp/agent-brief.md`](/mcp/agent-brief.md) |
-| Every MCP tool as JSON | [`/mcp/tools.json`](/mcp/tools.json): role, connection, confirmation, completion, retry, actions with inputs, an example call, and errors |
+| Every MCP tool as JSON | [`/mcp/tools.json`](/mcp/tools.json): role, connection, confirmation, completion, retry, actions with their inputs, example calls, and errors |
+| One tool's full input schema | `/mcp/schemas/<tool>.json`, for example [`/mcp/schemas/paid_manage.json`](/mcp/schemas/paid_manage.json) |
 | Forge per-action contracts | [`/forge/agent-manifest.json`](/forge/agent-manifest.json) |
-| Search instead of reading | The docs MCP server at `https://docs.trycontinuum.ai/mcp` (no sign-in): `search_continuum` finds pages, `query_docs_filesystem_continuum` reads them. It's listed in [`/.well-known/mcp.json`](/.well-known/mcp.json). It searches these docs only; it can't act on a brand. |
+| Search instead of reading | The docs MCP server at `https://docs.trycontinuum.ai/mcp` (no sign-in): `search_continuum` finds pages, `query_docs_filesystem_continuum` reads them, and `submit_feedback` reports a problem with a page. It's listed in [`/.well-known/mcp.json`](/.well-known/mcp.json). It searches these docs only; it can't act on a brand. |
 
 ## What's next
 

@@ -114,6 +114,8 @@
               "mcp/tools/organic",
               "mcp/tools/paid",
               "mcp/tools/creative",
+              "mcp/tools/library",
+              "mcp/tools/forge",
               "mcp/reference",
               "mcp/agent-brief"
             ]
@@ -328,14 +330,6 @@
   },
   "seo": {
     "indexing": "navigable"
-  },
-  "markdown": {
-    "instructions": [
-      "These docs describe what Continuum ships today. Don't infer features or prices that aren't written here.",
-      "Product lines: Creative+, Organic+, Performance+. The canvas is the AI Canvas, the ads analyst is Jaina, and Paid optimization is the Optimizer. The brand readiness score blocks nothing.",
-      "Publishing, ad or budget changes, live creative swaps, final Forge renders, and deletions wait for a yes (Forge set_delete has no preview, so ask first). New campaigns, ad sets, and ads are created paused; switching one on needs an Admin or Owner.",
-      "Add .md to any path for markdown. Start at /mcp/agent-brief or /mcp/tools; /mcp/tools.json indexes every MCP tool. Before calling a tool, fetch its live schema with help_describe."
-    ]
   },
   "feedback": {
     "thumbsRating": true,
