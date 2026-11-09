@@ -85,7 +85,7 @@ test('quickstart and index stay bounded, with lazy action discovery', () => {
 });
 
 test('recovery and execution boundaries remain explicit', () => {
-  const text = read('forge/functions.mdx');
+  const text = read('forge/functions.mdx').replaceAll('`', '');
   for (const phrase of ['expectedRevision', 'bindingId', 'needs_role', 'Expired or spent token',
     'details.overrides', 'done=true', 'confirmationToken', 'no render_preview token']) assert.ok(text.includes(phrase), phrase);
   for (const op of ['template_forge', 'render_confirm', 'scene_render', 'set_delete'])

@@ -10,14 +10,19 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { areas, codeMeaning, needs } from './mcp-notes.mjs';
+import { areas, codeMeaning, goodToKnow, needs, terms } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
 const SITE = 'https://docs.trycontinuum.ai';
 // Server text can hold {braces} and <placeholders>, which MDX would parse as code; escape them
 // outside inline code spans.
-const mdx = (text) => String(text).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
+const retire = (text) => Object.entries(terms).reduce((t, [from, to]) => t.replaceAll(from, to), String(text));
+// Server-written prose: code-format snake_case identifiers and key=value fragments so they read as
+// code and Mintlify's markdown export doesn't escape them (help\_describe).
+const srv = (text) => retire(text).replace(/\{[^{}\n]*\}/g, (m) => `\`${m.replaceAll('`', '')}\``).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
+  : part.replace(/\b(?:[a-z][a-z0-9]*|[A-Z][A-Z0-9]*)(?:_[a-zA-Z0-9]+)+(?:=[\w'".:-]+)?/g, (m) => `\`${m}\``)).join('');
+const mdx = (text) => retire(text).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
   : part.replaceAll('{', '\\{').replaceAll('}', '\\}').replaceAll('<', '&lt;').replaceAll('>', '&gt;')).join('');
 const cell = (text) => mdx(text).replaceAll('|', '\\|').replaceAll('\n', ' ');
 const code = (text) => `\`${text}\``;
@@ -52,7 +57,7 @@ function listed(tool) {
 const role = (tool) => ROLE[tool.surface.requiresRole] ?? (tool.brandScoped ? 'Any brand member' : 'Anyone signed in');
 
 function errors(tool) {
-  const out = new Map(tool.commonErrors.map(e => [e.code, e.reason]));
+  const out = new Map(tool.commonErrors.map(e => [e.code, srv(e.reason)]));
   const add = (key, text) => { if (!out.has(key)) out.set(key, text); };
   for (const c of tool.errorCodes) {
     assert.ok(codeMeaning[c], `No meaning for ${c} (${tool.name}); add it to scripts/mcp-notes.mjs`);
@@ -90,25 +95,29 @@ function toolSection(tool, oneLiner) {
     ['Retry', RETRY[facts.idempotency]],
   ];
   if (tool.rateLimit) rows.push(['Rate limit', `${tool.rateLimit.budget} calls per ${tool.rateLimit.windowSeconds / 3600} hour per ${tool.rateLimit.scope}. See [Limits](/mcp/reference#limits).`]);
-  let out = `### ${tool.name}\n\n${oneLiner}\n\n| Contract | Behavior |\n| --- | --- |\n`;
+  let out = `### \`${tool.name}\`\n\n${oneLiner}\n\n`;
+  if (goodToKnow[tool.name]) out += `**Good to know:**\n\n${goodToKnow[tool.name].map(n => `- ${n}`).join('\n')}\n\n`;
+  out += `| Contract | Behavior |\n| --- | --- |\n`;
   for (const [k, v] of rows) out += `| ${k} | ${cell(v)} |\n`;
-  out += `\n**What the server tells your assistant:**\n\n> ${cell(tool.description)}\n\n`;
+  out += `\n`;
   if (tool.actions) {
     out += `**Actions** (\`${tool.actionKey}\`):\n\n| ${cell(tool.actionKey)} | Required inputs | Optional inputs |\n| --- | --- | --- |\n`;
     for (const a of actionRows(tool)) out += `| ${code(a.name)} | ${cell(codeList(a.required))} | ${cell(codeList(a.optional))} |\n`;
   } else if (tool.inputs.length) {
     out += `**Inputs:**\n\n| Input | Type | Required | About |\n| --- | --- | --- | --- |\n`;
-    for (const i of tool.inputs) out += `| ${code(i.name)} | ${cell(i.type)} | ${i.required ? 'Yes' : 'No'} | ${cell([i.description, i.values && `One of ${i.values.map(code).join(', ')}.`].filter(Boolean).join(' ') || '—')} |\n`;
+    for (const i of tool.inputs) out += `| ${code(i.name)} | ${cell(i.type)} | ${i.required ? 'Yes' : 'No'} | ${cell([i.description && srv(i.description), i.values && `One of ${i.values.map(code).join(', ')}.`].filter(Boolean).join(' ') || '—')} |\n`;
   } else {
     out += `**Inputs:** none.\n`;
   }
-  const example = tool.examples[0];
-  out += `\n**Example** (${example.generated ? 'placeholder values: substitute IDs returned by earlier calls' : cell(example.title)}):\n\n\`\`\`json\n${JSON.stringify({ name: tool.name, arguments: example.arguments }, null, 2)}\n\`\`\`\n\n`;
+  out += `\n**Examples** (IDs are illustrative; use the ones earlier calls return):\n\n`;
+  for (const example of tool.examples.slice(0, 3))
+    out += `${cell(example.title)}:\n\n\`\`\`json\n${JSON.stringify({ name: tool.name, arguments: example.arguments }, null, 2)}\n\`\`\`\n\n`;
   out += `**Errors and statuses:**\n\n| Code | When |\n| --- | --- |\n`;
   for (const e of errors(tool)) out += `| ${code(e.code)} | ${cell(e.when)} |\n`;
   if (tool.relatedTools.length) out += `\n**Related:** ${tool.relatedTools.map(code).join(', ')}.\n`;
-  const schemaCall = tool.actions ? `{"tool":"${tool.name}","action":"<${tool.actionKey}>"}` : `{"tool":"${tool.name}"}`;
-  out += `\nFull schema: \`help_describe ${schemaCall}\`.\n\n`;
+  const schemaCall = tool.actions ? `{"tool":"${tool.name}","action":"${tool.actions[0].name}"}` : `{"tool":"${tool.name}"}`;
+  const keyNote = tool.actions && tool.actionKey !== 'action' ? ` \`help_describe\`'s \`action\` takes a \`${tool.actionKey}\` value.` : '';
+  out += `\nFull schema: \`help_describe ${schemaCall}\`.${keyNote}\n\n`;
   return out;
 }
 
@@ -118,14 +127,15 @@ export function buildOutputs(source) {
   const byName = new Map(source.tools.map(t => [t.name, t]));
   const mapped = areas.flatMap(a => Object.keys(a.tools));
   assert.deepEqual([...mapped].sort(), advertised.map(t => t.name).sort(), 'Advertised tools drifted: update areas in scripts/mcp-notes.mjs');
+  for (const name of Object.keys(goodToKnow)) assert.ok(byName.has(name), `goodToKnow names an unknown tool: ${name}`);
   assert.equal(source.helpIndex.length, source.counts.registered, 'help_describe index and registry counts differ');
   const header = `{/* Generated by scripts/mcp-docs.mjs from drafts/mcp/source.json; edit scripts/mcp-notes.mjs instead. */}\n`;
-  const checked = `Generated from the server's registry at continuum-backend \`${source.backend.revision.slice(0, 9)}\` (${source.backend.date}).`;
+  const checked = `Generated from the server's own tool registry, as released on ${source.backend.date}.`;
   const files = {};
 
   for (const area of areas) {
     let page = `---\ntitle: "${area.title}"\nsidebarTitle: "${area.sidebarTitle}"\ndescription: "${area.description}"\n---\n\n${header}\n`;
-    page += `${checked} Every section lists what the tool needs, whether it waits for a yes, how it completes, each action's inputs, a valid example call, and the errors it can return. Before you call a tool, fetch its live schema with \`help_describe\`; if the server and this page disagree, the server wins. The **What the server tells your assistant** blocks quote the server word for word, so they can use internal names, such as \"AI Studio\" for the AI Canvas.\n\n`;
+    page += `${checked} Every section lists what the tool needs, whether it waits for a yes, how it completes, each action's inputs, valid example calls, and the errors it can return. Before you call a tool, fetch its live schema with \`help_describe\`; if the server and this page disagree, the server wins.\n\n`;
     page += `| Tool | What it does | Changes things |\n| --- | --- | --- |\n`;
     for (const [name, line] of Object.entries(area.tools))
       page += `| [${code(name)}](#${anchor(name)}) | ${cell(line)} | ${byName.get(name).mutates ? 'Yes' : 'No'} |\n`;
@@ -153,7 +163,7 @@ export function buildOutputs(source) {
   // A whole tool that isn't built yet, as opposed to one unsupported input ("Non-Instagram platforms not yet supported").
   const unbuilt = (t) => t.commonErrors.some(e => e.code === 'NOT_IMPLEMENTED' && /not yet implemented/i.test(e.reason));
   for (const t of internal)
-    overview += `| ${code(t.name)} | ${cell(t.summary)}${unbuilt(t) ? ' **Not available yet:** it returns `NOT_IMPLEMENTED`.' : ''} | ${t.mutates ? 'Yes' : 'No'} |\n`;
+    overview += `| ${code(t.name)} | ${cell(srv(t.summary))}${unbuilt(t) ? ' **Not available yet:** it returns `NOT_IMPLEMENTED`.' : ''} | ${t.mutates ? 'Yes' : 'No'} |\n`;
   overview += `\n## Ready-made prompts\n\nThe connector also offers three prompts your assistant may list in its menu:\n\n| Prompt | What it does |\n| --- | --- |\n| \`analytics-weekly-review\` | A weekly review across social and ads. |\n| \`analytics-top-and-bottom-posts\` | Your best and worst organic posts, and why. |\n| \`analytics-top-and-bottom-ads\` | Your best and worst ads, and why. |\n\n`;
   overview += `## What's next\n\n<CardGroup cols={2}>\n<Card title="Agent brief" icon="robot" href="/mcp/agent-brief">How an assistant should use these tools.</Card>\n<Card title="Server reference" icon="server" href="/mcp/reference">Endpoints, sign-in, confirmations, result codes, and limits.</Card>\n</CardGroup>\n`;
   files['mcp/tools.mdx'] = overview;
@@ -172,7 +182,7 @@ export function buildOutputs(source) {
         name: t.name,
         listed: t.state === 'advertised',
         ...(unbuilt(t) ? { available: false } : {}),
-        ...(area ? { area: area.slug, docs: `${SITE}/mcp/tools/${area.slug}#${anchor(t.name)}`, summary: area.tools[t.name].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : { summary: t.summary }),
+        ...(area ? { area: area.slug, docs: `${SITE}/mcp/tools/${area.slug}#${anchor(t.name)}`, summary: area.tools[t.name].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : { summary: retire(t.summary) }),
         mutates: t.mutates,
         role: t.surface.requiresRole ?? null,
         integration: t.surface.requiresIntegration ?? null,
@@ -187,8 +197,9 @@ export function buildOutputs(source) {
           actionKey: t.actionKey,
           actions: t.actions.map(a => ({ name: a.name, required: names(a.inputs, true), optional: names(a.inputs, false) })),
         } : { required: names(t.inputs, true) }),
-        example: t.examples[0] ? { arguments: t.examples[0].arguments, placeholder: Boolean(t.examples[0].generated) } : null,
-        errors: t.facts ? errors(t) : t.commonErrors.map(e => ({ code: e.code, when: e.reason })),
+        examples: t.examples.slice(0, 3).map(e => ({ title: e.title, arguments: e.arguments })),
+        errors: t.facts ? errors(t) : t.commonErrors.map(e => ({ code: e.code, when: retire(e.reason) })),
+        ...(goodToKnow[t.name] ? { notes: goodToKnow[t.name].map(n => n.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')) } : {}),
         related: t.relatedTools,
       };
     }),

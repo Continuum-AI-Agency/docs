@@ -3,7 +3,7 @@ title: "Server reference"
 description: "The protocol details of the Continuum MCP server: endpoints, transport, sign-in, sessions, brand scope, confirmations, result codes, limits, and jobs."
 ---
 
-This page is for developers, admins, and anyone building an agent on Continuum. You don't need any of it to use Continuum from Claude or ChatGPT; [Connect your assistant](/mcp/connect) is enough. For the tools themselves, see the [tool reference](/mcp/tools).
+This page is for developers, admins, and anyone building an agent on Continuum. You don't need any of it to use Continuum from Claude or ChatGPT; [Connect your assistant](/quickstart#connect-your-assistant) is enough. For the tools themselves, see the [tool reference](/mcp/tools).
 
 ## Endpoints
 
@@ -84,7 +84,7 @@ After the person says yes, repeat the call with the **same arguments** and the `
 | Single use | Each token works once. |
 | Bound | Tied to the person, the brand, and the exact arguments. Changed arguments return `VALIDATION_ERROR`. |
 | Missing or expired | Returns `CONFIRMATION_REQUIRED`. Preview again. |
-| Admin approval | Activating ads, raising a budget past the brand's guardrails, or any write on a brand with an approval chain returns `APPROVAL_REQUIRED`. An Admin or Owner grants that exact token with `mcp_approval_grant {"token": "…"}` (`mcp_approvals_list` shows what's waiting); then confirm as usual. |
+| Admin approval | Activating ads, raising a budget past the brand's spend limit (by default, more than 30% at once), or any write on a brand with an approval chain returns `APPROVAL_REQUIRED`. An Admin or Owner grants that exact token with `mcp_approval_grant {"token": "…"}` (`mcp_approvals_list` shows what's waiting); then confirm as usual. |
 
 Forge uses its own pair: `render_preview` or `scene_fill` returns a `confirmationToken`, and `render_confirm` or `scene_render` redeems it. Forge `set_delete` is the one deletion with no preview: it deletes immediately, so call it only after an explicit yes. The [tool reference](/mcp/tools) lists each tool's confirmation behavior.
 

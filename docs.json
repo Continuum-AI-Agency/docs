@@ -83,7 +83,6 @@
         "group": "AI assistant (MCP)",
         "pages": [
           "mcp/overview",
-          "mcp/connect",
           "mcp/how-to-ask",
           "mcp/recipes",
           {
@@ -103,8 +102,7 @@
             "group": "Trust and limits",
             "pages": [
               "mcp/control",
-              "mcp/limits",
-              "mcp/troubleshooting"
+              "mcp/limits"
             ]
           },
           {
@@ -310,6 +308,14 @@
     {
       "source": "/performance/campaign-canvas",
       "destination": "/performance/overview"
+    },
+    {
+      "source": "/mcp/connect",
+      "destination": "/quickstart#connect-your-assistant"
+    },
+    {
+      "source": "/mcp/troubleshooting",
+      "destination": "/troubleshooting#in-your-ai-assistant"
     }
   ],
   "contextual": {
@@ -325,10 +331,10 @@
   },
   "markdown": {
     "instructions": [
-      "These docs describe what Continuum ships today. Do not invent features, prices, or a pilot program.",
-      "Name the product lines Creative+, Organic+, and Performance+. The canvas is the AI Canvas. The ads analyst is Jaina. Paid optimization is the Optimizer. The brand book grounds generations. The brand readiness score blocks nothing.",
-      "Customer-facing copy says connector. Use MCP for the protocol. Publishing, ad or budget changes, live creative swaps, final Forge renders, and deletions wait for a yes; Forge set_delete is the one deletion with no preview, so ask first. Canvas runs, pipeline runs, and video edits happen right away. New campaigns, ad sets, and ads are created paused, and activating one needs an Admin or Owner's approval.",
-      "Read a page as markdown by adding .md to its path. Start from /mcp/agent-brief, /mcp/tools, /mcp/control, or /quickstart instead of guessing. /mcp/tools.json lists every MCP tool with its inputs, an example call, and its errors; before calling a tool, fetch its live schema with help_describe."
+      "These docs describe what Continuum ships today. Don't infer features or prices that aren't written here.",
+      "Product lines: Creative+, Organic+, Performance+. The canvas is the AI Canvas, the ads analyst is Jaina, and Paid optimization is the Optimizer. The brand readiness score blocks nothing.",
+      "Publishing, ad or budget changes, live creative swaps, final Forge renders, and deletions wait for a yes (Forge set_delete has no preview, so ask first). New campaigns, ad sets, and ads are created paused; switching one on needs an Admin or Owner.",
+      "Add .md to any path for markdown. Start at /mcp/agent-brief or /mcp/tools; /mcp/tools.json indexes every MCP tool. Before calling a tool, fetch its live schema with help_describe."
     ]
   },
   "feedback": {

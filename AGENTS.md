@@ -50,8 +50,8 @@ lines; the docs mirror them.
 Keep out of the public docs (internal-only or pilot per the product's capability register): DCO,
 the Campaign Flow Canvas (their old pages are `performance/*.draft.mdx`), the API Render node, video
 background removal, and Automations. Never mention pilot features or a pilot program. (The Optimizer's
-**Autopilot** mode is a shipped setting and is fine to document.) When in doubt, check `docs/capability-matrix-external.md` in the
-monorepo and the customer MCP guide (`docs/mcp-user-guide.md`); Pipelines, Elements, Video Studio, and
+**Autopilot** mode is a shipped setting and is fine to document.) When in doubt, check `docs/capability-matrix-external.md` on the
+monorepo's main branch and the customer MCP guide (`docs/mcp-user-guide.md`, same branch); Pipelines, Elements, Video Studio, and
 Forge are cleared through that guide. Ask before documenting anything that appears in neither.
 
 Avoid retired/incorrect terms: "AI Studio" and "Scale" as area names, "Canvas Studio," "brand
@@ -146,6 +146,8 @@ scannability. For per-client setup, prefer one `###` section per client over tab
 ## Adding or moving pages
 
 - Every new page **must** be registered in `docs.json` navigation, or it is orphaned (unreachable).
+- Per-client connection steps live only in `quickstart.mdx` (`/mcp/connect` redirects there), and
+  troubleshooting lives only in `troubleshooting.mdx`, with an assistant section and an app section.
 - Keep the sidebar short. Top-level groups (Get started, AI assistant, Products, Brand and account,
   Resources) always stay open, so put new pages inside a nested group. Each product line (Creative+,
   Organic+, Performance+) is a nested group under **Products**; nested groups stay collapsed unless
