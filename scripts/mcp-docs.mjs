@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { actionInputs, areas, codeMeaning, goodToKnow, needs, roles, terms } from './mcp-notes.mjs';
+import { actionInputs, areas, codeMeaning, factOverrides, goodToKnow, integrationNotes, needs, roles, terms } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
@@ -67,11 +67,12 @@ function errors(tool) {
   const r = tool.surface.requiresRole;
   if (r && r !== 'viewer') add('needs_role', needs.needs_role(ROLE[r]));
   if (tool.surface.requiresIntegration) add('needs_integration', needs.needs_integration(tool.surface.requiresIntegration));
+  else if (connections(tool)) add('needs_integration', 'The brand lacks the connection this call needs. Call `integrations_connect` with the `platform` the result names.');
   if (['two_phase_confirm_token', 'elicitation_or_confirm_token'].includes(tool.facts.confirmation))
     add('CONFIRMATION_REQUIRED', codeMeaning.CONFIRMATION_REQUIRED);
   if (tool.rateLimit) add('RATE_LIMITED', codeMeaning.RATE_LIMITED);
   add('VALIDATION_ERROR', codeMeaning.VALIDATION_ERROR);
-  return [...out].map(([c, when]) => ({ code: c, when }));
+  return [...out].map(([c, when]) => ({ code: c, kind: /^[A-Z_]+$/.test(c) ? 'error' : 'status', when }));
 }
 
 const names = (inputs, required) => inputs.filter(i => i.required === required).map(i => i.name);
@@ -89,6 +90,10 @@ const sharedInputs = (tool) => tool.flat && !actionInputs[tool.name]
 const codeList = (list, max = 14) => list.length === 0 ? '—'
   : list.slice(0, max).map(code).join(', ') + (list.length > max ? `, and ${list.length - max} more` : '');
 
+// Cards for people; the same links as a plain list in the markdown agents read.
+const next = (items) => `<Visibility for="humans">\n<CardGroup cols={2}>\n${items.map(([title, icon, href, body]) =>
+  `<Card title="${title}" icon="${icon}" href="${href}">${body}</Card>`).join('\n')}\n</CardGroup>\n</Visibility>\n\n<Visibility for="agents">\n${
+  items.map(([title, , href, body]) => `- [${title}](${href}): ${body}`).join('\n')}\n</Visibility>\n`;
 const anchor = (name) => name;
 
 function toolSection(tool, oneLiner) {
@@ -97,7 +102,7 @@ function toolSection(tool, oneLiner) {
     ['Changes things', tool.mutates ? 'Yes' : 'No'],
     ['Listed in your assistant', listed(tool)],
     ['Role', role(tool)],
-    ['Needs', [tool.brandScoped ? 'An active brand' : 'No brand', tool.surface.requiresIntegration && `a ${tool.surface.requiresIntegration} connection`].filter(Boolean).join(', ')],
+    ['Needs', [tool.brandScoped ? 'An active brand.' : 'No brand.', connections(tool) && `Connection: ${connections(tool)}`].filter(Boolean).join(' ')],
     ['Confirmation', CONFIRMATION[facts.confirmation]],
     ['Completion', EXECUTION[facts.execution]],
     ['Retry', RETRY[facts.idempotency]],
@@ -132,7 +137,18 @@ function toolSection(tool, oneLiner) {
   return out;
 }
 
+const PLATFORM = { facebook: 'Meta (Facebook)', instagram: 'Instagram', google: 'Google', linkedin: 'LinkedIn', youtube: 'YouTube', tiktok: 'TikTok' };
+// The connections a tool needs: declared, checked in its handler, or required by the backers it reaches.
+function connections(tool) {
+  if (integrationNotes[tool.name]) return integrationNotes[tool.name];
+  if (tool.surface.requiresIntegration) return `${PLATFORM[tool.surface.requiresIntegration] ?? tool.surface.requiresIntegration}.`;
+  if (tool.delegateIntegrations?.length)
+    return `The one for what you act on: ${tool.delegateIntegrations.map(p => PLATFORM[p] ?? p).join(', ')}.`;
+  return null;
+}
+
 export function buildOutputs(source) {
+  for (const tool of source.tools) if (factOverrides[tool.name]) tool.facts = { ...tool.facts, ...factOverrides[tool.name] };
   const advertised = source.tools.filter(t => t.state === 'advertised');
   const internal = source.tools.filter(t => t.state === 'internal');
   const byName = new Map(source.tools.map(t => [t.name, t]));
@@ -162,9 +178,8 @@ export function buildOutputs(source) {
     page += `\n`;
     for (const [name, line] of Object.entries(area.tools)) page += toolSection(byName.get(name), line);
     const others = areas.filter(a => a !== area).slice(0, 3);
-    page += `## What's next\n\n<CardGroup cols={2}>\n<Card title="All tools" icon="toolbox" href="/mcp/tools">Every tool on one page, and the machine-readable index.</Card>\n`;
-    for (const o of others) page += `<Card title="${o.title}" icon="arrow-right" href="/mcp/tools/${o.slug}">${o.tools[Object.keys(o.tools)[0]].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').split('.')[0]}, and more.</Card>\n`;
-    page += `</CardGroup>\n`;
+    page += `## What's next\n\n${next([['All tools', 'toolbox', '/mcp/tools', 'Every tool on one page, and the machine-readable index.'],
+      ...others.map(o => [o.title, 'arrow-right', `/mcp/tools/${o.slug}`, `${o.tools[Object.keys(o.tools)[0]].replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').split('.')[0]}, and more.`])])}`;
     files[`mcp/tools/${area.slug}.mdx`] = page;
   }
 
@@ -185,7 +200,7 @@ export function buildOutputs(source) {
   for (const t of internal)
     overview += `| ${code(t.name)} | ${cell(srv(t.summary))}${unbuilt(t) ? ' **Not available yet:** it returns `NOT_IMPLEMENTED`.' : ''} | ${t.mutates ? 'Yes' : 'No'} |\n`;
   overview += `\n## Ready-made prompts\n\nThe connector also offers three prompts your assistant may list in its menu:\n\n| Prompt | What it does |\n| --- | --- |\n| \`analytics-weekly-review\` | A weekly review across social and ads. |\n| \`analytics-top-and-bottom-posts\` | Your best and worst organic posts, and why. |\n| \`analytics-top-and-bottom-ads\` | Your best and worst ads, and why. |\n\n`;
-  overview += `## What's next\n\n<CardGroup cols={2}>\n<Card title="Agent brief" icon="robot" href="/mcp/agent-brief">How an assistant should use these tools.</Card>\n<Card title="Server reference" icon="server" href="/mcp/reference">Endpoints, sign-in, confirmations, result codes, and limits.</Card>\n</CardGroup>\n`;
+  overview += `## What's next\n\n${next([['Agent brief', 'robot', '/mcp/agent-brief', 'How an assistant should use these tools.'], ['Server reference', 'server', '/mcp/reference', 'Endpoints, sign-in, confirmations, result codes, and limits.']])}`;
   files['mcp/tools.mdx'] = overview;
 
   const areaOf = new Map(areas.flatMap(a => Object.keys(a.tools).map(n => [n, a])));
@@ -206,6 +221,7 @@ export function buildOutputs(source) {
         mutates: t.mutates,
         role: t.surface.requiresRole ?? null,
         integration: t.surface.requiresIntegration ?? null,
+        ...(connections(t) ? { connectionNote: connections(t).replace(/`/g, '') } : {}),
         brandScoped: t.brandScoped,
         confirmation: t.facts?.confirmation ?? null,
         completion: t.facts?.execution ?? null,
@@ -247,8 +263,9 @@ function llms(index, files) {
     assert.ok(title && description, `${page}: frontmatter needs a title and description`);
     return `- [${prefix}${title}](${SITE}/${page}.md): ${description}`;
   };
+  // The agent brief is already the first entry under For agents.
   const walk = (group, prefix = '') => group.pages.flatMap(item => typeof item === 'string'
-    ? [entry(item, prefix)] : walk(item, `${prefix}${item.group}: `));
+    ? (item === 'mcp/agent-brief' ? [] : [entry(item, prefix)]) : walk(item, `${prefix}${item.group}: `));
   let out = `# ${nav.name}\n\n> ${nav.description}\n\n`;
   out += `These docs describe what Continuum ships today; don't infer features or prices that aren't written here. Product lines are Creative+, Organic+, and Performance+. Publishing, ad and budget changes, live creative swaps, final Forge renders, and deletions wait for the person's yes (Forge \`set_delete\` has no preview, so ask first). New campaigns, ad sets, and ads are created paused. Every page below is markdown; drop \`.md\` for the web page.\n\n`;
   out += `## For agents\n\n`;

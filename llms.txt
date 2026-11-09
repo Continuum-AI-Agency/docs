@@ -45,43 +45,48 @@ These docs describe what Continuum ships today; don't infer features or prices t
 - [Reference: Library, media, and video](https://docs.trycontinuum.ai/mcp/tools/library.md): MCP tools for the Library, media search and upload, web-page captures, stock photos, and Video Studio edits: inputs, examples, and errors.
 - [Reference: Forge templates and CAD files](https://docs.trycontinuum.ai/mcp/tools/forge.md): MCP tools for Forge templates, render sets, and renders, and for CAD mesh files: inputs, examples, and errors.
 - [Reference: Server reference](https://docs.trycontinuum.ai/mcp/reference.md): The protocol details of the Continuum MCP server: endpoints, transport, sign-in, sessions, brand scope, confirmations, result codes, limits, and jobs.
-- [Reference: Agent brief](https://docs.trycontinuum.ai/mcp/agent-brief.md): A page written for the AI assistant, not the person: how to use the Continuum connector well. Paste this page's link into Claude or ChatGPT and ask it to follow the brief.
 
-## Products
+## Creative+
 
-- [Creative+: AI Canvas: AI Canvas](https://docs.trycontinuum.ai/canvas/overview.md): An infinite canvas of connected nodes where you generate and edit on-brand images and video, then send them to a post or a live ad.
-- [Creative+: AI Canvas: Working on the canvas](https://docs.trycontinuum.ai/canvas/working-on-the-canvas.md): Add and connect nodes, run a graph, save your work, switch workspaces, and collaborate live with your team.
-- [Creative+: AI Canvas: Nodes: Node overview](https://docs.trycontinuum.ai/canvas/nodes/overview.md): How to add, connect, and run nodes, the building blocks of every graph on the AI Canvas.
-- [Creative+: AI Canvas: Nodes: Image nodes](https://docs.trycontinuum.ai/canvas/nodes/image.md): Generate images, and bring in image references, Elements, your design system, and composed layers.
-- [Creative+: AI Canvas: Nodes: Video nodes](https://docs.trycontinuum.ai/canvas/nodes/video.md): Generate clips, edit them into variations, extend footage, break video down, and open it in Video Studio.
-- [Creative+: AI Canvas: Nodes: Text, audio, and document nodes](https://docs.trycontinuum.ai/canvas/nodes/text-audio-documents.md): Prompts, notes, voice and sound, and PDF or text knowledge as inputs on the canvas.
-- [Creative+: AI Canvas: Nodes: Action and tool nodes](https://docs.trycontinuum.ai/canvas/nodes/actions.md): Deterministic edits to images, video, and text, plus Batch, Router, Export, and Continuity Frame.
-- [Creative+: AI Canvas: Nodes: Delivery nodes](https://docs.trycontinuum.ai/canvas/nodes/delivery.md): Send finished creative from the canvas to an organic Planner draft, publish it to a platform, or replace the creative on a Meta ad.
-- [Creative+: AI Canvas: Models](https://docs.trycontinuum.ai/canvas/models.md): The image and video models available on the AI Canvas, their defaults, sizes, aspect ratios, and options.
-- [Creative+: AI Canvas: Workflows and techniques](https://docs.trycontinuum.ai/canvas/workflows.md): Save a canvas graph as a workflow you can reload and rerun, start from pre-mades, and save any selection of nodes as a technique.
-- [Creative+: AI Canvas: Pipelines](https://docs.trycontinuum.ai/canvas/pipelines.md): Publish a canvas graph as a pipeline: a saved recipe with declared inputs that your team and your AI assistant can run with new material.
-- [Creative+: AI Canvas: Elements](https://docs.trycontinuum.ai/canvas/elements.md): Save a model, product, character, or style once and reuse it across every generation, so it looks the same everywhere.
-- [Creative+: AI Canvas: Creative skills and brand grounding](https://docs.trycontinuum.ai/canvas/skills-and-grounding.md): Keep every generation on-brand: the grounding chip steers each node with your brand book, creative direction, and design system, and creative skills add reusable direction.
-- [Creative+: Video Studio](https://docs.trycontinuum.ai/canvas/video-studio.md): Edit video on a timeline: cut pauses, add captions, cut to the beat, reformat for each platform, and export to your Library.
-- [Creative+: Library](https://docs.trycontinuum.ai/canvas/library.md): Every image and video your brand has made, uploaded, or run as an ad, in one searchable place with versions, review status, comments, and share links.
-- [Creative+: Forge: Forge](https://docs.trycontinuum.ai/forge/overview.md): Fill your design templates, including After Effects projects, with your messages, products, and offers to render many on-brand versions into your Library.
-- [Creative+: Forge: Use Forge from an agent](https://docs.trycontinuum.ai/forge/agents.md): Discover a template, map its fields, review a render and retrieve its outputs through the current Forge MCP contract.
-- [Creative+: Forge: Forge function reference](https://docs.trycontinuum.ai/forge/functions.md): Choose a Forge MCP action, learn its prerequisites and follow its result without guessing identifiers or retry behavior.
-- [Creative+: Forge: Forge design systems and source formats](https://docs.trycontinuum.ai/forge/design-systems.md): Separate brand grounding, accepted files and executable Forge workflows before choosing an agent function.
-- [Creative+: Forge: After Effects delivery: After Effects delivery](https://docs.trycontinuum.ai/forge/after-effects/overview.md): How to prepare and hand off an After Effects project so Continuum can turn it into scalable render variations.
-- [Creative+: Forge: After Effects delivery: Preparing your project](https://docs.trycontinuum.ai/forge/after-effects/preparing.md): Structure your After Effects project so every dynamic asset can be swapped without rework.
-- [Creative+: Forge: After Effects delivery: Delivery & handoff](https://docs.trycontinuum.ai/forge/after-effects/delivery.md): Provide fonts, wire up asset access, package the project, and hand it off.
-- [Creative+: Brand Spy](https://docs.trycontinuum.ai/brand/spy.md): Track competitors' organic posts and paid ad creatives in one workspace.
-- [Organic+: Organic+](https://docs.trycontinuum.ai/organic/overview.md): Plan from the trends, draft with the Organic agent, publish from the calendar, and learn from what performed.
-- [Organic+: Organic agent](https://docs.trycontinuum.ai/organic/agent.md): An AI agent that plans posts, drafts concepts, and hands work into your content calendar.
-- [Organic+: Content calendar](https://docs.trycontinuum.ai/organic/calendar.md): Plan organic content in the Planner: seed it from trends and signals, add posts, carousels, and reels, and approve and schedule them.
-- [Organic+: Publishing](https://docs.trycontinuum.ai/organic/publishing.md): Which platforms Continuum publishes to, how to post an approved draft now or on schedule, and what to do when a post fails.
-- [Organic+: Organic analytics](https://docs.trycontinuum.ai/organic/analytics.md): Track organic performance across platforms and see where your audience is.
-- [Performance+: Performance+](https://docs.trycontinuum.ai/performance/overview.md): Run paid media in one place, where the Optimizer proposes budget moves, Jaina explains the numbers, and you approve.
-- [Performance+: Jaina](https://docs.trycontinuum.ai/performance/jaina.md): The paid-media analyst — ask about performance and get a structured report with prioritized recommendations.
-- [Performance+: Paid optimization](https://docs.trycontinuum.ai/performance/optimizer.md): The Optimizer watches ad-set performance daily and proposes budget moves, with the reasoning attached, for you to approve.
-- [Performance+: Paid analytics](https://docs.trycontinuum.ai/performance/analytics.md): Campaign and ad-set performance across your ad accounts, with budget pacing and a feed of pending actions.
-- [Performance+: Approvals](https://docs.trycontinuum.ai/performance/approvals.md): What waits for a person's yes in Performance+, who can give it, and where: budget recommendations, Jaina's proposals, ad changes, and switching ads on.
+- [AI Canvas: AI Canvas](https://docs.trycontinuum.ai/canvas/overview.md): An infinite canvas of connected nodes where you generate and edit on-brand images and video, then send them to a post or a live ad.
+- [AI Canvas: Working on the canvas](https://docs.trycontinuum.ai/canvas/working-on-the-canvas.md): Add and connect nodes, run a graph, save your work, switch workspaces, and collaborate live with your team.
+- [AI Canvas: Node overview](https://docs.trycontinuum.ai/canvas/nodes/overview.md): How to add, connect, and run nodes, the building blocks of every graph on the AI Canvas.
+- [AI Canvas: Image nodes](https://docs.trycontinuum.ai/canvas/nodes/image.md): Generate images, and bring in image references, Elements, your design system, and composed layers.
+- [AI Canvas: Video nodes](https://docs.trycontinuum.ai/canvas/nodes/video.md): Generate clips, edit them into variations, extend footage, break video down, and open it in Video Studio.
+- [AI Canvas: Text, audio, and document nodes](https://docs.trycontinuum.ai/canvas/nodes/text-audio-documents.md): Prompts, notes, voice and sound, and PDF or text knowledge as inputs on the canvas.
+- [AI Canvas: Action and tool nodes](https://docs.trycontinuum.ai/canvas/nodes/actions.md): Deterministic edits to images, video, and text, plus Batch, Router, Export, and Continuity Frame.
+- [AI Canvas: Delivery nodes](https://docs.trycontinuum.ai/canvas/nodes/delivery.md): Send finished creative from the canvas to an organic Planner draft, publish it to a platform, or replace the creative on a Meta ad.
+- [AI Canvas: Models](https://docs.trycontinuum.ai/canvas/models.md): The image and video models available on the AI Canvas, their defaults, sizes, aspect ratios, and options.
+- [AI Canvas: Workflows and techniques](https://docs.trycontinuum.ai/canvas/workflows.md): Save a canvas graph as a workflow you can reload and rerun, start from pre-mades, and save any selection of nodes as a technique.
+- [AI Canvas: Pipelines](https://docs.trycontinuum.ai/canvas/pipelines.md): Publish a canvas graph as a pipeline: a saved recipe with declared inputs that your team and your AI assistant can run with new material.
+- [AI Canvas: Elements](https://docs.trycontinuum.ai/canvas/elements.md): Save a model, product, character, or style once and reuse it across every generation, so it looks the same everywhere.
+- [AI Canvas: Creative skills and brand grounding](https://docs.trycontinuum.ai/canvas/skills-and-grounding.md): Keep every generation on-brand: the grounding chip steers each node with your brand book, creative direction, and design system, and creative skills add reusable direction.
+- [Video Studio](https://docs.trycontinuum.ai/canvas/video-studio.md): Edit video on a timeline: cut pauses, add captions, cut to the beat, reformat for each platform, and export to your Library.
+- [Library](https://docs.trycontinuum.ai/canvas/library.md): Every image and video your brand has made, uploaded, or run as an ad, in one searchable place with versions, review status, comments, and share links.
+- [Forge: Forge](https://docs.trycontinuum.ai/forge/overview.md): Fill your design templates, including After Effects projects, with your messages, products, and offers to render many on-brand versions into your Library.
+- [Forge: Use Forge from an agent](https://docs.trycontinuum.ai/forge/agents.md): Discover a template, map its fields, review a render and retrieve its outputs through the current Forge MCP contract.
+- [Forge: Forge function reference](https://docs.trycontinuum.ai/forge/functions.md): Choose a Forge MCP action, learn its prerequisites and follow its result without guessing identifiers or retry behavior.
+- [Forge: Forge design systems and source formats](https://docs.trycontinuum.ai/forge/design-systems.md): Separate brand grounding, accepted files and executable Forge workflows before choosing an agent function.
+- [Forge: After Effects delivery](https://docs.trycontinuum.ai/forge/after-effects/overview.md): How to prepare and hand off an After Effects project so Continuum can turn it into scalable render variations.
+- [Forge: Preparing your project](https://docs.trycontinuum.ai/forge/after-effects/preparing.md): Structure your After Effects project so every dynamic asset can be swapped without rework.
+- [Forge: Delivery & handoff](https://docs.trycontinuum.ai/forge/after-effects/delivery.md): Provide fonts, wire up asset access, package the project, and hand it off.
+- [Brand Spy](https://docs.trycontinuum.ai/brand/spy.md): Track competitors' organic posts and paid ad creatives in one workspace.
+
+## Organic+
+
+- [Organic+](https://docs.trycontinuum.ai/organic/overview.md): Plan from the trends, draft with the Organic agent, publish from the calendar, and learn from what performed.
+- [Organic agent](https://docs.trycontinuum.ai/organic/agent.md): An AI agent that plans posts, drafts concepts, and hands work into your content calendar.
+- [Content calendar](https://docs.trycontinuum.ai/organic/calendar.md): Plan organic content in the Planner: seed it from trends and signals, add posts, carousels, and reels, and approve and schedule them.
+- [Publishing](https://docs.trycontinuum.ai/organic/publishing.md): Which platforms Continuum publishes to, how to post an approved draft now or on schedule, and what to do when a post fails.
+- [Organic analytics](https://docs.trycontinuum.ai/organic/analytics.md): Track organic performance across platforms and see where your audience is.
+
+## Performance+
+
+- [Performance+](https://docs.trycontinuum.ai/performance/overview.md): Run paid media in one place, where the Optimizer proposes budget moves, Jaina explains the numbers, and you approve.
+- [Jaina](https://docs.trycontinuum.ai/performance/jaina.md): The paid-media analyst — ask about performance and get a structured report with prioritized recommendations.
+- [Paid optimization](https://docs.trycontinuum.ai/performance/optimizer.md): The Optimizer watches ad-set performance daily and proposes budget moves, with the reasoning attached, for you to approve.
+- [Paid analytics](https://docs.trycontinuum.ai/performance/analytics.md): Campaign and ad-set performance across your ad accounts, with budget pacing and a feed of pending actions.
+- [Approvals](https://docs.trycontinuum.ai/performance/approvals.md): What waits for a person's yes in Performance+, who can give it, and where: budget recommendations, Jaina's proposals, ad changes, and switching ads on.
 
 ## Brand and account
 

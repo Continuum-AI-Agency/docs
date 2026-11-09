@@ -28,7 +28,7 @@ Lists Forge templates, sets, and render jobs. Full contracts: [Forge functions](
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -113,7 +113,7 @@ Writes versions into a template, previews them, and produces final renders. Full
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Operator or higher. Admin or Owner for `template_forge`, `template_set_default`, and renders with `final: true`. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Not idempotent. Check the current state before retrying. |
@@ -216,7 +216,7 @@ Reads CAD mesh capabilities, files, revisions, and jobs.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Any brand member |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -278,7 +278,7 @@ Uploads STL, DXF, or 3MF files, then transforms, renders, validates, or exports 
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Operator or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
@@ -328,9 +328,18 @@ Full schema: `help_describe {"tool":"cad_manage","action":"upload_begin"}`. As J
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="All tools" icon="toolbox" href="/mcp/tools">Every tool on one page, and the machine-readable index.</Card>
 <Card title="Account, brand, and jobs" icon="arrow-right" href="/mcp/tools/account">Lists the brands you can access, and more.</Card>
 <Card title="Analytics, trends, and competitors" icon="arrow-right" href="/mcp/tools/insights">Organic, paid, and website results by platform: accounts, top posts, campaigns, ad sets, and ads, and more.</Card>
 <Card title="Organic+ planning and publishing" icon="arrow-right" href="/mcp/tools/organic">Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.</Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [All tools](/mcp/tools): Every tool on one page, and the machine-readable index.
+- [Account, brand, and jobs](/mcp/tools/account): Lists the brands you can access, and more.
+- [Analytics, trends, and competitors](/mcp/tools/insights): Organic, paid, and website results by platform: accounts, top posts, campaigns, ad sets, and ads, and more.
+- [Organic+ planning and publishing](/mcp/tools/organic): Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.
+</Visibility>

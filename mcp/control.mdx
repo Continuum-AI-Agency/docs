@@ -7,6 +7,7 @@ import { Lanes } from "/snippets/diagrams.jsx";
 
 Your assistant works in Continuum as you, inside the limits you already have. Here's exactly what that means.
 
+<Visibility for="humans">
 <Lanes
   lanes={[
     {
@@ -30,6 +31,13 @@ Your assistant works in Continuum as you, inside the limits you already have. He
     },
   ]}
 />
+</Visibility>
+
+<Visibility for="agents">
+- **Waits for your yes** (you ask, see a preview, say yes, then it happens): publishing; ads, budgets, and audiences; swapping a live ad's creative; final Forge versions; deleting; switching on an ad, which needs an Admin or Owner.
+- **Happens right away** (you ask, it happens): moving a post or rewriting a caption; generating on the canvas; running a pipeline; editing video; approving a recommendation.
+- **Stays in the app** (you decide there): turning on Autopilot for budget changes.
+</Visibility>
 
 ## What waits for your yes
 
@@ -83,6 +91,7 @@ Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, 
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="Good to know" icon="circle-info" href="/mcp/limits">
   Current limits by area.
@@ -91,3 +100,9 @@ Claude or ChatGPT sees what you ask and what Continuum sends back to answer it, 
   What each role can do.
 </Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [Good to know](/mcp/limits): Current limits by area.
+- [Roles & permissions](/settings/roles): What each role can do.
+</Visibility>

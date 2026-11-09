@@ -123,79 +123,64 @@
         ]
       },
       {
-        "group": "Products",
+        "group": "Creative+",
+        "icon": "pen-ruler",
         "pages": [
           {
-            "group": "Creative+",
-            "icon": "pen-ruler",
+            "group": "AI Canvas",
             "pages": [
-              {
-                "group": "AI Canvas",
-                "pages": [
-                  "canvas/overview",
-                  "canvas/working-on-the-canvas",
-                  {
-                    "group": "Nodes",
-                    "pages": [
-                      "canvas/nodes/overview",
-                      "canvas/nodes/image",
-                      "canvas/nodes/video",
-                      "canvas/nodes/text-audio-documents",
-                      "canvas/nodes/actions",
-                      "canvas/nodes/delivery"
-                    ]
-                  },
-                  "canvas/models",
-                  "canvas/workflows",
-                  "canvas/pipelines",
-                  "canvas/elements",
-                  "canvas/skills-and-grounding"
-                ]
-              },
-              "canvas/video-studio",
-              "canvas/library",
-              {
-                "group": "Forge",
-                "pages": [
-                  "forge/overview",
-                  "forge/agents",
-                  "forge/functions",
-                  "forge/design-systems",
-                  {
-                    "group": "After Effects delivery",
-                    "pages": [
-                      "forge/after-effects/overview",
-                      "forge/after-effects/preparing",
-                      "forge/after-effects/delivery"
-                    ]
-                  }
-                ]
-              },
-              "brand/spy"
+              "canvas/overview",
+              "canvas/working-on-the-canvas",
+              "canvas/nodes/overview",
+              "canvas/nodes/image",
+              "canvas/nodes/video",
+              "canvas/nodes/text-audio-documents",
+              "canvas/nodes/actions",
+              "canvas/nodes/delivery",
+              "canvas/models",
+              "canvas/workflows",
+              "canvas/pipelines",
+              "canvas/elements",
+              "canvas/skills-and-grounding"
             ]
           },
+          "canvas/video-studio",
+          "canvas/library",
           {
-            "group": "Organic+",
-            "icon": "seedling",
+            "group": "Forge",
             "pages": [
-              "organic/overview",
-              "organic/agent",
-              "organic/calendar",
-              "organic/publishing",
-              "organic/analytics"
+              "forge/overview",
+              "forge/agents",
+              "forge/functions",
+              "forge/design-systems",
+              "forge/after-effects/overview",
+              "forge/after-effects/preparing",
+              "forge/after-effects/delivery"
             ]
           },
-          {
-            "group": "Performance+",
-            "icon": "arrow-trend-up",
-            "pages": [
-              "performance/overview",
-              "performance/jaina",
-              "performance/optimizer",
-              "performance/analytics",
-              "performance/approvals"
-            ]
-          }
+          "brand/spy"
+        ]
+      },
+      {
+        "group": "Organic+",
+        "icon": "seedling",
+        "pages": [
+          "organic/overview",
+          "organic/agent",
+          "organic/calendar",
+          "organic/publishing",
+          "organic/analytics"
+        ]
+      },
+      {
+        "group": "Performance+",
+        "icon": "arrow-trend-up",
+        "pages": [
+          "performance/overview",
+          "performance/jaina",
+          "performance/optimizer",
+          "performance/analytics",
+          "performance/approvals"
         ]
       },
       {

@@ -225,7 +225,7 @@ export const goodToKnow = {
     'Returns a `job_id` right away. Read the answer with `jobs_status`.',
     "The finished result's `status` is `completed` (it wrote a draft or plan) or `needs_followup` (text only). To continue, send the next question with the same `sessionId`.",
     'A question sent to the wrong agent returns `needs_correction` with a `suggested_target`.',
-    'When the Organic agent ends with a plan waiting for approval, the result carries `plan_id` and `pending_approval_token`. Commit it with `planner_manage` `approve_week` after the person says yes.',
+    'When the Organic agent ends with a plan waiting for approval, the result carries `plan_id` and `pending_approval_token`. Commit it with `planner_manage` `approve_week` after the person says yes. The server’s own description names `organic_calendar_approve` for this step; that tool isn’t callable, so use `approve_week`.',
   ],
   jobs_status: ['Takes only `job_id`. In the result, `tool` is the tool you called and `executor` is the one that ran it.'],
   planner_manage: [
@@ -236,13 +236,14 @@ export const goodToKnow = {
     '`approve` returns the `confirm_token` that `publish` needs. Publish only after the person says yes.',
     '`realize` (generating the creative) and `delete` are two-phase: the first call previews and returns a token, the second confirms.',
     '`reference_assets` (up to 8 Library images) and `unsplash_photos` (up to 4) steer image generation, on `draft` and `realize` only.',
-    'With `generate: false`, `draft` needs no `prompt` and saves the `caption` and `hashtags` you pass word for word.',
+    '`draft` needs a `prompt` unless you pass `generate: false`; then it saves the `caption` and `hashtags` you pass word for word.',
   ],
   paid_manage: [
     'Every write is two-phase: `params.mode: "preview"` returns a diff and a `confirm_token` that lasts 10 minutes; repeat the call with `params.mode: "confirm"` and the token.',
     "Campaigns, ad sets, ads, and copies are created paused. Activating one, raising a budget past the brand's limit (by default, more than 30%), or any write on a brand with an approval chain returns `APPROVAL_REQUIRED` until an Admin or Owner calls `mcp_approval_grant`.",
     '`batch` previews many writes under one token.',
     'Each write receipt includes `undo`: the call that reverses it, or null with the reason it can’t be undone.',
+    '`google_ads` runs one Google Ads operation (`update_campaign_budget`, `set_status`, `create_campaign`, `create_ad_group`, or `add_keywords`) with the same preview and confirm steps, and needs the brand’s Google connection. `ENABLED` needs an Admin or Owner.',
     'Boosting organic posts isn’t supported.',
   ],
   studio_workflow: [
@@ -323,7 +324,7 @@ export const actionInputs = {
   },
   content_create: {
     list: { required: [], uses: ['publishable_only', 'listStatus', 'limit', 'cursor'] },
-    draft: { required: ['platform', 'prompt'], uses: ['format', 'scheduledAt', 'accountId', 'timezone', 'reference_assets', 'unsplash_photos', 'generate', 'caption', 'hashtags', 'idempotency_key'] },
+    draft: { required: ['platform'], uses: ['prompt', 'format', 'scheduledAt', 'accountId', 'timezone', 'reference_assets', 'unsplash_photos', 'generate', 'caption', 'hashtags', 'idempotency_key'] },
     extend: { required: ['draftId', 'updates|prompt'], uses: ['idempotency_key'] },
     realize: { required: ['draftId'], uses: ['preview_revision', 'regenerate', 'slides', 'prompt', 'reference_assets', 'unsplash_photos'] },
     approve: { required: ['draftId'], uses: [] },
@@ -396,4 +397,17 @@ export const actionInputs = {
     inspect: { required: ['url'], uses: [] },
     recreate: { required: ['plan'], uses: ['mode', 'confirm_token', 'max_usd', 'footage_asset_ids'] },
   },
+};
+
+// Corrections where the server's facts table disagrees with the tool's own contract.
+export const factOverrides = {
+  // Its description: "Two-phase: mode='preview' (default) → confirm_token; mode='confirm' uploads."
+  intel_audience_push: { confirmation: 'two_phase_confirm_token', idempotency: 'confirm_token_single_use' },
+};
+
+// Connections checked inside the handler rather than declared on the tool.
+export const integrationNotes = {
+  content_create: 'The connection for the post’s `platform`.',
+  optimizer_query: 'Meta (Facebook) ads.',
+  optimizer_manage: 'Meta (Facebook) ads.',
 };

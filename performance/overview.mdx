@@ -10,11 +10,17 @@ import { Flow } from "/snippets/diagrams.jsx";
 
 Performance+ is where you run paid media. It brings your ad accounts, performance, and optimization into one place.
 
+<Visibility for="humans">
 <Flow
   label="How a budget move happens"
   steps={["The Optimizer proposes", "Jaina explains", "You approve", "The move is applied"]}
   you="You approve"
 />
+</Visibility>
+
+<Visibility for="agents">
+How a budget move happens: 1. The Optimizer proposes. 2. Jaina explains. 3. You approve (your step). 4. The move is applied.
+</Visibility>
 
 <Info>Performance+ is part of the Performance+ plan. See [Billing](/settings/billing) and [pricing](https://trycontinuum.ai/#pricing).</Info>
 
@@ -22,6 +28,7 @@ Performance+ is where you run paid media. It brings your ad accounts, performanc
 
 In the sidebar, Performance+ shows **Jaina**, **Paid Analytics**, and **Paid Optimization**. Inside the workspace they're the **Jaina**, **Dashboard**, and **Optimization** tabs.
 
+<Visibility for="humans">
 <CardGroup cols={3}>
 <Card title="Paid analytics" icon="chart-line" href="/performance/analytics">
   Campaign and ad-set performance with budget pacing.
@@ -33,6 +40,13 @@ In the sidebar, Performance+ shows **Jaina**, **Paid Analytics**, and **Paid Opt
   Ask the ads analyst why results changed.
 </Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [Paid analytics](/performance/analytics): Campaign and ad-set performance with budget pacing.
+- [Paid optimization](/performance/optimizer): Review and apply budget recommendations.
+- [Jaina](/performance/jaina): Ask the ads analyst why results changed.
+</Visibility>
 
 [Approvals](/performance/approvals) lists what waits for a person in Performance+, and who can give the yes.
 
@@ -57,6 +71,7 @@ See [Run your Meta ads](/mcp/use-cases/ads).
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="Connect an ad account" icon="plug" href="/integrations">
   Link Meta to populate Performance+.
@@ -65,3 +80,9 @@ See [Run your Meta ads](/mcp/use-cases/ads).
   Get a read on what's working.
 </Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [Connect an ad account](/integrations): Link Meta to populate Performance+.
+- [Ask Jaina](/performance/jaina): Get a read on what's working.
+</Visibility>

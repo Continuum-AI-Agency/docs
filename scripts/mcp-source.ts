@@ -41,7 +41,9 @@ function fields(schema: any, prefix = '', skip?: string): any[] {
   const rows = [];
   for (const [name, prop] of Object.entries<any>(schema.properties ?? {})) {
     if (name === skip) continue;
-    const type = prop.type ?? (prop.oneOf || prop.anyOf ? 'one of' : prop.const !== undefined ? 'const' : 'any');
+    const kind = (b: any) => b.type ?? (b.const !== undefined ? typeof b.const : b.properties ? 'object' : b.items ? 'array' : 'any');
+    const branches = prop.oneOf ?? prop.anyOf;
+    const type = prop.type ?? (branches ? [...new Set(branches.flatMap((b: any) => [kind(b)].flat()))].join('|') : prop.const !== undefined ? typeof prop.const : 'any');
     const values = prop.enum ?? (prop.const !== undefined ? [prop.const] : undefined);
     const row: any = { name: prefix + name, type: Array.isArray(type) ? type.join('|') : type, required: required.has(name) };
     if (values) row.values = values.slice(0, MAX_ENUM).map(String).concat(values.length > MAX_ENUM ? ['…'] : []);
@@ -165,6 +167,8 @@ for (const entry of registered) {
     mutates: entry.mutates,
     facts: entry.facts,
     ...(entry.delegates ? { delegates: entry.delegates } : {}),
+    delegateIntegrations: [...new Set((entry.delegates ?? [])
+      .map((name: string) => manifest.tools.find((t: any) => t.name === name)?.surface.requiresIntegration).filter(Boolean))].sort(),
     actionKey: discriminator?.key ?? null,
     flat,
     inputSchema: full.inputSchema,

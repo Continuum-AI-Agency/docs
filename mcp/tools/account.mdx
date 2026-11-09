@@ -32,7 +32,7 @@ Lists the brands you can access.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Anyone signed in |
-| Needs | No brand |
+| Needs | No brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -70,7 +70,7 @@ Sets the brand the conversation works on and lists its published pipelines.
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Anyone signed in |
-| Needs | No brand |
+| Needs | No brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: repeating the call gives the same result. |
@@ -79,7 +79,7 @@ Sets the brand the conversation works on and lists its published pipelines.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `brand_id` | one of | Yes | ID of an accessible brand from `brands_list`, or null to clear only the current session selection. |
+| `brand_id` | string\|null | Yes | ID of an accessible brand from `brands_list`, or null to clear only the current session selection. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -115,7 +115,7 @@ Starts a new brand. You finish setting it up in the Continuum app.
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Anyone signed in |
-| Needs | No brand |
+| Needs | No brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Not idempotent. Check the current state before retrying. |
@@ -159,7 +159,7 @@ Shows connected platforms and accounts, ad accounts, and your role.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Any brand member |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -201,7 +201,7 @@ Lists the accounts assigned to the brand.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Any brand member |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -260,7 +260,7 @@ Lists the brand's connections.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Any brand member |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -299,7 +299,7 @@ Returns a one-time link to connect a platform. Links work for 10 minutes.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Any brand member |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -355,7 +355,7 @@ Checks whether a connection is healthy, expired, or disconnected.
 | Changes things | No |
 | Listed in your assistant | When your role on a brand you can reach allows it. |
 | Role | Viewer or higher |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -395,7 +395,7 @@ Reads and searches your brand book and knowledge base, checks copy against your 
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Viewer or higher to read. Operator or higher for `add_text`, `add_file`, `add_url`, `upload_url`, `upload_finalize`, `update`, `archive`, `restore`, and `save_permanent`. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
@@ -484,14 +484,14 @@ Asks [Jaina](/performance/jaina) or the [Organic agent](/organic/agent) a questi
 - Returns a `job_id` right away. Read the answer with `jobs_status`.
 - The finished result's `status` is `completed` (it wrote a draft or plan) or `needs_followup` (text only). To continue, send the next question with the same `sessionId`.
 - A question sent to the wrong agent returns `needs_correction` with a `suggested_target`.
-- When the Organic agent ends with a plan waiting for approval, the result carries `plan_id` and `pending_approval_token`. Commit it with `planner_manage` `approve_week` after the person says yes.
+- When the Organic agent ends with a plan waiting for approval, the result carries `plan_id` and `pending_approval_token`. Commit it with `planner_manage` `approve_week` after the person says yes. The server’s own description names `organic_calendar_approve` for this step; that tool isn’t callable, so use `approve_week`.
 
 | Contract | Behavior |
 | --- | --- |
 | Changes things | Yes |
 | Listed in your assistant | Always. |
 | Role | Operator or higher. |
-| Needs | An active brand |
+| Needs | An active brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns a `job_id`. Read the result with `jobs_status`. |
 | Retry | Not idempotent. Check the current state before retrying. |
@@ -553,7 +553,7 @@ Checks on a long-running job.
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Anyone signed in |
-| Needs | No brand |
+| Needs | No brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -599,7 +599,7 @@ Describes any registered tool and its actions: the full input schema, examples, 
 | Changes things | No |
 | Listed in your assistant | Always. |
 | Role | Anyone signed in |
-| Needs | No brand |
+| Needs | No brand. |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
 | Retry | Safe to retry: it only reads. |
@@ -648,9 +648,18 @@ Full schema: `help_describe {"tool":"help_describe"}`. As JSON: [`/mcp/schemas/h
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="All tools" icon="toolbox" href="/mcp/tools">Every tool on one page, and the machine-readable index.</Card>
 <Card title="Analytics, trends, and competitors" icon="arrow-right" href="/mcp/tools/insights">Organic, paid, and website results by platform: accounts, top posts, campaigns, ad sets, and ads, and more.</Card>
 <Card title="Organic+ planning and publishing" icon="arrow-right" href="/mcp/tools/organic">Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.</Card>
 <Card title="Performance+ ads and optimization" icon="arrow-right" href="/mcp/tools/paid">Reads your campaign structure; creates paused campaigns, ad sets, and ads; updates or pauses them; builds audiences and lookalikes; and keeps an audit log of every write, and more.</Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [All tools](/mcp/tools): Every tool on one page, and the machine-readable index.
+- [Analytics, trends, and competitors](/mcp/tools/insights): Organic, paid, and website results by platform: accounts, top posts, campaigns, ad sets, and ads, and more.
+- [Organic+ planning and publishing](/mcp/tools/organic): Reads and proposes a week of posts, approves it, reschedules and copies posts, and attaches media, and more.
+- [Performance+ ads and optimization](/mcp/tools/paid): Reads your campaign structure; creates paused campaigns, ad sets, and ads; updates or pauses them; builds audiences and lookalikes; and keeps an audit log of every write, and more.
+</Visibility>

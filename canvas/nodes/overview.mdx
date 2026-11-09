@@ -1,6 +1,6 @@
 ---
 title: "Node overview"
-sidebarTitle: "Overview"
+sidebarTitle: "Nodes"
 description: "How to add, connect, and run nodes, the building blocks of every graph on the AI Canvas."
 ---
 
@@ -53,6 +53,7 @@ Each node shows a status badge while it works: **Running**, **Done**, or **Error
 
 ## Node families
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="Image nodes" icon="image" href="/canvas/nodes/image">
   Generate images, and bring in references, Elements, and your design system.
@@ -70,6 +71,15 @@ Each node shows a status badge while it works: **Running**, **Done**, or **Error
   Send creative to the Planner, a platform, or a Meta ad.
 </Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [Image nodes](/canvas/nodes/image): Generate images, and bring in references, Elements, and your design system.
+- [Video nodes](/canvas/nodes/video): Generate, extend, edit, and break down video.
+- [Text, audio, and document nodes](/canvas/nodes/text-audio-documents): Prompts, notes, sound, and knowledge.
+- [Action and tool nodes](/canvas/nodes/actions): Deterministic edits, Batch, Router, Export, and frames.
+- [Delivery nodes](/canvas/nodes/delivery): Send creative to the Planner, a platform, or a Meta ad.
+</Visibility>
 
 ## Try it
 
@@ -87,6 +97,7 @@ Or ask Claude or ChatGPT to build it for you:
 
 ## What's next
 
+<Visibility for="humans">
 <CardGroup cols={2}>
 <Card title="Models" icon="microchip" href="/canvas/models">
   The image and video models generation nodes use.
@@ -95,3 +106,9 @@ Or ask Claude or ChatGPT to build it for you:
   Keep every generation on-brand.
 </Card>
 </CardGroup>
+</Visibility>
+
+<Visibility for="agents">
+- [Models](/canvas/models): The image and video models generation nodes use.
+- [Skills and grounding](/canvas/skills-and-grounding): Keep every generation on-brand.
+</Visibility>
