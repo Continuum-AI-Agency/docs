@@ -123,11 +123,11 @@ Ranks your Meta ad creatives by video retention: hook rate and hold rate.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `platform` | string | Yes | One of `meta_ads`. |
-| `ad_account_id` | string | No | — |
-| `lookback_days` | integer | No | — |
-| `top_n` | integer | No | — |
-| `min_impressions` | integer | No | — |
+| `platform` | string | Yes | The network to act on. See the allowed values. One of `meta_ads`. |
+| `ad_account_id` | string | No | The Meta ad account ID (`act_…`), from `account_map`. |
+| `lookback_days` | integer | No | How many days back to read. |
+| `top_n` | integer | No | How many top items to return. |
+| `min_impressions` | integer | No | Leave out ads with fewer impressions than this. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -181,11 +181,11 @@ Spend, conversions, cost per acquisition, and return on ad spend across your con
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `platforms` | array | Yes | — |
-| `ad_account_ids` | object | No | — |
-| `since` | string | Yes | — |
-| `until` | string | Yes | — |
-| `breakdown` | string | No | One of `day`, `week`, `platform`, `campaign`. |
+| `platforms` | array | Yes | Which platforms to include. |
+| `ad_account_ids` | object | No | The ad account IDs to read, per platform. |
+| `since` | string | Yes | Start of the window, as a date (`YYYY-MM-DD`). |
+| `until` | string | Yes | End of the window, as a date (`YYYY-MM-DD`). |
+| `breakdown` | string | No | What to break results down by. One of `day`, `week`, `platform`, `campaign`. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -241,9 +241,9 @@ Which Meta campaigns are pacing ahead of or behind budget, with a 0–100 health
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `platform` | string | Yes | One of `meta_ads`. |
-| `ad_account_id` | string | Yes | — |
-| `campaign_ids` | array | No | — |
+| `platform` | string | Yes | The network to act on. See the allowed values. One of `meta_ads`. |
+| `ad_account_id` | string | Yes | The Meta ad account ID (`act_…`), from `account_map`. |
+| `campaign_ids` | array | No | The campaign IDs to include. |
 | `as_of` | string | No | — |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
@@ -513,8 +513,8 @@ The hashtags people post under on Instagram or TikTok, with post counts and grow
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `platform` | string | No | One of `instagram`, `tiktok`. |
-| `category` | string | No | — |
+| `platform` | string | No | The network to act on. See the allowed values. One of `instagram`, `tiktok`. |
+| `category` | string | No | The category to file it under. See the allowed values. |
 | `niche_keywords` | array | No | — |
 | `region` | string | No | — |
 | `as_of` | string | No | — |
@@ -569,12 +569,12 @@ A digest of what your tracked competitors run in paid ads and post organically, 
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `competitorId` | string | No | — |
+| `competitorId` | string | No | A tracked competitor's ID, from an earlier intel result. |
 | `competitorRef` | string | No | — |
-| `since` | string | No | — |
+| `since` | string | No | Start of the window, as a date (`YYYY-MM-DD`). |
 | `dimensions` | array | No | — |
-| `source` | string | No | One of `all`, `paid`, `organic`. |
-| `limit` | integer | No | — |
+| `source` | string | No | Which source to read or filter by. See the allowed values. One of `all`, `paid`, `organic`. |
+| `limit` | integer | No | The most items to return. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -627,12 +627,12 @@ Ads from competitors you track, including how long each has run.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `competitorId` | string | No | — |
+| `competitorId` | string | No | A tracked competitor's ID, from an earlier intel result. |
 | `competitorRef` | string | No | — |
-| `status` | string | No | One of `active`, `paused`. |
+| `status` | string | No | The status to filter by or set. See the allowed values. One of `active`, `paused`. |
 | `q` | string | No | — |
-| `since` | string | No | — |
-| `until` | string | No | — |
+| `since` | string | No | Start of the window, as a date (`YYYY-MM-DD`). |
+| `until` | string | No | End of the window, as a date (`YYYY-MM-DD`). |
 | `angleId` | string | No | — |
 | `hookArchetype` | string | No | — |
 | `contentFormat` | string | No | — |
@@ -641,7 +641,7 @@ Ads from competitors you track, including how long each has run.
 | `snapshotId` | string | No | — |
 | `sort` | string | No | One of `first_seen_at`, `last_seen_at`. |
 | `dir` | string | No | One of `asc`, `desc`. |
-| `limit` | integer | No | — |
+| `limit` | integer | No | The most items to return. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -696,9 +696,9 @@ Organic posts from competitors you track.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `competitorId` | string | No | — |
+| `competitorId` | string | No | A tracked competitor's ID, from an earlier intel result. |
 | `competitorRef` | string | No | — |
-| `limit` | integer | No | — |
+| `limit` | integer | No | The most items to return. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -754,7 +754,7 @@ Looks up any advertiser in the Meta Ad Library.
 | `search_terms` | string | No | — |
 | `country` | string | No | — |
 | `active_status` | string | No | One of `ACTIVE`, `INACTIVE`, `ALL`. |
-| `limit` | integer | No | — |
+| `limit` | integer | No | The most items to return. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 

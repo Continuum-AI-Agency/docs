@@ -184,7 +184,7 @@ Finds media by describing it.
 | `kind` | string | No | Optional media type filter (image \| video). One of `image`, `video`, `file`, `audio`. |
 | `source` | string | No | Optional origin filter (upload, `ai_generated`, canvas, inspiration, …). One of `upload`, `ai_generated`, `backfill`, `canvas`, `inspiration`, `hyperframe`, `chat_upload`, `clip`, `reel`, `meta_ad`, `figma`, `goal_artifact`, `forge`. |
 | `reviewStatus` | string | No | Optional review-workflow filter; pass 'approved' to restrict to assets the brand has signed off on. One of `none`, `draft`, `in_review`, `needs_changes`, `approved`. |
-| `limit` | integer | No | — |
+| `limit` | integer | No | The most items to return. |
 | `threshold` | number | No | — |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
@@ -239,13 +239,13 @@ Uploads a video to clip. Clipping finishes in the Continuum app.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `file_name` | string | No | — |
-| `mime_type` | string | No | One of `video/mp4`, `video/quicktime`, `video/webm`, `video/x-m4v`. |
+| `file_name` | string | No | The file's name, with its extension. |
+| `mime_type` | string | No | The file's MIME type, such as `image/png`. One of `video/mp4`, `video/quicktime`, `video/webm`, `video/x-m4v`. |
 | `media_base64` | string | No | — |
 | `upload_token` | string | No | — |
-| `title` | string | No | — |
+| `title` | string | No | A display title. |
 | `clip` | boolean | No | — |
-| `idempotency_key` | string | No | — |
+| `idempotency_key` | string | No | A key you choose. Reuse it only to retry the same request without doing it twice. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -375,7 +375,7 @@ Searches Unsplash stock photos to use as references.
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `query` | string | Yes | — |
+| `query` | string | Yes | What to look for, in plain words. |
 | `orientation` | string | No | One of `landscape`, `portrait`, `squarish`. |
 | `page` | integer | No | — |
 
@@ -450,26 +450,26 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | --- | --- | --- | --- |
 | `action` | string | Yes | The editor operation. Pass that operation’s own fields alongside it. One of `list_workflows`, `save_workflow`, `list_projects`, `create_project`, `get_project`, `get_transcript`, `get_beats`, `get_frame`, `apply_commands`, `undo`, `cut_silence`, `cut_ranges`, `beat_cut`, `collage`, `set_captions`, `set_speed`, `edit_caption_cues`, `get_composed_frame`, `set_format`, `add_text`, `add_clip`, `animate_clip`, `get_motion`, `keyframe_clip`, `stagger_clips`, `retime_motion`, `add_hyperframes_clip`, `add_motion_graphic`, `get_hyperframes_clip_motion`, `edit_hyperframes_clip_motion`, `add_transition`, `apply_effect`, `draft_cut`, `draft_cut_status`, `list_variants`, `export`, `export_status`, `get_pool`, `generate`, `generate_status`. |
 | `projectId` | string | No | — |
-| `name` | string | No | — |
-| `prompt` | string | No | — |
-| `limit` | integer | No | — |
+| `name` | string | No | A display name. |
+| `prompt` | string | No | Instructions in plain words. |
+| `limit` | integer | No | The most items to return. |
 | `assetIds` | array | No | — |
-| `title` | string | No | — |
+| `title` | string | No | A display title. |
 | `preset` | string | No | — |
-| `full` | boolean | No | — |
+| `full` | boolean | No | Return the full content instead of a summary. |
 | `clipId` | string | No | — |
 | `force` | boolean | No | — |
 | `timeSec` | number | No | — |
 | `maxWidth` | integer | No | — |
-| `expectedRevision` | integer | No | — |
+| `expectedRevision` | integer | No | The revision number from your last read. The write is refused if it changed since. |
 | `commands` | array | No | — |
-| `toRevision` | integer | No | — |
+| `toRevision` | integer | No | The revision to go back to. |
 | `minSilenceSec` | number | No | — |
 | `paddingSec` | number | No | — |
 | `thresholdDb` | number | No | — |
 | `ranges` | array | No | — |
 | `ripple` | boolean | No | — |
-| `mode` | string | No | One of `cut_on_beat`, `switch_shots`, `jump_cuts`. |
+| `mode` | string | No | How the call runs. For writes, `preview` returns a token and `confirm` applies it. See the allowed values. One of `cut_on_beat`, `switch_shots`, `jump_cuts`. |
 | `everyNBeats` | number | No | Beats per shot: 0.5 = every half beat, 0.25 = every quarter beat, 1 = every beat. For quick splices or doka doka doka use 0.5. |
 | `clipIds` | array | No | — |
 | `audioClipId` | string | No | — |
@@ -485,15 +485,15 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `rate` | number | No | — |
 | `cues` | array | No | — |
 | `fit` | string | No | One of `cover`, `contain`. |
-| `kind` | string | No | — |
+| `kind` | string | No | The type to filter by. See the allowed values. |
 | `template` | string | No | One of `hook_title`, `lower_third`, `kinetic_words`, `cta_end_card`, `listicle_number`, `quote`, `stat_callout`, `subtitle_bar`. |
-| `text` | string | No | — |
+| `text` | string | No | Plain text content. |
 | `secondaryText` | string | No | — |
 | `startSec` | number | No | — |
 | `animationIn` | string | No | One of `none`, `fade`, `pop`, `scale-in`, `float-in`, `slide-up`, `slide-down`, `slide-left`, `slide-right`, `typewriter`, `word-pop`, `bounce`, `blur-in`, `zoom-out`, `wipe`. |
 | `animationOut` | string | No | One of `none`, `fade`, `pop`, `scale-in`, `float-in`, `slide-up`, `slide-down`, `slide-left`, `slide-right`, `typewriter`, `word-pop`, `bounce`, `blur-in`, `zoom-out`, `wipe`. |
-| `assetId` | string | No | — |
-| `versionId` | string | No | — |
+| `assetId` | string | No | A Library asset ID an earlier call returned. |
+| `versionId` | string | No | A Library asset version ID, returned with the asset. |
 | `trackId` | string | No | — |
 | `newTrack` | boolean | No | — |
 | `sourceInSec` | number | No | — |
@@ -501,13 +501,13 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `parameterName` | string | No | — |
 | `effectInstanceId` | string | No | effect.parameter only: which of the clip effects; default the first with it |
 | `keys` | array | No | — |
-| `replace` | boolean | No | — |
+| `replace` | boolean | No | Replace what is there instead of adding to it. |
 | `eachSec` | number | No | — |
 | `from` | string | No | One of `start`, `end`, `center`. |
 | `shiftSec` | number | No | — |
 | `ease` | string | No | One of `hold`, `spring`, `linear`, `easeIn`, `easeOut`, `easeInOut`, `easeInBack`, `easeOutBack`, `easeInOutBack`, `gentle`, `quick`, `bouncy`, `slow`. |
 | `bezier` | array | No | A custom ease as [x1, y1, x2, y2] (x1, x2 in 0..1), instead of ease |
-| `revisionId` | string | No | — |
+| `revisionId` | string | No | A revision ID an earlier call returned. |
 | `recipe` | string | No | `glass_graph`: a liquid glass card that refracts the footage under it while a line graph climbs to a figure (label, value, unit, points). `particle_push`: particle… One of `glass_graph`, `particle_push`, `dot_matrix`, `word_lock`, `screen_push`, `over_shoulder`. |
 | `color` | string | No | — |
 | `label` | string | No | `glass_graph`: the metric, 1–3 words ("Retention") |
@@ -527,11 +527,11 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `fromClipId` | string | No | — |
 | `toClipId` | string | No | — |
 | `all` | boolean | No | — |
-| `type` | string | No | One of `cut`, `crossfade`, `dip_to_black`, `dip_to_white`, `wipe`, `slide`, `zoom`, `blur`. |
+| `type` | string | No | The type of post or item. See the allowed values. One of `cut`, `crossfade`, `dip_to_black`, `dip_to_white`, `wipe`, `slide`, `zoom`, `blur`. |
 | `effect` | string | No | One of `bw`, `vintage`, `vivid`, `cool`, `warm`, `noir`, `dream`, `blur`, `tint`, `vignette`, `film_grain`, `dust`, `light_leaks`, `chromatic_aberration`, `vhs`, `pixelate`, `corner_radius`, `chroma_key`. |
 | `strength` | number | No | — |
 | `remove` | boolean | No | — |
-| `brief` | string | No | — |
+| `brief` | string | No | A short brief, in plain words, that steers what gets made. |
 | `targetDurationSec` | number | No | — |
 | `variants` | integer | No | — |
 | `captions` | boolean | No | — |
@@ -541,7 +541,7 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 | `hookTitle` | boolean | No | — |
 | `broll` | boolean | No | — |
 | `brandCaptions` | boolean | No | — |
-| `jobId` | string | No | — |
+| `jobId` | string | No | A job ID an earlier call returned. |
 | `captionMode` | string | No | One of `burn_in`, `none`. |
 | `quickStart` | string | No | One of `create_image`, `restyle_image`, `edit_image`, `storyboard_to_video`, `keyframes_to_video`, `rotate_360`, `music_bed`, `voiceover`, `headless_concept`. |
 | `refs` | array | No | — |

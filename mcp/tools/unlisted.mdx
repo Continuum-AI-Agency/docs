@@ -41,7 +41,7 @@ Cancel a running Mode A job by jobId. Aborts the in-process AbortController and,
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `jobId` | string | Yes | — |
+| `jobId` | string | Yes | A job ID an earlier call returned. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -94,8 +94,8 @@ Ask Jaina (regular analyst) a performance/paid-analytics question — ROAS, spen
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `query` | string | Yes | — |
-| `sessionId` | string | No | — |
+| `query` | string | Yes | What to look for, in plain words. |
+| `sessionId` | string | No | An earlier agent conversation's `sessionId`, to continue it instead of starting over. |
 | `context` | object | No | — |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
@@ -222,8 +222,8 @@ Ask the organic social agent a free-form question about social strategy, caption
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `query` | string | Yes | — |
-| `sessionId` | string | No | — |
+| `query` | string | Yes | What to look for, in plain words. |
+| `sessionId` | string | No | An earlier agent conversation's `sessionId`, to continue it instead of starting over. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -385,7 +385,7 @@ Read the active brand's structured profile sections: voice, pmf (product-market 
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `section` | string | No | One of `voice`, `pmf`, `audience`, `persona`, `all`. |
+| `section` | string | No | Which section to read. See the allowed values. One of `voice`, `pmf`, `audience`, `persona`, `all`. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -497,7 +497,7 @@ Configure the active brand's ad-naming convention for a platform: a delimiter (e
 
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
-| `platform` | string | No | One of `meta`, `google`, `all`. |
+| `platform` | string | No | The network to act on. See the allowed values. One of `meta`, `google`, `all`. |
 | `delimiter` | string | Yes | Separator between name segments, e.g. '\|'. |
 | `fields` | array | Yes | Ordered field labels, e.g. ['funnel', 'format', 'audience']. |
 
@@ -559,15 +559,15 @@ Push a list of people (emails/phones/names, hashed server-side) to a Meta custom
 | Input | Type | Required | About |
 | --- | --- | --- | --- |
 | `segment` | object | Yes | — |
-| `targets` | object | Yes | — |
+| `targets` | object | Yes | The items to act on, each with its own fields. |
 | `mode` | string | No | Default 'preview'. 'confirm' needs the preview's `confirm_token`. One of `preview`, `confirm`. |
 | `ad_account_id` | string | No | Meta ad account (new audience). |
 | `audience_id` | string | No | Append to this Meta audience instead. |
 | `members` | array | No | People to add. Hashed server-side; uploaded in batches of 10,000. |
 | `default_country_code` | string | No | — |
 | `customer_file_source` | string | No | Where the list came from (Meta-required). Default `USER_PROVIDED_ONLY`. One of `USER_PROVIDED_ONLY`, `PARTNER_PROVIDED_ONLY`, `BOTH_USER_AND_PARTNER_PROVIDED`. |
-| `idempotency_key` | string | No | — |
-| `confirm_token` | string | No | — |
+| `idempotency_key` | string | No | A key you choose. Reuse it only to retry the same request without doing it twice. |
+| `confirm_token` | string | No | The token a preview returned. Send it back to confirm that exact change. |
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
