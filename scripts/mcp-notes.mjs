@@ -244,6 +244,8 @@ export const goodToKnow = {
   ],
   paid_manage: [
     'Every write is two-phase: `params.mode: "preview"` returns a diff and a `confirm_token` that lasts 10 minutes; repeat the call with `params.mode: "confirm"` and the token.',
+    'Budgets are in minor units of the ad account’s currency: `daily_budget: 1000` is 10.00. Google Ads budgets use micros: `1000000` is 1.00.',
+    '`guardrails` reads the brand’s spend caps for any Viewer; setting them (`mode: "set"`) needs an Admin or Owner.',
     "Campaigns, ad sets, ads, and copies are created paused. Activating one, raising a budget past the brand's limit (by default, more than 30%), or any write on a brand with an approval chain returns `APPROVAL_REQUIRED` until an Admin or Owner calls `mcp_approval_grant`.",
     '`batch` previews many writes under one token.',
     'Each write receipt includes `undo`: the call that reverses it, or null with the reason it can’t be undone.',
@@ -433,7 +435,8 @@ export const roleLevels = {
   library_manage: { all: 'viewer', operator: ['comment_add', 'set_review_status', 'import_ad_creative', 'upload_inline', 'upload_url', 'upload_begin', 'upload_finalize', 'render_retry'] },
   optimizer_query: { all: 'viewer' },
   optimizer_manage: { all: 'operator' },
-  paid_manage: { all: 'operator', viewer: ['hierarchy', 'activity', 'guardrails'] },
+  // guardrails reads for Viewers but sets for Admins; the index records the stricter role.
+  paid_manage: { all: 'operator', viewer: ['hierarchy', 'activity'], admin: ['guardrails'] },
   pipeline_invoke: { all: 'operator' },
   planner_manage: { all: 'operator', viewer: ['get_week', 'proposal_status', 'operation_status'] },
   studio_deliver: { all: 'operator' },
@@ -604,4 +607,12 @@ export const inputGlossary = {
   templateRevisionId: 'A published template revision ID.',
   removeRowIds: 'The rows to remove.',
   settings: 'Delivery defaults for the set.',
+};
+
+// Per-action limits the server enforces through the backers an umbrella reaches (see /mcp/reference#limits).
+export const rateLimitNotes = {
+  content_create: 'Publishing 30, approvals 60, and deletions 30 an hour, per brand.',
+  planner_manage: 'Calendar changes 120 and week plans 20 an hour, per brand.',
+  studio_workflow: 'Canvas runs: 10 an hour, per brand.',
+  pipeline_invoke: 'Up to 10 runs in one call.',
 };

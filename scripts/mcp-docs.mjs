@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { actionInputs, areas, codeMeaning, confirmationExceptions, extraStatuses, factOverrides, goodToKnow, inputGlossary, integrationNotes, needs, relatedExtras, roleLevels, roles, terms, unlistedAreas } from './mcp-notes.mjs';
+import { actionInputs, areas, codeMeaning, confirmationExceptions, extraStatuses, factOverrides, goodToKnow, inputGlossary, integrationNotes, needs, rateLimitNotes, relatedExtras, roleLevels, roles, terms, unlistedAreas } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
@@ -20,7 +20,7 @@ const SITE = 'https://docs.trycontinuum.ai';
 const retire = (text) => Object.entries(terms).reduce((t, [from, to]) => t.replaceAll(from, to), String(text));
 // Server-written prose: code-format snake_case identifiers and key=value fragments so they read as
 // code and Mintlify's markdown export doesn't escape them (help\_describe).
-const srv = (text) => retire(text).replace(/\{[^{}\n]*\}/g, (m) => `\`${m.replaceAll('`', '')}\``).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
+const srv = (text) => retire(text).replace(/\{[^{}\n]*\}/g, (m) => `\`${m.replaceAll('`', '')}\``).replace(/\$\d[\d,.]*/g, (m) => `\`${m}\``).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
   : part.replace(/\b(?:[a-z][a-z0-9]*|[A-Z][A-Z0-9]*)(?:_[a-zA-Z0-9*]*)+(?:\.[a-z_]+)*(?:=[\w'".:-]+)?/g, (m) => `\`${m}\``)).join('');
 const mdx = (text) => retire(text).split(/(`[^`\n]*`)/).map((part, i) => i % 2 ? part
   : part.replaceAll('{', '\\{').replaceAll('}', '\\}').replaceAll('<', '&lt;').replaceAll('>', '&gt;')).join('');
@@ -116,6 +116,7 @@ function toolSection(tool, oneLiner) {
     ['Retry', RETRY[facts.idempotency]],
   ];
   if (tool.rateLimit) rows.push(['Rate limit', `${tool.rateLimit.budget} calls per ${tool.rateLimit.windowSeconds / 3600} hour per ${tool.rateLimit.scope}. See [Limits](/mcp/reference#limits).`]);
+  else if (rateLimitNotes[tool.name]) rows.push(['Rate limit', `${rateLimitNotes[tool.name]} See [Limits](/mcp/reference#limits).`]);
   let out = `### \`${tool.name}\`\n\n${oneLiner}\n\n`;
   if (goodToKnow[tool.name]) out += `**Good to know:**\n\n${goodToKnow[tool.name].map(n => `- ${n}`).join('\n')}\n\n`;
   out += `| Contract | Behavior |\n| --- | --- |\n`;
@@ -305,6 +306,7 @@ export function buildOutputs(source) {
         retry: t.facts?.idempotency ?? null,
         roleNote: role(t),
         rateLimit: t.rateLimit,
+        ...(rateLimitNotes[t.name] ? { rateLimitNote: rateLimitNotes[t.name] } : {}),
         inputs: mergeInputs(t.actions ? t.actions.flatMap(a => a.inputs) : t.inputs),
         ...(t.actions ? {
           actionKey: t.actionKey,
@@ -358,6 +360,7 @@ function llms(index, files) {
   out += `- [Forge operation index (JSON)](${SITE}/forge/agent-manifest.json): per-action Forge contracts.\n`;
   out += `- [All docs in one file](${SITE}/llms-full.txt): every page below, in full.\n`;
   out += `- [Agent skill](${SITE}/skill.md): the same rules and capabilities as a skill file.\n`;
+  out += `- Docs search (MCP, no sign-in): \`${SITE}/mcp\` searches and reads these pages and returns their MDX source. It is also named \"Continuum\" but can't act on a brand; the product server is below.\n`;
   out += `- Continuum MCP server: \`https://api.trycontinuum.ai/mcp\` (ChatGPT: \`/mcp/chatgpt\`), OAuth 2.1 with PKCE, no API keys. Call \`help_describe\` for the live schema before calling a tool.\n\n`;
   for (const group of nav.navigation.groups) out += `## ${group.group}\n\n${walk(group).join('\n')}\n\n`;
   return out.trimEnd() + '\n';

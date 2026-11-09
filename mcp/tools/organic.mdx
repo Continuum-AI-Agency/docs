@@ -36,6 +36,7 @@ Reads and proposes a week of posts, approves it, reschedules and copies posts, a
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Each `confirm_token` works once. Preview again to retry. |
+| Rate limit | Calendar changes 120 and week plans 20 an hour, per brand. See [Limits](/mcp/reference#limits). |
 
 **Actions** (`action`):
 
@@ -146,6 +147,7 @@ Drafts, approves, and publishes posts, and deletes drafts.
 | Confirmation | Writes preview first and return a `confirm_token` with `expires_at`. Confirm with that token after the person says yes. |
 | Completion | Returns right away. Longer work continues as a job; read the id in the result. |
 | Retry | Retry with the same `idempotency_key` to avoid duplicates. |
+| Rate limit | Publishing 30, approvals 60, and deletions 30 an hour, per brand. See [Limits](/mcp/reference#limits). |
 
 **Actions** (`action`):
 
