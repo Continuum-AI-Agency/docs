@@ -41,6 +41,7 @@ Lists the brands you can access.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 List brands:
 
 ```json
@@ -49,6 +50,12 @@ List brands:
   "arguments": {}
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- List brands: `{"name":"brands_list","arguments":{}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -83,6 +90,7 @@ Sets the brand the conversation works on and lists its published pipelines.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Select brand:
 
 ```json
@@ -93,6 +101,12 @@ Select brand:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Select brand: `{"name":"brands_select","arguments":{"brand_id":"00000000-0000-0000-0000-000000000000"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -129,6 +143,7 @@ Starts a new brand. You finish setting it up in the Continuum app.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Start a brand from its website:
 
 ```json
@@ -140,6 +155,12 @@ Start a brand from its website:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Start a brand from its website: `{"name":"brands_create","arguments":{"brand_name":"Acme Coffee","website_url":"https://acmecoffee.example"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -172,6 +193,7 @@ Shows connected platforms and accounts, ad accounts, and your role.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Platforms and accounts for the active brand:
 
 ```json
@@ -182,6 +204,12 @@ Platforms and accounts for the active brand:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Platforms and accounts for the active brand: `{"name":"account_map","arguments":{"depth":"accounts"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -217,6 +245,7 @@ Lists the accounts assigned to the brand.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 First page:
 
 ```json
@@ -238,6 +267,13 @@ Filter by platform:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- First page: `{"name":"accounts_list","arguments":{"limit":25}}`
+- Filter by platform: `{"name":"accounts_list","arguments":{"platform":"instagram"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -269,6 +305,7 @@ Lists the brand's connections.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 List linked integrations:
 
 ```json
@@ -277,6 +314,12 @@ List linked integrations:
   "arguments": {}
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- List linked integrations: `{"name":"integrations_list","arguments":{}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -322,6 +365,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Connect Instagram:
 
 ```json
@@ -332,6 +376,12 @@ Connect Instagram:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Connect Instagram: `{"name":"integrations_connect","arguments":{"platform":"instagram"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -364,6 +414,7 @@ Checks whether a connection is healthy, expired, or disconnected.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Check connections:
 
 ```json
@@ -372,6 +423,12 @@ Check connections:
   "arguments": {}
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Check connections: `{"name":"integration_health_check","arguments":{}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -424,6 +481,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 See what the knowledge base holds:
 
 ```json
@@ -459,6 +517,14 @@ Check copy against the brand voice:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- See what the knowledge base holds: `{"name":"brand_knowledge","arguments":{"action":"overview"}}`
+- Search the brand book: `{"name":"brand_knowledge","arguments":{"action":"search","query":"tone of voice for promotions"}}`
+- Check copy against the brand voice: `{"name":"brand_knowledge","arguments":{"action":"validate","copy":"Autumn is here. Our new single-origin roast is out now, in a limited batch.","platform":"instagram"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -507,6 +573,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Ask Jaina why a metric moved:
 
 ```json
@@ -530,6 +597,13 @@ Ask the Organic agent for ideas:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Ask Jaina why a metric moved: `{"name":"agent_ask","arguments":{"target":"jaina","query":"Why did our cost per purchase rise last week, and which ad sets drove it?"}}`
+- Ask the Organic agent for ideas: `{"name":"agent_ask","arguments":{"target":"organic","query":"Give me three Reel ideas for our autumn launch, based on what performed best last month."}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -566,6 +640,7 @@ Checks on a long-running job.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Check a job:
 
 ```json
@@ -576,6 +651,12 @@ Check a job:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Check a job: `{"name":"jobs_status","arguments":{"job_id":"job_abc123"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -613,6 +694,7 @@ Describes any registered tool and its actions: the full input schema, examples, 
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 List every registered tool:
 
 ```json
@@ -633,6 +715,13 @@ Fetch one action of a tool:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- List every registered tool: `{"name":"help_describe","arguments":{}}`
+- Fetch one action of a tool: `{"name":"help_describe","arguments":{"tool":"paid_manage","action":"create_campaign"}}`
+</Visibility>
 
 **Errors and statuses:**
 

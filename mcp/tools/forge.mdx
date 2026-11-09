@@ -59,6 +59,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Wait on a batch in a background task until done is true:
 
 ```json
@@ -87,6 +88,13 @@ What a variation renders differently from its parent row:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Wait on a batch in a background task until done is true: `{"name":"forge_query","arguments":{"action":"batch","batchId":"00000000-0000-4000-8000-000000000000","waitSeconds":50}}`
+- What a variation renders differently from its parent row: `{"name":"forge_query","arguments":{"action":"set_diff","setId":"00000000-0000-4000-8000-000000000000","rowIds":["00000000-0000-4000-8000-000000000001","00000000-0000-4000-8000-000000000002"]}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -146,6 +154,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Open a signed-in mixed-file handoff:
 
 ```json
@@ -188,6 +197,14 @@ Draft from extracted files and media without a fixed row count:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Open a signed-in mixed-file handoff: `{"name":"forge_manage","arguments":{"action":"source_begin"}}`
+- Read each uploaded source and its ready ID: `{"name":"forge_manage","arguments":{"action":"source_status","upload_intent_id":"00000000-0000-4000-8000-000000000000"}}`
+- Draft from extracted files and media without a fixed row count: `{"name":"forge_manage","arguments":{"action":"suggest_rows","setId":"00000000-0000-4000-8000-000000000000","documentIds":["00000000-0000-4000-8000-000000000001"],"mediaAssetIds":["00000000-0000-4000-8000-000000000002"],"autoCount":true,"count":10}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -236,6 +253,7 @@ Other inputs, shared by every action (the live schema says which each action rea
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Which CAD files and operations are supported:
 
 ```json
@@ -258,6 +276,13 @@ Read a CAD file and its revisions:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Which CAD files and operations are supported: `{"name":"cad_query","arguments":{"action":"capabilities"}}`
+- Read a CAD file and its revisions: `{"name":"cad_query","arguments":{"action":"asset","assetId":"b7d3f9a1-4c6e-4a2b-8d5f-6e9c1b3a7d40"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -299,6 +324,7 @@ Uploads STL, DXF, or 3MF files, then transforms, renders, validates, or exports 
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Run manufacturing checks on a revision:
 
 ```json
@@ -314,6 +340,12 @@ Run manufacturing checks on a revision:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Run manufacturing checks on a revision: `{"name":"cad_manage","arguments":{"action":"validate","brandId":"5c8e1a3b-7d2f-4e6a-9b4c-0f1e3d5a7c92","assetId":"b7d3f9a1-4c6e-4a2b-8d5f-6e9c1b3a7d40","revisionId":"c3e5a7b9d1f2a4c6e8b0d2f4a6c8e0b2d4f6a8c0e2b4d6f8a0c2e4b6d8f0a2c4","requestId":"0d3f5b7a-9c1e-4a2b-8f4d-6b8a0c2e4f71","format":"stl"}}`
+</Visibility>
 
 **Errors and statuses:**
 

@@ -52,6 +52,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Browse approved creatives only:
 
 ```json
@@ -89,6 +90,14 @@ Which version of this creative is winning, and where is it running (last 7 days)
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Browse approved creatives only: `{"name":"library_manage","arguments":{"action":"browse","reviewStatus":"approved","limit":20}}`
+- Read the feedback on an asset: `{"name":"library_manage","arguments":{"action":"asset_detail","assetId":"00000000-0000-0000-0000-000000000000"}}`
+- Which version of this creative is winning, and where is it running (last 7 days): `{"name":"library_manage","arguments":{"action":"asset_detail","assetId":"00000000-0000-0000-0000-000000000000","window":"d7"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -134,6 +143,7 @@ Finds media by describing it.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Find approved product shots:
 
 ```json
@@ -147,6 +157,12 @@ Find approved product shots:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Find approved product shots: `{"name":"media_search","arguments":{"query":"flat lay of the coffee bag on a wooden table","kind":"image","reviewStatus":"approved","limit":10}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -185,6 +201,7 @@ Uploads a video to clip. Clipping finishes in the Continuum app.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Start a signed upload of a long video:
 
 ```json
@@ -198,6 +215,12 @@ Start a signed upload of a long video:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Start a signed upload of a long video: `{"name":"media_upload_and_clip","arguments":{"file_name":"founder-interview.mp4","mime_type":"video/mp4","title":"Founder interview","clip":true}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -245,6 +268,7 @@ Turns a public web page into a screenshot or a scroll-through video in your Libr
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Reviews page as proof b-roll:
 
 ```json
@@ -256,6 +280,12 @@ Reviews page as proof b-roll:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Reviews page as proof b-roll: `{"name":"media_capture_url","arguments":{"url":"https://brand.com/reviews","highlight_text":"4.9"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -301,6 +331,7 @@ Searches Unsplash stock photos to use as references.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Find stock photos for a canvas reference:
 
 ```json
@@ -323,6 +354,13 @@ Vertical photos for a story or reel reference:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Find stock photos for a canvas reference: `{"name":"unsplash_search","arguments":{"query":"gym interior"}}`
+- Vertical photos for a story or reel reference: `{"name":"unsplash_search","arguments":{"query":"runner at sunrise","orientation":"portrait"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -464,6 +502,7 @@ Edits video in Video Studio: cut silences, cut to the beat, captions, text, musi
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 List Video Studio projects:
 
 ```json
@@ -487,6 +526,13 @@ Cut silences from a project:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- List Video Studio projects: `{"name":"video_editor","arguments":{"action":"list_projects"}}`
+- Cut silences from a project: `{"name":"video_editor","arguments":{"action":"cut_silence","projectId":"b7d3f9a1-4c6e-4a2b-8d5f-6e9c1b3a7d40","minSilenceSec":0.6}}`
+</Visibility>
 
 **Errors and statuses:**
 

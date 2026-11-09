@@ -111,6 +111,17 @@ scannability. For per-client setup, prefer one `###` section per client over tab
 
 ## Agent context
 
+- The tool reference (`mcp/tools*`, `/mcp/tools.json`, `/mcp/schemas/`) documents every tool and action the
+  server registers, including actions outside the capability matrix (for example `paid_manage` `google_ads`):
+  the owner chose full coverage on 2026-11-09 so agents never meet an undocumented tool. Product pages still
+  describe only cleared capabilities.
+- `skill.md` (root) replaces Mintlify's generated skill file. Keep it to cleared capabilities and the agent
+  brief's rules. `llms.txt` comes from `scripts/mcp-docs.mjs`; `llms-full.txt` from `scripts/llms-full.mjs`
+  (run it with `mint dev` up after any page edit; the tests fail when it goes stale).
+- Code fences sit inside `<Visibility for="humans">` with an inline-code twin in `<Visibility for="agents">`,
+  and card groups get a plain link list twin, because Mintlify's markdown export adds `theme=` metadata to
+  fences and `[card]` markup to cards. The tests enforce both.
+
 `docs.json` lists `copy` first in `contextual.options`, so **Copy page** is the default page action.
 `agent-copy.js` puts three lines at the top of that paste: the page URL, that page's `.md` URL, and
 `/llms.txt`. On the hosted site the rest is Mintlify's markdown export. `mint dev` does not serve

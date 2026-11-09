@@ -55,6 +55,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Read next week's calendar:
 
 ```json
@@ -94,6 +95,14 @@ Move one post:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Read next week's calendar: `{"name":"planner_manage","arguments":{"action":"get_week","week_start":"2026-11-16","timezone":"America/New_York"}}`
+- Propose a week of posts: `{"name":"planner_manage","arguments":{"action":"propose_week","week_start":"2026-11-16","timezone":"America/New_York"}}`
+- Move one post: `{"name":"planner_manage","arguments":{"action":"reschedule","draft_id":"8b2d6f0a-4e7c-4b1d-a3f5-7c9e1b3d5f27","day":"2026-11-19","time_of_day":"09:30"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -149,6 +158,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Draft a post from a prompt:
 
 ```json
@@ -189,6 +199,14 @@ Structured field change (reschedule a draft):
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Draft a post from a prompt: `{"name":"content_create","arguments":{"action":"draft","prompt":"a Reel about our summer launch","platform":"instagram"}}`
+- Rewrite a draft's caption (natural language): `{"name":"content_create","arguments":{"action":"extend","draftId":"00000000-0000-0000-0000-000000000000","prompt":"Rewrite the caption and CTA in Mexican Spanish; keep the concept and a friendly tone."}}`
+- Structured field change (reschedule a draft): `{"name":"content_create","arguments":{"action":"extend","draftId":"00000000-0000-0000-0000-000000000000","updates":{"scheduled_date":"2026-08-01T15:00:00.000Z"}}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -235,6 +253,7 @@ Lists drafts on the calendar.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Approved drafts ready to publish:
 
 ```json
@@ -247,6 +266,12 @@ Approved drafts ready to publish:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Approved drafts ready to publish: `{"name":"organic_draft_list","arguments":{"status":"approved","publishable_only":true,"limit":20}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -280,6 +305,7 @@ Reads one draft.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Read one draft:
 
 ```json
@@ -290,6 +316,12 @@ Read one draft:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Read one draft: `{"name":"organic_draft_get","arguments":{"draftId":"8b2d6f0a-4e7c-4b1d-a3f5-7c9e1b3d5f27"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -327,6 +359,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 Read a reel and plan our version:
 
 ```json
@@ -338,6 +371,12 @@ Read a reel and plan our version:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- Read a reel and plan our version: `{"name":"content_reference","arguments":{"action":"inspect","url":"https://www.instagram.com/reel/DegOQG6Tydw/"}}`
+</Visibility>
 
 **Errors and statuses:**
 
@@ -385,6 +424,7 @@ In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
+<Visibility for="humans">
 What a reel can be built from:
 
 ```json
@@ -427,6 +467,14 @@ The approved Elements:
   }
 }
 ```
+
+</Visibility>
+
+<Visibility for="agents">
+- What a reel can be built from: `{"name":"headless_content","arguments":{"action":"guide"}}`
+- Plan a collage fast-cut reel first, spending nothing: `{"name":"headless_content","arguments":{"action":"create","guidance":{"reels":1,"stills":0,"language":"en","pacing":"build","layout":"collage"},"max_usd":20,"dry_run":true}}`
+- The approved Elements: `{"name":"headless_content","arguments":{"action":"inspect","view":"elements"}}`
+</Visibility>
 
 **Errors and statuses:**
 

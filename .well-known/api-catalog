@@ -1,0 +1,10 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.trycontinuum.ai/mcp",
+      "service-desc": [{ "href": "https://docs.trycontinuum.ai/mcp/tools.json", "type": "application/json" }],
+      "service-doc": [{ "href": "https://docs.trycontinuum.ai/mcp/reference", "type": "text/html" }],
+      "service-meta": [{ "href": "https://api.trycontinuum.ai/.well-known/oauth-protected-resource/mcp", "type": "application/json" }]
+    }
+  ]
+}

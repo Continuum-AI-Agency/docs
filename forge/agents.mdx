@@ -8,11 +8,17 @@ Use Forge to fill an existing design with different messages, products or offers
 
 ## Discover before calling
 
-Connect through [MCP](/quickstart#connect-your-assistant), call `brands_list`, select the intended brand with `brands_select`, and check `_brandContext` on results. Then discover the selected action:
+Connect through [MCP](/quickstart#connect-your-assistant), call `brands_list`, select the intended brand with `brands_select`, and check `_brandContext` on results. Discover the selected action:
 
+<Visibility for="humans">
 ```json
 {"name":"help_describe","arguments":{"tool":"forge_manage","action":"render_preview"}}
 ```
+</Visibility>
+
+<Visibility for="agents">
+`{"name":"help_describe","arguments":{"tool":"forge_manage","action":"render_preview"}}`
+</Visibility>
 
 These examples show MCP `tools/call` parameters. Replace illustrative IDs, tokens and keys with returned values. `help_describe` describes the server; it does not upgrade a client's cached tool schema. If your client cannot express an action, refresh discovery or use a compatible client. Never invent an alternative call.
 

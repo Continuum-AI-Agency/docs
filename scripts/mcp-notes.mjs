@@ -411,3 +411,27 @@ export const integrationNotes = {
   optimizer_query: 'Meta (Facebook) ads.',
   optimizer_manage: 'Meta (Facebook) ads.',
 };
+
+// The same role rules in structured form for /mcp/tools.json: the role most actions need, and
+// the actions that differ. Read from each handler's gate call.
+export const roleLevels = {
+  agent_ask: { all: 'operator' },
+  analytics_query: { all: 'viewer' },
+  audience_query: { all: 'viewer' },
+  brand_knowledge: { all: 'viewer', operator: ['add_text', 'add_file', 'add_url', 'upload_url', 'upload_finalize', 'update', 'archive', 'restore', 'save_permanent'] },
+  content_create: { all: 'operator', viewer: ['list'] },
+  creative_strategy: { all: 'viewer', operator: ['refresh'] },
+  forge_query: { all: 'viewer' },
+  forge_manage: { all: 'operator', admin: ['template_forge', 'template_set_default'] },
+  headless_content: { all: 'operator', viewer: ['guide', 'inspect', 'status'] },
+  library_manage: { all: 'viewer', operator: ['comment_add', 'set_review_status', 'import_ad_creative', 'upload_inline', 'upload_url', 'upload_begin', 'upload_finalize', 'render_retry'] },
+  optimizer_query: { all: 'viewer' },
+  optimizer_manage: { all: 'operator' },
+  paid_manage: { all: 'operator', viewer: ['hierarchy', 'activity', 'guardrails'] },
+  pipeline_invoke: { all: 'operator' },
+  planner_manage: { all: 'operator', viewer: ['get_week', 'proposal_status', 'operation_status'] },
+  studio_deliver: { all: 'operator' },
+  studio_workflow: { all: 'operator' },
+  trends_manage: { all: 'viewer' },
+  video_editor: { all: 'viewer' },
+};
