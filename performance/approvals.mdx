@@ -1,29 +1,38 @@
 ---
 title: "Approvals"
-description: "Review and sign off on creatives and campaigns before they go live."
+description: "What waits for a person's yes in Performance+, who can give it, and where: budget recommendations, Jaina's proposals, ad changes, and switching ads on."
 ---
 
-Approvals give paid work a review step. Before creatives or campaigns go live, they can route through an approval so the right people sign off first. Open them from the **Pending** widget on the [paid analytics](/performance/analytics) dashboard by selecting **Full surface**.
+Changes to your ad account wait for a person to approve that exact change. "The Optimizer proposes. Jaina explains. You approve." The one exception is [Autopilot](/performance/optimizer#modes), which you turn on for a portfolio and which applies budget moves inside caps you set. Here's what waits for a yes, and who can give it.
 
-## How it works
+## What waits for a yes
 
-- Work that needs review shows up in the approvals queue.
-- Reviewers approve or send items back with feedback.
-- Approved work is cleared to proceed.
+| What | Where you approve | Who can approve |
+| --- | --- | --- |
+| A [Paid optimization](/performance/optimizer) budget recommendation | **Paid Optimization → Actions**, or from your assistant | **Operator** or higher |
+| A move [Jaina](/performance/jaina) proposes — a new audience, creative angles, a creative slate, a pipeline run, or an Optimizer approval | In the chat with Jaina, on that exact action | You, in the chat |
+| Creating or changing a Meta campaign, ad set, ad, budget, or audience from your assistant | Your assistant shows a preview and waits for your yes | **Operator** or higher |
+| Switching on a paused campaign, ad set, or ad, or a large budget increase | In the Continuum app, or from an Admin's or Owner's own assistant with `mcp_approval_grant` | **Admin** or **Owner** |
 
-This keeps a check between building a campaign and launching it, which matters when more than one person touches paid.
+New campaigns, ad sets, and ads are always created **paused**. The Optimizer never pauses anything without a person approving that specific pause.
 
 <Info>Approvals are part of [Performance+](/performance/overview). See [pricing](https://trycontinuum.ai/#pricing).</Info>
 
 ## Try it
 
-On the **Paid Analytics** dashboard, select **Full surface** on the **Pending** widget. Open an item, then approve it or send it back with a note, such as "Swap the headline to the spring offer before this goes live."
+In the app, go to **Paid Optimization → Actions**, open a recommendation, read its reasoning, and approve or reject it.
+
+Or ask Claude or ChatGPT:
+
+- "Show me this week's budget recommendations and explain each one."
+- "Approve the recommendations for our prospecting campaigns, and reject the rest."
+- "Show me the paid changes waiting for my approval." (Admins and Owners)
 
 ## What's next
 
 <CardGroup cols={2}>
 <Card title="Paid optimization" icon="gauge-high" href="/performance/optimizer">
-  Approve budget recommendations.
+  How budget recommendations are made and applied.
 </Card>
 <Card title="Roles & permissions" icon="user-shield" href="/settings/roles">
   Control who can approve.

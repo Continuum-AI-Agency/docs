@@ -1,0 +1,1 @@
+{"name":"paid_naming_schema_get","inputSchema":{"type":"object","properties":{"platform":{"default":"meta","type":"string","enum":["meta","google","all"]}},"additionalProperties":false}}

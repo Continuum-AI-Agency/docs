@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { areas, codeMeaning, goodToKnow, needs, terms } from './mcp-notes.mjs';
+import { actionInputs, areas, codeMeaning, goodToKnow, needs, roles, terms } from './mcp-notes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(root, 'drafts/mcp/source.json');
@@ -54,7 +54,7 @@ function listed(tool) {
   if (tool.surface.requiresIntegration) return `When a brand you can reach has a ${tool.surface.requiresIntegration} connection.`;
   return 'When your role on a brand you can reach allows it.';
 }
-const role = (tool) => ROLE[tool.surface.requiresRole] ?? (tool.brandScoped ? 'Any brand member' : 'Anyone signed in');
+const role = (tool) => roles[tool.name] ?? ROLE[tool.surface.requiresRole] ?? (tool.brandScoped ? 'Any brand member' : 'Anyone signed in');
 
 function errors(tool) {
   const out = new Map(tool.commonErrors.map(e => [e.code, srv(e.reason)]));
@@ -75,9 +75,17 @@ function errors(tool) {
 }
 
 const names = (inputs, required) => inputs.filter(i => i.required === required).map(i => i.name);
+// Flat tools share one input object across actions. Their per-action inputs come from the reviewed
+// actionInputs notes when the handler checks them, or from probing the validator otherwise.
 function actionRows(tool) {
-  return tool.actions.map(a => ({ name: a.name, required: names(a.inputs, true), optional: names(a.inputs, false) }));
+  const reviewed = actionInputs[tool.name];
+  return tool.actions.map(a => {
+    if (reviewed?.[a.name]) return { name: a.name, required: [tool.actionKey, ...reviewed[a.name].required], optional: reviewed[a.name].uses };
+    return { name: a.name, required: names(a.inputs, true), optional: tool.flat ? null : names(a.inputs, false) };
+  });
 }
+const sharedInputs = (tool) => tool.flat && !actionInputs[tool.name]
+  ? tool.actions[0].inputs.filter(i => i.name !== tool.actionKey).map(i => i.name) : null;
 const codeList = (list, max = 14) => list.length === 0 ? '—'
   : list.slice(0, max).map(code).join(', ') + (list.length > max ? `, and ${list.length - max} more` : '');
 
@@ -101,8 +109,11 @@ function toolSection(tool, oneLiner) {
   for (const [k, v] of rows) out += `| ${k} | ${cell(v)} |\n`;
   out += `\n`;
   if (tool.actions) {
-    out += `**Actions** (\`${tool.actionKey}\`):\n\n| ${cell(tool.actionKey)} | Required inputs | Optional inputs |\n| --- | --- | --- |\n`;
-    for (const a of actionRows(tool)) out += `| ${code(a.name)} | ${cell(codeList(a.required))} | ${cell(codeList(a.optional))} |\n`;
+    const shared = sharedInputs(tool);
+    out += `**Actions** (\`${tool.actionKey}\`):\n\n| ${cell(tool.actionKey)} | Required inputs |${shared ? '' : ' Other inputs it uses |'}\n| --- | --- |${shared ? '' : ' --- |'}\n`;
+    for (const a of actionRows(tool)) out += `| ${code(a.name)} | ${cell(codeList(a.required))} |${shared ? '' : ` ${cell(codeList(a.optional))} |`}\n`;
+    if (shared) out += `\nOther inputs, shared by every action (the live schema says which each action reads): ${codeList(shared, 60)}.\n`;
+    if (actionInputs[tool.name]) out += `\nIn this table, \`a|b\` means one of them and \`a+b\` means together.\n`;
   } else if (tool.inputs.length) {
     out += `**Inputs:**\n\n| Input | Type | Required | About |\n| --- | --- | --- | --- |\n`;
     for (const i of tool.inputs) out += `| ${code(i.name)} | ${cell(i.type)} | ${i.required ? 'Yes' : 'No'} | ${cell([i.description && srv(i.description), i.values && `One of ${i.values.map(code).join(', ')}.`].filter(Boolean).join(' ') || '—')} |\n`;
@@ -117,7 +128,7 @@ function toolSection(tool, oneLiner) {
   if (tool.relatedTools.length) out += `\n**Related:** ${tool.relatedTools.map(code).join(', ')}.\n`;
   const schemaCall = tool.actions ? `{"tool":"${tool.name}","action":"${tool.actions[0].name}"}` : `{"tool":"${tool.name}"}`;
   const keyNote = tool.actions && tool.actionKey !== 'action' ? ` \`help_describe\`'s \`action\` takes a \`${tool.actionKey}\` value.` : '';
-  out += `\nFull schema: \`help_describe ${schemaCall}\`.${keyNote}\n\n`;
+  out += `\nFull schema: \`help_describe ${schemaCall}\`.${keyNote} As JSON: [\`/mcp/schemas/${tool.name}.json\`](/mcp/schemas/${tool.name}.json).\n\n`;
   return out;
 }
 
@@ -128,6 +139,15 @@ export function buildOutputs(source) {
   const mapped = areas.flatMap(a => Object.keys(a.tools));
   assert.deepEqual([...mapped].sort(), advertised.map(t => t.name).sort(), 'Advertised tools drifted: update areas in scripts/mcp-notes.mjs');
   for (const name of Object.keys(goodToKnow)) assert.ok(byName.has(name), `goodToKnow names an unknown tool: ${name}`);
+  for (const [name, byAction] of Object.entries(actionInputs)) {
+    const tool = byName.get(name);
+    assert.ok(tool?.actions, `actionInputs names an unknown tool: ${name}`);
+    const props = new Set(Object.keys(tool.inputSchema.properties ?? {}));
+    assert.deepEqual(Object.keys(byAction).sort(), tool.actions.map(a => a.name).sort(), `actionInputs must cover every action of ${name}`);
+    for (const [action, { required, uses }] of Object.entries(byAction))
+      for (const input of [...required, ...uses].flatMap(x => x.split(/[|+]/)))
+        assert.ok(props.has(input.split('.')[0]), `${name}.${action}: no input named ${input}`);
+  }
   assert.equal(source.helpIndex.length, source.counts.registered, 'help_describe index and registry counts differ');
   const header = `{/* Generated by scripts/mcp-docs.mjs from drafts/mcp/source.json; edit scripts/mcp-notes.mjs instead. */}\n`;
   const checked = `Generated from the server's own tool registry, as released on ${source.backend.date}.`;
@@ -190,13 +210,16 @@ export function buildOutputs(source) {
         confirmation: t.facts?.confirmation ?? null,
         completion: t.facts?.execution ?? null,
         retry: t.facts?.idempotency ?? null,
+        roleNote: role(t),
         rateLimit: t.rateLimit,
         inputs: Object.fromEntries((t.actions ? t.actions.flatMap(a => a.inputs) : t.inputs)
           .map(({ name, required, ...about }) => [name, about])),
         ...(t.actions ? {
           actionKey: t.actionKey,
-          actions: t.actions.map(a => ({ name: a.name, required: names(a.inputs, true), optional: names(a.inputs, false) })),
+          actions: actionRows(t).map(a => ({ name: a.name, required: a.required, ...(a.optional ? { uses: a.optional } : {}) })),
+          ...(sharedInputs(t) ? { sharedInputs: sharedInputs(t) } : {}),
         } : { required: names(t.inputs, true) }),
+        schema: `${SITE}/mcp/schemas/${t.name}.json`,
         examples: t.examples.slice(0, 3).map(e => ({ title: e.title, arguments: e.arguments })),
         errors: t.facts ? errors(t) : t.commonErrors.map(e => ({ code: e.code, when: retire(e.reason) })),
         ...(goodToKnow[t.name] ? { notes: goodToKnow[t.name].map(n => n.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')) } : {}),
@@ -205,7 +228,39 @@ export function buildOutputs(source) {
     }),
   };
   files["mcp/tools.json"] = `${JSON.stringify(index)}\n`;
+  for (const t of source.tools) files[`mcp/schemas/${t.name}.json`] = `${JSON.stringify({ name: t.name, inputSchema: t.inputSchema })}\n`;
+  files['llms.txt'] = llms(index, files);
   return files;
+}
+
+// llms.txt (llmstxt.org): the site map agents fetch first, in nav order, plus every machine surface.
+// A root llms.txt overrides the one Mintlify would generate.
+function llms(index, files) {
+  const nav = JSON.parse(readFileSync(resolve(root, 'docs.json'), 'utf8'));
+  const front = (page) => {
+    const text = files[`${page}.mdx`] ?? readFileSync(resolve(root, `${page}.mdx`), 'utf8');
+    const field = (key) => (text.match(new RegExp(`^${key}: "(.*)"$`, 'm')) ?? [])[1];
+    return { title: field('title'), description: field('description') };
+  };
+  const entry = (page, prefix = '') => {
+    const { title, description } = front(page);
+    assert.ok(title && description, `${page}: frontmatter needs a title and description`);
+    return `- [${prefix}${title}](${SITE}/${page}.md): ${description}`;
+  };
+  const walk = (group, prefix = '') => group.pages.flatMap(item => typeof item === 'string'
+    ? [entry(item, prefix)] : walk(item, `${prefix}${item.group}: `));
+  let out = `# ${nav.name}\n\n> ${nav.description}\n\n`;
+  out += `These docs describe what Continuum ships today; don't infer features or prices that aren't written here. Product lines are Creative+, Organic+, and Performance+. Publishing, ad and budget changes, live creative swaps, final Forge renders, and deletions wait for the person's yes (Forge \`set_delete\` has no preview, so ask first). New campaigns, ad sets, and ads are created paused. Every page below is markdown; drop \`.md\` for the web page.\n\n`;
+  out += `## For agents\n\n`;
+  out += `- [Agent brief](${SITE}/mcp/agent-brief.md): how an assistant should use the Continuum connector, and how to read these docs.\n`;
+  out += `- [MCP tool index (JSON)](${SITE}/mcp/tools.json): all ${index.counts.registered} registered tools with role, connection, confirmation, completion, retry, actions and their inputs, example calls, and errors.\n`;
+  out += `- [MCP tool schemas (JSON)](${SITE}/mcp/schemas/paid_manage.json): one file per tool at \`/mcp/schemas/<tool>.json\`, the input schema the server validates against.\n`;
+  out += `- [Forge operation index (JSON)](${SITE}/forge/agent-manifest.json): per-action Forge contracts.\n`;
+  out += `- [All docs in one file](${SITE}/llms-full.txt): every page below, in full.\n`;
+  out += `- Docs search server (MCP, no sign-in): \`${SITE}/mcp\` with \`search_continuum\`, \`query_docs_filesystem_continuum\`, and \`submit_feedback\` (report a wrong or confusing page); listed in [/.well-known/mcp.json](${SITE}/.well-known/mcp.json).\n`;
+  out += `- Continuum MCP server: \`https://api.trycontinuum.ai/mcp\` (ChatGPT: \`/mcp/chatgpt\`), OAuth 2.1 with PKCE, no API keys. Call \`help_describe\` for the live schema before calling a tool.\n\n`;
+  for (const group of nav.navigation.groups) out += `## ${group.group}\n\n${walk(group).join('\n')}\n\n`;
+  return out.trimEnd() + '\n';
 }
 
 function refresh(backend, monorepo) {

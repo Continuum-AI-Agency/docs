@@ -3,31 +3,25 @@ title: "Integrations"
 description: "Connect your ad and social platforms once, then assign specific accounts to a brand."
 ---
 
-Continuum uses a **connect once, assign to a brand** model. You connect a provider (like Meta or Google) a single time at your account level, and Continuum discovers every asset you can access. You then assign the specific accounts — a Facebook Page, an Instagram profile, an ad account — to a given brand. Nothing syncs until you assign it, which keeps data from leaking between brands you manage.
+Continuum uses a **connect once, assign to a brand** model. You connect a provider (like Meta) a single time at your account level, and Continuum discovers every asset you can access. You then assign the specific accounts — a Facebook Page, an Instagram profile, an ad account — to a given brand. Nothing syncs until you assign it, which keeps data from leaking between brands you manage.
 
 ## Supported channels
 
-| Channel | What Continuum reads | Status |
-| --- | --- | --- |
-| **Meta — Facebook** | Paid campaigns + organic posts | Fully supported |
-| **Meta — Instagram** | Organic posts, insights, competitor discovery | Fully supported |
-| **Meta — Threads** | Profile assets | Supported via Meta |
-| **Google Ads** | Paid campaigns and performance | Fully supported |
-| **Google Analytics (GA4)** | Site and conversion metrics | Fully supported |
-| **YouTube** | Organic channel performance | Fully supported |
-| **TikTok** | Paid and organic data | Supported |
-| **LinkedIn** | Paid campaigns + organic (connect from **Settings → Integrations**) | Supported |
-| **X** | Account connection only — no data pull yet | Coming soon |
-| **DV360** | Advertiser discovery under Google — no reporting yet | Partial |
-| **Amazon Ads** | — | Coming soon |
+| Channel | What you get in Continuum |
+| --- | --- |
+| **Meta — Facebook** | Organic performance, plus your Meta ad accounts: campaign performance, creative, budgets, and reporting, with [Paid optimization](/performance/optimizer) and campaign management on the same connection. |
+| **Meta — Instagram** | Organic performance, competitor discovery, and [publishing](/organic/publishing). |
+| **LinkedIn** | Organic performance, and LinkedIn ads performance. Managing LinkedIn ads stays in LinkedIn for now. |
+| **TikTok** | Organic performance. |
+| **YouTube** | Organic channel performance. |
 
-<Info>Availability of some channels depends on your plan and region. If a channel you need isn't listed, reach out to [support@trycontinuum.ai](mailto:support@trycontinuum.ai).</Info>
+Instagram publishing is live. Publishing to Facebook, LinkedIn, TikTok, and YouTube is built, and your first post on each goes out supervised with the Continuum team. See [Publishing](/organic/publishing).
 
 ## Connecting a channel
 
 <Steps>
 <Step title="Open Integrations">
-Go to **Settings → Integrations** and choose the provider you want to connect (Meta, Google, TikTok, LinkedIn, or X).
+Go to **Settings → Integrations** and choose the provider you want to connect, such as Meta, LinkedIn, TikTok, or YouTube.
 </Step>
 
 <Step title="Authorize">
@@ -41,7 +35,7 @@ Pick the specific accounts that belong to this brand and assign them. Assigning 
 
 ## How Meta assets are organized
 
-Meta nests deeply, so the asset picker mirrors its hierarchy: **Meta Business → ad accounts → sub-assets** (Pages, Instagram profiles, Threads). Selecting an ad account can surface the Instagram and Threads profiles tied to that business unit, so related assets stay together.
+Meta nests deeply, so the asset picker mirrors its hierarchy: **Meta Business → ad accounts → sub-assets** (Pages and Instagram profiles). Selecting an ad account can surface the Instagram profiles tied to that business unit, so related assets stay together.
 
 Assets that are discovered but not yet usable — for example, missing a permission — are flagged so you know what to fix before assigning them.
 
@@ -68,7 +62,7 @@ When you ask to connect, you get a link to approve the connection. It works for 
   Manage which assets belong to each brand.
 </Card>
 <Card title="Paid analytics" icon="chart-line" href="/performance/analytics">
-  See paid performance once Meta or Google is connected.
+  See paid performance once Meta is connected.
 </Card>
 <Card title="Security & privacy" icon="lock" href="/security">
   How access is controlled and revoked.

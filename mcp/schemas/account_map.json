@@ -1,0 +1,1 @@
+{"name":"account_map","inputSchema":{"type":"object","properties":{"depth":{"type":"string","enum":["platforms","accounts"]}},"additionalProperties":false}}

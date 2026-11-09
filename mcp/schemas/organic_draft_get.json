@@ -1,0 +1,1 @@
+{"name":"organic_draft_get","inputSchema":{"type":"object","properties":{"draftId":{"type":"string","minLength":1}},"required":["draftId"],"additionalProperties":false}}

@@ -32,7 +32,7 @@ Organic, paid, and website results by platform: accounts, top posts, campaigns, 
 | --- | --- |
 | Changes things | No |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher. |
 | Needs | An active brand |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
@@ -40,7 +40,7 @@ Organic, paid, and website results by platform: accounts, top posts, campaigns, 
 
 **Actions** (`platform`):
 
-| platform | Required inputs | Optional inputs |
+| platform | Required inputs | Other inputs it uses |
 | --- | --- | --- |
 | `instagram` | `platform` | `account_id`, `scope`, `date_window`, `metric`, `direction`, `top_n`, `include`, `post_id` |
 | `facebook` | `platform` | `account_id`, `scope`, `date_window`, `metric`, `direction`, `top_n`, `include`, `post_id` |
@@ -92,7 +92,7 @@ Meta ad account overview, last 7 days:
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-Full schema: `help_describe {"tool":"analytics_query","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value.
+Full schema: `help_describe {"tool":"analytics_query","action":"instagram"}`. `help_describe`'s `action` takes a `platform` value. As JSON: [`/mcp/schemas/analytics_query.json`](/mcp/schemas/analytics_query.json).
 
 ### `analytics_creative_insights`
 
@@ -143,7 +143,7 @@ Top 10 IG ads:
 
 **Related:** `jobs_status`.
 
-Full schema: `help_describe {"tool":"analytics_creative_insights"}`.
+Full schema: `help_describe {"tool":"analytics_creative_insights"}`. As JSON: [`/mcp/schemas/analytics_creative_insights.json`](/mcp/schemas/analytics_creative_insights.json).
 
 ### `analytics_cross_platform_spend`
 
@@ -196,7 +196,7 @@ Spend last 30d:
 
 **Related:** `analytics_pacing_diagnostic`, `analytics_creative_insights`.
 
-Full schema: `help_describe {"tool":"analytics_cross_platform_spend"}`.
+Full schema: `help_describe {"tool":"analytics_cross_platform_spend"}`. As JSON: [`/mcp/schemas/analytics_cross_platform_spend.json`](/mcp/schemas/analytics_cross_platform_spend.json).
 
 ### `analytics_pacing_diagnostic`
 
@@ -245,7 +245,7 @@ Pacing health:
 
 **Related:** `analytics_cross_platform_spend`, `jobs_status`.
 
-Full schema: `help_describe {"tool":"analytics_pacing_diagnostic"}`.
+Full schema: `help_describe {"tool":"analytics_pacing_diagnostic"}`. As JSON: [`/mcp/schemas/analytics_pacing_diagnostic.json`](/mcp/schemas/analytics_pacing_diagnostic.json).
 
 ### `audience_query`
 
@@ -255,7 +255,7 @@ Your Meta audiences, ad set targeting, and demographic and placement breakdowns.
 | --- | --- |
 | Changes things | No |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher. |
 | Needs | An active brand |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
@@ -263,7 +263,7 @@ Your Meta audiences, ad set targeting, and demographic and placement breakdowns.
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
 | `list_audiences` | `action`, `ad_account_id` | `kind` |
 | `targeting` | `action`, `ad_account_id`, `adset_id` | — |
@@ -306,7 +306,7 @@ Results by age, last 30 days:
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 | `needs_brand` | No brand is active. Call `brands_select`. |
 
-Full schema: `help_describe {"tool":"audience_query","action":"list_audiences"}`.
+Full schema: `help_describe {"tool":"audience_query","action":"list_audiences"}`. As JSON: [`/mcp/schemas/audience_query.json`](/mcp/schemas/audience_query.json).
 
 ### `creative_strategy`
 
@@ -316,7 +316,7 @@ What works for you: opening-line (hook) scoring, win rates, and competitive gaps
 | --- | --- |
 | Changes things | No |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher to read. Operator or higher for `refresh`. |
 | Needs | An active brand |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns the result in the same call. |
@@ -324,16 +324,18 @@ What works for you: opening-line (hook) scoring, win rates, and competitive gaps
 
 **Actions** (`action`):
 
-| action | Required inputs | Optional inputs |
+| action | Required inputs | Other inputs it uses |
 | --- | --- | --- |
-| `overview` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
-| `search` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
-| `read` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
-| `refresh` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
-| `score_hook` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
-| `competitive_gaps` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
-| `winrates` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
-| `vector_signals` | `action` | `query`, `kinds`, `surfaces`, `limit`, `insight_id`, `hook_text`, `mode`, `target`, `window`, `dimension`, `funnel_stage`, `scope` |
+| `overview` | `action` | — |
+| `search` | `action`, `query` | `kinds`, `surfaces`, `limit` |
+| `read` | `action` | `insight_id` |
+| `refresh` | `action` | `target` |
+| `score_hook` | `action`, `hook_text` | `mode` |
+| `competitive_gaps` | `action` | — |
+| `winrates` | `action` | `scope`, `window`, `dimension`, `funnel_stage` |
+| `vector_signals` | `action` | `window` |
+
+In this table, `a|b` means one of them and `a+b` means together.
 
 **Examples** (IDs are illustrative; use the ones earlier calls return):
 
@@ -385,7 +387,7 @@ Read one insight:
 
 **Related:** `brand_knowledge`, `analytics_query`, `content_create`.
 
-Full schema: `help_describe {"tool":"creative_strategy","action":"overview"}`.
+Full schema: `help_describe {"tool":"creative_strategy","action":"overview"}`. As JSON: [`/mcp/schemas/creative_strategy.json`](/mcp/schemas/creative_strategy.json).
 
 ### `trends_manage`
 
@@ -395,7 +397,7 @@ Your brand's trends report.
 | --- | --- |
 | Changes things | No |
 | Listed in your assistant | Always. |
-| Role | Any brand member |
+| Role | Viewer or higher. Operator or higher to force a fresh report with `force_regenerate`. |
 | Needs | An active brand |
 | Confirmation | None. The call runs when made. |
 | Completion | Returns what is ready now. A refresh keeps running in the background; read again shortly. |
@@ -429,7 +431,7 @@ Read the brand's trends report:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"trends_manage"}`.
+Full schema: `help_describe {"tool":"trends_manage"}`. As JSON: [`/mcp/schemas/trends_manage.json`](/mcp/schemas/trends_manage.json).
 
 ### `intel_trend_discovery`
 
@@ -479,7 +481,7 @@ Trending IG:
 
 **Related:** `intel_competitor_ad_library`, `content_create`.
 
-Full schema: `help_describe {"tool":"intel_trend_discovery"}`.
+Full schema: `help_describe {"tool":"intel_trend_discovery"}`. As JSON: [`/mcp/schemas/intel_trend_discovery.json`](/mcp/schemas/intel_trend_discovery.json).
 
 ### `intel_competitor_moves`
 
@@ -528,7 +530,7 @@ What competitors ran in paid and organic since August:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"intel_competitor_moves"}`.
+Full schema: `help_describe {"tool":"intel_competitor_moves"}`. As JSON: [`/mcp/schemas/intel_competitor_moves.json`](/mcp/schemas/intel_competitor_moves.json).
 
 ### `intel_competitor_ads`
 
@@ -588,7 +590,7 @@ Longest-running active competitor ads:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"intel_competitor_ads"}`.
+Full schema: `help_describe {"tool":"intel_competitor_ads"}`. As JSON: [`/mcp/schemas/intel_competitor_ads.json`](/mcp/schemas/intel_competitor_ads.json).
 
 ### `intel_competitor_organic`
 
@@ -633,7 +635,7 @@ One competitor's recent organic posts:
 | `needs_brand` | No brand is active. Call `brands_select`. |
 | `VALIDATION_ERROR` | An input is missing or wrong, or it changed since the preview. `details` names the field. |
 
-Full schema: `help_describe {"tool":"intel_competitor_organic"}`.
+Full schema: `help_describe {"tool":"intel_competitor_organic"}`. As JSON: [`/mcp/schemas/intel_competitor_organic.json`](/mcp/schemas/intel_competitor_organic.json).
 
 ### `intel_competitor_ad_library`
 
@@ -684,7 +686,7 @@ A Page's ads:
 
 **Related:** `intel_competitor_scan`, `intel_competitor_ads`.
 
-Full schema: `help_describe {"tool":"intel_competitor_ad_library"}`.
+Full schema: `help_describe {"tool":"intel_competitor_ad_library"}`. As JSON: [`/mcp/schemas/intel_competitor_ad_library.json`](/mcp/schemas/intel_competitor_ad_library.json).
 
 ### `intel_competitor_scan`
 
@@ -748,7 +750,7 @@ Track and scan one:
 
 **Related:** `intel_competitor_ads`, `intel_competitor_moves`.
 
-Full schema: `help_describe {"tool":"intel_competitor_scan"}`.
+Full schema: `help_describe {"tool":"intel_competitor_scan"}`. As JSON: [`/mcp/schemas/intel_competitor_scan.json`](/mcp/schemas/intel_competitor_scan.json).
 
 ## What's next
 

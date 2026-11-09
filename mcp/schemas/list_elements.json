@@ -1,0 +1,1 @@
+{"name":"list_elements","inputSchema":{"type":"object","properties":{"category":{"description":"Restrict to one category, e.g. \"product\" or \"character\".","type":"string","enum":["model","character","product","object","material","setting","location","landscape","style","moodboard","palette","animation","effect","general"]}},"additionalProperties":false}}
