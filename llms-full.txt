@@ -101,7 +101,7 @@ How connecting works:
 | You need | Why |
 | - | - |
 | A Continuum login with access to a brand | Your assistant always works on one brand. If a teammate invited you, accept the email invite. If you're new, see **No brand yet?** below. |
-| An assistant that allows custom connectors | Claude (web, desktop, or mobile), ChatGPT with **Developer mode**, or any MCP client. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first. |
+| An assistant that allows custom connectors | Claude (web, desktop, or mobile), ChatGPT on the web, or any MCP client. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first. |
 | The right role for what you'll do | **Viewer** can read results: analytics, the brand book, the calendar, and the Library. Asking Jaina or the Organic agent, drafting, publishing, generating, or changing ads needs **Operator** or higher. See [Roles](https://docs.trycontinuum.ai/settings/roles.md). |
 | The right plan for what you'll use | Connecting an assistant needs no plan of its own. Organic+ and Performance+ each need their plan on the brand, set under **Settings → Billing** (see [pricing](https://trycontinuum.ai/#pricing)), and Creative+ generation draws on the brand's Canvas credits. In the app, a product line that isn't on the brand's plan shows as locked. |
 
@@ -132,7 +132,7 @@ Check what it found (name, logo, colors, typography, voice, and audience), then 
 
 **1. Add the connector**
 
-Go to **Settings → Connectors**, choose **Add custom connector**, name it `Continuum`, and paste `https://api.trycontinuum.ai/mcp`.
+Go to **Customize → Connectors**, click **+ Add**, and choose **Add custom connector**. Name it `Continuum`, paste `https://api.trycontinuum.ai/mcp`, and click **Continue**.
 
 **2. Sign in**
 
@@ -142,17 +142,17 @@ The connector also works in the Claude mobile app. On a Claude Team or Enterpris
 
 ### ChatGPT
 
-**1. Turn on developer mode**
+**1. Add a custom server**
 
-Go to **Settings → Apps & Connectors → Advanced settings** and switch on **Developer mode**. You only do this once. If you don't see **Developer mode**, your ChatGPT plan or workspace admin doesn't allow custom connectors.
+On the web, go to **Plugins**, click **+**, and choose **Add custom MCP server**. If you don't see it, your ChatGPT plan or workspace admin doesn't allow custom servers.
 
-**2. Add the connector**
+**2. Paste the address**
 
-Choose **Create**, name it `Continuum`, and paste `https://api.trycontinuum.ai/mcp/chatgpt`. ChatGPT needs this address, not the plain `/mcp` one.
+Name it `Continuum`, paste `https://api.trycontinuum.ai/mcp/chatgpt` as the **Server URL**, and choose **OAuth**. ChatGPT needs this address, not the plain `/mcp` one. Accept the warning and click **Create as a plugin**.
 
-**3. Sign in**
+**3. Install and sign in**
 
-Sign in to Continuum, pick the brand to connect, and click **Allow access**.
+Install the Continuum plugin, sign in to Continuum, pick the brand to connect, and click **Allow access**.
 
 ### Claude Code
 
@@ -162,7 +162,7 @@ Then run `/mcp` inside Claude Code, choose `continuum`, and sign in to Continuum
 
 ### Cursor
 
-Add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor/mcp.json` for one project:
+To set it up by hand, add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor/mcp.json` for one project:
 
 In `~/.cursor/mcp.json`: `{"mcpServers":{"continuum":{"url":"https://api.trycontinuum.ai/mcp"}}}`
 
@@ -170,7 +170,7 @@ Open **Cursor Settings → MCP**, find `continuum`, and sign in to Continuum whe
 
 ### VS Code
 
-Run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Continuum to `.vscode/mcp.json`:
+To set it up by hand, run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Continuum to `.vscode/mcp.json`:
 
 In `.vscode/mcp.json`: `{"servers":{"continuum":{"type":"http","url":"https://api.trycontinuum.ai/mcp"}}}`
 
@@ -8222,6 +8222,12 @@ Source: https://docs.trycontinuum.ai/changelog
 > Dated product and documentation updates for Continuum: new features, changed behavior, and new or rebuilt guides, newest first.
 
 Notable product and documentation updates, newest first.
+
+**November 2026**
+
+Connecting
+
+[Connecting your assistant](https://docs.trycontinuum.ai/quickstart.md#connect-your-assistant) now has one-click buttons: **Add to Cursor** and **Add to VS Code** install Continuum directly, and the Claude, ChatGPT, Claude Code, and Codex steps open the right settings page or copy the address or command for you. The Claude and ChatGPT steps match their current menus.
 
 **November 2026**
 

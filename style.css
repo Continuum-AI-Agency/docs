@@ -244,6 +244,39 @@ html.dark {
   outline: none;
 }
 
+/* Connect page actions (snippets/connect.jsx): the first is the CTA, the rest are outlined. */
+.cn-connect-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+.cn-connect {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid var(--cn-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--cn-ink) !important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+.cn-connect:hover {
+  border-color: var(--cn-accent);
+}
+.cn-connect:focus-visible {
+  outline: 2px solid var(--cn-accent);
+  outline-offset: 2px;
+}
+.cn-connect-row > .cn-connect:first-child {
+  border-color: var(--cn-cta-bg);
+  background: var(--cn-cta-bg);
+  color: var(--cn-cta-ink) !important;
+}
+
 /* Sidebar nesting: a hairline guide per nested level, drawn between the parent label and its children.
    Mintlify indents nested links 12px per level with inline padding, so the guide only marks depth. */
 :is(#sidebar-content, #mobile-nav) .sidebar-group li > ul {

@@ -4,6 +4,7 @@ description: "Everything to go from nothing to a first answer: what you need, ho
 ---
 
 import { Flow } from "/snippets/diagrams.jsx";
+import { ConnectLink, CopyButton } from "/snippets/connect.jsx";
 
 The fastest way to use Continuum is from the AI assistant you already have open. Connect it once, then ask in your own words. You sign in with your normal Continuum login in the browser: there's no key to copy, and your assistant never sees your password.
 
@@ -30,7 +31,7 @@ How connecting works:
 | You need | Why |
 | --- | --- |
 | A Continuum login with access to a brand | Your assistant always works on one brand. If a teammate invited you, accept the email invite. If you're new, see **No brand yet?** below. |
-| An assistant that allows custom connectors | Claude (web, desktop, or mobile), ChatGPT with **Developer mode**, or any MCP client. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first. |
+| An assistant that allows custom connectors | Claude (web, desktop, or mobile), ChatGPT on the web, or any MCP client. On a Claude Team or Enterprise plan, your organization owner may need to add the connector first. |
 | The right role for what you'll do | **Viewer** can read results: analytics, the brand book, the calendar, and the Library. Asking Jaina or the Organic agent, drafting, publishing, generating, or changing ads needs **Operator** or higher. See [Roles](/settings/roles). |
 | The right plan for what you'll use | Connecting an assistant needs no plan of its own. Organic+ and Performance+ each need their plan on the brand, set under **Settings → Billing** (see [pricing](https://trycontinuum.ai/#pricing)), and Creative+ generation draws on the brand's Canvas credits. In the app, a product line that isn't on the brand's plan shows as locked. |
 
@@ -58,9 +59,13 @@ Check what it found (name, logo, colors, typography, voice, and audience), then 
 
 ### Claude
 
+<Visibility for="humans">
+<div className="cn-connect-row"><ConnectLink href="https://claude.ai/customize/connectors">Open Claude connectors</ConnectLink><CopyButton text="https://api.trycontinuum.ai/mcp">Copy address</CopyButton></div>
+</Visibility>
+
 <Steps>
 <Step title="Add the connector">
-Go to **Settings → Connectors**, choose **Add custom connector**, name it `Continuum`, and paste `https://api.trycontinuum.ai/mcp`.
+Go to **Customize → Connectors**, click **+ Add**, and choose **Add custom connector**. Name it `Continuum`, paste `https://api.trycontinuum.ai/mcp`, and click **Continue**.
 </Step>
 <Step title="Sign in">
 Click **Connect**, sign in to Continuum, pick the brand to connect, and click **Allow access**.
@@ -71,19 +76,27 @@ The connector also works in the Claude mobile app. On a Claude Team or Enterpris
 
 ### ChatGPT
 
+<Visibility for="humans">
+<div className="cn-connect-row"><ConnectLink href="https://chatgpt.com/plugins">Open ChatGPT plugins</ConnectLink><CopyButton text="https://api.trycontinuum.ai/mcp/chatgpt">Copy ChatGPT address</CopyButton></div>
+</Visibility>
+
 <Steps>
-<Step title="Turn on developer mode">
-Go to **Settings → Apps & Connectors → Advanced settings** and switch on **Developer mode**. You only do this once. If you don't see **Developer mode**, your ChatGPT plan or workspace admin doesn't allow custom connectors.
+<Step title="Add a custom server">
+On the web, go to **Plugins**, click **+**, and choose **Add custom MCP server**. If you don't see it, your ChatGPT plan or workspace admin doesn't allow custom servers.
 </Step>
-<Step title="Add the connector">
-Choose **Create**, name it `Continuum`, and paste `https://api.trycontinuum.ai/mcp/chatgpt`. ChatGPT needs this address, not the plain `/mcp` one.
+<Step title="Paste the address">
+Name it `Continuum`, paste `https://api.trycontinuum.ai/mcp/chatgpt` as the **Server URL**, and choose **OAuth**. ChatGPT needs this address, not the plain `/mcp` one. Accept the warning and click **Create as a plugin**.
 </Step>
-<Step title="Sign in">
-Sign in to Continuum, pick the brand to connect, and click **Allow access**.
+<Step title="Install and sign in">
+Install the Continuum plugin, sign in to Continuum, pick the brand to connect, and click **Allow access**.
 </Step>
 </Steps>
 
 ### Claude Code
+
+<Visibility for="humans">
+<div className="cn-connect-row"><CopyButton text="claude mcp add --transport http continuum https://api.trycontinuum.ai/mcp">Copy command</CopyButton></div>
+</Visibility>
 
 <Visibility for="humans">
 ```bash
@@ -99,7 +112,13 @@ Then run `/mcp` inside Claude Code, choose `continuum`, and sign in to Continuum
 
 ### Cursor
 
-Add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor/mcp.json` for one project:
+<Visibility for="humans">
+<div className="cn-connect-row"><ConnectLink href="cursor://anysphere.cursor-deeplink/mcp/install?name=continuum&config=eyJ1cmwiOiJodHRwczovL2FwaS50cnljb250aW51dW0uYWkvbWNwIn0=">Add to Cursor</ConnectLink></div>
+
+The button opens Cursor and asks you to install Continuum.
+</Visibility>
+
+To set it up by hand, add Continuum to `~/.cursor/mcp.json` to use it in every project, or to `.cursor/mcp.json` for one project:
 
 <Visibility for="humans">
 ```json ~/.cursor/mcp.json
@@ -121,7 +140,13 @@ Open **Cursor Settings → MCP**, find `continuum`, and sign in to Continuum whe
 
 ### VS Code
 
-Run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Continuum to `.vscode/mcp.json`:
+<Visibility for="humans">
+<div className="cn-connect-row"><ConnectLink href="vscode:mcp/install?%7B%22name%22%3A%22continuum%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.trycontinuum.ai%2Fmcp%22%7D">Add to VS Code</ConnectLink></div>
+
+The button opens VS Code so you can review Continuum and install it.
+</Visibility>
+
+To set it up by hand, run **MCP: Add Server** from the Command Palette and choose **HTTP**, or add Continuum to `.vscode/mcp.json`:
 
 <Visibility for="humans">
 ```json .vscode/mcp.json
@@ -145,6 +170,10 @@ The first time Copilot uses it, VS Code opens a browser window to sign in to Con
 ### Codex
 
 <Visibility for="humans">
+<div className="cn-connect-row"><CopyButton text={"codex mcp add continuum --url https://api.trycontinuum.ai/mcp\ncodex mcp login continuum"}>Copy commands</CopyButton></div>
+</Visibility>
+
+<Visibility for="humans">
 ```bash
 codex mcp add continuum --url https://api.trycontinuum.ai/mcp
 codex mcp login continuum
@@ -158,6 +187,10 @@ Run `codex mcp add continuum --url https://api.trycontinuum.ai/mcp`, then `codex
 The login command opens a browser window to sign in to Continuum.
 
 ### Any other assistant
+
+<Visibility for="humans">
+<div className="cn-connect-row"><CopyButton text="https://api.trycontinuum.ai/mcp">Copy address</CopyButton></div>
+</Visibility>
 
 Any assistant that supports custom (remote) MCP connectors can use `https://api.trycontinuum.ai/mcp`. Add it as a remote server, then sign in to Continuum in the browser window it opens.
 
